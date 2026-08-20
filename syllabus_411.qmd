@@ -1,0 +1,24 @@
+---
+title: "Syllabus: 411/506"
+date: "today"
+date-format: "[Spring] YYYY"
+author: 
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  html: default
+  pdf: 
+    geometry:
+    - margin=1.25in
+    mainfont: Palatino
+    header-includes: 
+    - \usepackage[document]{ragged2e}
+    pdf-engine: lualatex
+    pdfversion: 2.0
+    pdfstandard: ua-2
+    lang: en
+---
+
+{{< include assets/syllabi/_syllabus_411.qmd >}}

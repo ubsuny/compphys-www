@@ -1,0 +1,199 @@
+# Syllabus: PHY 410/505
+
+## Computational Physics 1
+
+- **Hours:** MWF 2--2:50 PM
+
+- **Classroom:** 219 Fronczak
+
+- **Instructor:** Dr. David Yu
+
+- **Office:** 257 Fronczak
+
+- **E-mail:** <dyu23@buffalo.edu>
+
+- **Office Hours:** TBD and by appointment.
+
+This course integrates numerical analysis and computer programming in
+C++ and/or python to study a variety of problems in classical, quantum,
+and statistical physics. The course will cover numerical algorithms for
+root finding, interpolation, matrix inversion, numerical
+differentiation, and quadrature, data analysis, Fourier transformation,
+and computer graphics. If time permits, we will also have an
+introduction to quantum computing. Numerical analysis topics will
+include solution of linear and nonlinear differential equations,
+boundary-value and eigenvalue problems, and Monte Carlo simulation. The
+computational content of the course will be organized in the following
+topics: (1) Data Analysis, (2) Basic Numerical Algorithms, (3) Linear
+Algebra, (4) Solving Nonlinear Equations, (5) Ordinary Differential
+Equations, (6) Partial Differential Equations, (7) Probablistic Methods,
+and (8) Quantum Computing. Depending on the preparation of the class,
+the topic may be pushed to the second semester to make more room for
+introductory programming practice.
+
+The software for the course will be hosted on
+[github](https://github.com/ubsuny/CompPhys).
+
+## Prerequisites and Basic Resources  {#prerequisites .unnumbered}
+
+This course assumes familiarity with undergraduate physics at the junior/senior level. You should have passed PHY 301, PHY 401, and PHY 403, or equivalent courses, or be taking them concurrently. If you are not a physics major, a strong background in undergraduate mathematics or computer science should suffice if you spend extra time to learn the physics background required for each topic, although you should be familiar with ordinary and partial differential equations at the very least.
+
+Familiarity with a modern programming language is required (C++, Java, Fortran, Python, Julia, etc.). You should have passed CSE115 or an approved equivalent (e.g., EAS240, PHY386). Programming mainly with C++ and python will be covered in the first 4--8 weeks of lecture. If you are not familiar with C++ or python, you should spend extra time very early in the course to bring yourself up to speed. Depending on experiences of the class, we will spend more or less time on introductions to programming. You will also need to know how to compile and execute your code on your chosen platform. For instance, familiarity with bash, tcsh, or zsh for Linux/MacOS, or WSL or Cygwin for Windows. It is useful to have sufficient familiarity with python to use this for shell scripts as well. You're also welcome to combine C++ and python with some existing tools such as SWIG.
+
+Helpful resources:
+
+- [Previous years' course
+  site](http://www.physics.buffalo.edu/phy410-505/)
+
+- Stroustrup: *Programming -- Principles and Practice Using C++*
+
+- [Python programming language official website](https://www.python.org)
+
+- [Python tutorial](https://docs.python.org/3/tutorial/index.html/)
+
+- [SWIG (combine C++ and Python)](http://www.swig.org)
+
+# Required Materials {#required-materials .unnumbered}
+
+Personal laptops are recommended for this class. The primary method of distribution of software is via Docker containers, so please ensure you can use docker if you use a personal laptop. You can use Windows with WSL or Cygwin, MacOS, or Linux (e.g., Ubuntu). All required software for this course can be downloaded for free. Detailed lecture notes and online references will be provided.
+
+The required textbooks are free of charge:
+
+- [Fundamentals of C++
+  Programming](https://archive.org/details/2018FundamentalsOfCppProgramming)
+  by Richard Halterman
+
+  - Example code at <https://github.com/halterman/CppBook-SourceCode>
+
+- [Python tutorial](https://docs.python.org/3/tutorial/index.html/)
+
+- *Numerical Recipes in C++* (latest or free older edition).
+
+# Compilers and Tools {#compilers-and-tools .unnumbered}
+
+A shell environment and a C++ compiler is required. Please make sure you
+have a working environment on your chosen platform, following the
+installation and setup instructions:
+
+- Windows:
+  - [Windows Subsystem for Linux 2
+    (WSL2)](https://learn.microsoft.com/en-us/windows/wsl/install)
+  - <http://mingw-w64.sourceforge.net>: GCC for Windows (included in
+    cygwin)
+- Mac:
+  - [XCode](https://developer.apple.com/xcode/)
+- Linux:
+  - <https://gcc.gnu.org/>: GCC (included in most Linux distributions by
+    default)
+- <https://www.gnu.org/software/make/>: GNU make
+
+You will also need a code editor and a few common tools:
+
+- Code editors:
+  - [Visual Studio Code](https://code.visualstudio.com/)
+  - [Emacs](https://www.gnu.org/software/emacs/) or
+    [vim](https://www.vim.org/)
+  - [Sublime Text](https://www.sublimetext.com/) (note: paid software)
+  - (Coding directly in XCode is not recommended)
+- Software version control and management:
+  - <https://git-scm.com>: git
+  - <https://github.com>: github
+  - <https://about.gitlab.com/>: gitlab
+- Plotting tools:
+  - <https://matplotlib.org>: matplotlib (python)
+  - <https://root.cern.ch>: CERN ROOT
+- LaTeX:
+  - <https://www.tug.org/texlive/>: TeX live distribution
+- Shells:
+  - <https://www.gnu.org/software/bash/>: bash shell (default on many
+    linux distributions)
+  - <https://www.zsh.org/>: zsh shell (default on MacOS)
+  - <https://www.tcsh.org/>: tcsh shell
+
+# Schedule {#schedule .unnumbered}
+
+The course is scheduled MWF 2-2:50 PM. Homework will be regularly
+assigned ( weekly). There is a take-home midterm and final exam.
+
+# Expectations {#expectations .unnumbered}
+
+To succeed in this course you should read the lecture notes and posted
+materials, attend class and participate actively in discussion and
+quizzes, complete the homework assignments on time, and take the midterm
+and final exams. Exceptions will be made for documented medical reasons
+or major emergencies.
+
+If you are having difficulty with the course material, it is best to be
+proactive and contact me directly, either in office hours or by
+appointment. Discussing difficulty beforehand is encouraged, but asking
+for special consideration after the fact is not usually helpful.
+
+# Grading {#grading .unnumbered}
+
+Grades will be based on your scores on homework (50%), one take-home
+midterm (25%), and a take-home final exam (25%). Graduate students and
+undergraduates will be graded separately. The lowest homework score will
+be dropped from consideration to accommodate personal situations such as
+illness or missed classes.
+
+- **Midterm**: Mid-semester, take-home
+
+- **Final**: Last week of classes, take-home
+
+# Academic Integrity {#academic-integrity .unnumbered}
+
+Academic integrity is a core value underlying all scholarly activity in
+the Department of Physics. Please review UB undergraduate policy at
+<http://undergrad-catalog.buffalo.edu/policies/course/integrity.shtml>
+or graduate policy at
+<http://www.grad.buffalo.edu/policies/academic_integrity.pdf>. You are
+encouraged to discuss class material and assignments with your
+colleagues (with acknowledgment of who you worked with on your
+assignment). However, you should code and run your simulations yourself,
+and your homework writeup must be entirely your own effort. If you copy
+and/or modify code from any source for your assignments, including AI
+tools, you should acknowledge this with an appropriate citation in your
+writeup.
+
+# Students with Disabilities {#students-with-disabilities .unnumbered}
+
+If you have a disability, (physical or psychological) and require
+reasonable accommodations to enable you to participate in this course,
+such as note takers, readers, or extended time on exams and assignments,
+please contact the Office of Disability Services, 25 Capen Hall,
+645-2608, <http://www.student-affairs.buffalo.edu/ods/>, and also see me
+me during the first two weeks of class. ODS will provide you with
+information and review appropriate arrangements for reasonable
+accommodations.
+
+# Undergraduate Learning Outcomes {#undergraduate-learning-outcomes .unnumbered}
+
+|  **Topic Units** | **Learning Outcomes** | **Outcome Assessment** | 
+|---------------------|-----------------------------|------------------------|
+| Programming and Technical Computing   | Intro to UNIX, compilation, programming in C++ and Python, debugging. \[3\]                               | Homework, midterm, exam   |
+| Data analysis                         | Plotting, data fitting, analyzing large datasets, shell scripts and compilation \[1,2,3\]                 | Homework, midterm, final  |
+| Basic numerical algorithms            | Derivatives, quadrature, interpolation, root-finding, special functions, FFT \[2,5\]                      | Homework, midterm         |
+| Linear algebra                        | Matrices, BLAS algorithms, solving linear equations, programming with objects \[2,5\]                     | Homework, midterm         |
+| Solving nonlinear equations           | Minimization, maximization, multidimensional root finding, nonlinear data models \[2,5\]                  | Homework, final           |
+| Ordinary differential equations       | Initial/boundary value problems, Kepler/3-body, chaos, quantum eigenfunctions/eigenvalues \[2,5\]         | Homework, final           |
+| Partial differential equations        | Elliptic/parabolic/hyperbolic eqs, Poisson's eq., waves, spectral methods, quantum wavepackets \[2,5\]    | Homework, final           |
+| Probabilistic methods                 | Random numbers, random walks, polymers, Metropolis algorithm, Monte Carlo for gases and Ising \[2,5\]     | Homework, final           |
+| Quantum computing                     | Introduction \[2,5\]                                                                                      | Homework, final           |
+
+The bracketed numbers in the 2nd column give the correspondence to the Physics Department's undergraduate curriculum goals: \[1\] The basic laws of physics; \[2\] Critical thinking and problem solving; \[3\] Laboratory skills; \[4\] General knowledge of the development of physics; \[5\] Contemporary areas of physics inquiry; \[6\] Written and oral communication skills. Note that not all courses emphasize all of the above goals.
+
+# Graduate Learning Outcomes {#graduate-learning-outcomes .unnumbered}
+
+| **Topic Units**                       |**Learning Outcomes**                                                                                    | **Outcome Assessment** |
+| ------------------------------------- |-------------------------------------------------------------------------------------------------------- | -------------------------- |
+| Programming and Technical Computing   | UNIX, compilation, programming in C++ and Python, debugging \[4\]                                       | Homework, midterm, exam     |
+| Data analysis                         | C++/Python coding, plotting, data fitting, analyzing datasets, shell scripts \[1,2,4\]                  | Homework, midterm, final    |
+| Basic numerical algorithms            | Derivatives, quadrature, interpolation, root-finding, FFT \[2,4\]                                       | Homework, midterm           |
+| Linear algebra                        | Matrices, BLAS algorithms, solving equations, programming with objects \[2,4\]                          | Homework, midterm           |
+| Solving nonlinear equations           | Minimization, maximization, multidimensional root finding, nonlinear models \[2,4\]                     | Homework, final             |
+| Ordinary differential equations       | Initial/boundary value problems, Kepler/3-body, chaos, quantum eigenfunctions/eigenvalues \[2,4\]       | Homework, final             |
+| Partial differential equations        | Elliptic/parabolic/hyperbolic eqs, Poisson's eq., waves, spectral methods, quantum wavepackets \[2,4\]  | Homework, final             |
+| Probabilistic methods                 | Random numbers, random walks, polymers, Metropolis algorithm, Monte Carlo for gases and Ising \[2,4\]   | Homework, final             |
+| Quantum computing                     | Introduction \[2,5\]                                                                                    | Homework, final             |
+
+The bracketed numbers in the 2nd column give the correspondence to the Physics Department's graduate curriculum goals: \[1\] The basic laws of physics; \[2\] Advanced knowledge in a specialty area; \[3\] Broad knowledge of physics topics outside the specialty area; \[4\] In-depth scientific research skills; \[5\] Teaching and communication skills. Note that not all courses emphasize all of the above goals. 

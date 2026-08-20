@@ -1,0 +1,687 @@
+---
+title: "Machine Learning"
+date: "today"
+date-format: "[Spring] YYYY"
+author: 
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format: 
+  clean-revealjs:
+    theme: [default, ../../assets/css/custom.scss]
+    template-partials:
+      - ../../assets/templates/title-slide.html
+    slide-number: c/t
+    width: 1600
+    height: 900
+    center: true
+    footer: "UB Computational Physics"
+    incremental: false
+    chalkboard: true
+    pdf-separate-fragments: true
+execute:
+  keep-ipynb: false
+---
+
+## References
+  - Florian Marquardt, "Machine Learning for Physicists" [https://machine-learning-for-physicists.org/](https://machine-learning-for-physicists.org/)
+  - [JAX](https://docs.jax.dev/en/latest/beginner_guide.html#beginner-guide)  and  [FLAX](https://flax.readthedocs.io/en/latest/)  tutorials
+  - [https://computational-physics.tripos.org/slides/autodiff.html](https://computational-physics.tripos.org/slides/autodiff.html)
+  - [https://arxiv.org/pdf/1903.10563](https://arxiv.org/pdf/1903.10563)
+
+
+# Part 1: intro to machine learning
+
+---
+
+## Last time: neuron modeling
+
+:::: {.columns}
+
+::: {.column width="60%"}
+![Neuron diagram](/assets/07_ml/neuron_bio.svg){width="100%" fig-alt="Neuron diagram"}
+
+:::
+
+::: {.column width="40%"}
+![Activation function](/assets/07_ml/activation_bio.svg){width="100%" fig-alt="Neuron activation diagram"}
+:::
+
+::::
+
+---
+
+## Networks of neurons
+
+![Network of neurons](/assets/07_ml/neuron_network.svg){width="75%" fig-alt="Network of neurons"}
+
+- Neurons affect other neurons.
+- The "state" is saved: strength of connections in the network.
+- System learns over time (adjust strength of connections). 
+
+
+---
+
+## Artificial neural networks
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+![Artificial neuron](/assets/07_ml/neuron_computer.svg){width="100%" fig-alt="Artifical neuron diagram"}
+
+:::
+
+::: {.column width="30%"}
+
+![Biological activation](/assets/07_ml/activation_bio2.svg){width="100%" fig-alt="Neuron activation diagram"}
+
+![Simplified activation](/assets/07_ml/activation_computer.png){width="100%" fig-alt="Simplified activation functions"}
+
+:::
+
+::::
+
+---
+
+## Artificial neural networks
+
+:::: {.columns}
+
+:::: {.column width=60%}
+
+- A *neural network* is a group of neurons working together in such a persistent state.
+
+::: {.fragment}
+- It's really just a big, complicated function, $\mathbb{R}^{N_{\text{in}}} \rightarrow \mathbb{R}^{N_{\text{out}}}$, with lots of parameters ($\theta$). 
+  - Built from many smaller units (neurons)
+:::
+
+::: {.fragment}
+- Input data: some vector of numbers, $\vec{x} \in \mathbb{R}^{N_{\text{in}}}$
+  - Images (matrix of pixels)
+  - Text (strings)
+  - Audio signals (time series)...
+:::
+
+::: {.fragment}
+- Outputs:
+  - Boolean, aka classification (cat vs. dog)
+  - Number, aka regression
+:::
+
+::::
+
+:::: {.column width=40%}
+![Diagram of a simple neural network](/assets/07_ml/nn.svg){width=100% fig-alt="Diagram of a simple neural network"}
+::::
+
+
+::::
+
+---
+
+## Examples
+
+:::: {.columns}
+::: {.column style="width: 30%" .fragment}
+### Image processing
+
+![Recognition and classification](/assets/07_ml/image_classification.png){width=90% fig-alt="Example of image classification"}
+
+- Object recognition (cat vs. dog)
+- Restoration, colorization
+- Generations
+:::
+
+::: {.column style="width: 30%" .fragment}
+### Natural language processing
+
+![Language processing](/assets/07_ml/attention.png){width=90% fig-alt="Example of natural language processing"}
+
+- Translation
+- Chatbots
+- Generation
+:::
+
+::: {.column style="width: 30%" .fragment}
+### Behavior prediction
+
+![Starcraft bot](/assets/07_ml/starcraft.gif){width=90% fig-alt="Example of reinforcement learning bot"}
+
+- Play Go
+- Play Starcraft
+- Land a moon rover
+:::
+::::
+
+---
+
+## Physics examples
+
+- With your imagination, you can derive analogies to science applications: 
+  - Image recognition &harr; signal/background discrimination
+  - Language processing &harr; signal processing
+  - Playing video games &harr; operating complex experiments, landing spaceship on the moon
+- Some physics applications:
+  - Predict properties of matter
+  - Classify phases of matter
+  - Represent quantum wave functions
+  - Distinguish Higgs bosons from QCD background
+  - (Design experiments? Control fusion reactors?)
+- See [DOE Genesis priorities](/assets/genesis.pdf), [Machine learning in physics](https://en.wikipedia.org/wiki/Machine_learning_in_physics) 
+  - (Not the best wikipedia article! Can you help?)
+
+---
+
+## MNIST handwriting recognition
+
+:::: {.columns}
+::: {.column width="65%"}
+- Famous example: *USPS handwriting recognition system*
+  - Work of UB's Prof. Venu Govindaraju! [Commercializing AI Tech | United States Postal Service](https://www.buffalo.edu/research/research-expertise/case-study-ai-at-usps.html)
+- The *MNIST database* is a large, labeled collection of handwritten digits (available from [kaggle](https://www.kaggle.com/datasets/hojjatk/mnist-dataset))
+  - MNIST = Modified National Institute of Standards and Technology
+- Good lesson in data cleaning:
+  - Starting point: 9,298 digits manually extracted from mail passing through Buffalo USPS in 1989. 
+  - Human error rate: 2.5%! Messy data!
+  - Original NIST dataset: separate train/test datasets from different populations; 16x16 images; black-and-white. 
+  - *M*NIST: uniform train/test sampling; 28x28; anti-aliased/greyscale (each pixel is 0-255). 
+:::
+
+::: {.column width="35%"}
+![Examples](/assets/07_ml/mnist.png){width="95%" fig-alt="MNIST handwriting samples"}
+
+![MNIST CNN](/assets/07_ml/mnist_cnn.png){width="95%" fig-alt="Processing MNIST images with a convolutional neural network"}
+:::
+::::
+
+# Machine learning basics
+
+---
+
+## Basics
+
+- The concepts behind neural networks are not particularly deep! 
+  - "Build a function out of many small functions"
+- Nor are neural networks even a particularly new idea!
+  - Simplest example: least squares regression (Gauss, 1795!)
+  - Perceptron ([1958](https://doi.org/10.1037/h0042519)); multilayer perceptron+stochastic gradient descent ([1967](https://people.idsia.ch/~juergen/amari1967.pdf)); backpropagation (70/80s); recurrent/convolutional NNs (80/90s)
+- So: why are we only experiencing this AI revolution now, in 2026? A few factors:
+  - Free availability of large, labeled datasets
+  - Free availability of open source languages, libraries, and models
+  - ~~Free~~ Wide availability of necessary computing power to train models
+
+::: {.fragment .absolute width="50%" top=0 left=25%}
+![NVidia stock](/assets/07_ml/nvidia_stock.png){width="100%" fig-alt="Chart of NVidia stock going through the roof"}
+:::
+
+---
+
+## The network
+
+:::: {.columns .vcenter}
+::: {.column width="60%"}
+- The neural network is "just" a function, $\text{NN}_{\theta}$. 
+  - Maps $\mathbb{R}^{N_{\text{in}}}\equiv \mathbb{R}^{N_0} \rightarrow \mathbb{R}^{N_L} \equiv \mathbb{R}^{N_{\text{out}}}$
+  - Depend on a lot of parameters, $\vec{\theta}$. 
+- Construct a complicated function by chaining together many simple functions:
+  - $\text{NN}_{\theta} = f^{(L)}_{\theta} \circ f^{(L-1)}_{\theta} \circ .... \circ f^{(2)}_{\theta} \circ f^{(1)}_{\theta}$
+  - $f^{(1)}_{\theta}:\ \mathbb{R}^{N_{0}} \rightarrow \mathbb{R}^{N_1}$ maps the input ($N_0$-dimensional space) to the first **hidden layer** ($N_1$-dimensional space). 
+  - Similarly, $f^{(j)}:\ \mathbb{R}^{N_{j-1}} \rightarrow \mathbb{R}^{N_j}$ for $j=2,...,L-1$. 
+  - ...and finally, $f^{(L)}:\ \mathbb{R}^{N_{L-1}}\rightarrow\mathbb{R}^{N_L}$. 
+- The dimensions $N_j$ are *hyperparameters* of the model, describing the shape of the network. 
+:::
+
+::: {.column width="40%"}
+![Example neural network](/assets/07_ml/nn_simple.webp){width="95%" fig-alt="Example neural network"}
+:::
+::::
+
+---
+
+## The neurons
+
+- $\text{NN}_{\theta} = f_{\theta}^{(L)} \circ f_{\theta}^{(L-1)} \circ ... \circ f^{(2)}_{\theta} \circ f^{(1)}_{\theta}$
+- The $f^{(j)}$ are **neurons**: the basic units of the neural network. 
+  - They should be simple, but not too simple.
+  - Specifically, they must be *nonlinear*! 
+  - Otherwise, the whole network reduces to a matrix multiplication!
+
+---
+
+## Single neuron
+
+![Input neurons](/assets/07_ml/nn_singlelayer_1.svg){width=1200 fig-alt="Input neurons"}
+
+---
+
+## Single neuron
+
+![Compute $z$ values: linear combinations of inputs](/assets/07_ml/nn_singlelayer_2.svg){width=1200 fig-alt="Compute z values: linear combinations of inputs"}
+
+---
+
+## Single neuron
+
+![Apply *nonlinear* activation function](/assets/07_ml/nn_singlelayer_3.svg){width=1200 fig-alt="Apply nonlinear activation function"}
+
+---
+
+## Activation function
+
+- The activation function can be anything you want, so long as it's nonlinear. Some popular choices:
+
+:::: {.columns .vcenter}
+::: {.column width=40%}
+```{python}
+#| echo: true
+import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(-5, 5, 100)
+y = 1. / (1. + np.exp(-x))
+plt.plot(x, y)
+plt.title("Sigmoid")
+```
+
+:::
+
+::: {.column width=40%}
+```{python}
+#| echo: true
+import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(-5, 5, 100)
+y = np.where(x > 0, x, 0)
+plt.plot(x, y)
+plt.title("RELU")
+```
+
+:::
+
+::: {.column width="10%"}
+::: {style="font-size: 12pt;"}
+- Your function here
+- Example: final layer of network, turn raw outputs into probabilities.
+:::
+
+:::
+
+::::
+
+---
+
+## Full network
+
+:::: {.columns .vcenter}
+::: {.column width=30%}
+- Example of a full neural network.
+- Each connection has a weight, $w$. 
+- Each neuron has a bias (or offset), $b$. 
+- Each neuron has a nonlinear activation function, $f$.
+- Values are fed into the input layer, $\mathbb{R}^8$, and the neural network returns values in the output layer, $\mathbb{R}^2$. 
+:::
+
+::: {.column width=70%}
+![Full neural network](/assets/07_ml/nn_big.svg){width=95%}
+:::
+::::
+
+--- 
+
+## Evaluating the neural network
+
+![Evaluating the neural network, aka **feed forward**](/assets/07_ml/nn_ff_1.svg){width=55%}
+
+- Consider how to calculate one hidden neuron.
+- Start from inputs, $y_j^{(0)} \in \mathbb{R}^6$ in this case.
+
+--- 
+
+## Evaluating the neural network
+
+![Evaluating the neural network, aka **feed forward**](/assets/07_ml/nn_ff_2.svg){width=55%}
+
+- Form $z$: linear combination using connection weights + bias.
+- Apply nonlinear activation: $y = f(z)$. 
+
+--- 
+
+## Evaluating the neural network
+
+![Evaluating the neural network, aka **feed forward**](/assets/07_ml/nn_ff_3.svg){width=55%}
+
+- Repeat for all neurons in the hidden layer.
+- Result: 9 values between 0 and 1 (sigmoid activation), aka "not-fired" and "fired".
+
+::: {.absolute top=20% left=5% max-width="25%"}
+Connection weights=line widths
+
+<span style="color: blue;">Blue=positive</span>
+
+<span style="color: orange;">Orange=negative</span>
+
+:::
+
+--- 
+
+## Evaluating the neural network
+
+![Evaluating the neural network, aka **feed forward**](/assets/07_ml/nn_ff_4.svg){width=55%}
+
+- Repeat for all layers until output.
+- This process is called **feed forward**.
+
+::: {.absolute top=20% left=5% max-width="25%"}
+Connection weights=line widths
+
+<span style="color: blue;">Blue=positive</span>
+
+<span style="color: orange;">Orange=negative</span>
+
+:::
+
+---
+
+## Notation
+
+We use the following notation in these slides:
+
+- $l=0,1,...,L$ indexes the layers.
+- $y_i^{(l)}$=output value of neuron $i$ in layer $l$, where $i=1,...,N^{(l)}$. 
+  - Special cases: $y_i^{(0)}$=input values, $y_i^{(L)}$=output values.
+- $w_{ij}^{(l)}$=weights connecting neuron $j$ in layer $l-1$ to neuron $i$ in layer $l$. 
+- $b_{i}^{(l)}$=bias of neuron $i$ in layer $l$. 
+
+The feed-forward evaluation computes:
+
+- $z_{i}^{(l)}=\sum_{j=1}^{N^{(l-1)}} w_{ij}^{(l)} y_j^{(l-1)} + b_i^{(l)}$ (the linear combination of weights).
+- $y_i^{(l)} = f(z_{i}^{(l)})$.
+  - $f(z)$=nonlinear activation function
+  - Typical functions for hidden layers: relu, sigmoid, tanh, ... 
+  - Final layer might have a different activation function, e.g., softmax to form "probabilities".
+
+--- 
+
+## A very simple network
+
+:::: {.columns .vcenter}
+
+::: {.column width=50%}
+
+- Next, let's gain some intuition for "what the network is doing." 
+- Consider a very small network: two input neurons, one output neuron, and no hidden layers. 
+
+$$
+z = w_1 y_1 + w_2 y_2 + b
+$$
+
+:::
+
+::: {.column width=50%}
+
+![z value with 2 inputs. This is just a plane.](/assets/07_ml/surface_z.svg){width=95% fig-alt="z value with 2 inputs is just a plane"}
+
+:::
+
+::::
+
+
+--- 
+
+## A very simple network
+
+:::: {.columns .vcenter}
+
+::: {.column width=50%}
+
+- Next, let's gain some intuition for "what the network is doing." 
+- Consider a very small network: two input neurons, one output neuron, and no hidden layers. 
+
+$$
+\begin{aligned}
+z &= w_1 y_1 + w_2 y_2 + b \\
+f(z) &= 1 / (1 + e^{-z}) 
+\end{aligned}
+$$
+
+::: {.fragment .callout-note}
+- Intuition: neuron acts as a "step function", here in 2D because we have 2 input neurons.
+:::
+
+:::
+
+::: {.column width=50%}
+
+![Sigmoid neuron output from 2 inputs](/assets/07_ml/surface_sigmoid.svg){width=95% fig-alt="Sigmoid neuron output from 2 inputs"}
+
+:::
+
+::::
+
+---
+
+## Function approximation
+
+- So far, it is probably not obvious why NNs are useful.
+  - Simple example: (2 inputs, 1 output) = step function in 2D
+- An important result: NNs can (in principle) approximate any continuous function! 
+  - "Universal approximation theorems"
+- Let's examine one formulation in detail: a feedforward NN with a single hidden layer, with *nonlinear* activation functions, can act as a *universal approximator*. 
+  - [Cybenko, "Approximation by superpositions of a sigmoidal function", 1989](https://link.springer.com/article/10.1007/BF02551274)
+
+::: {.callout-warning}
+- This is only an existence theorem! Existence does not help you make a good/efficient neural network. 
+:::
+
+---
+
+## Function approximation
+
+![Some function](/assets/07_ml/uat_none.svg){width=60% fig-alt="An arbitrary function"}
+
+---
+
+## Function approximation
+
+![Approximation with 0 steps](/assets/07_ml/uat_1.svg){width=60% fig-alt="Approximating a function with 0 steps"}
+
+---
+
+## Function approximation
+
+![Approximation with 1 step](/assets/07_ml/uat_2.svg){width=60% fig-alt="Approximating a function with 1 step"}
+
+---
+
+## Function approximation
+
+![Approximation with 4 steps](/assets/07_ml/uat_5.svg){width=60% fig-alt="Approximating a function with 4 steps"}
+
+---
+
+## Function approximation
+
+![Approximation with 9 steps](/assets/07_ml/uat_10.svg){width=60% fig-alt="Approximating a function with 9 steps"}
+
+---
+
+## Function approximation
+
+![Approximation with 19 steps](/assets/07_ml/uat_20.svg){width=60% fig-alt="Approximating a function with 9 steps"}
+
+---
+
+## Function approximation
+
+![Approximation with 49 steps](/assets/07_ml/uat_50.svg){width=60% fig-alt="Approximating a function with 49 steps"}
+
+---
+
+## Building the approximation
+
+![First step](/assets/07_ml/uat_build_1.svg){width=60% fig-alt="Approximating a function: first step function"}
+
+---
+
+## Building the approximation
+
+![First 2 steps](/assets/07_ml/uat_build_2.svg){width=60% fig-alt="Approximating a function: first two steps"}
+
+---
+
+## Building the approximation
+
+:::: {.columns .vcenter}
+::: {.column width=50%}
+![First 2 steps](/assets/07_ml/uat_build_2_annotated.svg){width=90% fig-alt="Approximating a function: first two steps"}
+
+$$
+y_{\text{out}} = \delta F_0 + \delta F_1 f(w\cdot(y-Y_1)) + \delta F_2 f(w\cdot(y-Y_2))
+$$
+
+:::
+
+::: {.column width=50%}
+
+::: {.fragment}
+![2-step neural network](/assets/07_ml/uat_build_2_nn.svg){width=50% fig-alt="Neural network approximating 2 step functions with 1 input, 2 hidden neurons, and 1 output"}
+
+- Hidden neurons: 
+  - Biases $b_i = -w Y_i$
+  - $f$=sigmoid (the larger $w$, the sharper the turn-on)
+- Output neuron: no activation, bias=$\delta F_0$
+:::
+:::
+::::
+
+---
+
+## Building the approximation
+
+:::: {.columns .vcenter}
+::: {.column width=50%}
+
+![Add more steps](/assets/07_ml/uat_10.svg){width=90% fig-alt="Approximating a function with 9 step functions"}
+
+:::
+
+::: {.column width=50%}
+![Neural network with more steps](/assets/07_ml/uat_build_4_nn.svg){width=90% fig-alt="Neural network approximating 4 step functions"}
+:::
+::::
+
+---
+
+## Approximating a 2D function
+
+- Approximating functions in higher dimensions is a bit trickier, but basically the same concept. 
+
+:::: {.columns}
+::: {.column width=60%}
+- 1D step function: 
+
+$$
+f(x; x_0) = \left\{\begin{matrix} a & : & x > x_0 \\ b & : & \text{otherwise} \end{matrix} \right.
+$$
+
+- 2D step function:
+
+$$
+f(x, y; x_0, y_0) = \left\{\begin{matrix} a & : & (x>x_0) \&\& (y > y_0) \\ b & : & \text{otherwise} \end{matrix} \right.
+$$
+
+- In terms of neurons: 
+  - Implement 1D step functions for $y_1>Y_1$ and $y_2>Y_2$, both with height 1.
+  - Add them up: possible values are 0, 1, or 2.
+  - Pass sum through another step function: inactive for 0, 1, and active for 2.
+  - Note: this is basically an `AND` gate! 
+:::
+
+::: {.column width=40%}
+![2D step function](/assets/07_ml/uat_2dstep.svg){width=70% fig-alt="2D step function"}
+:::
+::::
+
+---
+
+## Approximating a 2D function
+
+![](/assets/07_ml/uat_2d.svg){width=60% fig-alt="Approximating a 2D function with step functions" style="display: block; margin: auto;"}
+
+- Build the 2D function one block at a time, using 2D step functions
+
+---
+
+## Recap
+
+:::: {.columns}
+::: {.column width=60%}
+- Neural networks are arbitrarily large functions built from very simple pieces: **neurons**.
+- Each neuron:
+  - Calculates a linear combination of inputs from the previous layer: $z_j = \sum_k w_{jk} y_k^{\text{in}} + b_j$
+  - Applies a *nonlinear* activation function: $y_j = f(z_j)$. 
+- The nonlinearity is essential: otherwise we are just doing linear algebra!
+- **Universal approximation theorems**: NNs can approximate arbitrary continuous functions.
+  - Conceptually simple proof.
+  - Warning: statement of existence, does not tell you how actually to build a NN. 
+  - Also, we usually doing much more complicated tasks than just approximating functions. But nonetheless, it demonstrates the power of NNs: they can create arbitrarily complicated functions of the inputs.
+
+:::
+
+::: {.column width=40%}
+![One layer of a neural network](/assets/07_ml/nn_2_to_3.svg)
+:::
+::::
+
+
+---
+
+## Hands-on
+
+- Time for some hands-on exercises. 
+- First, let's create a new environment for the machine learning exercises. I recommend using a python virtual environment:
+
+```{bash}
+cd PHY410
+mkdir ml; cd ml;
+python3.12 -m venv venv
+source venv/bin/activate
+python -m pip install jupyterlab matplotlib numpy scipy tensorflow keras jax flax optax scikit-learn
+git clone git@github.com:FlorianMarquardt/machine-learning-for-physicists.git
+jupyter-lab --port 8888 --no-browser
+# Optional
+pip freeze > requirements.txt # If anything goes wrong, you can re-install the exact environment with `pip install -r requirements.txt`
+```
+
+---
+
+## Test
+
+::: {.callout-tip}
+## Tip with Title
+
+This is an example of a callout with a title.
+:::
+
+::: {.callout-note}
+
+This is an example of a note callout.
+:::
+
+::: {.callout-warning}
+
+This is an example of a warning callout.
+:::
+
+::: {.callout-important}
+
+This is an example of a important callout.
+:::
+
+::: {.callout-caution}
+
+This is an example of a caution callout.
+:::
+

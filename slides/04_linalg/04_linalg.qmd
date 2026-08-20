@@ -1,0 +1,1557 @@
+---
+title: "Linear Algebra"
+date: "today"
+date-format: "[Spring] YYYY"
+author:
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  clean-revealjs:
+    theme: [default, ../../assets/css/custom.scss]
+    template-partials:
+      - ../../assets/templates/title-slide.html
+    slide-number: c/t
+    width: 1600
+    height: 900
+    center: true
+    footer: "UB Computational Physics"
+    incremental: false
+    chalkboard: true
+    pdf-separate-fragments: true
+execute:
+  keep-ipynb: false
+---
+
+## Announcements
+
+- Assignment 5 officially posted: https://classroom.github.com/a/Fs43SiCG
+  - Due Wednesday, November 19 at 11:59pm.
+  - ‼️ Warning: this one is a bit longer than previous homeworks! ‼️
+- New office hour schedule: Wednesdays, 11am-12pm.
+  - I will try to be available on demand for the small number of you that can't make this time!
+- Assignment 4 due today at 11:59pm.
+  - Note: I didn't make the notebooks for you this time, please go ahead and make them yourself (you can copy notebooks from CompPhys/DataAnalysis/[Fitting, FFT] if you want.)
+
+---
+
+## Introduction
+
+- Linear algebra (obviously) has a huge number of applications:
+  - Complex circuit diagrams
+  - Coupled oscillators
+  - General solution of fitting arbitrary curves
+  - ...
+- We will learn how to:
+  - Solve (systems of) linear equations
+  - Compute eigenvalues
+  - Apply methods to several physics problems.
+- References:
+  - Garcia Chapter 4, Numerical Recipes Chapter 2
+
+![pasted-movie.png](/assets/04_linalg/pasted-movie.png){width="70%" fig-alt="3D plot showing three planes and a line all intersecting at the origin, illustrating a system of linear equations with a common solution point."}
+
+- Alksentrs at en.wikipedia - Own work (Original text: Own work, based on en:Image:Linearsubspace.svg (by en:User:Jakob.scholbach).) Transferred from en.wikipedia to Commons by User:Ylebru using CommonsHelper.
+
+---
+
+## Introduction
+
+- You are all hopefully familiar with basics of linear algebra:
+  - Vectors
+  - Matrices
+  - Solving matrix equations, $\mathbf{A}\mathbf{x}=\mathbf{b}$
+  - Gauss-Jordan elimination (wikipedia)
+- However, the computational aspects of linear algebra are a huge subject in their own right!
+  - We will just touch the surface of some important topics in this class.
+
+![matrix_transform.tiff](/assets/04_linalg/matrix_transform.png){width="50%" fig-alt="Hand-drawn 2x2 rotation matrix (cos 90 deg, sin 90 deg; -sin 90 deg, cos 90 deg) multiplying a column vector (a1, a2), with the resulting row vector's elements rotated 90 degrees as a joke."}
+
+---
+
+## Intro: matrix inversion
+
+- First example of computational issues: matrix inversion.
+- Recall Cramer's rule ([wikipedia](https://en.wikipedia.org/wiki/Cramer%27s_rule))
+  - Given matrix $\mathbf{A}$ and its determinant,
+
+
+- $$\text{det}(\mathbf{A})=|\mathbf{A}|=\mathop{\mathop{ \sum }\limits_{i=1}}\limits^{N}(-1{)}^{i+j}{A}_{ij}|{\mathbf{R}}_{ij}|$$
+
+- ${\mathbf{R}}_{ij}=$"residual" or "minor" of $\mathbf{A}$ obtained by removing row $i$ and column $j$
+
+- ...then the inverse of $\mathbf{A}$ is:
+
+- $${A}_{ij}^{-1}=(-1{)}^{i+j}\frac{|{\mathbf{R}}_{ji}|}{|\mathbf{A}|}$$
+
+- This is a recursive rule.
+
+---
+
+## Intro: matrix inversion
+
+:::: {.columns}
+::: {.column width="55%"}
+- Cramer's rule is basically the "brute force" method.
+  - It's OK for small $N$, but scales horribly with matrix size: $O(N!)$
+  - To see this, just write down the determinant equation:
+- $$|\mathbf{A}|=\mathop{ \sum }\limits_{P}(-{)}^{P}{A}_{1{p}_{1}}{A}_{2{p}_{2}}...{A}_{N{p}_{N}}$$
+  - $P$ runs over the $N!$ permutations of the indices.
+  - $20! \approx 2.43 \times {10}^{18}$... aaugh! (aaugh, factorial)
+- OK, back to the drawing board.
+:::
+::: {.column width="45%"}
+![pasted-movie.png](/assets/04_linalg/slide07_image11.png){width="100%" fig-alt="Peanuts comic panel of Charlie Brown on the pitcher's mound shouting 'AAUGH!' in frustration."}
+:::
+::::
+
+---
+
+## Better inversion algorithms
+
+- For medium-sized matrices ($N \sim 10-{10}^{3}$):
+  - Gaussian elimination
+  - LU decomposition
+  - Householder method
+- Large matrices ($N \gtrsim {10}^{3}$):
+  - Storage becomes a problem.
+  - No practical algorithm for arbitrary/general matrices.
+  - However, large matrices are often "sparse," i.e., they are mostly 0s.
+    - These are storable and solvable with some cleverness.
+
+---
+
+## Software
+
+- Linear algebra is the raison d'être for numpy.
+  - So: let's just use it!
+- Most scipy algorithms for linear algebra are from LAPACK (linear algebra pack), http://www.netlib.org/lapack
+- Other packages:
+  - BLAS (basic linear algebra subprograms) (wikipedia)
+  - BOOST basic linear algebra library (uBLAS) (https://www.boost.org/doc/libs/latest/libs/numeric/ublas/doc/)
+  - matlab (the "mat" in "matlab" is short for "matrix") (https://www.mathworks.com/products/matlab.html)
+
+---
+
+## Game plan
+
+- For the next ~week, we will:
+  - Start with numpy software.
+  - Understand the algorithms used internally.
+  - Check into use cases.
+
+---
+
+# Gaussian (gauss–jordan) elimination
+
+---
+
+## Gaussian elimination
+
+- Gaussian elimination concerns matrix equations like $\mathbf{A}\mathbf{x}=\mathbf{b}$.
+- For $N=3$:
+
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{b}_{0} \\
+{b}_{1} \\
+{b}_{2}
+\end{aligned} \right)$$
+
+- Expanding the multiplication operation, this is a system of 3 equations:
+
+- $$\left( \begin{aligned}
+{a}_{00}{x}_{0}+{a}_{01}{x}_{1}+{a}_{02}{x}_{2} \\
+{a}_{10}{x}_{0}+{a}_{11}{x}_{1}+{a}_{12}{x}_{2} \\
+{a}_{20}{x}_{0}+{a}_{21}{x}_{1}+{a}_{22}{x}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{b}_{0} \\
+{b}_{1} \\
+{b}_{2}
+\end{aligned} \right)$$
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} & {b}_{0} \\
+{a}_{10} & {a}_{11} & {a}_{12} & {b}_{1} \\
+{a}_{20} & {a}_{21} & {a}_{22} & {b}_{2}
+\end{matrix} \right)$$
+
+- (Or alternatively, write as a single "augmented matrix")
+
+---
+
+## Gaussian elimination
+
+:::: {.columns}
+::: {.column width="55%"}
+- https://www.geeksforgeeks.org/maths/reduced-row-echelon-form/
+- Goal is to transform matrix to "reduced row echelon form".
+- Row echelon form:
+  - All rows having only zero entries are at the bottom.
+  - Leading entry of each row (i.e. leftmost non-zero entry) is to the right of the leading entry of every row above.
+- Reduced row echelon form:
+  - Leading entries are 1 (for non-zero rows)
+  - Leading 1s have all 0s above them
+- This is basically solving the system of equations
+  - (Or getting as close as possible given the inputs; assume we do have a solution for now.)
+:::
+::: {.column width="45%"}
+![pasted-movie.png](/assets/04_linalg/slide13_image12.png){width="100%" fig-alt="Diagram titled 'Reduced Row-Echelon Form' showing a 4x5 matrix on the left transformed by an arrow into its reduced row-echelon form on the right, with pivot 1s and 0s highlighted in color."}
+:::
+::::
+
+---
+
+## Gaussian elimination
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- 3 elementary row operations:
+  - Swap two rows;
+  - Multiply a row by some number (!= 0);
+  - Add a multiple of one row to another row.
+- Example from wikipedia:
+
+
+![](/assets/04_linalg/slide14_pasted-movie.png){fig-alt="Sequence of four 3x4 augmented matrices connected by arrows, showing the step-by-step Gaussian row-reduction of a specific numerical 3-equation system down to reduced row-echelon form."}
+
+- Subtract multiples of row 1 from rows 2 and 3 to eliminate their first column
+
+- Add row 2 to row 3
+
+- Add 1.5*(row 2) to row 1 to eliminate (row 1, column 2), then scale row 2 to get a leading 1.
+
+---
+
+## Gaussian elimination
+
+
+- Now let's work towards some pseudocode.
+- Iteratively eliminating entries and redefining coefficients looks something like this:
+
+$$\left( \begin{matrix}
+a_{00} & a_{01} & a_{02} & b_0 \\
+\dfrac{a_{10}-a_{00}a_{10}}{a_{00}} & a_{11}-\dfrac{a_{01}a_{10}}{a_{00}} & a_{12}-\dfrac{a_{02}a_{10}}{a_{00}} & b_1-\dfrac{b_0a_{10}}{a_{00}} \\
+a_{20}-\dfrac{a_{00}a_{20}}{a_{00}} & a_{21}-\dfrac{a_{01}a_{20}}{a_{00}} & a_{22}-\dfrac{a_{02}a_{20}}{a_{00}} & b_2-\dfrac{b_0a_{20}}{a_{00}}
+\end{matrix} \right)$$
+
+$$\equiv \left( \begin{matrix}
+a_{00}' & a_{01}' & a_{02}' & b_0' \\
+0 & a_{11}' & a_{12}' & b_1' \\
+0 & a_{21}' & a_{22}' & b_2'
+\end{matrix} \right)$$
+
+$$\left( \begin{matrix}
+a_{00}' & a_{01}' & a_{02}' & b_0' \\
+0 & a_{11}' & a_{12}' & b_1' \\
+0 & a_{21}'-\dfrac{a_{11}'a_{21}'}{a_{11}'} & a_{22}'-\dfrac{a_{12}'a_{21}'}{a_{11}'} & b_2'-\dfrac{b_1'a_{21}'}{a_{11}'}
+\end{matrix} \right)$$
+
+$$\equiv \left( \begin{matrix}
+a_{00}'' & a_{01}'' & a_{02}'' & b_0'' \\
+0 & a_{11}'' & a_{12}'' & b_1'' \\
+0 & 0 & a_{22}'' & b_2''
+\end{matrix} \right)$$
+
+---
+
+## Gaussian elimination
+
+
+- From row echelon form, obtain reduced row echelon form (i.e. solve for $\mathbf{x}$) using back-substitution.
+- Third row:
+- Second row:
+- First row:
+
+- $$\left( \begin{matrix}
+{a}_{00}^{′′} & {a}_{01}^{′′} & {a}_{02}^{′′} & {b}_{0}^{′′} \\
+0 & {a}_{11}^{′′} & {a}_{12}^{′′} & {b}_{1}^{′′} \\
+0 & 0 & {a}_{22}^{′′} & {b}_{2}^{′′}
+\end{matrix} \right)$$
+
+- $$\begin{matrix}
+{a}_{22}^{′′}{x}_{2} & ={b}_{2}^{′′} \\
+ \Rightarrow {x}_{2} & ={b}_{2}^{′′}/{a}_{22}^{′′}
+\end{matrix}$$
+
+- $$\begin{matrix}
+{a}_{11}^{′′}{x}_{1}+{a}_{12}^{′′}{x}_{2} & ={b}_{1} \\
+ \Rightarrow {x}_{1} & =({b}_{1}-{a}_{12}^{′′}{x}_{2})/{a}_{11}^{′′}
+\end{matrix}$$
+
+- $$\begin{matrix}
+{a}_{00}^{′′}{x}_{0}+{a}_{01}^{′′}{x}_{1}+{a}_{02}^{′′}{x}_{2} & ={b}_{0} \\
+ \Rightarrow {x}_{0} & =({b}_{0}-{a}_{01}^{′′}{x}_{1}-{a}_{02}^{′′}{x}_{2})/{a}_{00}^{′′}
+\end{matrix}$$
+
+---
+
+## Gaussian elimination: performance
+
+
+- OK, that was all probably old stuff. But now let's think about it from a computational point of view.
+- Gaussian elimination (i.e. steps to achieve row echelon form):
+  - In the best case, it takes $O({N}^{2})$ row operations to eliminate $N(N-1)$ elements (i.e. the 0s in the lower diagonal).
+  - Each row operation is $O(N)$ itself.
+  - $ \Rightarrow O({N}^{3})$ overall.
+- Back-substitution is $O({N}^{2})$ ($N$ equations, each with $ \sim N$ multiplications).
+- So, the overall algorithm is $O({N}^{3})$, which is (obviously) much better than $O(N!)$.
+  - We can use the algorithm for much larger $N$ than with Cramer's Rule.
+  - However, storage becomes a limiting factor.
+
+---
+
+## Gaussian elimination: failure modes
+
+:::: {.columns}
+::: {.column width="55%"}
+- You might have already noticed a failure mode: divide by zero errors.
+  - Our algorithm needs to be able to handle this case.
+- We also want to avoid floating point roundoff errors.
+- Solution: "partial pivoting."
+- Before operating on row $i$:
+  - Search for largest element, ${a}_{ki}$, in column $i$ from the diagonal to the bottom, i.e. ${a}_{ii}$, ${a}_{i+1,i}$, .., ${a}_{Ni}$.
+  - If ${a}_{ii}$ is not the largest, swap row $i$ with row $k$.
+    - Note: this also swap ${x}_{i} \leftrightarrow {x}_{k}$.
+- This avoids divide-by-zero problems, and also avoids blowing up floating point errors by multiplying by large numbers.
+:::
+::: {.column width="45%"}
+$$\left( \begin{matrix}
+a_{00} & a_{01} & a_{02} & b_0 \\
+\dfrac{a_{10}-a_{00}a_{10}}{a_{00}} & a_{11}-\dfrac{a_{01}a_{10}}{a_{00}} & a_{12}-\dfrac{a_{02}a_{10}}{a_{00}} & b_1-\dfrac{b_0a_{10}}{a_{00}} \\
+a_{20}-\dfrac{a_{00}a_{20}}{a_{00}} & a_{21}-\dfrac{a_{01}a_{20}}{a_{00}} & a_{22}-\dfrac{a_{02}a_{20}}{a_{00}} & b_2-\dfrac{b_0a_{20}}{a_{00}}
+\end{matrix} \right)$$
+:::
+::::
+
+---
+
+## Gauss–Jordan elimination
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+
+- Gauss–Jordan elimination is a variation on the previous algorithm:
+
+![](/assets/04_linalg/slide19_Screenshot-2025-11-04-at-8.57.53-PM.png){fig-alt="Textbook screenshot (equation 2.1.1) showing Gauss-Jordan elimination written as a block matrix equation: a 4x4 coefficient matrix times a block matrix of column vectors x00-x32 and an identity-augmented block y, equal to a block matrix of b vectors and the 4x4 identity matrix."}
+
+- This basically just packs several equations into one big matrix multiplication:
+
+- $$\mathbf{A}.{\mathbf{x}}_{0}={\mathbf{b}}_{0}$$
+
+- $$\mathbf{A}.{\mathbf{x}}_{1}={\mathbf{b}}_{1}$$
+
+- $$\mathbf{A}.{\mathbf{x}}_{2}={\mathbf{b}}_{2}$$
+
+- $$\mathbf{A}.\mathbf{Y}=\mathbf{1}$$
+
+- In other words, $\mathbf{Y}={\mathbf{A}}^{-1}$.
+
+---
+
+## Gauss–Jordan elimination
+
+
+- Just like Gaussian elimination, we transform the matrix with a set of row/column operations that leave the underlying equations unchanged:
+  - Swapping rows of $\mathbf{A}$ (and the corresponding rows of the RHS), leaving ${\mathbf{x}}_{i}$ and $\mathbf{Y}$ untouched.
+  - Replace rows of $\mathbf{A}$ with any linear combination of itself and other rows of $\mathbf{A}$ (performing the same operation to the RHS).
+  - Swapping columns of $\mathbf{A}$, and the corresponding rows of $\left( {\mathbf{x}}_{i}\mathbf{Y} \right)$.
+    - (Note, this scrambles the solution matrix, so you have to keep track of the scrambling.)
+- Goal: transform $\mathbf{A}$ to reduced row echelon form, aka $\mathbf{1}$.
+  - Then the LHS is just $\left( {\mathbf{x}}_{i}\mathbf{Y} \right)$, i.e., we have our solution for both ${\mathbf{x}}_{i}$ and $\mathbf{Y}={\mathbf{A}}^{-1}$.
+  - Same pivoting arguments apply.
+
+![Screenshot 2025-11-04 at 8.57.53 PM.png](/assets/04_linalg/Screenshot-2025-11-04-at-8.57.53-PM.png){width="70%" fig-alt="Textbook screenshot (equation 2.1.1) showing Gauss-Jordan elimination written as a block matrix equation: a 4x4 coefficient matrix times a block matrix of column vectors x00-x32 and an identity-augmented block y, equal to a block matrix of b vectors and the 4x4 identity matrix."}
+
+---
+
+## Gauss–Jordan elimination
+
+
+- A few comments on Gauss–Jordan elimination:
+  - The same pivoting arguments apply to avoid floating point roundoff errors and divide-by-zero situations.
+  - Method computes ${\mathbf{A}}^{-1}$ as well as solutions ${\mathbf{x}}_{i}$.
+    - If you don't need ${\mathbf{A}}^{-1}$, there are significantly faster methods!
+    - If you do need ${\mathbf{A}}^{-1}$, G–J is quite reliable and performant.
+    - Interesting fact: ${\mathbf{x}}_{i}$ calculated with G–J are more numerically stable than directly using ${\mathbf{A}}^{-1}$.
+  - Another interesting fact: we can actually use the memory initially allocated to $\mathbf{A}$ to store ${\mathbf{A}}^{-1}$! And similarly for ${\mathbf{x}}_{i}$ and ${\mathbf{b}}_{i}$.
+    - At each step, only one of the two matrices has a nontrivial value.
+  - G–J is not actually implemented directly in numpy/scipy.
+
+---
+
+# LU decomposition (lower-upper)
+
+---
+
+## LU Decomposition
+
+
+- L(ower) U(pper) decomposition refers to breaking a matrix down into the product of a lower-diagonal and an upper-diagonal matrix.
+- E.g., for $N=3$:
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)=\left( \begin{matrix}
+{l}_{00} & 0 & 0 \\
+{l}_{10} & {l}_{11} & 0 \\
+{l}_{20} & {l}_{21} & {l}_{22}
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)$$
+
+- Existence:
+  - Any square matrix combined with a row (or column) permutation has a LU decomposition ("PLU" or "LUP").
+  - If $\mathbf{A}$ is invertible, then a LU decomposition exists iff the leading principal minors are nonzero.
+  - If $\mathbf{A}$ is a singular matrix of rank $k$, a LU decomposition exists if the first $k$ leading principal minors are nonzero.
+
+---
+
+## LU Decomposition
+
+
+- Given a LU decomposition, we then break the problem into two easier steps: basically just $\mathbf{L}(\mathbf{U}\mathbf{x})=\mathbf{b}$:
+  - Solve $\mathbf{L}\mathbf{y}=\mathbf{b}$ using forwards substitution.
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{matrix}
+{l}_{00} & 0 & 0 \\
+{l}_{10} & {l}_{11} & 0 \\
+{l}_{20} & {l}_{21} & {l}_{22}
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{b}_{0} \\
+{b}_{1} \\
+{b}_{2}
+\end{aligned} \right)$$
+
+- $$\left( \begin{matrix}
+{l}_{00} & 0 & 0 \\
+{l}_{10} & {l}_{11} & 0 \\
+{l}_{20} & {l}_{21} & {l}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{y}_{0} \\
+{y}_{1} \\
+{y}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{b}_{0} \\
+{b}_{1} \\
+{b}_{2}
+\end{aligned} \right)$$
+
+- $$\begin{matrix}
+{y}_{0} & ={b}_{0}/{l}_{00} \\
+{y}_{i} & =\frac{1}{{l}_{ii}}\left[ {b}_{i}-\mathop{\mathop{ \sum }\limits_{j=0}}\limits^{i-1}{l}_{ij}{y}_{j} \right]
+\end{matrix}$$
+
+---
+
+## LU Decomposition
+
+
+- Given a LU decomposition, we then break the problem into two easier steps: basically just $\mathbf{L}(\mathbf{U}\mathbf{x})=\mathbf{b}$:
+  - Solve $\mathbf{L}\mathbf{y}=\mathbf{b}$ for $\mathbf{y}$ using forwards substitution.
+  - Solve $\mathbf{U}\mathbf{x}=\mathbf{y}$ for $\mathbf{x}$ using backwards substitution.
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{matrix}
+{l}_{00} & 0 & 0 \\
+{l}_{10} & {l}_{11} & 0 \\
+{l}_{20} & {l}_{21} & {l}_{22}
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{b}_{0} \\
+{b}_{1} \\
+{b}_{2}
+\end{aligned} \right)$$
+
+- $$\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)\left( \begin{aligned}
+{x}_{0} \\
+{x}_{1} \\
+{x}_{2}
+\end{aligned} \right)=\left( \begin{aligned}
+{y}_{0} \\
+{y}_{1} \\
+{y}_{2}
+\end{aligned} \right)$$
+
+- $$\begin{matrix}
+{x}_{N-1} & ={y}_{N-1}/{u}_{N-1,N-1} \\
+{x}_{i} & =\frac{1}{{u}_{ii}}\left[ {y}_{i}-\mathop{\mathop{ \sum }\limits_{j=i+1}}\limits^{N-1}{u}_{ij}{x}_{j} \right]
+\end{matrix}$$
+
+---
+
+## LU Decomposition: Crout's method
+
+
+- OK, solving $\mathbf{L}\mathbf{U}\mathbf{x}=\mathbf{b}$ is fairly easy. Now we need an algorithm to find the factorization $\mathbf{A}=\mathbf{L}\mathbf{U}$.
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)=\left( \begin{matrix}
+{l}_{00} & 0 & 0 \\
+{l}_{10} & {l}_{11} & 0 \\
+{l}_{20} & {l}_{21} & {l}_{22}
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)$$
+
+- First observation: counting coefficients, you might notice that $\mathbf{A}$ has ${N}^{2}$ coefficients, while $\mathbf{L}$ and $\mathbf{U}$ each have $N(N+1)/2$.
+  - Turns out we can set ${l}_{ii}=1$.
+
+---
+
+## LU Decomposition: Crout's method
+
+
+- OK, solving $\mathbf{L}\mathbf{U}\mathbf{x}=\mathbf{b}$ is fairly easy. Now we need an algorithm to find the factorization $\mathbf{A}=\mathbf{L}\mathbf{U}$.
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)=\left( \begin{matrix}
+1 & 0 & 0 \\
+{l}_{10} & 1 & 0 \\
+{l}_{20} & {l}_{21} & 1
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)$$
+
+- First observation: counting coefficients, you might notice that $\mathbf{A}$ has ${N}^{2}$ coefficients, while $\mathbf{L}$ and $\mathbf{U}$ each have $N(N+1)/2$.
+  - Turns out we can set ${l}_{ii}=1$.
+- Crout's method: there is a clever order in which to compute the ${u}_{ij}$ and ${l}_{ij}$ which makes the computation ~trivial.
+  - You might already see that ${u}_{0j}$ is trivial.
+
+---
+
+## LU Decomposition: Crout's method
+
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right)=\left( \begin{matrix}
+1 & 0 & 0 \\
+{l}_{10} & 1 & 0 \\
+{l}_{20} & {l}_{21} & 1
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)$$
+
+- for j in range(N):
+- for i in range(j+1):
+- u_ij = a_ij - sum(l_ik * u_kj, k=0 to i-1)
+- for i in range(j+1, N):
+- l_ij = 1/u_jj * (a_ji - sum(l_ik * u_kj, k = 0  to j-1)
+
+- It's a bit hard to see from the pseudocode, but pretty easy to see by hand. Try writing out the first few:
+
+- ${u}_{00}={a}_{00}$, ${l}_{10}={a}_{10}/{u}_{00}$, ${l}_{20}={a}_{20}/{u}_{00}$
+- ${u}_{01}={a}_{01}$, ${u}_{11}={a}_{11}-{l}_{10}{u}_{01}$, ${l}_{21}=({a}_{21}-{l}_{20}{u}_{01}))/{u}_{11}$, ...
+
+---
+
+## LU Decomposition: Crout's method
+
+
+- Note: we can actually calculate the ${u}_{ij}$ and ${l}_{ij}$ "in place", using the memory originally used by $\mathbf{A}$!
+  - Once a given ${u}_{ij}$ or ${l}_{ij}$ is calculated, then ${a}_{ij}$ is no longer needed.
+
+- $$\left( \begin{matrix}
+{a}_{00} & {a}_{01} & {a}_{02} \\
+{a}_{10} & {a}_{11} & {a}_{12} \\
+{a}_{20} & {a}_{21} & {a}_{22}
+\end{matrix} \right) \longrightarrow \left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+{l}_{10} & {u}_{11} & {u}_{12} \\
+{l}_{20} & {l}_{21} & {u}_{22}
+\end{matrix} \right)\left( \begin{matrix}
+{u}_{00} & {u}_{01} & {u}_{02} \\
+0 & {u}_{11} & {u}_{12} \\
+0 & 0 & {u}_{22}
+\end{matrix} \right)$$
+
+---
+
+# Special case: "tridiagonal matrices"
+
+---
+
+## Tridiagonal matrices
+
+:::: {.columns}
+::: {.column width="55%"}
+- For matrices with special properties, specific algorithms can perform faster.
+- A tridiagonal matrix has the form shown at right.
+- You can probably guess that solving $\mathbf{M}\mathbf{x}=\mathbf{b}$ is much easier for this matrix.
+  - Matrix is "sparse": mostly zeroes.
+  - We can actually solve in $O(N)$ time!
+:::
+::: {.column width="45%"}
+$$\mathbf{M} = \begin{pmatrix}
+2-c & -1 & 0 & \cdots & 0 & 0 \\
+-1 & 2-c & -1 & \cdots & 0 & 0 \\
+0 & -1 & 2-c & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & 2-c & -1 \\
+0 & 0 & 0 & \cdots & -1 & 2-c
+\end{pmatrix},$$
+:::
+::::
+
+---
+
+## Tridiagonal matrices: Thomas algorithm
+
+
+- The system of equations can be written as:
+
+- $${M}_{i}^{-}{x}_{i-1}+{M}_{i}^{0}{x}_{i}+{M}_{i}^{+}{x}_{i+1}={b}_{i}$$
+
+- Define a recursive set of variables ("forwards sweep"):
+
+- $${ \alpha }_{i}=\left\{\begin{aligned}
+{M}_{i}^{+}/{M}_{i}^{0}:i=1 \\
+{M}_{i}^{+}/({M}_{i}^{0}-{M}_{i}^{-}{ \alpha }_{i-1}:i=2,3,...,N-1
+\end{aligned}\right.$$
+
+- $${ \beta }_{i}=\left\{\begin{aligned}
+{b}_{i}/{M}_{i}^{0}:i=1 \\
+({b}_{i}-{M}_{i}^{-}{ \beta }_{i-1})/({M}_{i}^{0}-{M}_{i}^{-}{ \alpha }_{i-1}:i=2,3,...,N-1
+\end{aligned}\right.$$
+
+- Solutions obtained from back-substitution ("backwards sweep"):
+
+- $$\begin{matrix}
+{x}_{N} & ={ \beta }_{N} \\
+{x}_{i} & ={ \beta }_{i}-{ \alpha }_{i}{x}_{i+1}
+\end{matrix}$$
+
+- $ \Rightarrow O(N)$ algorithm instead of $O({N}^{3})$ for Gaussian elimination!
+
+---
+
+## Checkpoint
+
+
+- We've gone over a few algorithms for solving systems of equations, $\mathbf{A}.\mathbf{x}=\mathbf{b}$.
+- Generic Cramer's Rule is $O(N!)$... not very usable in practice!
+- Medium-sized matrices ($N \approx 10-{10}^{3}$):
+  - Gaussian elimination is $O({N}^{3})$: apply row operations to achieve reduced row echelon form.
+  - Gauss–Jordan elimination packs a few solutions plus ${\mathbf{A}}^{-1}$into one big matrix equation, then proceeds like Gaussian elimination.
+  - LU decomposition is more efficient (no ${\mathbf{A}}^{-1}$ calculation, $\mathbf{L}\mathbf{U}$ can be reused).
+  - Note: using ${\mathbf{A}}^{-1}$ directly tends to perform poorly. See this nice blog by Gregory Gundersen: https://gregorygundersen.com/blog/2020/12/09/matrix-inversion/
+- For sparse matrices, there are faster algorithms, e.g. $O(N)$ Thomas algorithm for tridiagonal matrices.
+
+---
+
+# Applications
+
+---
+
+## Applications
+
+
+- Examples:
+  - Polynomial fits (again)
+  - Circuit diagrams
+  - Boundary value problems
+
+---
+
+## Back to generalized ${ \chi }^{2}$ fitting
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+
+- Recall back to the beginning of October: generalized ${ \chi }^{2}$ fitting.
+
+![](/assets/04_linalg/slide36_droppedImage.png){fig-alt="Hand-drawn sketch of a wavy curve fit through a series of data points with vertical error bars, illustrating a chi-squared curve-fitting example."}
+
+- $${ \chi }^{2}(\mathop{a}\limits^{⃗})=\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}{\left( \frac{{y}_{i}-y(x;\mathop{a}\limits^{⃗})}{{ \sigma }_{i}} \right)}^{2}$$
+
+- Data points: ${x}_{i},{y}_{i} \pm { \sigma }_{i}$
+- Fit function: $y(x;,\mathop{a}\limits^{⃗})$
+- Determine $\mathop{a}\limits^{⃗}$ by minimizing:
+
+---
+
+## Back to generalized ${ \chi }^{2}$ fitting
+
+
+- Consider functions of the form: $y(x;\mathop{a}\limits^{⃗})=\mathop{\mathop{ \sum }\limits_{k=0}}\limits^{m-1}{a}_{k}{Y}_{k}(x)$
+  - E.g., sum of monomials (Taylor series) or other polynomial basis functions (Bernstein/Chebyshev/Legendre/etc.).
+- We were able to analytically solve for the ${ \chi }^{2}$ minimization, aided by two intermediate objects:
+
+- $${A}_{ij}=\frac{{Y}_{j}({x}_{i})}{{ \sigma }_{i}},{b}_{i}=\frac{{y}_{i}}{{ \sigma }_{i}}$$
+
+---
+
+## Design matrix
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- $$\mathbf{A}=\left( \begin{matrix}
+{Y}_{1}({x}_{1})/{ \sigma }_{1} & {Y}_{2}({x}_{1})/{ \sigma }_{1} & ... \\
+{Y}_{1}({x}_{2})/{ \sigma }_{2} & {Y}_{2}({x}_{2})/{ \sigma }_{2} & ... \\
+{Y}_{1}({x}_{3})/{ \sigma }_{2} & {Y}_{2}({x}_{3})/{ \sigma }_{2} & ... \\
+{Y}_{1}({x}_{4})/{ \sigma }_{2} & {Y}_{2}({x}_{4})/{ \sigma }_{2} & ... \\
+... & ... & ...
+\end{matrix} \right)$$
+
+- N data points
+
+- M basis functions
+
+- Note: $N \geq M$! Typically >>
+
+---
+
+## ${ \chi }^{2}$ minimization results
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- In terms of $\mathbf{A}$ and $\mathop{b}\limits^{⃗}$, the ${ \chi }^{2}$ minimization yields:
+
+- $$\begin{matrix}
+\mathbf{A} & =\left( \begin{matrix}
+{Y}_{1}({x}_{1})/{ \sigma }_{1} & {Y}_{2}({x}_{1})/{ \sigma }_{1} & ... \\
+{Y}_{1}({x}_{2})/{ \sigma }_{2} & {Y}_{2}({x}_{2})/{ \sigma }_{2} & ... \\
+... & ... & ...
+\end{matrix} \right) \\
+{b}_{i} & ={y}_{i}/{ \sigma }_{i}
+\end{matrix}$$
+
+- $$\mathop{a}\limits^{⃗}=({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}{\mathbf{A}}^{T}\mathop{b}\limits^{⃗}$$
+![](/assets/04_linalg/slide39_image21.png){fig-alt="Mostly blank rectangle with a rough blue border, apparently a placeholder box left empty on the slide."}
+
+- What about $ \sigma ({a}_{i})$? As usual, use propagation of uncertainty... but it's a lot of algebra! See Numerical Recipes for derivation.
+- The full covariance matrix is given by:
+
+- $$\mathbf{C} \equiv ({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}$$
+
+- I.e., the parameter uncertainties are:
+
+- $$ \sigma ({a}_{i}{)}^{2}={C}_{ii}$$
+
+- And the covariances are:
+
+- $$\text{cov}({a}_{i},{a}_{j})={C}_{ij}$$
+
+---
+
+## Example: polynomial fit
+
+- Simple example: consider a  polynomial fit, $y(x,\mathop{a}\limits^{⃗})=\mathop{\mathop{ \sum }\limits_{j=0}}\limits^{M-1}{a}_{j}{x}^{j}$.
+- The ${ \chi }^{2}$ equation is:
+
+- $${ \chi }^{2}(\mathop{a}\limits^{⃗})=\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}{\left( \frac{{y}_{i}-{ \sum }_{j=0}^{M-1}{a}_{j}{x}^{j}}{{ \sigma }_{i}} \right)}^{2}$$
+
+- And the design matrix is just ${A}_{ij}={x}_{i}^{j}/{ \sigma }_{i}$.
+- Let's see this in action at LinearAlgebra/co2_polyfit.ipynb.
+  - Note: numpy's newer polynomial module doesn't return a covariance matrix ☹️
+  - The older np.polyfit can be used instead.
+
+---
+
+## Circuits
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Second application: solving circuits using Kirchoff's Laws.
+- Consider the Wheatstone bridge (wikipedia):
+
+- RV
+
+- Ra
+
+- Main use case: measuring ${R}_{x}$ by balancing ${R}_{2}$ so that no current flows through ${V}_{G}$.
+
+![](/assets/04_linalg/slide41_pasted-movie.png){fig-alt="Detailed labeled Wheatstone bridge circuit: a battery connected to a diamond arrangement of four resistors R1, R2 (variable), R3, and Rx at nodes A, B, C, D, with a voltmeter V_G bridging nodes D and B."}
+
+---
+
+## Circuits
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the general solution for this circuit.
+
+- RV
+
+- Ra
+
+![](/assets/04_linalg/slide42_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge circuit: a battery connected to four resistors R1, R2, R3, Rx arranged in a diamond at nodes A, B, C, D, with a voltmeter V_G bridging nodes D and B."}
+
+- i1
+
+- i2
+
+- i3
+
+---
+
+## Circuits
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the general solution for this circuit.
+
+- RV
+
+- Ra
+
+![](/assets/04_linalg/slide43_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge circuit: a battery connected to four resistors R1, R2, R3, Rx arranged in a diamond at nodes A, B, C, D, with a voltmeter V_G bridging nodes D and B."}
+
+- i1
+
+- i2
+
+- i3
+
+- i1+i3
+
+- i1-i2
+
+- i1-i2+i3
+
+- From current conservation
+
+---
+
+## Circuits
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the general solution for this circuit.
+
+- RV
+
+- Ra
+
+![](/assets/04_linalg/slide44_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge circuit: a battery connected to four resistors R1, R2, R3, Rx arranged in a diamond at nodes A, B, C, D, with a voltmeter V_G bridging nodes D and B."}
+
+- i1
+
+- i2
+
+- i3
+
+- i1+i3
+
+- i1-i2
+
+- i1-i2+i3
+
+- From current conservation
+
+- $$\begin{matrix}
+{R}_{1}{i}_{1}+{R}_{2}{i}_{2}+{R}_{V}({i}_{1}+{i}_{3}) & =V \\
+{R}_{1}{i}_{1}+{R}_{a}({i}_{1}-{i}_{2})-{R}_{3}{i}_{3} & =0 \\
+{R}_{x}({i}_{1}-{i}_{2}+{i}_{3})-{R}_{2}{i}_{2}+{R}_{a}({i}_{1}-{i}_{2}) & =0
+\end{matrix}$$
+
+- From $ \Delta V=0$ around the 3 loops
+
+- 1
+
+- 2
+
+- 3
+
+---
+
+## Circuits
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the general solution for this circuit.
+
+- RV
+
+- Ra
+
+![](/assets/04_linalg/slide45_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge circuit: a battery connected to four resistors R1, R2, R3, Rx arranged in a diamond at nodes A, B, C, D, with a voltmeter V_G bridging nodes D and B."}
+
+- i1
+
+- i2
+
+- i3
+
+- i1+i3
+
+- i1-i2
+
+- i1-i2+i3
+
+- From current conservation
+
+- $$\begin{matrix}
+{R}_{1}{i}_{1}+{R}_{2}{i}_{2}+{R}_{V}({i}_{1}+{i}_{3}) & =V \\
+{R}_{1}{i}_{1}+{R}_{a}({i}_{1}-{i}_{2})-{R}_{3}{i}_{3} & =0 \\
+{R}_{x}({i}_{1}-{i}_{2}+{i}_{3})-{R}_{2}{i}_{2}+{R}_{a}({i}_{1}-{i}_{2}) & =0
+\end{matrix}$$
+
+- From $ \Delta V=0$ around the 3 loops
+
+- $$\left( \begin{matrix}
+{R}_{1}+{R}_{V} & {R}_{2} & {R}_{V} \\
+{R}_{1}+{R}_{a} & -{R}_{a} & -{R}_{3} \\
+{R}_{x}+{R}_{a} & -{R}_{2}-{R}_{x}-{R}_{a} & {R}_{x}
+\end{matrix} \right)\left( \begin{aligned}
+{i}_{1} \\
+{i}_{2} \\
+{i}_{3}
+\end{aligned} \right)=\left( \begin{aligned}
+V \\
+0 \\
+0
+\end{aligned} \right)$$
+
+---
+
+## Boundary value problems
+
+- Third application: boundary value problems.
+- Consider the following differential equation:
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}=-\frac{{ \pi }^{2}}{4}(u+1)$$
+
+- Dirichlet boundary conditions: $u(0)=0$, $u(1)=1$
+- We can discretize the problem:
+- This is exactly our tridiagonal matrix from earlier, with $c={h}^{2}{ \pi }^{2}/4$
+
+- $$-\frac{{u}_{i+1}-2{u}_{i}+{u}_{i-1}}{{h}^{2}}=\frac{{ \pi }^{2}}{4}({u}_{i}+1)$$
+
+$$\mathbf{M} = \begin{pmatrix}
+2-c & -1 & 0 & \cdots & 0 & 0 \\
+-1 & 2-c & -1 & \cdots & 0 & 0 \\
+0 & -1 & 2-c & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & 2-c & -1 \\
+0 & 0 & 0 & \cdots & -1 & 2-c
+\end{pmatrix},$$
+
+$$\mathbf{x} = \begin{pmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_{N-2} \\ u_{N-1} \end{pmatrix}, \quad \mathbf{b} = \begin{pmatrix} u_0+c \\ c \\ c \\ \vdots \\ c \\ u_N+c \end{pmatrix},$$
+
+---
+
+## Hand-on/recap
+
+- Try out these methods:
+- CompPhys/LinearAlgebra/wheatstone.ipynb
+  - Closely related to Assignment 5, Problem 3!
+  - Matrix equation uses np.linalg.solve(), which wraps LAPACK _gesv.
+- CompPhys/LinearAlgebra/bvp.ipynb
+  - Solves a 1D harmonic oscillator equation by approximating as a tridiagonal matrix.
+  - Uses scipy.sparse.diags to represent a sparse, diagonal matrix, and scipy.sparse.linalg to solve using Thomas algorithm.
+- Next time: eigenvalues and eigenvectors.
+
+---
+
+# Eigenvectors and eigenvalues
+
+---
+
+## Eigenvectors and eigenvalues
+
+- Today : Eigenvalues and eigenvectors, more hands on
+- References: Numerical Recipes, Chapter 11
+  - In this case, even they recommend using packaged software for eigenvalues and eigenvectors, but let’s get the general gist here
+
+---
+
+## Example: coupled harmonic oscillators
+
+- To set the stage, consider the problem of coupled harmonic oscillators, represented by (complex) displacement vectors ${q}_{j}(t)$.
+  - E.g. a 1D line of weights connected by springs; ${q}_{j}$ is displacement from resting position.
+- System has Lagrangian $L=T-U$ given by:
+
+- $$\mathcal{L}=\frac{1}{2}\mathop{\mathop{ \sum }\limits_{j,k=0}}\limits^{N-1}{M}_{jk}{\mathop{q}\limits^{ \cdot }}_{j}{\mathop{q}\limits^{ \cdot }}_{k}-\frac{1}{2}\mathop{\mathop{ \sum }\limits_{j,k=0}}\limits^{N-1}{A}_{jk}{q}_{j}{q}_{k}$$
+
+- (Probably mostly 0s in these matrices, but let's keep the notation general for now)
+
+- Let's consider the "normal mode" solution. Let all ${q}_{i}$ oscillate with the same frequency, $ \omega $, so ${q}_{j}(t)={x}_{j}{e}^{i \omega t}$:
+
+- $$\begin{matrix}
+\mathop{\mathop{ \sum }\limits_{j=0}}\limits^{N-1}\left[ {A}_{jk}-{M}_{jk}{ \omega }^{2} \right]{x}_{j} & =0 \\
+(\mathbf{A}-\mathbf{M}{ \omega }^{2}).\mathbf{x} & =0
+\end{matrix}$$
+
+- This is a general eigenvalue problem: solve for $ \omega $ by finding solutions to $det(\mathbf{A}-\mathbf{M}{ \omega }^{2})=0$.
+
+---
+
+## Eigenvalue basics
+
+- Let $\mathbf{A}$ be a $N \times N$ matrix. An eigenvector $\mathbf{x}$ and and the corresponding eigenvalue $ \lambda $ are solutions satisfying $\mathbf{A}\mathbf{x}= \lambda \mathbf{x}$.
+- The classic way of solving this is to promote $ \lambda $ to a matrix, $ \lambda \mathbf{1}$:
+
+- $$\begin{aligned}
+[\mathbf{A}- \lambda \mathbf{1}]\mathbf{x}=0
+\end{aligned}$$
+
+- This can only hold if $det(\mathbf{A}- \lambda \mathbf{1})=0$.
+- As a function of $ \lambda $, the determinant is a polynomial of degree $N$ in $ \lambda $, where the coefficients are products of various ${A}_{ij}$: the characteristic polynomial.
+- Eigenvalues are the solutions of$\mathop{\mathop{ \sum }\limits_{j=0}}\limits^{N}{a}_{j}{ \lambda }^{j}=0$, i.e. roots of the polynomial.
+  - There are $N$ roots; however, some values might be repeated.
+
+---
+
+## Example
+
+- Let's consider a simple example: $\mathbf{A}=\left( \begin{matrix}
+1 & 1 \\
+1 & 2
+\end{matrix} \right)$.
+- The characteristic equation is:
+
+- $$\begin{matrix}
+0 & =det\left( \begin{matrix}
+1- \lambda  & 1 \\
+1 & 2- \lambda 
+\end{matrix} \right) \\
+ & =(1- \lambda )(2- \lambda )-1 \\
+ & ={ \lambda }^{2}-3 \lambda +1 \\
+{ \lambda }_{ \pm } & =\frac{3 \pm \sqrt{5}}{2}
+\end{matrix}$$
+
+- Then, we can solve for the eigenvectors by solving the system of equations. (Note: if $\mathbf{x}$ is an eigenvector, $ \alpha \mathbf{x}$ is also an eigenvector, so we actually only have one number to solve for, not two.
+
+- $${\mathbf{x}}_{ \pm }=\left( \begin{aligned}
+1 \\
+{ \lambda }_{ \pm }-1
+\end{aligned} \right)$$
+
+---
+
+## Example 2
+
+- Another example: $\mathbf{A}=\left( \begin{matrix}
+1 & 1 \\
+-1 & 1
+\end{matrix} \right)$.
+- Computer the eigenvalues:
+
+- $$\begin{matrix}
+0 & =det\left( \begin{matrix}
+1- \lambda  & 1 \\
+-1 & 1- \lambda 
+\end{matrix} \right) \\
+ & =(1- \lambda {)}^{2}+1 \\
+ & ={ \lambda }^{2}-2 \lambda +2 \\
+{ \lambda }_{ \pm } & =\frac{2 \pm \sqrt{-4}}{2} \\
+ & =1 \pm i
+\end{matrix}$$
+
+- $ \Rightarrow $ eigenvalues can be complex.
+
+---
+
+## Naive solution
+
+:::: {.columns}
+::: {.column width="55%"}
+- Now let's think about computational algorithms.
+- First guess: we just covered root finding. We could use these tools (e.g. Newton's method) to solve for the eigenvalues.
+- In practice, this does not work very well!
+  - You need to know roughly where the roots are to find all of them with Newton's method.
+  - This only works for eigenvalues; eigenvectors require another computation.
+- Let's try harder!
+  - Starting with a few more definitions.
+:::
+::: {.column width="45%"}
+![10-graphing-polynomials-01.png](/assets/04_linalg/10-graphing-polynomials-01.png){width="100%" fig-alt="Graph of a polynomial curve with local maxima and minima labeled with coordinates: (-3,2), (-1,-3), (2,1), and (4,-1)."}
+:::
+::::
+
+---
+
+## Special matrices
+
+- Let's start with some special types of matrices:
+  - A hermitian matrix, $\mathbf{H}$, satisfies ${\mathbf{H}}^{ \dagger }=\mathbf{H}$, where ${}^{ \dagger }$ denotes the conjugate transpose.
+    - For non-complex numbers: a symmetric matrix, $\mathbf{S}$, satisfies ${\mathbf{S}}^{T}=\mathbf{S}$.
+  - A normal matrix, $\mathbf{N}$, satisfies ${\mathbf{N}}^{ \dagger }\mathbf{N}=\mathbf{N}{\mathbf{N}}^{ \dagger }$, i.e., it commutes with its conjugate transpose.
+  - A unitary matrix satisfies $\mathbf{H}{\mathbf{H}}^{ \dagger }={\mathbf{H}}^{ \dagger }\mathbf{H}=\mathbf{1}$, i.e., the inverse is equal to the conjugate transpose.
+    - An orthogonal matrix satisfies $\mathbf{S}{\mathbf{S}}^{T}={\mathbf{S}}^{T}\mathbf{S}=\mathbf{1}$.
+
+- In physics applications, symmetric matrices are more common than you might think. Example: Newton's Laws $ \Rightarrow $ symmetric forces, potentials
+
+---
+
+## Special matrices and eigenvalues
+
+- These types of matrices have important properties regarding their eigenvalues and eigenvectors:
+  - Hermitian matrices have real eigenvalues.
+  - The eigenvectors of normal matrices form an orthonormal basis for ${\mathbb{C}}^{N}$ (with the proper normalization).
+    - (If the eigenvalues are degenerate, there is some freedom to choose linear combinations of the corresponding eigenvectors, but one can still find orthonormal combinations.)
+  - The matrix formed from an orthonormal set of (eigen)vectors is unitary.
+- Conversely, for general matrices:
+  - Eigenvalues are generally complex, even for real matrices.
+  - Eigenvectors are generally not orthogonal.
+    - The do usually still span ${\mathbb{C}}^{N}$, but it is not guaranteed.
+
+---
+
+## Left and right eigenvalues
+
+- So far, we have been talking about "right eigenvectors": $\mathbf{A}.{\mathbf{x}}_{R}= \lambda {\mathbf{x}}_{R}$.
+  - In Einstein summation notation, ${A}_{ij}{x}_{j}= \lambda {x}_{j}$
+- Left eigenvectors satisfy $\mathbf{x}.\mathbf{A}= \lambda \mathbf{x}$
+  - In Einstein summation notation, ${x}_{i}{A}_{ij}= \lambda {x}_{j}$
+- We can also write this ${A}_{ji}{x}_{i}= \lambda {x}_{j}$
+  - In other words, ${\mathbf{A}}^{T}\mathbf{x}= \lambda \mathbf{x}$: right eigenvectors are just eigenvectors of ${\mathbf{A}}^{T}$.
+- Properties:
+  - Since $det\mathbf{A}=det{\mathbf{A}}^{T}$, the L and R eigenvalues are identical.
+  - If $\mathbf{A}$ is symmetric, the L and R eigenvectors are identical
+    - (Similarly, if $\mathbf{A}$ is Hermitian, the L and R eigenvectors are complex conjugate.)
+
+---
+
+## Left and right eigenvalues
+
+- L and R eigenvectors are rather useful, particularly to form two matrices:
+  - ${\mathbf{X}}_{R}$ = matrix formed from columns of right eigenvectors.
+  - ${\mathbf{X}}_{L}$ = matrix formed from rows of left eigenvectors.
+- First use case: we can show that each left eigenvector is orthogonal to all right eigenvectors except for the one that shares an eigenvalue.
+  - Reasoning:
+
+- $$\mathbf{A}.{\mathbf{X}}_{R}=\mathbf{A}.\left( \begin{matrix}
+| & | & ... & | \\
+{\mathbf{x}}_{R}^{0} & {\mathbf{x}}_{R}^{1} & .. & {\mathbf{x}}_{R}^{N-1} \\
+| & | & ... & |
+\end{matrix} \right)=\left( \begin{matrix}
+| & | & ... & | \\
+{\mathbf{x}}_{R}^{0} & {\mathbf{x}}_{R}^{2} & .. & {\mathbf{x}}_{R}^{N-1} \\
+| & | & ... & |
+\end{matrix} \right).\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1})$$
+
+- $${\mathbf{X}}_{L}.\mathbf{A}=\left( \begin{matrix}
+- & {\mathbf{x}}_{L}^{0} & - \\
+- & {\mathbf{x}}_{L}^{1} & - \\
+ \vdots  &  \vdots  &  \vdots  \\
+- & {\mathbf{x}}_{L}^{N-1} & -
+\end{matrix} \right).\mathbf{A}=\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1}).\left( \begin{matrix}
+- & {\mathbf{x}}_{L}^{0} & - \\
+- & {\mathbf{x}}_{L}^{1} & - \\
+ \vdots  &  \vdots  &  \vdots  \\
+- & {\mathbf{x}}_{L}^{N-1} & -
+\end{matrix} \right)$$
+
+- The order is important!
+
+---
+
+## Left and right eigenvalues
+
+- Now compute ${\mathbf{X}}_{L}.\mathbf{A}.{\mathbf{X}}_{R}$ using both equations:
+
+- $${\mathbf{X}}_{L}.{\mathbf{X}}_{R}.\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1})=\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1}).{\mathbf{X}}_{L}.{\mathbf{X}}_{R}$$
+
+- This commutation relation is actually quite strict!
+  - Consider what ${ \lambda }_{0}$ multiplies: on the left, it multiplies the first column of ${\mathbf{X}}_{L}.{\mathbf{X}}_{R}$, while on the right, it multiplies the first row of ${\mathbf{X}}_{L}.{\mathbf{X}}_{R}$.
+  - For general ${ \lambda }_{i}$, this is only satisfied if ${\mathbf{X}}_{L}.{\mathbf{X}}_{R}$ is diagonal.
+- Thus, $({\mathbf{X}}_{L}.{\mathbf{X}}_{R}{)}_{ij}={\mathbf{x}}_{L}^{i} \cdot {\mathbf{x}}_{R}^{j}$ is nonzero iff $i=j$.
+  - And with appropriate normalization, ${\mathbf{x}}_{L}^{i} \cdot {\mathbf{x}}_{R}^{i}=1 \blacksquare $,
+- $ \Rightarrow {\mathbf{X}}_{L}={\mathbf{X}}_{R}^{-1}$.
+
+---
+
+## Matrix diagonalization
+
+- The left- and right-eigenvector matrices are particularly useful because they define a transformation that diagonalizes $\mathbf{A}$:
+
+- $$\begin{matrix}
+{\mathbf{X}}_{L}.\mathbf{A}.{\mathbf{X}}_{R} & ={\mathbf{X}}_{R}^{-1}.\mathbf{A}.{\mathbf{X}}_{R} \\
+ & ={\mathbf{X}}_{R}^{-1}.\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1}).{\mathbf{X}}_{R} \\
+ & =\text{diag}({ \lambda }_{0},{ \lambda }_{1},...,{ \lambda }_{N-1})
+\end{matrix}$$
+
+- In fact, we can use this to compute eigenvalues!
+
+---
+
+## Symmetry transformations
+
+- This is an example of a symmetry transformation, $\mathbf{A} \rightarrow {\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}$.
+  - Symmetry transformations leave the eigenvalues unchanged:
+
+- $$\begin{matrix}
+det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf{Z}}^{-1}(\mathbf{A}- \lambda \mathbf{1})\mathbf{Z}) \\
+ & =det({\mathbf{Z}}^{-1})det(\mathbf{A}- \lambda \mathbf{1})det(\mathbf{Z}) \\
+ & =det(\mathbf{A}- \lambda \mathbf{1})
+\end{matrix}$$
+
+---
+
+## Symmetry transformations
+
+- This is a key technique for handling eigensystems in computations algorithms: repeated apply symmetry transformations until the matrix is diagonal, or nearly diagonal.
+
+- $$\mathbf{A} \rightarrow {\mathbf{P}}_{1}^{-1}\mathbf{A}{\mathbf{P}}_{1} \rightarrow {\mathbf{P}}_{2}^{-1}{\mathbf{P}}_{1}^{-1}\mathbf{A}{\mathbf{P}}_{1}{\mathbf{P}}_{2} \rightarrow {\mathbf{P}}_{3}^{-1}{\mathbf{P}}_{2}^{-1}{\mathbf{P}}_{1}^{-1}\mathbf{A}{\mathbf{P}}_{1}{\mathbf{P}}_{2}{\mathbf{P}}_{3} \rightarrow ...$$
+
+- If we transform all the way to a diagonal matrix, then we have all the eigenvectors and eigenvalues.
+- If we just need eigenvalues and not eigenvectors, it suffices to transform to a triangular matrix (think about the characteristic polynomial!).
+- Other methods aim for tridiagonal or block diagonal form.
+  - Once in these forms, the eigensystem is easy to solve.
+
+---
+
+## Algorithms
+
+- We won't actually prove any algorithms here, as the details are tedious and not very illuminating. See Numerical Recipes if you are interested in details!
+- Jacobi transformation for symmetric matrices: each transformation is a rotation in 2D that 0s one element (prior 0s get un-0ed, but matrix converges towards diagonal).
+- Givens/Householder algorithms reduce symmetric matrices to tridiagonal form.
+  - QL algorithm (w/implicit shifts) solves the tridiagonal matrix system (Q=orthogonal matrix, L=lower diagonal matrix)
+  - Or newer algorithms: "divide and conquer," "MRRR".
+- Non-symmetric matrices: reduce to Hessenberg form (nearly triangular) + QR algorithm.
+- Generalizations to $\mathbf{A}.\mathbf{x}= \lambda \mathbf{B}\mathbf{x}$, $(\mathbf{A}{ \lambda }^{2}+\mathbf{B} \lambda +\mathbf{C}).\mathbf{x}=0$.
+
+---
+
+## Householder method
+
+![Screenshot 2025-11-07 at 12.20.38 PM.png](/assets/04_linalg/Screenshot-2025-11-07-at-12.20.38-PM.png){width="70%" fig-alt="Textbook screenshot (equation 11.3.7) showing the matrix product P1 times A, where P1 zeroes out the first column below the pivot, resulting in a matrix with a00, k, and zeros in the first column and an 'irrelevant' block for the remaining entries."}
+
+![Screenshot 2025-11-07 at 12.20.59 PM.png](/assets/04_linalg/Screenshot-2025-11-07-at-12.20.59-PM.png){width="70%" fig-alt="Textbook screenshot defining the permutation/Householder matrix P2 as a block matrix: a 2x2 identity block in the top-left corner and an (n-2)-dimensional P2 block filling the rest."}
+
+- Let's say ${}^{(n-1)}{\mathbf{P}}_{1}$ is the orthogonal matrix that rotates $({a}_{10},{a}_{20},...,{a}_{n-1,0})$ to $(k,0,...,0)$. Then:
+
+---
+
+## Householder method
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](/assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.20.59-PM.png){fig-alt="Textbook screenshot defining the permutation/Householder matrix P2 as a block matrix: a 2x2 identity block in the top-left corner and an (n-2)-dimensional P2 block filling the rest."}
+
+![](/assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.21.16-PM.png){fig-alt="Textbook screenshot showing the similarity transform A' = P*A*P as a matrix with a00 and k in the first row/column and an 'irrelevant' block for the remaining entries."}
+
+- Next iteration:
+
+![](/assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.20.38-PM.png){fig-alt="Textbook screenshot (equation 11.3.7) showing the matrix product P1 times A, where P1 zeroes out the first column below the pivot, resulting in a matrix with a00, k, and zeros in the first column and an 'irrelevant' block for the remaining entries."}
+
+---
+
+## Householder method
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- The Householder method reduces a $N \times N$ symmetric matrix to tridiagonal form.
+- $N-2$ orthogonal transformations ($\mathbf{A} \rightarrow {\mathbf{P}}^{-1}\mathbf{A}\mathbf{P}$), each eliminating the necessary elements from one row and one column.
+
+- $$\mathbf{P}=\mathbf{1}-\frac{\mathbf{u} \cdot {\mathbf{u}}^{T}}{0.5|\mathbf{u}{|}^{2}}$$
+
+- $$\mathbf{u}=\mathbf{x} \mp |\mathbf{x}|{\mathbf{e}}_{i}$$
+
+- Householder matrices look like:
+
+- Where $\mathbf{u}$ look like:
+
+![](/assets/04_linalg/slide66_Screenshot-2025-11-07-at-12.17.34-PM.png){fig-alt="Upper-triangular-shaped grid of x marks illustrating the banded/sparse nonzero pattern of a matrix reduced by Householder reflections."}
+
+- https://www.cs.cornell.edu/~bindel/class/cs6210-f12/notes/lec16.pdf
+
+- Intuition: $\mathbf{P}$ encodes a reflection of $\mathbf{x}$, transforming it to point along ${\mathbf{e}}_{i}$.
+  - In other words, zero out all $({x}_{1}{x}_{2}...)$ except for ${x}_{i}$.
+- Basic idea: let $\mathbf{x}$ be the elements to be 0-ed at each step
+  - ($N-1$ elements for step 0; $N-2$ elements for step 1; ...)
+
+---
+
+## Householder method
+
+- Let's verify that $\mathbf{P}=\mathbf{1}-\frac{\mathbf{u} \cdot {\mathbf{u}}^{T}}{0.5|\mathbf{u}{|}^{2}}$ (where $\mathbf{u}=\mathbf{x} \mp |\mathbf{x}|{\mathbf{e}}_{i}$) does what we want:
+
+- $$\begin{matrix}
+|\mathbf{u}{|}^{2} & =|\mathbf{x}{|}^{2} \mp 2{x}_{i}|\mathbf{x}|+|\mathbf{x}{|}^{2}|{\mathbf{e}}_{i}{|}^{2} \\
+ & =2|\mathbf{x}{|}^{2} \mp 2{x}_{i}|\mathbf{x}{|}^{2} \\
+{\mathbf{u}}^{T}.\mathbf{x} & =|\mathbf{x}{|}^{2} \mp |\mathbf{x}{\mathbf{e}}_{i} \\
+\mathbf{P}\mathbf{x} & =\mathbf{x}-\frac{2\mathbf{u}({\mathbf{u}}^{T}.\mathbf{x})}{|\mathbf{u}{|}^{2}} \\
+ & =\mathbf{x}-\frac{\mathbf{u}.(|\mathbf{x}{|}^{2} \mp |\mathbf{x}|{x}_{i})}{|\mathbf{x}{|}^{2} \mp |\mathbf{x}|{x}_{i}} \\
+ & =\mathbf{x}-\mathbf{u} \\
+ & = \pm |\mathbf{x}|{\mathbf{e}}_{i}
+\end{matrix}$$
+
+- ✅
+
+---
+
+## Householder method
+
+- Hence, for symmetric matrices, successive Householder operations transform  a matrix to tridiagonal form.
+  - You can also see that for asymmetric matrices, the Householder method still works to zero out half the matrix, say the bottom half triangle.
+  - This is Hessenberg form:
+
+![Screenshot 2025-11-09 at 6.22.46 PM.png](/assets/04_linalg/Screenshot-2025-11-09-at-6.22.46-PM.png){width="70%" fig-alt="Three-panel physics figure: a log-log plot of differential cross-section d(sigma)/dM vs mass M at sqrt(s)=7 TeV comparing NLL and NNLL predictions, a Feynman diagram of top-antitop pair production and decay labeled ATLAS, a cutaway diagram of the ATLAS detector, and a histogram of reconstructed top-antitop mass comparing data to simulated background processes."}
+
+- From here, the QL (or QR) methods efficiently finish off the problem.
+  - $O(N)$ for tridiagonal matrices, $O({N}^{2})$ for Hessenberg matrices.
+  - Idea: use Householder again to find $\mathbf{A}=\mathbf{Q}\mathbf{L}$ decomposition.
+    - If we eliminate one off-diagonal, the result is (L/U) triangular.
+  - $\mathbf{A} \rightarrow \mathbf{L}\mathbf{Q}$ turns out to be another orthogonal transformation, and converges towards triangular form, whereupon the eigenvalues appear on the diagonal.
+
+---
+
+## Algorithms
+
+- Find a good algorithm for your exact problem:
+  - Just eigenvalues; eigenvalues and some eigenvectors; eigenvalues and all eigenvectors.
+  - Matrix type:
+    - Real
+      - Symmetric
+        - General, tridiagonal, banded
+      - Non-symmetric
+    - Complex
+      - Hermitian
+      - Non-Hermitian
+- scipy.linalg implements quite a few options.
+- Read documentation before using!
+  - Pivoting-like arguments once again apply for floating point errors: place largest and smallest elements in specific locations.
+  - However, algorithms go in "different directions" (e.g. top-bottom, left-right), so the optimal "form" differs.
+  - Beware failure modes: algorithms don't have a magic wand for poor-quality matrices.
+
+---
+
+## Singular value decomposition
+
+- So far, we've been mostly focused on "nice" matrices: $N \times N$, invertible.
+  - Life is not always so nice!
+- What about $M \times N$ matrices? Non-invertible (aka "singular") matrices?
+- Key tool: singular value decomposition.
+- Any matrix can be written as:
+
+- $$\mathbf{A}=\mathbf{U}\mathbf{ \Sigma }{\mathbf{V}}^{ \dagger }$$
+
+- Where:
+  - $\mathbf{U}$ = $M \times M$ unitary matrix.
+  - $\mathbf{ \Sigma }$ = $M \times N$ rectangular diagonal matrix, ${ \Sigma }_{ii}$=real, $ \geq 0$.
+  - $\mathbf{V}$ = $N \times N$ unitary matrix.
+- References:
+  - Numerical Recipes, Chapter 2.6 (slightly different formulation)
+  - Wikipedia, scipy.svd
+
+---
+
+## Singular value decomposition
+
+:::: {.columns}
+::: {.column width="55%"}
+- $$\mathbf{A}=\mathbf{U}\mathbf{ \Sigma }{\mathbf{V}}^{ \dagger }$$
+  - $\mathbf{U}$ = $M \times M$ unitary matrix.
+  - $\mathbf{ \Sigma }$ = $M \times N$ diagonal matrix, ${ \Sigma }_{ii}$=real, $ \geq 0$.
+  - $\mathbf{V}$ = $N \times N$ unitary matrix.
+- Intuition:
+  - ${\mathbf{V}}^{ \dagger }$ is a rotation
+  - $\mathbf{ \Sigma }$ is a scaling
+  - $\mathbf{U}$ is another rotation
+- https://en.wikipedia.org/wiki/File:Singular-Value-Decomposition.svg
+:::
+::: {.column width="45%"}
+![pasted-movie.png](/assets/04_linalg/slide71_image31.png){width="100%" fig-alt="Diagram illustrating the singular value decomposition M = U*Sigma*V*, showing a unit circle mapped through V* to another circle, then through Sigma to an ellipse with axes sigma1 and sigma2, then through U to a rotated ellipse, with M mapping the original circle directly to the final ellipse."}
+:::
+::::
+
+---
+
+## Singular value decomposition
+
+- Why is this useful?
+  - The singular values, aka the ${ \Sigma }_{ii}$, encode a lot of information about the transformation $\mathbf{A}:{\mathbb{C}}^{N} \rightarrow {\mathbb{C}}^{M}$.
+- #(zero) ${ \Sigma }_{ii}$ = dimension of nullspace of $\mathbf{A}$: subspace of ${\mathbb{C}}^{N}$ that gets mapped to 0.
+  - Columns of $\mathbf{V}$ = orthonormal basis for ${\mathbb{C}}^{N}$
+  - Columns corresponding to ${ \Sigma }_{ii}=0$ = orthonormal basis for nullspace.
+- #(non-zero) ${ \Sigma }_{ii}$ = dimension of range of $\mathbf{A}$ inside ${\mathbb{C}}^{M}$
+  - Columns of $\mathbf{U}$ = orthonormal basis for ${\mathbb{C}}^{M}$;
+  - Columns corresponding to non-zero ${ \sigma }_{ii}$ = orthonormal basis for range of $\mathbf{A}$.
+
+---
+
+## SVD and eigenvalues
+
+- For square matrices, SVD and eigenvalues are somewhat related, but still distinct:
+  - Eigensystem decomposition: $\mathbf{A}={\mathbf{X}}_{R}\text{diag}({ \lambda }_{i}){\mathbf{X}}_{L}$
+  - SVD: $\mathbf{A}=\mathbf{U}\mathbf{ \Sigma }{\mathbf{V}}^{ \dagger }$
+  - These are not, in general, the same thing!
+  - Special case: if $\mathbf{A}$ is Hermitian ($\mathbf{A}={\mathbf{A}}^{ \dagger }$) (or symmetric, if real), then $\mathbf{V}=\mathbf{U}={\mathbf{X}}_{R}={\mathbf{X}}_{L}^{T}$.
+
+- The condition number is a super useful metric for characterizing the health of your matrix.
+  - Consider the inverse of $\mathbf{A}$: ${\mathbf{A}}^{-1}=\mathbf{V}.\text{diag}(1/{ \Sigma }_{ii}).{\mathbf{U}}^{T}$
+  - Things go wrong when ${ \Sigma }_{ii}=0$, or if the range is too big.
+- Definition: condition number = ratio of largest to smallest singular values.
+  - Keep it well above your floating point precision!
+
+---
+
+## Example: unfolding
+
+- Common problem in particle physics: connecting theory predictions (e.g. differential cross section from QFT calculation) with detector observations:
+
+![Screenshot 2025-11-10 at 11.45.30 AM.png](/assets/04_linalg/Screenshot-2025-11-10-at-11.45.30-AM.png){width="70%" fig-alt="Three-panel physics figure: a log-log plot of differential cross-section d(sigma)/dM vs mass M at sqrt(s)=7 TeV comparing NLL and NNLL predictions, a Feynman diagram of top-antitop pair production and decay labeled ATLAS, a cutaway diagram of the ATLAS detector, and a histogram of reconstructed top-antitop mass comparing data to simulated background processes."}
+
+- https://www-library.desy.de/preparch/desy/proc/proc14-02/P52.pdf
+
+---
+
+## Example: unfolding
+
+:::: {.columns}
+::: {.column width="55%"}
+- General idea:
+  - Let $\mathbf{d}$ be some detector observations.
+  - Let $\mathbf{t}$ be the theory prediction
+    - Typically, $\text{len}(\mathbf{d})>\text{len}(\mathbf{t})$
+  - Create response matrix, $\mathbf{R}$, using detector simulation: $\mathbf{d}=\mathbf{R}.\mathbf{t}$
+  - Then $\mathbf{t}={\mathbf{R}}^{-1}\mathbf{d}$
+- ...except this is a lot harder in real life! By now, we know that matrix inversion has a lot of problems.
+  - Solutions: likelihood (i.e. fit)-based unfolding, regularization, iterative unfolding, ...
+- See e.g. Blobel 2011, Spano 2013, Schmitt 2022 for more.
+:::
+::: {.column width="45%"}
+![Screenshot 2025-11-10 at 11.55.26 AM.png](/assets/04_linalg/Screenshot-2025-11-10-at-11.55.26-AM.png){width="100%" fig-alt="Three-panel diagram of a response matrix A_ij: a 2D heatmap of E_reco vs E_true showing a diagonal smearing band, a 1D projected distribution of mu_j and y_j (reconstructed response for a true-energy slice), and a histogram of x_j (true event counts in three energy bins), illustrating unfolding with no background."}
+:::
+::::
+
+---
+
+# Application: 3-atom system
+
+---
+
+## Triatomic system
+
+:::: {.columns}
+::: {.column width="55%"}
+- Consider a linear triatomic molecule
+  - Fowles and Cassiday, Chapter 11.4
+  - Taylor, Chapter 11.6
+- Approximate by masses on springs
+:::
+::: {.column width="45%"}
+![fig-11.4.1a.png](/assets/04_linalg/fig-11.4.1a.png){width="100%" fig-alt="Diagram of a triatomic linear molecule model: three masses (m, M, m) connected by two springs of constant K along the x-axis, with three example displacement configurations (a), (b), (c) shown below illustrating different vibrational motions."}
+:::
+::::
+
+---
+
+## Triatomic system
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Start from the Lagrangian:
+
+![](/assets/04_linalg/slide78_fig-11.4.1a.png){fig-alt="Diagram of a triatomic linear molecule model: three masses (m, M, m) connected by two springs of constant K along the x-axis, with three example displacement configurations (a), (b), (c) shown below illustrating different vibrational motions."}
+
+- $$\mathcal{L}=\frac{1}{2}{m}_{0}{\mathop{x}\limits^{ \cdot }}_{0}^{2}+\frac{1}{2}{m}_{1}{\mathop{x}\limits^{ \cdot }}_{1}^{2}+\frac{1}{2}{m}_{2}{\mathop{x}\limits^{ \cdot }}_{2}^{2}-\frac{1}{2}\left[ {k}_{01}({x}_{0}-{x}_{1}{)}^{2}+{k}_{12}({x}_{1}-{x}_{2}{)}^{2} \right]$$
+
+- Equations of motion ($\frac{d}{dt}\frac{ \partial \mathcal{L}}{ \partial {\mathop{x}\limits^{ \cdot }}_{i}}=\frac{ \partial \mathcal{L}}{ \partial {x}_{i}}$):
+
+- $$\begin{matrix}
+{m}_{0}{\mathop{x}\limits^{ \cdot  \cdot }}_{0} & =-{k}_{01}{x}_{0}+{k}_{01}{x}_{1} \\
+{m}_{1}{\mathop{x}\limits^{ \cdot  \cdot }}_{1} & ={k}_{01}{x}_{0}-({k}_{01}+{k}_{12}){x}_{1}+{k}_{12}{x}_{2} \\
+{m}_{2}{\mathop{x}\limits^{ \cdot  \cdot }}_{2} & =-{k}_{12}{x}_{3}+{k}_{12}{x}_{2}
+\end{matrix}$$
+
+- Consider the case ${m}_{0}={m}_{2} \equiv m$, ${m}_{1}=2m=M$, and ${k}_{01}={k}_{12} \equiv K$
+  - Symmetric matrices (basically because of Newton's laws)!
+
+---
+
+## Triatomic system
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We can write this as a matrix equation,
+
+![](/assets/04_linalg/slide79_fig-11.4.1a.png){fig-alt="Diagram of a triatomic linear molecule model: three masses (m, M, m) connected by two springs of constant K along the x-axis, with three example displacement configurations (a), (b), (c) shown below illustrating different vibrational motions."}
+
+- $$\mathbf{M}.\mathop{\mathbf{x}}\limits^{ \cdot  \cdot }=-\mathbf{K}.\mathbf{x}$$
+
+- With our ansatz ${x}_{i}(t)={a}_{i}cos( \omega t- \delta )$ for "normal modes," this becomes:
+
+- $${ \omega }^{2}\mathbf{M}.\mathbf{a}=\mathbf{K}.\mathbf{a}$$
+
+- This is a generalized eigenvalue problem.
+  - See NR 11.0.5
+- Let's try it out in CompPhys/LinearAlgebra/triatomic.ipynb
+  - Uses scipy.linalg.eig - let's take a quick look at scipy.linalg first.
+
+---
+
+## Recap
+
+- We learned the basics of how algorithms compute eigenvalues and eigenvectors.
+  - Apply symmetry transformations to convert the problem to an easier problem, e.g. tridiagonal matrices for symmetric matrices, or Hessenberg form for asymmetric matrices.
+  - Use e.g. QL algorithm to solve the easier problem.
+- See Numerical Recipes, Chapter 11 for more algorithms and more details.
+  - NR recommends using the extensive eigensystem libraries already developed.
+  - There are tons of algorithms depending on exactly what you need; find one that matches your problem, and read the documentation closely.
+- We used scipy.linalg to solve a toy 3-atom system.
+
+---
+
+## Hands-on
+
+- Assignment 5 problems:
+  - 1. Scattering cross sections using numerical calculus methods.
+  - 2. Solving for equilibrium configurations of Na4Cl4 by numerically minimizing potential function.
+  - 3. Solve for currents in a cube of resistors using linear algebra methods.
+  - 4. (PHY505 only) Use BFGS algorithm to fit Mauna Loa CO2 data, numerically minimizing the ${ \chi }^{2}$ function.

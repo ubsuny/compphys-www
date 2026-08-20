@@ -1,0 +1,43 @@
+project:
+  type: website
+  resources:
+    - "assets/img/*"  
+
+website:
+  title: "Computational Physics"
+  sidebar:
+    # contents: auto
+    collapse-level: -1
+    style: floating
+    contents:
+      - section: "Syllabi"
+        contents:
+        - syllabus_410.qmd
+        - syllabus_411.qmd
+      - section: "Slides"
+        contents:
+          - section: "Introduction"
+            contents:
+            - slides/00_introduction/00_intro.qmd
+            - slides/00_introduction/01_cpp.qmd
+            - slides/00_introduction/02_python.qmd
+          - section: "Linear algebra"
+            contents:
+            - slides/04_linalg/04_linalg.qmd
+          - section: "Machine Learning"
+            contents:
+              - slides/07_ml/07_ml.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+execute:
+  python: .venv/bin/python
+  freeze: auto  # re-render only when source changes
+  keep-ipynb: false
+

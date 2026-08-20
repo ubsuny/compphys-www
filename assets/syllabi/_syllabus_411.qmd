@@ -1,0 +1,130 @@
+# Syllabus: PHY 411/506
+
+## Computational Physics 2
+
+**Hours:** MWF 2–2:50 PM 
+
+**Classroom:** Fronczak 219  
+
+**Instructor:** Dr. David Yu 
+
+**Office:** 257 Fronczak  
+
+**Email:** dyu23@buffalo.edu  
+
+**Office Hours:** TBD and by appointment
+
+This course is the second in a sequence of two courses in Computational Physics. It combines numerical analysis and computer programming in C++ and/or python to study a variety of problems in physics. Topics may include:
+
+1. Partial differential equations,
+2. Probabilistic methods,
+3. Quantum MC methods,
+4. Proteins and neurons, and
+5. Machine learning. 
+
+There will also be a required coding project that will take at least a month of time.
+
+
+## Prerequisites
+You are required to have taken PHY 410/505 or equivalent, and have familiarity with the C++ and python programming languages. This course assumes familiarity with undergraduate physics at the junior/senior level. You should have passed PHY 301, PHY 401, and PHY 403, or equivalent courses, or be taking them concurrently. If you are not a physics major, a strong background in undergraduate mathematics or computer science should suffice if you spend extra time to learn the physics background required for each topic, although you should be familiar with ordinary and partial differential equations at the very least.
+
+Familiarity with a modern programming language is required (C++/Java/Fortran/python/etc). PHY410/505 covered programming with C++ and python in the first 4-8 weeks of lecture. If you are not familiar with C++ or python, you should spend extra time very early in the course to bring yourself up to speed. We will discuss how to compile and execute your code on your chosen platform. For instance, it will be helpful to have familiarity with bash, tcsh, or zsh for Linux/Unix/Macintosh, or cygwin for Windows. We will discuss how to combine C++ and python with existing tools such as SWIG.
+
+
+## Required Materials
+
+Personal laptops are recommended for this class. You can use Linux, MacOS, or Windows, with the main requirement being a Unix command line (bash/zsh/tcsh/etc.). Windows users will need to use a tool like WSL or Cygwin. The software for this course can all be downloaded for free. We provide a Docker container for the coding environment and the software distribution; you are also free to install it however you prefer, but less support will be available. Detailed lecture notes and online references will be provided.
+
+### Textbooks
+
+There is no single required textbook for the class. We will reference material in the following sources, which are mostly available free of charge:
+
+- [Numerical Recipes](https://numerical.recipes/)
+	- Free with "nags"
+- Fundamentals of C++ Programming by Richard Halterman
+	- Example code at https://github.com/halterman/CppBook-SourceCode
+- https://www.tutorialspoint.com/python3/ : Introduction to python
+
+Additional resources:
+
+- [Programming - Principles and Practice Using C++](https://www.stroustrup.com/programming.html) by Stroustrup
+- Numerical Methods for Physics by Garcia
+- Python official website (https://www.python.org/)
+- SWIG for combining C++ and python (https://www.swig.org/)
+
+### Compilers and tools
+
+A shell environment and a C++ compiler is required. Please make sure you have a working environment on your chosen platform, following the installation and setup instructions. Examples:
+
+- Windows:
+	- Windows Subsystem for Linux 2 (WSL2) (https://learn.microsoft.com/en-us/windows/wsl/install)
+- Mac:
+	- XCode (https://developer.apple.com/xcode/)
+- Linux:
+	- GCC (https://gcc.gnu.org/, included in most Linux distributions by default)
+	- GNU make for compiling (https://www.gnu.org/software/make/)
+
+You will also need a code editor and a few common tools:
+
+- Code editors:
+	- Visual Studio Code (https://code.visualstudio.com/)
+	- Emacs (https://www.gnu.org/software/emacs/) or [vim](https://www.vim.org/)
+	- [Sublime Text](https://www.sublimetext.com/) (note: paid software)
+	- (Note, coding directly in XCode is not recommended for physics!)
+- Software version control and management:
+	- [git](https://git-scm.com/)
+	- [github](https://github.com) (or [gitlab](https://about.gitlab.com/))
+- Plotting tools
+	- matplotlib (https://matplotlib.org/)
+	- CERN ROOT (https://root.cern.ch/)
+- LaTeX:
+	- TeX Live (https://www.tug.org/texlive/)
+- Shells
+	- bash (https://www.gnu.org/software/bash/)
+	- zsh (https://www.zsh.org/)
+- Containers
+	- Docker (https://www.docker.com/)
+
+## Schedule
+
+- Class: MWF 2–2:50 PM
+- Weekly homework for approx. first half of semester
+- Take‑home midterm
+- Final project
+
+## Expectations
+
+To succeed in this course you should read the lecture notes and posted materials, attend class and participate actively in discussion and quizzes, complete the homework assignments on time, and take the midterm and final exams. Exceptions will be made for documented medical reasons or major emergencies.
+
+If you are having difficulty with the course material, it is best to be proactive and contact me directly, either in office hours or by appointment. Discussing difficulty beforehand is encouraged, but asking for special consideration after the fact is not usually helpful.
+
+## Grading
+
+Grades will be based on your scores on homework (50%), one take-home midterm (25%), and a final project (25%). Graduate students and undergraduates will be graded separately.
+
+**Midterm:** Mid-semester (take-home)
+
+**Final project and presentation:** During the last 1-2 months of classes, you will perform a project of your own choosing using the techniques developed in class. You will also give a 15-minute presentation on your work during the last two weeks of classes. We will draw a random lottery at the start of each class to see who gives the presentations to ensure everyone has the same amount of time to work on their projects and presentations. You are also required to attend the presentations of your peers to support and encourage them.
+
+## Academic Integrity
+Academic integrity is a core value underlying all scholarly activity in the Department of Physics. Please review UB undergraduate policy at http://undergrad-catalog.buffalo.edu/policies/course/integrity.shtml or graduate policy in http://www.grad.buffalo.edu/policies/academic_integrity.pdf. You are encouraged to discuss class material and assignments with your colleagues (with acknowledgment of who you worked with on your assignment). However, you should code and run your simulations yourself, and your homework writeup must be entirely your own effort. If you copy and/or modify code from any source for your assignments you should acknowledge this with an appropriate citation in your writeup.
+
+## Students With Disabilities
+
+If you have a disability, (physical or psychological) and require reasonable accommodations to enable you to participate in this course, such as note takers, readers, or extended time on exams and assignments, please contact the Office of Disability Services, 25 Capen Hall, 645-2608, http://www.student-affairs.buffalo.edu/ods/, and also see me me during the first two weeks of class. ODS will provide you with information and review appropriate arrangements for reasonable accommodations.
+
+## Learning Outcomes
+
+| **Topic Units** | **Learning Outcomes** | **Outcome Assessment** |
+|---------------------|-----------------------------|------------------------|
+| Partial differential equations | Elliptic, parabolic and hyperbolic equations, Poisson's equation in electrostatics, wave motion, spectral methods, quantum wavepacket motion. [U:2,5] [G:3,4,5] | Homework, midterm, projects |
+| Probabilistic methods | Random numbers, random walks, polymer dynamics, the Metropolis algorithm, Monte Carlo simulation of the hard disk gas and the Ising model  [U:2,5] [G:3,4,5] | Homework, midterm, projects |
+| Advanced differential equations with probabilistic methods | Fluid dynamics, Numerical general relativity [U:3,5,6] [G:2,4,5] | Homework, projects |
+| Advanced quantum mechanical methods | Variational MC, diffusion MC, path integral MC, VEGAS algorithm [U:3,5,6] [G:2,4,5] | Homework, projects |
+| Proteins and neurons | Protein folding, Hodgkin–Huxley equations, genetic algorithms [U:3,5,6] [G:2,4,5] | Homework, projects |
+| Advanced data analysis | Kalman filters, K-means clustering, the inverse problem, regression [U:3,5,6] [G:2,4,5] | Homework, projects |
+| Machine learning | Artificial neural networks, decision trees, deep neural networks [U:3,5,6] [G:2,4,5] | Homework, projects 
+
+The “U” (undergraduate) bracketed numbers in the 2nd column give the correspondence to the Physics Department’s undergraduate curriculum goals: [1] The basic laws of physics; [2] Critical thinking and problem solving; [3] Laboratory skills; [4] General knowledge of the development of physics; [5] Contemporary areas of physics inquiry; [6] Written and oral communication skills. Note that not all courses emphasize all of the above goals.
+
+The “G” (graduate”) bracketed numbers in the 2nd column give the correspondence to the Physics Department’s graduate curriculum goals: [1] The basic laws of physics; [2] Advanced knowledge in a specialty area; [3] Broad knowledge of physics topics outside the specialty area; [4] In-depth scientificresearch skills; [5] Teaching and communication skills. Note that not all courses emphasize all of the above goals.

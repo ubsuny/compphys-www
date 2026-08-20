@@ -1,0 +1,43 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+$ub-blue: #005bbb;
+$ub-gray: #666666;
+
+/*-- scss:rules --*/
+.columns.vcenter {
+  display: flex; 
+  align-items: center;
+}
+
+#title-slide {
+  .title {
+    color: $ub-blue;
+    //text-transform: uppercase;
+    font-weight: 700;
+    font-size: 2.3em;
+  }
+
+  // hide the ORCID icon / email / affiliation to match the cleaner
+  // "Name + Term" look from the pptx — comment these out if you'd
+  // rather keep them visible
+  //.quarto-title-author-orcid,
+  //.quarto-title-author-email,
+  //.quarto-title-affiliation {
+  //  display: none;
+  //}
+
+  .quarto-title-author,
+  .quarto-title-author-email, 
+  .quarto-title-affiliation,
+  .date {
+    color: $ub-gray;
+    font-weight: 300;
+  }
+}
+
+.quarto-figure figcaption, .caption {
+  color: $ub-gray;
+  font-size: 0.8em;
+  font-weight: 300;
+  text-align: center;
+}

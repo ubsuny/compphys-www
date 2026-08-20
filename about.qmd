@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This website contains the slides and lecture notes for Computational Physics at the University at Buffalo. 
