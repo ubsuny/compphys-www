@@ -1,0 +1,1371 @@
+---
+title: "Ordinary differential equations"
+date: "today"
+date-format: "[Spring] YYYY"
+author:
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  clean-revealjs:
+    theme: [default, ../assets/css/custom.scss]
+    template-partials:
+      - ../assets/templates/title-slide.html
+    slide-number: c/t
+    width: 1600
+    height: 900
+    center: true
+    footer: "UB Computational Physics"
+    incremental: false
+    chalkboard: true
+    pdf-separate-fragments: true
+execute:
+  keep-ipynb: false
+---
+
+## Announcements
+
+- I pushed a few updates to the Docker container:
+  - Added optree, vector, and hepunits for today's bonus notebook.
+  - Update all packages (hopefully fix buggy Jupyter).
+  - docker pull ubsuny/compphys:latest
+- Assignment 5 posted: [https://classroom.github.com/a/Fs43SiCG](https://classroom.github.com/a/Fs43SiCG)
+  - Due Wednesday, November 19 at 11:59pm.
+- Assignment 6 will be posted soon
+  - Provisionally due Friday, December 5 at 11:59pm, so we have one day of class afterwards to discuss anything.
+  - Covers ODEs, BVPs, and PDEs.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+---
+
+## Ordinary differential equations
+
+- Finally, we’re able to solve the most trivial thing in your physics knowledge: the ODE! ([Wikipedia link](http://en.wikipedia.org/wiki/Ordinary_differential_equation))
+
+![Parabolic_trajectory.png](../assets/05_odes/Parabolic_trajectory.png){width="70%" fig-alt="Diagram of a parabolic trajectory: a dashed blue arc from ground level up and back down, with a gray ball partway up the arc and a red velocity-vector arrow pointing along its direction of motion."}
+
+- $$\begin{matrix}
+\mathop{x}\limits^{ \cdot  \cdot }(t) & =-g \\
+\mathop{x}\limits^{ \cdot }(t) & =-gt+{v}_{0}t \\
+x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
+\end{matrix}$$
+
+- One of the more developed portions of scientific computing, so clearly there's a lot to say on the topic.
+- Also lots of fun applications! We all like trajectories :)
+- References:
+  - Numerical Recipes, Chapter 16
+  - Garcia, Chapters 2 and 3
+
+---
+
+## Introduction
+
+- Like we did for derivatives and integrals, we approximate the limit $h \rightarrow 0$ with finite differences.
+- Suppose our step size is $ \Delta t$, and we are currently at time $t$. Let's compute the next point, $t+ \Delta t$.
+- For finite differences, we computed derivatives like:
+
+- $$\mathop{x}\limits^{ \cdot }(t)=v(t)=\frac{dx(t)}{dt} \approx \frac{x(t)-x(t- \Delta t)}{ \Delta t}$$
+
+- For a 1st order ODE, we can compute $x(t+ \Delta t)$ using a Taylor expansion:
+
+- $$x(t+ \Delta t) \approx x(t)+\frac{dx(t)}{dt} \Delta t+\mathcal{O}( \Delta {t}^{2})$$
+
+- This is the basis of Euler's method:
+  - Given $x(0)$ and $\mathop{x}\limits^{ \cdot }(t)$, we can compute the whole series.
+  - We basically "integrate" the ODE step-by-step, updating the required quantities at each step.
+
+---
+
+## Introduction
+
+- Some definitions:
+  - Let $ \tau $ = time step, and ${t}_{n}=n \tau $ be the ${n}^{th}$ time.
+  - Denote ${f}_{n}=f({t}_{n})$, where $f$ is any quantity in the problem.
+- Euler's method updates the velocity and position at each step:
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n+1} & ={\mathbf{v}}_{n}+ \tau {\mathbf{a}}_{n} \\
+{\mathbf{x}}_{n+1} & ={\mathbf{x}}_{n}+ \tau {\mathbf{v}}_{n}
+\end{matrix}$$
+
+---
+
+## Introduction
+
+- By now, you could all code this in your sleep:
+  - Specify initial conditions, ${\mathbf{x}}_{0}$ and ${\mathbf{v}}_{0}$
+  - Choose a time step, $ \tau $
+  - At each step $n$:
+    - Calculate acceleration
+    - Update ${\mathbf{x}}_{n+1}$ and ${\mathbf{v}}_{n+1}$ at the new step
+  - Continue until you get to the end
+
+---
+
+## Introduction
+
+- As we did for the case of derivatives and integrals, this is a “one-point” method (except we need the velocities, too).
+- Unsurprisingly, there are multiple-point methods with higher accuracy.
+- Is this “one-point” method good enough?
+  - Usually: nope!
+  - The error at each step is $O({ \tau }^{2})$.
+  - After total time $T=N \tau $, we accumulate errors of order $O(N{ \tau }^{2}) \sim O( \tau )$.
+- Booooo, this is terrible!
+  - As terrible as the Bills last weekend!
+    - (Still not as terrible as Packers vs. Eagles)
+
+---
+
+## Better ODE solving
+
+- Remember how we improved finite differences: use multiple points to effectively calculate the Taylor expansion at higher order. E.g. "five-point stencil" with error~${h}^{4}$.
+- Slightly better: Euler–Cromer method:
+- Updates the position using the velocity at the next point, unlike the Euler method
+- A. Cromer, "Stable Solutions using the Euler Approximation", Am. J. Phys. 49, 455 (1981)
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n+1} & ={\mathbf{v}}_{n}+ \tau {\mathbf{a}}_{n} \\
+{\mathbf{x}}_{n+1} & ={\mathbf{x}}_{n}+ \tau {\mathbf{v}}_{n+1}
+\end{matrix}$$
+
+---
+
+## Midpoint method
+
+- Remember the first improvement for finite differences: symmetric difference.
+- For ODEs, how about using the midpoint of the interval?
+- Let’s say we average the two velocities (at n+1 and n):
+- Then our position equation becomes:
+- $ \Rightarrow $ each step is accurate to one more order in the Taylor expansion, and the overall error is now $O({ \tau }^{2})$
+- Better! But, like the symmetric difference, still not fantastic.
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n+1} & ={\mathbf{v}}_{n}+ \tau {\mathbf{a}}_{n} \\
+{\mathbf{x}}_{n+1} & ={\mathbf{x}}_{n}+ \tau ({\mathbf{v}}_{n}+{\mathbf{v}}_{n+1})/2
+\end{matrix}$$
+
+- $$\begin{matrix}
+{\mathbf{x}}_{n+1} & ={\mathbf{x}}_{n}+ \tau {\mathbf{v}}_{n}+\frac{1}{2}{ \tau }^{2}{\mathbf{a}}_{n}
+\end{matrix}$$
+
+---
+
+## Hands-on: projectile motion
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Projectile motion is America’s Favorite Pastime!
+- Let’s analyze the situation with our current numerical techniques to see how well we do.
+- Since we are doing this numerically, it's actually fairly simple to add air resistance:
+
+- $${F}_{d}=\frac{1}{2} \rho {u}^{2}{c}_{d}A$$
+
+- $ \rho $ = fluid mass density
+- $u$ = flow velocity w.r.t. object
+- ${c}_{d}$ = drag coefficient
+- $A$ = area
+
+![](../assets/05_odes/slide10_pasted-movie.png){fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
+
+- [CompPhys/ODEs/projectiles.ipynb](https://github.com/ubsuny/CompPhys/blob/main/ODEs/projectiles.ipynb)
+
+---
+
+## Hands-on: projectile motion
+
+:::: {.columns}
+::: {.column width="55%"}
+- Pseudocode :
+  - Set initial position and velocity
+  - Set physical parameters
+  - Loop until ball hits the ground (or max reached):
+  - Record position (computed and exact) for plotting
+  - Compute acceleration
+  - Calculate new position and velocity
+  - If ball reaches ground or max reached, quit
+  - Print max range, time of flight
+  - Plot the trajectory
+- [CompPhys/ODEs/projectiles.ipynb](https://github.com/ubsuny/CompPhys/blob/main/ODEs/projectiles.ipynb)
+:::
+::: {.column width="45%"}
+![pasted-movie.png](../assets/05_odes/pasted-movie.png){width="100%" fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
+:::
+::::
+
+---
+
+## Hands-on: projectile motion
+
+- Results:
+
+![pasted-movie.png](../assets/05_odes/slide12_image11.png){width="70%" fig-alt="Plot comparing projectile-motion trajectories computed by different integrators (EXACT, EULER, EULERCROMER, MIDPOINT) as height versus time, all curves close together and decaying from about 1.8 to 0 over the flight."}
+
+---
+
+## Next step
+
+- OK, the midpoint algorithm was good enough for the projectile motion.
+- Now let's break it!
+
+---
+
+## Pendulum oscillation
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Consider a simple harmonic oscillator, like a pendulum.
+  - Add damping (drag) and a driving force ${F}_{D}$:
+
+![](../assets/05_odes/slide14_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+
+- $$\frac{{d}^{2} \theta }{d{t}^{2}}=-{ \omega }_{0}^{2}- \gamma \frac{d \theta }{dt}+{F}_{D}cos({ \omega }_{D}t)$$
+
+- $$({ \omega }_{0}=\sqrt{g/L})$$
+
+- We get transient motion related to the damping force.
+- Analytical solution (steady state):
+
+- $$ \theta (t)=\frac{{F}_{D}cos({ \omega }_{D}t+ \phi )}{\sqrt{({ \omega }_{0}^{2}-{ \omega }_{D}^{2}{)}^{2}+( \gamma { \omega }_{D}{)}^{2}}}$$
+
+---
+
+## Pendulum oscillation
+
+:::: {.columns}
+::: {.column width="55%"}
+- You might already guess that Euler's method will fail miserably!
+:::
+::: {.column width="45%"}
+![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+:::
+::::
+
+---
+
+## Pendulum oscillation
+
+:::: {.columns}
+::: {.column width="55%"}
+- Pseudocode:
+  - Set initial position and velocity of the pendulum
+  - Set physical constants
+  - Loop over desired number of steps with given time step
+  - Record angle and time
+  - Compute new position and velocity
+  - Test if pendulum has passed through theta=0, use t to estimate period
+  - Estimate average period, including uncertainty
+  - Plot theta vs t
+- Try it out: CompPhys/ODEs/pendulum.ipynb
+:::
+::: {.column width="45%"}
+![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+:::
+::::
+
+---
+
+## Pendulum oscillation
+
+![pasted-movie.png](../assets/05_odes/slide17_image13.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, EULERCROMER, MIDPOINT): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
+
+![pendulum.png](../assets/05_odes/pendulum.png){width="70%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+
+- Yikes! EULER is totally unstable.
+  - MIDPOINT is also unstable.
+- Interestingly, EULERCROMER is stable!
+  - Not intrinsically more accurate, but it "conserves energy" (aka it's a symplectic integrator) ([wikipedia](https://en.wikipedia.org/wiki/Symplectic_integrator)).
+
+- Anyhow: so far, none of these algorithms are really satisfactory!
+
+---
+
+## Leapfrog method
+
+- Let's take inspiration from the centered 3-point method:
+
+- $${f}^{′}(t)=\mathop{lim}\limits_{ \tau  \rightarrow 0}\frac{f(t+ \tau )-f(t- \tau )}{2 \tau }$$
+
+- Recall that this method has better accuracy because it cancels out the second Taylor expansion term:
+
+- $$\begin{matrix}
+f(t+ \tau ) & =f(t)+ \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)+\frac{1}{6}{ \tau }^{3}{f}^{′′′}( \chi ) \\
+f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\frac{1}{6}{ \tau }^{3}{f}^{′′′}( \chi ) \\
+{f}^{′}(t) & =\frac{f(t+ \tau )-f(t- \tau )}{2 \tau }-\frac{1}{6}{ \tau }^{2}{f}^{′′′}( \chi )
+\end{matrix}$$
+
+- (For some $ \chi $ in $[t- \tau ,t+ \tau ]$)
+
+---
+
+## Leapfrog method
+
+- We get the same mileage out of the centered three-point method as we did with general derivatives.
+- Start again from the equations of motion:
+
+- $$\frac{\mathbf{v}(t+ \tau )-\mathbf{v}(t- \tau )}{2 \tau }+O({ \tau }^{2})=\mathbf{a}(\mathbf{x}(t))$$
+
+- $$\begin{matrix}
+\frac{d\mathbf{v}}{dt} & =\mathbf{a}(\mathbf{x}(t)) \\
+\frac{d\mathbf{x}}{dt} & =\mathbf{v}(t)
+\end{matrix}$$
+
+- Use the 3-point finite difference for $\mathbf{a}$:
+
+---
+
+## Leapfrog method
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Finally, we can use $\frac{\mathbf{v}(t+ \tau )-\mathbf{v}(t- \tau )}{2 \tau }+O({ \tau }^{2})=\mathbf{a}(\mathbf{x}(t))$ to update $\mathbf{v}$, and use that to update $\mathbf{x}$ at the midpoint.
+- Specifically, update $\mathbf{x}$ over interval $2 \Delta t$:
+
+- $$\frac{\mathbf{x}(t+2 \tau )-\mathbf{x}(t)}{2 \tau }+O({ \tau }^{2})=\mathbf{v}(t+ \tau )$$
+
+- Resulting in the following iteration:
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n+1} & ={\mathbf{v}}_{n-1}+2 \tau {\mathbf{a}}_{n}+O({ \tau }^{3}) \\
+{\mathbf{x}}_{n+2} & ={\mathbf{x}}_{n}+2 \tau {\mathbf{v}}_{n+1}+O({ \tau }^{3})
+\end{matrix}$$
+
+- This is the leapfrog scheme!
+  - Leaps x(0), x(2), x(4), ...
+  - v(1), v(3), v(5), ...
+
+![](../assets/05_odes/slide20_leap-frog.png){fig-alt="Vintage black-and-white photograph of two women in 1920s-style swimsuits playing leapfrog on a beach."}
+
+---
+
+## Verlet method
+
+- Method of Verlet (Størmer, Cowell, Crommelin, Delambre)
+  - Not the most accurate method, but is symplectic.
+- Start again with:
+
+- $$\begin{matrix}
+\frac{d\mathbf{v}}{dt} & =\mathbf{a}(\mathbf{x}(t)) \\
+\frac{d\mathbf{x}}{dt} & =\mathbf{v}(t)
+\end{matrix}$$
+
+- $$\begin{matrix}
+{\mathbf{x}}_{0} &  \equiv \mathbf{x}({t}_{0}) \\
+{\mathbf{v}}_{0} &  \equiv \mathbf{v}({t}_{0})
+\end{matrix}$$
+
+- Approximate both derivates with a symmetric difference:
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n} & =\frac{{\mathbf{x}}_{n+1}-{\mathbf{x}}_{n-1}}{2 \tau } \\
+{\mathbf{a}}_{n} & =\frac{({\mathbf{x}}_{n+1}-{\mathbf{x}}_{n})-({\mathbf{x}}_{n}-{\mathbf{x}}_{n-1})}{{ \tau }^{2}}
+\end{matrix}$$
+
+---
+
+## Verlet method
+
+- From the symmetric differences, solve for the next iteration:
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n} & =\frac{{\mathbf{x}}_{n+1}-{\mathbf{x}}_{n-1}}{2 \tau } \\
+{\mathbf{a}}_{n} & =\frac{({\mathbf{x}}_{n+1}-{\mathbf{x}}_{n})-({\mathbf{x}}_{n}-{\mathbf{x}}_{n-1})}{{ \tau }^{2}}
+\end{matrix}$$
+
+- $$\begin{matrix}
+{\mathbf{x}}_{n+1} & =2{\mathbf{x}}_{n}-{\mathbf{x}}_{n-1}+{ \tau }^{2}{\mathbf{a}}_{n} \\
+{\mathbf{v}}_{n} & =\frac{{\mathbf{x}}_{n+1}-{\mathbf{x}}_{n-1}}{2 \tau }+O({ \tau }^{2})
+\end{matrix}$$
+
+- Like the leapfrog method, we need ${\mathbf{x}}_{0}$ and ${\mathbf{x}}_{1}$ to start.
+  - E.g. use Euler(–Cromer), take a backwards step.
+- Try it out in your notebooks: just change to method = ODEMethod.VERLET
+
+---
+
+## Verlet method
+
+![pasted-movie.png](../assets/05_odes/slide23_image15.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, MIDPOINT, VERLET): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
+
+- Stable (i.e. symplectic) ✅
+- $O({ \tau }^{4})$ ✅
+
+---
+
+## Runge–Kutta algorithm
+
+- One more algorithm: these guys again
+
+![pasted-movie.png](../assets/05_odes/slide24_image16.png){width="70%" fig-alt="Black-and-white portrait photograph of Carl Runge: an older man with a moustache, round wire-rim glasses, and swept-back hair, wearing a suit."}
+
+![pasted-movie.png](../assets/05_odes/slide24_image17.png){width="70%" fig-alt="Black-and-white profile portrait photograph of Martin Wilhelm Kutta: an older balding man with a moustache, wearing a suit and bow tie."}
+
+---
+
+## Runge–Kutta algorithm
+
+- Starting point: let's take a closer look at Euler, w.r.t Taylor expansion.
+
+- $$\frac{d\mathbf{x}}{dt}=f(\mathbf{x}(t),t),\mathbf{x}(t+ \tau )=\mathbf{x}(t)+ \tau f(\mathbf{x},t)$$
+
+- $$\mathbf{x}(t+ \tau )=\mathbf{x}(t)+ \tau \frac{d\mathbf{x}(u)}{dt}=\mathbf{x}(t)+ \tau f(\mathbf{x}(u),u)$$
+
+- For some $u \in [t,t+ \tau ]$
+
+- We don't know $u$, but for some value, this is exact.
+  - Euler: guess $u=t$
+  - Euler–Cromer: guess $u=t$ for $\mathbf{v}$, $u=t+ \tau $ for $\mathbf{x}$
+  - Runge–Kutta: guess $u=t+\frac{1}{2} \tau $
+
+---
+
+## Runge–Kutta algorithm
+
+- OK, so we need $\mathbf{x}(t+\frac{1}{2} \tau )$. We can obtain this from an Euler step:
+
+- $${\mathbf{x}}^{*}(t+\frac{1}{2} \tau )=\mathbf{x}(t)+\frac{1}{2} \tau f(\mathbf{x}(t),t)$$
+
+- $$ \Rightarrow \mathbf{x}(t+ \tau )=\mathbf{x}(t)+ \tau f({\mathbf{x}}^{*}(t+\frac{1}{2} \tau )),t+\frac{1}{2} \tau )$$
+
+- Or, we could estimate $f(\mathbf{x}(u),u)$ with a "2-point" method,
+
+- $$ \Rightarrow \mathbf{x}(t+ \tau )=\mathbf{x}(t)+\frac{1}{2} \tau \left[ f(\mathbf{x}(t),t)+f(\mathbf{x}(t+ \tau ),t+ \tau ) \right]$$
+
+- "Second order Runge–Kutta"
+
+---
+
+## Runge–Kutta algorithm
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- The fourth order Runge–Kutta algorithm combines all of the above:
+
+- $$\begin{matrix}
+\mathbf{x}(t+ \tau ) & =\mathbf{x}(t)+\frac{1}{6}\left[ {\mathbf{F}}_{1}+2{\mathbf{F}}_{2}+2{\mathbf{F}}_{3}+{\mathbf{F}}_{4} \right] \\
+{\mathbf{F}}_{1} & =f(\mathbf{x},t) \\
+{\mathbf{F}}_{2} & =f(\mathbf{x}+\frac{1}{2} \tau {\mathbf{F}}_{1},t+\frac{1}{2} \tau ) \\
+{\mathbf{F}}_{3} & =f(\mathbf{x}+\frac{1}{2} \tau {\mathbf{F}}_{2},t+\frac{1}{2} \tau ) \\
+{\mathbf{F}}_{4} & =f(\mathbf{x}+ \tau {\mathbf{F}}_{3},t+ \tau )
+\end{matrix}$$
+
+![](../assets/05_odes/slide27_Screenshot-2025-11-12-at-10.53.34-AM.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
+
+- $O({ \tau }^{5})$ accuracy per step, so $O({ \tau }^{4})$ accuracy accumulated along integration.
+
+---
+
+## Generalized Runge–Kutta
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Runge–Kutta generalizes to a whole family of algorithms:
+
+- $$\begin{matrix}
+\mathbf{x}(t+ \tau ) & =\mathbf{x}(t)+\frac{1}{6}\left[ {\mathbf{F}}_{1}+2{\mathbf{F}}_{2}+2{\mathbf{F}}_{3}+{\mathbf{F}}_{4} \right] \\
+{\mathbf{F}}_{1} & =f(\mathbf{x},t) \\
+{\mathbf{F}}_{2} & =f(\mathbf{x}+\frac{1}{2} \tau {\mathbf{F}}_{1},t+\frac{1}{2} \tau ) \\
+{\mathbf{F}}_{3} & =f(\mathbf{x}+\frac{1}{2} \tau {\mathbf{F}}_{2},t+\frac{1}{2} \tau ) \\
+{\mathbf{F}}_{4} & =f(\mathbf{x}+ \tau {\mathbf{F}}_{3},t+ \tau )
+\end{matrix}$$
+
+- Number of "stages"
+
+- Time step sizes, ${c}_{i}$
+
+- Coefficients ${a}_{ij}$ for intermediate $\mathbf{x}$es
+
+- Final coefficients, ${b}_{j}$
+
+- Practically, 4th order is usually good enough.
+- Coefficients vary depending on the algorithm.
+
+- Represented by "Butcher tableaus" ([wikipedia](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods))
+
+---
+
+## Adaptive algorithms
+
+- How good is "good enough" for our algorithms?
+  - In our hands-on notebooks, we compare against an analytical solution. Obviously, this is not possible for real problems!
+  - We need a quantitative estimate of the error.
+- Idea of adaptive algorithms: numerically estimate the error at each step, and reduce the step if the error is too large.
+  - The formal accuracy of an algorithm (e.g. $O({ \tau }^{4})$ etc.) is important, but not the full story!
+  - The ODE problem might be smooth in place, bumpy in others.
+  - (In terms of the Taylor series, the coefficient of the error term varies point-to-point, sometimes by a large amount.)
+
+---
+
+## Adaptive Runge–Kutta
+
+- Idea: estimate error at each step; reduce step size if error is large.
+- Older method: double the step size.
+  - Compare one step ($t \rightarrow t+ \tau $) with two half-steps ($t \rightarrow t+\frac{1}{2} \tau  \rightarrow t+ \tau $).
+  - Reasonably efficient, evaluations can be reused.
+- Newer methods: compare vs. higher order
+  - Fehlberg: 5th order RK with 6 evaluations ([wikipedia](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta%E2%80%93Fehlberg_method)).
+    - Efficiently produces 4th order RK result with same evaluations
+  - Dormand–Prince: similar, but minimizes 5th order RK error and uses 5th order to extrapolate ("local extrapolation") ([wikipedia](https://en.wikipedia.org/wiki/Dormand%E2%80%93Prince_method)).
+    - This one is very common: default method in, e.g., scipy.integrate.solve_ivp, Julia, MATLAB/Octave ode45, ...
+
+---
+
+## Hands-on
+
+- Time permitting, one more hands-on: CompPhys/ODEs/pytrees.ipynb
+  - Demonstrates [scipy.integrate.solve_ivp](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html), which uses RK45 (by default).
+  - Also uses a cool new-ish feature: pytrees, a slick way to handle arbitrary nested data structures.
+
+---
+
+## Recap
+
+- We introduced ordinary differential equation methods.
+- Basic idea is to follow the Taylor expansion step-by-step, with slightly different updating methods.
+  - Euler, Euler–Cromer, midpoint: easy to understand, but easy to "break".
+  - Leapfrog, Verlet: better accuracy
+  - Runge–Kutta family: better accuracy, efficient, RK45 is commonly implemented.
+  - Euler–Cromer and Verlet "conserve energy" (aka symplectic integrators).
+- Formal accuracy (e.g. $O({ \tau }^{5})$) is not the only consideration: adaptive algorithms also estimate the actual error at each step, and adjust the step size to control the accumulated error.
+- Applications:
+  - Numerical trajectory calculations with drag
+  - Simple oscillator with damping and drive forces.
+- Next time: chaos!
+
+---
+
+## Last time
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We introduced basic ODE methods: Euler, Euler–Cromer, midpoint, leapfrog, Verlet, Runge–Kutta (family).
+- We can categorize algorithms systematically using Butcher tables:
+- Starting from ${\mathbf{x}}^{′}(t)=f(t,\mathbf{x}(t))$ and $\mathbf{x}({t}_{0})={\mathbf{x}}_{0}$:
+  - Next step:
+    - $$\begin{matrix}
+{\mathbf{x}}_{n+1} & ={\mathbf{x}}_{n}+ \tau \mathop{\mathop{ \sum }\limits_{j=1}}\limits^{s}{b}_{j}{k}_{j} \\
+{k}_{j} & =f\left( {t}_{n}+ \tau {c}_{j},{\mathbf{x}}_{n}+ \tau \mathop{\mathop{ \sum }\limits_{l=1}}\limits^{s}{a}_{jl}{k}_{l} \right)
+\end{matrix}$$
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![](../assets/05_odes/slide33_image19.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
+
+- Weighted average of different estimations of $\mathop{\mathbf{x}}\limits^{ \cdot }$
+
+- Configurable time step into next interval
+
+- Configurable (trial) $\mathbf{x}$ step into next interval
+
+---
+
+## Butcher table
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Example: RK45 algorithm, using Dormand–Prince:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![](../assets/05_odes/slide34_Screenshot-2025-11-14-at-12.51.37-PM.png){fig-alt="Generic Butcher tableau template: a table with nodes c_1...c_s down the left column, coefficients a_ij filling the interior grid, and weights b_1...b_s along the bottom row."}
+
+- $${b}_{j}$$
+
+- $${c}_{i}$$
+
+- $${a}_{ij}$$
+
+- First row of ${b}_{j}$: $O({ \tau }^{5})$-accurate solution
+- Second row of ${b}_{j}$: $O({ \tau }^{4})$-accurate solution
+
+---
+
+# Nonlinear dynamic systems
+
+---
+
+## Back to the pendulum
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the pendulum again, but now with the exact formula, rather than an approximation for small perturbations ($sin \theta  \approx  \theta $):
+
+- $$\frac{{d}^{2} \theta }{d{t}^{2}} \approx -{ \omega }_{0}^{2} \theta - \gamma \frac{d \theta }{dt}+{F}_{d}cos({ \omega }_{D}t)$$
+
+![](../assets/05_odes/slide36_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+
+- $$ \theta (t)=\frac{{F}_{D}cos({ \omega }_{d}t+ \phi )}{\sqrt{({ \omega }_{0}^{2}-{ \omega }_{D}^{2}{)}^{2}+( \gamma { \omega }_{D}{)}^{2}}}$$
+
+---
+
+## Back to the pendulum
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's consider the pendulum again, but now with the exact formula, rather than an approximation for small perturbations ($sin \theta  \approx  \theta $):
+
+- $$\frac{{d}^{2} \theta }{d{t}^{2}} \approx -{ \omega }_{0}^{2}sin \theta - \gamma \frac{d \theta }{dt}+{F}_{d}cos({ \omega }_{D}t)$$
+
+![](../assets/05_odes/slide37_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+
+- $$ \theta (t)=\frac{{F}_{D}cos({ \omega }_{d}t+ \phi )}{\sqrt{({ \omega }_{0}^{2}-{ \omega }_{D}^{2}{)}^{2}+( \gamma { \omega }_{D}{)}^{2}}}$$
+
+- No analytical solution!
+
+---
+
+## Back to the pendulum
+
+:::: {.columns}
+::: {.column width="55%"}
+- Let's consider the pendulum again, but now with the exact formula, rather than an approximation for small perturbations ($sin \theta  \approx  \theta $):
+- What can we learn from this problem?
+  - Simplest “real world” case of nonlinear dynamical system
+  - Perfect exhibition of chaotic dynamical system!
+- You can read some current research on this here: [https://www.kip.uni-heidelberg.de/user/gasenzer/frame.php?n1=teaching_chaos](https://www.kip.uni-heidelberg.de/user/gasenzer/frame.php?n1=teaching_chaos)
+:::
+::: {.column width="45%"}
+![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+:::
+::::
+
+---
+
+## Nonlinear dynamical systems
+
+- Before we get into that, we need a bit of math
+  - We want to summarize the dynamical system graphically
+  - We’re looking at full trajectories, but for linear systems, they’re “boring: they just go back and forth over the same path
+
+![pendul_verlet.png](../assets/05_odes/pendul_verlet.png){width="70%" fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
+
+---
+
+## Nonlinear dynamical systems
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- For more complicated systems, we want a simpler graphical presentation to study the dynamics.
+- Basic idea: choose a subspace (of small enough dimension to visualize), and see how often/where the trajectory goes through the subspace.
+- For the simple pendulum, we can take a line through the max:
+
+![](../assets/05_odes/slide40_pendul_verlet.png){fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
+
+---
+
+## Nonlinear dynamical systems
+
+- Easiest way to think about this is to characterize as a system of equations
+- For example, recall the Verlet method:
+
+- $$\begin{matrix}
+{\mathbf{v}}_{n} & =\frac{{\mathbf{x}}_{n+1}-{\mathbf{x}}_{n-1}}{2 \tau }+O({ \tau }^{2}) \\
+{\mathbf{x}}_{n+1} & =2{\mathbf{x}}_{n}-{\mathbf{x}}_{n-1}+{ \tau }^{2}{\mathbf{a}}_{n}
+\end{matrix}$$
+
+- Instead of a 2nd order differential equation (x, v, a), write this as a general system of 1st order differential equations:
+
+- $$\begin{matrix}
+{\mathbf{y}}_{1} & =\mathbf{x} \\
+{\mathbf{y}}_{2} & =\mathbf{v}
+\end{matrix}$$
+
+- $$\begin{matrix}
+\frac{d{\mathbf{y}}_{1}}{dt} & ={\mathbf{y}}_{2} \equiv {f}_{1}(t,{\mathbf{y}}_{i}) \\
+\frac{d{\mathbf{y}}_{2}}{dt} & ={f}_{2}(t,{\mathbf{y}}_{i})
+\end{matrix}$$
+
+- We can do a lot of graphical analysis using $({\mathbf{y}}_{1},{\mathbf{y}}_{2})=(\mathbf{x},\mathbf{v})$
+
+---
+
+## Nonlinear dynamical systems
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- For the simple 1D oscillator, $(x,v)$ just forms an ellipse:
+
+![](../assets/05_odes/slide42_plot_circle.png){fig-alt="Two-panel plot: top, the same jagged pendulum-angle-versus-time oscillation between -30 and +30; bottom, the corresponding phase portrait (angle vs angular velocity) tracing a single near-perfect closed circle, indicating periodic (non-chaotic) motion for this parameter choice."}
+
+- t
+
+- x
+
+- x
+
+- v
+
+- For a more complicated system, this can draw an arbitrarily complicated shape in N dimensions.
+  - For example, 3D (position, velocity) = 6D space.
+- Poincaré section: choose a subspace (hyperplane) in some nice way that captures the relevant dynamics.
+
+---
+
+## Poincaré sections and maps
+
+![Screenshot 2025-11-14 at 12.08.13 PM.png](../assets/05_odes/Screenshot-2025-11-14-at-12.08.13-PM.png){width="70%" fig-alt="3D diagram illustrating a Poincare section: a trajectory Gamma in (x1,x2,x3) space repeatedly pierces a surface S (spaced by height h along x3), leaving a sequence of points P0, P1, P2 on that surface."}
+
+- Example: consider some general 3D flow.
+- Choose some plane, S, that the trajectory crosses repeatedly.
+- ${P}_{0},{P}_{1},{P}_{2},...$ is the Poincaré section, and the map from ${P}_{i}$ to ${P}_{i+1}$ is the Poincaré map.
+
+- [https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec15-16.pdf](https://ocw.mit.edu/courses/12-006j-nonlinear-dynamics-chaos-fall-2022/mit12_006jf22_lec15-16.pdf)
+
+---
+
+## Pendulum dynamics
+
+- For the pendulum:
+  - Pick a Poincaré section to be $( \theta ,\mathop{ \theta }\limits^{ \cdot })$ sampled at a sensible frequency
+    - E.g. natural frequency (${ \omega }_{0}$), driving frequency (${ \omega }_{D}$).
+
+![droppedImage.png](../assets/05_odes/droppedImage.png){width="70%" fig-alt="Hand-drawn sketch of a pendulum: a bob swinging on a string from a pivot, with a dashed line and curved arrow showing its trajectory returning to intersect a tilted plane (representing a Poincare-section surface) at a dashed circle."}
+
+- For the linear case: let $x= \theta $, $y=\mathop{ \theta }\limits^{ \cdot }$.
+- Recall the analytical solution:
+
+- $$\left( \begin{aligned}
+\mathop{x}\limits^{ \cdot } \\
+\mathop{y}\limits^{ \cdot } \\
+\mathop{t}\limits^{ \cdot }
+\end{aligned} \right)=\left( \begin{aligned}
+y \\
+-{ \omega }_{0}^{2}sinx- \gamma y+{F}_{D}cos{ \omega }_{D}t \\
+1
+\end{aligned} \right)$$
+
+---
+
+## Linear pendulum
+
+![poincare_sho_rk4.png](../assets/05_odes/poincare_sho_rk4.png){width="70%" fig-alt="Poincare-section scatter plot (axes roughly -180 to 180 on each side): points cluster tightly into a single small dot near (10, 0), indicating simple, non-chaotic periodic motion."}
+
+- For the linear case, the  Poincaré section is very simple:
+  - $x= \theta $ is always the same (i.e. its maximum value)
+  - $y=\mathop{ \theta }\limits^{ \cdot }$ is also always the same (2 values here, because numerically, the section is only "close" to the maximum, not exactly at the maximum, so the pendulum crosses twice in quick succession).
+
+---
+
+## Nonlinear pendulum
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Nonlinear pendulum: chaos!
+
+![](../assets/05_odes/slide46_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+
+- $$x= \theta $$
+
+- $$y=\mathop{ \theta }\limits^{ \cdot }$$
+
+---
+
+## Bifurcation diagrams
+
+- The same system transitions from linear to chaotic behavior.
+- The bifurcation diagram ([wikipedia](http://en.wikipedia.org/wiki/Bifurcation_diagram)) visualizes the behavior versus the bifurcation parameter
+  - Here, the bifurcation parameter is ${F}_{D}$: it controls the transition from linear to chaotic.
+- Procedure:
+  - Derive a Poincaré section for the system.
+  - Project the section to a single axis (choose sensibly!)
+  - Plot the section vs. the bifurcation parameter.
+- This is the subject of Homework 6, Problem 1!
+
+---
+
+## Bifurcation diagrams
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+
+- Start with $(x,\mathop{x}\limits^{ \cdot })$:
+
+- Squash onto one axis
+
+![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+
+- Parameter ${F}_{D}=1.150$
+
+![](../assets/05_odes/slide48_image1.png){fig-alt="Poincare-section scatter plot: points confined to a narrow near-vertical band around a single g value (~1.15), spanning angular values from about -3 to 3."}
+
+![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+
+- Plot on y axis as a function of the parameter ${F}_{D}$
+
+---
+
+## Bifurcation diagrams
+
+![ppbif_q=2_g=0.99-1.51.png](../assets/05_odes/ppbif_q-2_g-0.99-1.51.png){width="70%" fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+
+- Result:
+- What does this tell us?
+
+---
+
+## Bifurcation diagrams
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/05_odes/slide50_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+
+- Result:
+- What does this tell us?
+- For some (low) $g$: "one cycle", periodic motion
+
+---
+
+## Bifurcation diagrams
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/05_odes/slide51_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+
+- Result:
+- What does this tell us?
+- For some (low) $g$: "one cycle", periodic motion
+- "Two cycle": periodic-ish motion, but 2 possible frequencies
+
+---
+
+## Bifurcation diagrams
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/05_odes/slide52_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+
+- Result:
+- What does this tell us?
+- For some (low) $g$: "one cycle", periodic motion
+- "Two cycle": periodic-ish motion, but 2 possible frequencies
+- Even some "four cycle" behavior
+
+---
+
+## Bifurcation diagrams
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/05_odes/slide53_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+
+- Result:
+- What does this tell us?
+- For some (low) $g$: "one cycle", periodic motion
+- "Two cycle": periodic-ish motion, but 2 possible frequencies
+- Even some "four cycle" behavior
+- ...and chaos!
+
+---
+
+## Further applications
+
+- A lot of physical systems exhibit chaos
+  - Weather
+  - Three-body gravitational problem
+  - Cream in your coffee
+  - ...
+- Let’s take a look at a higher-dimensional one: Lorenz’s weather model ([wikipedia](https://en.wikipedia.org/wiki/Lorenz_system))
+
+---
+
+## Lorenz's weather model
+
+- Meteorologist Ed Lorenz showed in the 1960’s that some simple systems were inherently unpredictable (numerically) due to extreme sensitivity of initial conditions
+  - This is the butterfly effect! ([wikipedia](http://en.wikipedia.org/wiki/Lorenz_system))
+- Model is :
+- Simplified equations describing fluid circulation in a shallow layer of fluid, heated from below and cooled from above
+
+- $$\begin{matrix}
+\frac{dx}{dt} & = \sigma (y-x) \\
+\frac{dy}{dt} & =x( \rho -z)-y \\
+\frac{dz}{dt} & =xy- \beta z
+\end{matrix}$$
+
+- x = rate of convection overturning
+
+- y, z = horizontal, vertical temperature gradients
+
+- $ \sigma , \rho , \beta $ = constants
+
+---
+
+## Lorenz's weather model
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- To cut to the chase, the trajectories look like this :
+
+![](../assets/05_odes/slide56_A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif){fig-alt="Animated GIF of the Lorenz attractor: a butterfly-shaped trajectory winding around two lobes in 3D phase space, traced out over time."}
+
+- [https://faculty.college.emory.edu/sites/weeks/research/tseries1.html](https://faculty.college.emory.edu/sites/weeks/research/tseries1.html)
+
+- By Dan Quinn - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=29370723
+
+- This is the Lorenz attractor.
+- In 1D, it looks like this:
+
+![](../assets/05_odes/slide56_vlorenz.png){fig-alt="Plot titled 'Lorenz attractor': the X variable versus time, showing irregular oscillations that switch unpredictably between two amplitude bands (roughly -15 to 15), characteristic of chaotic dynamics."}
+
+---
+
+## Hands-on
+
+- For the rest of today, you will all build your own bifurcation diagrams of the nonlinear pendulum.
+- CompPhys/ODEs/pendulum_nonlinear.ipynb has some starter code:
+  - Implements scipy.integrate.solve_ivp to calculate trajectories.
+  - Plots trajectories and Poincaré sections for specific ${F}_{D}$
+  - First step of making bifurcation diagram, for one ${F}_{D}$
+  - Your job is to plot for many ${F}_{D}$
+
+---
+
+## Recap
+
+- The Poincaré section is a useful technique for visualizing the behavior of dynamical systems in a reasonable number of dimensions.
+- Bifurcation diagrams visualize the system as a function of the bifurcation parameter, exhibiting the transition from linear to chaotic.
+- Applications:
+  - The simple driven+damped pendulum system transitions from linear behavior to quasi-period to chaotic as a function of a single parameter, ${F}_{D}$.
+  - The Lorenz weather model is a beautiful example from real life.
+  - Next time: celestial dynamics, aka N-body problem.
+
+---
+
+# N-body simulation
+
+---
+
+## Last time
+
+- We used scipy.integrate.solve_ivp() to study the nonlinear pendulum.
+- We define two graphical presentations of dynamical systems:
+  - Poincaré section: intersection of $N$-dimensional trajectory with lower-dimensional subspace, chosen carefully to demonstrate important features of the dynamics.
+  - Bifurcation diagram: plots 1D projection of Poincaré section vs. bifurcation parameter to demonstrate transition between order and chaos.
+- Let's quickly go through the notebook, as it concerns Assignment 6.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+---
+
+## Celestial dynamics
+
+:::: {.columns}
+::: {.column width="55%"}
+- One more classical application of ODE techniques: celestial dynamics, aka $N$-body problem.
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- [http://www.lactamme.polytechnique.fr/images/NCOR.73.16.D/display.html](http://www.lactamme.polytechnique.fr/images/NCOR.73.16.D/display.html)
+:::
+::: {.column width="45%"}
+![image.png](../assets/05_odes/image.png){width="100%" fig-alt="A 4x4 grid of animation frames (numbered 01-16) from a colorful simulated trajectory visualization: glowing orbital rings and comet-like trailing particles in green, orange, blue, and pink build up around a bright central cluster across the sequence; watermarked 'JFC www.lactamme.polytechnique.fr'."}
+:::
+::::
+
+---
+
+## Celestial dynamics
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- A sort of bifurcation diagram:
+  - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
+
+![](../assets/05_odes/slide62_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
+
+![](../assets/05_odes/slide62_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+
+![](../assets/05_odes/slide62_image32.png){fig-alt="Equation image: F = -G m1 m2 / r^2 times r-hat, Newton's law of universal gravitation."}
+
+---
+
+## Celestial dynamics
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- A sort of bifurcation diagram:
+  - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
+  - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
+
+![](../assets/05_odes/slide63_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+
+- Divine nudges from time to time to maintain stability
+
+- (paraphrased)
+
+![](../assets/05_odes/slide63_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+
+![](../assets/05_odes/slide63_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+
+---
+
+## Celestial dynamics
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- A sort of bifurcation diagram:
+  - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
+  - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
+
+![](../assets/05_odes/slide64_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+
+![](../assets/05_odes/slide64_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+
+![](../assets/05_odes/slide64_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+
+![](../assets/05_odes/slide64_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
+
+- Laplace
+
+- These phenomena and some others similarly explained, lead us to believe that everything depends on these laws by relations more or less hidden, but of which it is wiser to admit ignorance, rather than to substitute imaginary causes solely in order to quiet our uneasiness about the origin of the things that interest us.
+
+- [http://arxiv.org/abs/1503.06861v1](http://arxiv.org/abs/1503.06861v1)
+
+---
+
+## Celestial dynamics
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- A sort of bifurcation diagram:
+  - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
+  - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
+
+![](../assets/05_odes/slide65_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+
+![](../assets/05_odes/slide65_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+
+![](../assets/05_odes/slide65_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+
+![](../assets/05_odes/slide65_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
+
+- Laplace
+
+- [http://arxiv.org/abs/1503.06861v1](http://arxiv.org/abs/1503.06861v1)
+
+- Translation : It’s okay to just say “I don’t know yet”!
+
+---
+
+## Celestial dynamics
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Laplace thought he actually showed the stability of 3-body systems
+  - (This was eventually shown to be wrong by Poincaré)
+- Anyways, here's our ODE:
+
+- $$\begin{aligned}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1}=-G{m}_{2}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2}=-G{m}_{1}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3}=-G{m}_{1}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{2}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{aligned}$$
+
+---
+
+## Celestial dynamics
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Laplace thought he actually showed the stability of 3-body systems
+  - (This was eventually shown to be wrong by Poincaré)
+- Anyways, here's our ODE:
+
+- $$\begin{aligned}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1}=-G{m}_{2}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2}=-G{m}_{1}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3}=-G{m}_{1}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{2}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{aligned}$$
+
+- 9 degrees of freedom (3 bodies * 3 dimension).
+- 7 independent conserved quantities (energy, linear momentum, angular momentum).
+- Underconstrained problem: cannot solve exactly, except in special cases.
+  - ... so we solve it numerically.
+
+---
+
+## Warmup
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Let's start with easy mode: 2-body system.
+  - Let $\mathbf{r}={\mathbf{r}}_{m}-{\mathbf{r}}_{M}$.
+
+![](../assets/05_odes/slide68_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
+
+- $$\frac{d}{dt}\left( \begin{aligned}
+t \\
+x \\
+y \\
+{v}_{x} \\
+{v}_{y}
+\end{aligned} \right)=\left( \begin{aligned}
+1 \\
+{v}_{x} \\
+{v}_{y} \\
+-\frac{G(m+M)x}{{r}^{3}} \\
+-\frac{G(m+M)y}{{r}^{3}}
+\end{aligned} \right)$$
+
+- $$m$$
+
+- $$M$$
+
+- $$\begin{matrix}
+M{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{M} & =\frac{GMm}{{r}^{2}}{\mathbf{e}}_{\mathbf{r}} \\
+m{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{m}= & -\frac{GMm}{{r}^{2}}{\mathbf{e}}_{\mathbf{r}} \\
+\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }={\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{m}-{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{M} & =-\frac{G(m+M)}{{r}^{2}}{\mathbf{e}}_{\mathbf{r}}
+\end{matrix}$$
+
+- Hands-on notebook: CompPhys/ODEs/planetary.ipynb
+
+---
+
+## 2D 3-body problem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Next problem: 3-body motion, assuming co-planar motion.
+
+- $$\begin{aligned}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1}=-G{m}_{2}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2}=-G{m}_{1}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{3}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{3}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{3}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3}=-G{m}_{1}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{2}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{aligned}$$
+
+  - Note: this is not a stable scenario!
+    - In general, the motion will not stay co-planar for long.
+    - So, let's consider a simpler scenario: ${m}_{3}=0$.
+
+- $${\mathbf{r}}_{i}=({x}_{i},{y}_{i})$$
+
+---
+
+## 2D 3-body problem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Next problem: 3-body motion, assuming co-planar motion and ${m}_{3}=0$:
+
+- $$\begin{matrix}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1} & =-G{m}_{2}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2} & =-G{m}_{1}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3} & =-G{m}_{1}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{2}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{matrix}$$
+
+  - Now the 3rd equation is decoupled.
+    - ${\mathbf{r}}_{1}$ and ${\mathbf{r}}_{2}$ just follow Keplerian motion.
+  - This is enough to solve numerically, but it turns out we can partially solve this analytically. Let's do that first.
+
+- $${\mathbf{r}}_{i}=({x}_{i},{y}_{i})$$
+
+---
+
+## 2D 3-body problem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- We can find particular exact solutions of the 2-body equations with a circular orbit in the CM frame of the two heavier masses.
+  - Restrict to 2D.
+- Simplify units:
+  - Choose distance units such that radius of the circular orbit = 1: $|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}|=1$
+  - Choose time unit to be the inverse angular speed: $ \omega =\frac{2 \pi }{T}=\sqrt{\frac{G({m}_{1}+{m}_{2})}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}}}=1$
+  - Choose mass unit so that $G({m}_{1}+{m}_{2})=1$
+- Then, all constants can be reduced to a single parameter $ \alpha $:
+
+- $$ \alpha  \equiv \frac{{m}_{2}}{{m}_{1}+{m}_{2}}$$
+
+- $$G{m}_{2}=\frac{G{m}_{2}}{G({m}_{1}+{m}_{2})}= \alpha $$
+
+- $$G{m}_{1}=1- \alpha $$
+
+---
+
+## 2D 3-body problem
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$ \alpha  \equiv \frac{{m}_{2}}{{m}_{1}+{m}_{2}}$$
+
+- $$G{m}_{2}=\frac{G{m}_{2}}{G({m}_{1}+{m}_{2})}= \alpha $$
+
+- $$Gm-1=1- \alpha $$
+
+- $$\begin{matrix}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1} & =-G{m}_{2}\frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2} & =-G{m}_{1}\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3} & =-G{m}_{1}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}-G{m}_{2}\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{matrix}$$
+
+- $$\begin{matrix}
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{1} & =- \alpha \frac{{\mathbf{r}}_{1}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{1}-{\mathbf{r}}_{2}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{2} & =-(1- \alpha )\frac{{\mathbf{r}}_{2}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{2}-{\mathbf{r}}_{1}{|}^{3}} \\
+{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{3} & =-(1- \alpha )\frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{1}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{1}{|}^{3}}- \alpha \frac{{\mathbf{r}}_{3}-{\mathbf{r}}_{2}}{|{\mathbf{r}}_{3}-{\mathbf{r}}_{2}{|}^{3}}
+\end{matrix}$$
+
+---
+
+## 2D 3-body problem: reference frame
+
+:::: {.columns}
+::: {.column width="55%"}
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- Second trick: move to a rotating frame of reference.
+  - Inertial frame, aka sidereal frame:
+    - "Fixed to the stars"; bodies rotate like a rigid dumbbell.
+  - Rotating frame, aka synodic frame:
+    - Two heavy masses are at rest (centrifugal force balances gravitational force; also have Coriolis forces)
+    - 3rd light mass is not at rest.
+- Figure 7.4.1 of Fowles/Cassiday
+:::
+::: {.column width="45%"}
+![7.4.1.png](../assets/05_odes/7.4.1.png){width="100%" fig-alt="Figure 7.4.1: diagram of the restricted three-body problem, showing two large masses M1 and M2 (with separation b, and M1 at distance a from the origin) and a small test mass m at position r' (in a co-rotating frame with axes x', y'), with vectors r'_1 and r'_2 from each large mass to m, and fixed axes x, y shown for reference."}
+:::
+::::
+
+---
+
+## 2D 3-body problem: reference frame
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Let the sidereal (inertial) and synodic (rotating) frames coincide at $t=0$.
+- Let $x(t),y(t)$ be the inertial coordinates of the 3rd body, and ${x}^{′}(t),{y}^{′}(t)$ be the rotating frame coordinates:
+
+- $$\begin{matrix}
+x(t) & ={x}^{′}(t)cost-{y}^{′}(t)sint \\
+y(t) & ={x}^{′}(t)sint+{y}^{′}(t)cost
+\end{matrix}$$
+
+- We can take some derivatives and solve for ${\mathop{x}\limits^{ \cdot  \cdot }}^{′}(t)$ and ${\mathop{y}\limits^{ \cdot  \cdot }}^{′}(t)$, i.e., the forces in the rotating frame. Start with:
+
+- $$\begin{matrix}
+\mathop{x}\limits^{ \cdot  \cdot }cost+\mathop{y}\limits^{ \cdot  \cdot }sint & ={\mathop{x}\limits^{ \cdot  \cdot }}^{′}-{x}^{′}-2{\mathop{y}\limits^{ \cdot }}^{′} \\
+-\mathop{x}\limits^{ \cdot  \cdot }sint+\mathop{y}\limits^{ \cdot  \cdot }cost & ={\mathop{y}\limits^{ \cdot  \cdot }}^{′}-{y}^{′}+2{\mathop{x}\limits^{ \cdot }}^{′}
+\end{matrix}$$
+
+---
+
+## 2D 3-body problem: equations of motion
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- We have $\mathop{x}\limits^{ \cdot  \cdot },\mathop{y}\limits^{ \cdot  \cdot }$ from the gravitational force equations, yielding:
+
+- $$\begin{matrix}
+{\mathop{x}\limits^{ \cdot  \cdot }}^{′} & =-\frac{(1- \alpha )({x}^{′}- \alpha )}{{\left[ ({x}^{′}- \alpha {)}^{2}+{y}^{′2} \right]}^{\frac{3}{2}}}-\frac{ \alpha ({x}^{′}+1- \alpha )}{{\left[ ({x}^{′}+1- \alpha {)}^{2}+{y}^{′2} \right]}^{\frac{3}{2}}}+{x}^{′}+2{\mathop{y}\limits^{ \cdot }}^{′} \\
+{\mathop{y}\limits^{ \cdot  \cdot }}^{′} & =-\frac{(1- \alpha ){y}^{′}}{{\left[ ({x}^{′}- \alpha {)}^{2}+{y}^{′2} \right]}^{\frac{3}{2}}}-\frac{ \alpha {y}^{′}}{{\left[ ({x}^{′}+1- \alpha {)}^{2}+{y}^{′2} \right]}^{\frac{3}{2}}}+{y}^{′}-2{\mathop{x}\limits^{ \cdot }}^{′}
+\end{matrix}$$
+
+- Gravitational force from ${m}_{1}$ and ${m}_{2}$
+
+- Centripetal acceleration
+
+- Coriolis acceleration
+
+---
+
+## 2D 3-body problem: effective potential
+
+:::: {.columns}
+::: {.column width="55%"}
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- Ignoring the Coriolis force for now, we can define an effective potential for this force.
+  - Recall: orbiting in the Lennard–Jones potential, from the calculus lectures.
+- $$V({x}^{′},{y}^{′})=-\frac{1- \alpha }{\sqrt{({x}^{′}- \alpha {)}^{2}+{y}^{′2}}}-\frac{ \alpha }{\sqrt{({x}^{′}+1- \alpha {)}^{2}+{y}^{′2}}}-\frac{{x}^{′2}+{y}^{′2}}{2}$$
+- This potential has 5 extrema:
+  - 2 maxima (L4, L5)
+  - 3 saddle points (L1, L2, L3)
+- These are the famous Lagrange points.
+  - [Wikipedia article](https://en.wikipedia.org/wiki/Lagrange_point) is definitely worth a read :)
+:::
+::: {.column width="45%"}
+![File-Lagrange_points2.png](../assets/05_odes/File-Lagrange_points2.png){width="100%" fig-alt="Diagram of the five Lagrange points (L1-L5) of a two-body system: a bright sun-like central mass with field-line contours and orbital direction arrows, and the five equilibrium points marked around it, including a small companion body near L1/L2."}
+:::
+::::
+
+---
+
+## 2D 3-body problem: stability
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- The 5 LPs are extrema of the potential: if ${m}_{3}$ starts exactly at a Lagrange point, it will stay there.
+- However, the extrema are either maxima or saddle points. So... are they all unstable?
+  - Nope! We have neglected the Coriolis force (simply because it can't be written in terms of an effective potential).
+  - As ${m}_{3}$ moves away from a LP, the Coriolis force bends its trajectory.
+  - Result: some bands of stability near LPs and between LPs. (Some trajectories still wander away.)
+
+![](../assets/05_odes/slide77_Animation_of_Wilkinson_Microwave_Anisotropy_Probe_trajectory.gif){fig-alt="Animated GIF of the WMAP satellite's trajectory: a black background with a small colored dot marking the spacecraft's position, with a timestamp (2001-06-30 21:16), velocity (0.000 km/s), and distance (7,551 km) readout in the corners."}
+
+- Example: the Wilkinson Microwave Anisotropy Probe (WMAP) sits near L2:
+
+- Phoenix7777, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons
+
+---
+
+## WMAP
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![pasted-movie.png](../assets/05_odes/slide78_image38.png){width="70%" fig-alt="All-sky Mollweide-projection map of the cosmic microwave background temperature anisotropies (WMAP data): a mottled pattern of blue, green, yellow, and red patches representing tiny temperature fluctuations across the sky."}
+
+---
+
+## 2D 3-body problem: final words
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Can it be solved exactly?
+- Tertiary mass moves in 2d, so it has 2 degrees of freedom.
+  - Similar to Kepler problem?
+- However, for Kepler problem, energy + angular momentum conserved.
+- Here, the Coriolis force is not a conservative force! It depends on velocity.
+- One conserved quantity, however, is the Jacobi Integral ([Wikipedia](https://en.wikipedia.org/wiki/Jacobi_integral)):
+- Underconstrained system, not integrable
+
+- $$C={x}^{′2}+{y}^{′2}+\frac{2(1- \alpha )}{\sqrt{({x}^{′}- \alpha {)}^{2}+{y}^{′2}}}+\frac{2 \alpha }{\sqrt{({x}^{′}+1- \alpha {)}^{2}+{y}^{′2}}}-{\mathop{x}\limits^{ \cdot }}^{′2}-{\mathop{y}\limits^{ \cdot }}^{′2}$$
+
+---
+
+## Hands-on
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Back to CompPhys/ODEs/planetary.ipynb: let's run through the rest of the notebook.
+  - 3-body planar motion
+  - Restricted 3-body motion (Lagrange points)
+    - Note: values in notebook are tuned for chaotic motion. Try finding the Lagrange points!
+
+---
+
+## Recap
+
+- We introduced ordinary differential equation methods.
+  - Basic idea is to follow the Taylor expansion step-by-step. The important distinction is how exactly to compute the next step.
+  - Runge–Kutta family: accurate and efficient; RK45 is commonly implemented.
+  - Other useful properties:
+    - "Symplectic integrators" conserve energy (Euler–Comer, Verlet)
+    - Adaptive algorithms estimate the error at each step, and shrink the step size if too large (e.g. compare $O({ \tau }^{4})$ vs $O({ \tau }^{5})$ results)
+- Applications:
+  - Numerical trajectory calculations with drag.
+  - Simple oscillator with damping and drive forces.
+    - Transition from order to chaos; visualize with Poincaré section and bifurcation diagram
+  - Celestial dynamics aka N-body problem: extremely hard to solve for $N \geq 3$.
+    - Restricted 3-body problem (${m}_{3}=0$, 2D) can be nearly solved in rotating frame
+    - Effective potential has 5 extrema points: Lagrange points.

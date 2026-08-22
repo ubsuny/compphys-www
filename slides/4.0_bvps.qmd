@@ -1,0 +1,864 @@
+---
+title: "Boundary value problems"
+date: "today"
+date-format: "[Spring] YYYY"
+author:
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  clean-revealjs:
+    theme: [default, ../assets/css/custom.scss]
+    template-partials:
+      - ../assets/templates/title-slide.html
+    slide-number: c/t
+    width: 1600
+    height: 900
+    center: true
+    footer: "UB Computational Physics"
+    incremental: false
+    chalkboard: true
+    pdf-separate-fragments: true
+execute:
+  keep-ipynb: false
+---
+
+## Assignment 5, Problem 1: scattering
+
+- General idea is:
+  - Use SWIG classes to calculate trajectories for a range of (E, b).
+    - Choose 4–10 E values, interesting range is ~0.5 to 2.
+    - Simulate a lot of b values, interesting range is ~0 to 2.
+      - ~100 is a good number; smaller $ \Delta b$ actually leads to numerical issues here.
+      - ${ \theta }_{s}(b)$ is used for the remainder of the problems, and you need to differentiate it.
+      - Only plot a handful of b values, not 1000 :)
+    - Use the endpoint of the trajectories as ${ \theta }_{s}$ (assuming $r$ is large at the end, this is good enough).
+    - Note: L–J has much more interesting behavior.
+  - Use e.g. 5-point stencil function for $d{ \theta }_{s}/db$ (remember, we have ${ \theta }_{s}(b)$ calculated at a discrete set of $b$ values; think about how to define the derivative here).
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+---
+
+## Assignment 5, Problems 2–4
+
+- Problem 2:
+  - NaCl solutions are tricky to find, especially for the irregular/3D looking configurations. Try to find them all, but I'll allow some leeway if you miss 1 or 2 of the hard ones.
+  - Suggestion: use an interactive matplotlib backend so you can "spin" the 3D figures, e.g., %matplotlib ipympl
+- Problem 3:
+  - It might help to draw the resistor cube in 2D!
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![pasted-movie.png](../assets/05_bvps/pasted-movie.png){width="70%" fig-alt="Circuit diagram of a resistor grid/lattice with nodes labeled X, E, F, and B connected by a 2x4 array of resistors."}
+
+---
+
+## Boundary value problems
+
+- So far, we've covered "unbounded" ODE problems: specify starting point, let system evolve.
+- Boundary value problems impose an extra requirement: specific values of the state (${y}_{i}(t)$) at more than one $t$.
+  - Related topic: eigenvalue problems.
+- Key complication: (obviously) meeting the boundary condition is not trivial!
+  - Non-local condition; our "marching" methods are intrinsically local.
+  - Methods like RK4 are not always the most accurate.
+- These are like "1D partial differential equations": a warmup for the real PDE section of the class.
+- Reference: Numerical Recipes, Chapter 18
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+---
+
+## Boundary value problems
+
+- Example problem: consider a 2nd order ODE,
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}=f(x,u,{u}^{′}),{u}^{′}(x)=\frac{du}{dx}$$
+
+- The values of the state ($u(x)$ and/or ${u}^{′}(x)$) are specified on two boundaries, left (${x}_{l}$) and right $({x}_{r})$.
+- We want solutions inside this interval, ${x}_{l} \leq x \leq {x}_{r}$.
+- There are numerous possible scenarios:
+  - Dirichlet: specify $u(x)$ on boundaries.
+  - Neumann: specify ${u}^{′}(x)$ on boundaries.
+  - Periodic: require $u({x}_{l})=u({x}_{r})$ and ${u}^{′}({x}_{l})={u}^{′}({x}_{r})$.
+  - Or mixed, combining any of these; or partial, only specifying some variables.
+
+---
+
+## Eigenvalue problems
+
+- Eigenvalue problems have a similar mathematical formulation. Here, we consider problems of the form:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}=f(x,u,{u}^{′}, \lambda )$$
+
+- We will extend on methods from earlier this semester, particularly matrix methods.
+
+---
+
+## Schroedinger equation
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- A concrete example: the time-independent Schroedinger equation,
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\frac{{d}^{2} \psi }{d{x}^{2}}=-\frac{2m}{{ \hbar }^{2}}\left[ E-V(x) \right] \psi (x)$$
+
+- Let $V(x)$ be an infinite potential well.
+- This imposes Dirichlet boundary conditions:
+
+- $$\begin{aligned}
+ \psi (0)=0 \\
+ \psi (L)=0
+\end{aligned}$$
+
+![](../assets/05_bvps/slide07_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+
+---
+
+## Schroedinger equation
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Of course, we can solve this problem analytically:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\frac{{d}^{2} \psi }{d{x}^{2}}=-\frac{2m}{{ \hbar }^{2}}E \psi (x)$$
+
+- Free particle inside the well, with solutions like:
+
+- $$\begin{matrix}
+ \psi (x) & =A{e}^{ikx}+B{e}^{-ikx}
+\end{matrix}$$
+
+![](../assets/05_bvps/slide08_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+
+- Apply the boundary conditions:
+
+- $$\begin{matrix}
+0= \psi (0) & =A+B \\
+0= \psi (L) & =2AsinkL \\
+ \Rightarrow k & =\frac{n \pi }{L}
+\end{matrix}$$
+
+---
+
+## Schroedinger equation
+
+- Finally, solve for the normalization, $A$:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\begin{matrix}
+1 & ={ \int }_{0}^{L}dx4{A}^{2}{sin}^{2}\left( \frac{n \pi x}{L} \right) \\
+ & =4{A}^{2}\left( \frac{x}{2}-\frac{sin(n \pi x/L)}{4n \pi /L} \right){|}_{0}^{L} \\
+ \Rightarrow A & =\sqrt{2/L}
+\end{matrix}$$
+
+- So, our solutions are $\begin{matrix}
+ \psi (x) & =\sqrt{\frac{2}{L}}sin\left( \frac{n \pi x}{L} \right)
+\end{matrix}$
+- And, plugging back into the original Schroedinger equation, $E= \hbar  \omega =\frac{{ \hbar }^{2}{k}^{2}}{2m}$
+
+---
+
+## Numerical BVP solving
+
+:::: {.columns}
+::: {.column width="55%"}
+- Two general strategies for numerical BVP algorithms:
+  - Shoot:
+    - Guess the solution at the left boundary.
+    - "Shoot" to the right boundary, i.e., numerically solve the ODE, and see how close we are.
+    - Correct the guess iteratively.
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+:::
+::: {.column width="45%"}
+![pasted-movie.png](../assets/05_bvps/slide10_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+:::
+::::
+
+---
+
+## Numerical BVP solving
+
+:::: {.columns}
+::: {.column width="55%"}
+- Two general strategies for numerical BVP algorithms:
+  - Shoot:
+    - Guess the solution at the left boundary.
+    - "Shoot" to the right boundary, i.e., numerically solve the ODE, and see how close we are.
+    - Correct the guess iteratively.
+  - Relax:
+    - Guess an initial solution on a mesh of points across the whole interval (independent of the ODE).
+    - Check points on the interior; correct to satisfy the finite difference equations corresponding to the ODE.
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+:::
+::: {.column width="45%"}
+![pasted-movie.png](../assets/05_bvps/slide11_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+![pasted-movie.png](../assets/05_bvps/slide11_image11.png){width="100%" fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
+:::
+::::
+
+---
+
+## Numerical BVP solving
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Two general strategies for numerical BVP algorithms:
+  - Shoot:
+    - Guess the solution at the left boundary.
+    - "Shoot" to the right boundary, i.e., numerically solve the ODE, and see how close we are.
+    - Correct the guess iteratively.
+  - Relax:
+    - Guess an initial solution on a mesh of points across the whole interval (independent of the ODE).
+    - Check points on the interior; correct to satisfy the finite difference equations corresponding to the ODE.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![](../assets/05_bvps/slide12_pasted-movie.png){fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+
+![](../assets/05_bvps/slide12_image11.png){fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
+
+- When in doubt of which to use, 
+from NR : Be a gunslinger!
+- “Shoot first, then relax later”
+![](../assets/05_bvps/slide12_image12.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
+
+---
+
+## Shooting algorithm
+
+- Iterative shooting procedure:
+  - Guess unknown initial parameter at left side.
+  - Generate trial solution with a “marching” algorithm.
+  - Compute difference at boundary.
+  - Iterate until difference is small.
+- The key step is the iterative correction.
+  - Use a root-finding method!
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+
+---
+
+## Shooting algorithm
+
+- Specifically: say we have $N$ coupled 1st ODEs
+  - BVs: ${n}_{1}$ fixed on left, ${n}_{2}=N-{n}_{1}$ fixed on right.
+  - On left, we can freely guess ${n}_{2}$ values, $\mathbf{v}=({v}_{0},{v}_{1},...,{v}_{{n}_{2}-1})$.
+  - On right, we have ${n}_{2}$ equations from the BV requirement.
+- So, we have a ${n}_{2}$-dimensional root-finding problem:
+  - Minimize discrepancies between ${y}_{j}({x}_{r},\mathbf{v})$ and the BVs, as a function of $\mathbf{v}$=free parameters.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+
+---
+
+## Shooting algorithm
+
+- Specifically: say we have $N$ coupled 1st ODEs
+  - BVs: ${n}_{1}$ fixed on left, ${n}_{2}=N-{n}_{1}$ fixed on right.
+  - On left, we can freely guess ${n}_{2}$ values, $\mathbf{v}=({v}_{0},{v}_{1},...,{v}_{{n}_{2}-1})$.
+  - On right, we have ${n}_{2}$ equations from the BV requirement.
+- So, we have a ${n}_{2}$-dimensional root-finding problem:
+  - Minimize discrepancies between ${y}_{j}({x}_{r},\mathbf{v})$ and the BVs, as a function of $\mathbf{v}$=free parameters.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+
+---
+
+## Relaxing algorithm
+
+- Relaxation algorithms work as follows:
+  - Guess solution on a grid of $x$ values and the boundary.
+  - Compute the derivatives with finite differences.
+  - Compare the derivatives of your trial solution with the expected derivatives from the ODEs:
+  - Iterate until the two agree, i.e., the difference is minimized.
+- For our 2nd order ODE, this looks something like:
+  - Algorithm iteratively adjust solution to obtain $G(x) \rightarrow 0$.
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$G(x)=\frac{{d}^{2}{u}_{g}}{d{x}^{2}}-f(x,{u}_{g},{u}_{g}^{′})$$
+
+---
+
+## Relaxing algorithm
+
+- Specifically we use Jacobi’s relaxation algorithm:
+  - Discretize the space and compute second derivatives:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$h=\frac{1}{N},{x}_{j}=jh,{u}_{j} \equiv u({x}_{j}),j=0,1,...,N$$
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}{|}_{x={x}_{j}}=\frac{{u}_{j+1}-2{u}_{j}+{u}_{j-1}}{{h}^{2}},j=1,2,...,N-1$$
+
+- Define the difference between the trial solution, ${u}_{g,j}$, and the ODE:
+
+- $$G({x}_{j})=\frac{{u}_{g,j+1}-2{u}_{j}+{u}_{g,j-1}}{{h}^{2}}-f({x}_{j},{u}_{g,j},{u}_{g,j}^{′}) \rightarrow 0$$
+
+- Solve for next guess ${u}_{j}$:
+
+- $${u}_{j} \approx \frac{1}{2}\left[ {u}_{g,j+1}+{u}_{g,i-1}+{h}^{2}f({x}_{j},{u}_{g,j},{u}_{g,j}^{′} \right]$$
+
+---
+
+## Relaxing algorithm
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Specifically we use Jacobi’s relaxation algorithm:
+  - Discretize the space and compute second derivatives:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$h=\frac{1}{N},{x}_{j}=jh,{u}_{j} \equiv u({x}_{j}),j=0,1,...,N$$
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}{|}_{x={x}_{j}}=\frac{{u}_{j+1}-2{u}_{j}+{u}_{j-1}}{{h}^{2}},j=1,2,...,N-1$$
+
+- Define the difference between the trial solution, ${u}_{g,j}$, and the ODE:
+
+- $$G({x}_{j})=\frac{{u}_{g,j+1}-2{u}_{j}+{u}_{g,j-1}}{{h}^{2}}-f({x}_{j},{u}_{g,j},{u}_{g,j}^{′}) \rightarrow 0$$
+
+- Solve for next guess ${u}_{j}$:
+
+- $${u}_{j} \approx \frac{1}{2}\left[ {u}_{g,j+1}+{u}_{g,i-1}+{h}^{2}f({x}_{j},{u}_{g,j},{u}_{g,j}^{′} \right]$$
+
+- Like Euler's method for ODEs, this is a "workhorse" method for more advanced algorithms
+![](../assets/05_bvps/slide18_image14.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
+
+---
+
+## Hands-on
+
+- Let's try these out:
+  - CompPhys/BVPs/bvpexample.ipynb
+  - CompPhys/BVPs/qmbox.ipynb
+- Try adjust the parameters to get a good solution.
+- See next couple slides for some explanation...
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+---
+
+## Eigenvalue problems
+
+- We've already seen an example of an eigenvalue problem:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}=-\frac{{ \pi }^{2}}{4}(u+1)$$
+
+- $$u(0)=0,u(1)=1$$
+
+- Recall back to linear algebra section: we discretize the 2nd derivative, and pack the variables into a matrix.
+
+- $$\begin{matrix}
+\frac{{u}_{i-1}-2{u}_{i}+{u}_{i+1}}{{h}^{2}} & =-\frac{{ \pi }^{2}}{4}({u}_{i}+1),i=1,2,...,N-1 \\
+\mathbf{M}.\mathbf{u} & =\mathbf{b}
+\end{matrix}$$
+
+---
+
+## Eigenvalue problems
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $\mathbf{M}$ is a tridiagonal matrix:
+
+$$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & \cdots & 0 & 0 \\ 0 & -1 & 2-c & \cdots & 0 & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\ 0 & 0 & 0 & \cdots & 2-c & -1 \\ 0 & 0 & 0 & \cdots & -1 & 2-c \end{pmatrix}, \quad \mathbf{u} = \begin{pmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_{N-2} \\ u_{N-1} \end{pmatrix}, \quad \mathbf{b} = \begin{pmatrix} u_0+c \\ c \\ c \\ \vdots \\ c \\ u_N+c \end{pmatrix}$$
+
+- You have already worked with this system a fair amount, so we won't belabor the point, but just note that this is all intrinsically related.
+
+---
+
+## Eigenvalue problems
+
+:::: {.columns}
+::: {.column width="55%"}
+- We can also solve for eigenvalues by adjusting the parameters until the boundary conditions are met.
+- Example : particle in a box
+- In this case we know $ \psi (0)=0$ and $ \psi (L)=0$.
+- So, adjust energy until this occurs!
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+:::
+::: {.column width="45%"}
+![TODO: describe image](../assets/05_bvps/image1.png){width="100%" fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+:::
+::::
+
+---
+
+## Recap
+
+- Introduced methods for boundary value problems: ODEs where the solution has requirements at two values of the independent variable.
+- Shooting method: adjust free parameters on the left side until the BVs on the right side are satisfied.
+- Relaxation method: guess solution at grid of points inside interval, and iteratively adjust until it satisfies the ODEs.
+  - Works best if solutions are smooth, non-oscillatory.
+  - Or if shooting methods get "trapped" by unwanted solutions.
+- Next time:
+  - More on BVPs and eigenvalue problems
+  - Sturm–Liouville
+  - Quantum harmonic oscillator
+  - Periodic potential (Kronig–Penney model)
+
+---
+
+# QUANTUM HARMONIC OSCILLATOR
+
+---
+
+## Boundary-value and eigenvalue problems
+
+- The $s(x)$ term makes the equation inhomogeneous.
+- The Sturm–Liouville theory deals with linear homogeneous second order equations of the form:
+- where p(x), r(x), w(x) are given, and lambda is a parameter, p(x) >0 and w(x) >0 in integration domain
+- Need boundary conditions! Consider homogenous and linear BC’s like :
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- To continue our investigation of BVP and eigenvalue problems, consider 2nd order ODEs of the following form:
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}+d(x)\frac{du}{dx}+q(x)u=s(x)$$
+
+- $d(x),q(x),s(x)$ given
+
+- $$-\frac{d}{dx}\left[ p(x)\frac{du}{dx} \right]+r(x)u(x)= \lambda w(x)u(x)$$
+
+- $p(x),r(x),w(x)$ given
+
+---
+
+## Sturm–Liouville
+
+- The Sturm–Liouville theory deals with linear homogeneous second order equations of the form:
+- Consider "regular" scenario: over the interval $x \in [a,b]$,
+  - $p(x)$, $r(x)$, $w(x)$, and ${p}^{′}(x)$ are continuous
+  - $p(x)>0$ and $w(x)>0$
+  - Boundary conditions of the form:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$-\frac{d}{dx}\left[ p(x)\frac{du}{dx} \right]+r(x)u(x)= \lambda w(x)u(x)$$
+
+- $p(x),r(x),w(x)$ given
+
+- $ \lambda $ is a parameter
+
+- $$\begin{matrix}
+{ \alpha }_{1}u(a)+{ \alpha }_{2}{u}^{′}(a) & =0 \\
+{ \beta }_{1}u(b)+{ \beta }_{2}{u}^{′}(b) & =0
+\end{matrix}$$
+
+---
+
+## Sturm–Liouville
+
+- Sturm–Liouville proved:
+  - Nontrivial solution exist only for certain values of $ \lambda $, called eigenvalues.
+  - If eigenvalues are arranged in increasing order, eigenfunctions have one additional node or zero per step.
+- We can solve regular S–L problems with Numerov's method.
+  - Starting point is, once again, 2nd derivative with finite differences:
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\begin{matrix}
+\frac{{u}_{n+1}-2{u}_{n}+{u}_{n-1}}{{h}^{2}} & ={u}_{n}^{′′}+\frac{{h}^{2}}{12}{u}_{n}^{′′′′}+O({h}^{4})
+\end{matrix}$$
+
+- $$-\frac{d}{dx}\left[ p(x)\frac{du}{dx} \right]+r(x)u(x)= \lambda w(x)u(x)$$
+
+---
+
+## Sturm–Liouville
+
+- Sturm–Liouville proved:
+  - Nontrivial solution exist only for certain values of $ \lambda $, called eigenvalues.
+  - If eigenvalues are arranged in increasing order, eigenfunctions have one additional node or zero per step.
+- We can solve regular S–L problems with Numerov's method.
+- Changing notation (sorry...):
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\begin{matrix}
+\frac{{u}_{n+1}-2{u}_{n}+{u}_{n-1}}{{h}^{2}} & ={u}_{n}^{′′}+\frac{{h}^{2}}{12}{u}_{n}^{′′′′}+O({h}^{4})
+\end{matrix}$$
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}+q(x)u(x)=s(x)$$
+
+- Starting point is, once again, 2nd derivative with finite differences:
+
+---
+
+## Numerov's method
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\begin{matrix}
+\left( 1+\frac{{h}^{2}}{12}{q}_{n+1} \right){u}_{n+1}-2\left( 1+\frac{5{h}^{2}}{12}{q}_{n} \right){u}_{n}+\left( 1+\frac{{h}^{2}}{12}{q}_{n-1} \right){u}_{n-1} & =\frac{{h}^{2}}{12}\left( {s}_{n+1}+10{s}_{n}+{s}_{n-1} \right)+O({h}^{2})
+\end{matrix}$$
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}+q(x)u(x)=s(x)$$
+
+- $$\begin{matrix}
+{u}_{n}^{′′′′} & =\frac{{d}^{2}}{d{x}^{2}}\left( -q(x)u(x)+s(x) \right){|}_{x={x}_{n}} \\
+ & =-\frac{{q}_{n+1}{u}_{n+1}-2{q}_{n}{u}_{n}+{q}_{n-1}{u}_{n-1}}{{h}^{2}}+\frac{{s}_{n+1}-2{s}_{n}+{s}_{n-1}}{{h}^{2}}+O({h}^{2})
+\end{matrix}$$
+
+- Write ${u}_{n}^{′′′′}$ with finite differences:
+
+- Plug into difference equation and rearrange terms a bit...
+
+---
+
+## Numerov's method
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- $$\begin{matrix}
+\left( 1+\frac{{h}^{2}}{12}{q}_{n+1} \right){u}_{n+1}-2\left( 1+\frac{5{h}^{2}}{12}{q}_{n} \right){u}_{n}+\left( 1+\frac{{h}^{2}}{12}{q}_{n-1} \right){u}_{n-1} & =\frac{{h}^{2}}{12}\left( {s}_{n+1}+10{s}_{n}+{s}_{n-1} \right)+O({h}^{6})
+\end{matrix}$$
+
+- Numerov's method gives us a "marching" algorithm
+  - Actually quite accurate! $O({h}^{6})$, even better than RK45.
+  - It's a 3-point formula, so we need 2 points to start.
+
+---
+
+## Application: quantum harmonic oscillator
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Sturm–Liouville problems are common in applied mathematics.
+- For example, the time-independent Schroedinger equation!
+
+![](../assets/05_bvps/slide31_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
+
+- $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+V(x) \psi (x)=E \psi (x)$$
+
+- $$\hat{H} \psi (x)=E \psi (x)$$
+
+- For the QHO, $\hat{H}=\frac{{\hat{p}}^{2}}{2m}+\frac{1}{2}m{ \omega }^{2}{\hat{x}}^{2}$
+
+---
+
+## Application: quantum harmonic oscillator
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![](../assets/05_bvps/slide32_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
+
+- For the QHO, $\hat{H}=\frac{{\hat{p}}^{2}}{2m}+\frac{1}{2}m{ \omega }^{2}{\hat{x}}^{2}$
+- You might remember the solutions from your QM class:
+
+- $${ \psi }_{n}(x)=\frac{1}{\sqrt{{2}^{n}n!}}\left( \frac{m \omega }{ \pi  \hbar } \right){e}^{-m \omega {x}^{2}/2 \hbar } \cdot {H}_{n}\left( \sqrt{\frac{m \omega }{ \hbar }}x \right)$$
+
+- $${H}_{n}(x)=(-1{)}^{n}{e}^{{x}^{2}}\frac{{d}^{n}}{d{x}^{n}}\left( {e}^{-{x}^{2}} \right)$$
+
+- $${E}_{n}= \hbar  \omega \left( n+\frac{1}{2} \right)$$
+
+---
+
+## Application: quantum harmonic oscillator
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Now, let's solve the QHO numerically.
+- First, we obviously can't set the interval to $[- \infty , \infty ]$.
+  - Compromise: make the interval "large enough", and just set $ \psi (-L)= \psi (L)=0$.
+- Then, use Numerov's algorithm to march across the interval.
+- Two caveats:
+  - There are some unphysical solutions that march to infinity (mathematic property of QHO).
+  - From symmetry, we want our solutions to be symmetric or antisymmetric.
+
+- $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+\frac{1}{2}m{ \omega }^{2} \psi (x)=E \psi (x)$$
+
+---
+
+## Application: quantum harmonic oscillator
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Rewrite the Schroedinger equation in the Numerov method form,
+
+- $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+\frac{1}{2}m{ \omega }^{2} \psi (x)=E \psi (x)$$
+
+- $$\frac{{d}^{2}u}{d{x}^{2}}+q(x)u(x)=s(x)$$
+
+- $${ \psi }^{′′}+\frac{2m}{{ \hbar }^{2}}\left( E-\frac{1}{2}m{ \omega }^{2} \right) \psi (x)=0$$
+
+- So $q(x)=\frac{2m}{{ \hbar }^{2}}\left( E(x)-\frac{1}{2}m{ \omega }^{2} \right)$
+
+---
+
+## Application: quantum harmonic oscillator
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- How do we ensure (anti)symmetry?
+- Solution: march twice! Once from the left, once from the right.
+  - Ensure that the solutions match at some $x$ value.
+  - We can actually multiply one of the solutions by a constant (still solves the ODE), so specifically, we ensure:
+
+- $${ \phi }_{left}({x}_{match})={ \phi }_{right}({x}_{match})$$
+
+  - Then, once we have a match, we can test for continuity of the derivative:
+
+- $$\frac{{ \phi }_{left}}{dx}{|}_{{x}_{match}}=\frac{{ \phi }_{right}}{dx}{|}_{{x}_{match}}$$
+
+- $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+\frac{1}{2}m{ \omega }^{2} \psi (x)=E \psi (x)$$
+
+---
+
+## Application: quantum harmonic oscillator
+
+:::: {.columns}
+::: {.column width="55%"}
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- We can choose the matching point to be at the classical turning point, i.e., where $V(x)=\frac{1}{2}m{ \omega }^{2}=E$.
+- Then, we write the matching equation as follows:
+- $$0=F(E)=\frac{ \pm \left[ { \phi }_{left}({x}_{m}+h)-{ \phi }_{left}({x}_{m}-h) \right]-\left[ { \phi }_{right}({x}_{m}+h)-{ \phi }_{right}({x}_{m}-h) \right]}{2h \phi ({x}_{m})}$$
+  - Finally, we use just apply root finding to $F(E)$.
+    - The roots are the eigenvalues, and the corresponding $ \phi $ are the eigenfunctions.
+- $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+\frac{1}{2}m{ \omega }^{2} \psi (x)=E \psi (x)$$
+:::
+::: {.column width="45%"}
+![continuous.png](../assets/05_bvps/continuous.png){width="100%" fig-alt="Plot titled 'Continuous Search Function': F(E) versus E, showing a periodic sawtooth-like function with several vertical asymptotes (poles) where F(E) jumps between +10 and -10."}
+:::
+::::
+
+---
+
+## Hands-on
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![schroedinger.png](../assets/05_bvps/schroedinger.png){width="70%" fig-alt="Top: several overlapping bell-shaped wavefunction/wavepacket curves of varying width and color, all vanishing at the domain edges. Bottom: a related function of energy with several vertical asymptotes (poles), used to locate eigenvalues."}
+
+  - Try it out yourself in CompPhys/BVPs/schroedinger.ipynb.
+
+---
+
+# KRONIG–PENNEY
+
+---
+
+## Application: periodic potential
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Another classic problem: particle in a periodic potential.
+  - Kronig–Penney model: 1D "crystal".
+  - $N$ heavy nuclei at fixed lattice sites (spacing=$a)$
+
+![](../assets/05_bvps/slide39_1d-lattice.png){fig-alt="Diagram of a 1D periodic lattice: red dots representing atoms at positions x=0, x=a, ..., x=Na along the top, with a green square-wave periodic potential V(x) drawn beneath, one well per atomic site."}
+
+- Problem is best solved in the Fourier domain. We expect solutions like...
+
+- $$ \psi (x)=\mathop{ \sum }\limits_{k}{C}_{k}{e}^{ikx}$$
+
+- ...with periodic boundary conditions:
+
+- $${e}^{ik(x+Na)}={e}^{ikx}$$
+
+- $$ \Rightarrow k=\frac{2 \pi n}{Na},n=0, \pm 1, \pm 2,...$$
+
+---
+
+## Brillouin zone
+
+:::: {.columns}
+::: {.column width="55%"}
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- If you took solid state, you learned about the Brillouin zone ([wikipedia](http://en.wikipedia.org/wiki/Brillouin_zone)):
+  - For spatial lattice, the reciprocal space is the set of plane wave vectors period on the lattice
+  - First Brillouin zone = points closest to origin (Voronoi cell).
+- This is important because of Bloch's theorem: solutions can be completely characterized by their behavior in a single Brillouin zone.
+  - This is intrinsically related to the Fourier transform and the Nyquist frequency.
+:::
+::: {.column width="45%"}
+![Brillouin_zone.png](../assets/05_bvps/Brillouin_zone.png){width="100%" fig-alt="Two-panel diagram (a, b) showing real-space lattices of blue dots (square lattice in (a), a different symmetry in (b)) mapped by an arrow to their reciprocal-space lattices, with the first Brillouin zone shaded in red/pink around the central reciprocal lattice point in each case."}
+:::
+::::
+
+---
+
+## Brillouin zone
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Define a crystal lattice point by translating the objects by (integer multiples of) basis vectors, $\mathbf{a}$, and the corresponding reciprocal basis vectors, $\mathbf{b}$.
+
+- Spatial lattice:
+- $\mathbf{R}=n\mathbf{a}$, where $\mathbf{a}=a\hat{x}$ and $n=0, \pm 1, \pm 2,...$
+- Reciprocal lattice:
+- $\mathbf{b}$ defined to satisfy $\mathbf{a} \cdot \mathbf{b}=2 \pi $, hence $\mathbf{b}=(2 \pi /a)\hat{x}$
+- $\mathbf{K}=n\mathbf{B}$, where $n=0, \pm 1, \pm 2,...$
+
+- The first Brillouin zone corresponds to:
+
+- $$k=0, \pm \frac{2 \pi }{Na}, \pm \frac{4 \pi }{Na},..., \pm \frac{(N-1) \pi }{Na},\frac{ \pi }{a}$$
+
+- Bloch: any wave number $\mathbf{q}$ can be decomposed into a wave number $\mathbf{k}$ in the first Brillouin zone, and a wave number of the reciprocal lattice, $\mathbf{K}$.
+
+---
+
+## Bloch's theorem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- A quick word on Bloch's theorem:
+
+- Solutions to the Schroedinger equation in a periodic potential can be written as the product of a plane wave and a periodic function:
+- $$ \psi (\mathbf{r})={e}^{i\mathbf{k} \cdot \mathbf{r}} \cdot u(\mathbf{r})$$
+- where $u(\mathbf{r})$ has the same periodicity as the potential (i.e. it's the same in every unit cell)
+
+- Sketch proof: periodic potential can be written as Fourier transform,
+
+- $$V(x)=\mathop{ \sum }\limits_{K}{e}^{iKx}{V}_{K}$$
+
+- Similarly, take Fourier transform of wave function, using the decomposability into a reciprocal lattice vector (K) and a wave vector in the 1st Brillouin zone (k):
+
+- $$ \psi (x)=\mathop{ \sum }\limits_{q}{e}^{iqx}{C}_{q}=\mathop{ \sum }\limits_{K,k}{e}^{i(k+K)x}{C}_{k+K}$$
+
+---
+
+## Bloch's theorem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Put this into the Schoedinger equation, $-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi }{d{x}^{2}}+V(x) \psi (x)=E \psi (x)$,
+
+- $$\mathop{ \sum }\limits_{k,K}\left\{ \left[ \frac{1}{2}(k+K{)}^{2}-E \right]{e}^{i(k+K)x}{C}_{k+K} \right\}+\mathop{ \sum }\limits_{L}{V}_{L}\mathop{ \sum }\limits_{K,k}{e}^{i(k+K+L)x}{C}_{k+K}=0$$
+
+- (set ${ \hbar }^{2}/m=1$)
+
+- We can redefine the summations to obtain:
+
+- $$\mathop{ \sum }\limits_{K,k}{e}^{i(k+K)x}\left\{ \left[ \frac{1}{2}(k+K{)}^{2}-E \right]{C}_{k+K}+\mathop{ \sum }\limits_{L}{V}_{K-L}{C}_{k+L} \right\}=0$$
+
+- Since the ${e}^{i(k+K)x}$ are linearly independent, the terms in ${}$ must each equal 0.
+- Modes with different wave numbers, $k$, decouple.
+  - ${ \psi }_{k}(x)={e}^{ikx}\mathop{ \sum }\limits_{K}{e}^{iKx}{c}_{k+K}={e}^{ikx}{u}_{k}(x)$, where ${u}_{k}(x+na)={u}_{k}(x)$.
+
+---
+
+## Bloch's theorem
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- So in short, our solutions take the form of a solution from the 1st Brillouin zone, modulated by a simple plane wave:
+
+![Bloch_function.tiff](../assets/05_bvps/Bloch_function.png){width="70%" fig-alt="Sketch of a Bloch function: a rapidly oscillating periodic curve (solid) modulated by and bounded within a slowly-varying envelope (dashed), crossing a flat baseline."}
+
+![BlochWaves1D.png](../assets/05_bvps/BlochWaves1D.png){width="70%" fig-alt="Six-panel grid illustrating the construction of a Bloch wave for two different k values (columns): the periodic part u(x) (top row), the plane-wave factor e^(ikx) (middle row), and their product, the full Bloch wave psi(x) = u(x)e^(ikx) (bottom row), each shown as overlaid real (blue) and imaginary (red) parts."}
+
+---
+
+## Band structure
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- To solve for the band structure, look at the eigenvalue equation:
+
+- $$\left[ \frac{1}{2}(k+K{)}^{2}-E \right]{C}_{k+K}+\mathop{ \sum }\limits_{L}{V}_{K-L}{C}_{k+L}=0$$
+
+- This is actually infinite-dimensional, so we cut if off somewhere.
+- We look at the spectrum of states as a function of $k$, inside the first Brillouin zone. This is a "band."
+  - In particular, let's find the relationship between $k$ and $E$.
+
+---
+
+## Band structure
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- Concretely, look at a single cell on our lattice:
+
+- $$V(x)=\left\{\begin{matrix}
+0 & \text{for} & -\frac{a}{2}<x<-\frac{ \Delta }{2} \\
+{V}_{0} & \text{for} & -\frac{ \Delta }{2}<x<\frac{ \Delta }{2} \\
+0 & \text{for} & \frac{ \Delta }{2}<x<\frac{a}{2}
+\end{matrix}\right.$$
+
+- Between the barriers ($V=0$), we have solutions of form:
+
+- $$ \psi (x)={A}_{n}{e}^{iq(x-na)}+{B}_{n}{e}^{-iq(x-na)}$$
+
+- $$q=\sqrt{2E}$$
+
+- Inside the barrier ($V={V}_{0}$), solution have form:
+
+- $$ \psi (x)={C}_{n}{e}^{i \kappa (x-na)}+{D}_{n}{e}^{-i \kappa (x-na)}$$
+
+- $$ \kappa =\sqrt{2(E-{V}_{0})}$$
+
+- We determine ${A}_{n},{B}_{n},{C}_{n},{D}_{n}$ by matching $ \psi $ and ${ \psi }^{′}$ at the boundaries, resulting in a recursion relation:
+
+- $$\left( \begin{aligned}
+{A}_{n+1} \\
+{B}_{n+1}
+\end{aligned} \right)=\mathbf{T}(E)\left( \begin{aligned}
+{A}_{n} \\
+{B}_{n}
+\end{aligned} \right)$$
+
+---
+
+## Band structure
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+- The $T(E)$ is a "transfer matrix", with elements:
+
+- $$\begin{matrix}
+{T}_{11} & ={T}_{22}^{*}=\frac{{e}^{iq(a- \Delta )}}{4q \kappa }[{e}^{i \kappa  \Delta }(q+ \kappa {)}^{2}-{e}^{-i \kappa  \Delta }(q- \kappa {)}^{2}] \\
+{T}_{12} & ={T}_{21}^{*}=-\frac{i{e}^{iq(a- \Delta )}}{2q \kappa }({q}^{2}-{ \kappa }^{2})sin( \kappa  \Delta )
+\end{matrix}$$
+
+- From Bloch's theorem, eigenvalues are of form ${e}^{ika}$, for $k$ = reduced wave number in the first Brillouin zone.
+- $T(E)$ is just a $2 \times 2$ matrix, so it's easy to just solve $det[\mathbf{T}-{e}^{ika}\mathbf{1}]=0$.
+- Result: quadratic equation with two solutions for $k(E)$, equal in magnitude, opposite in sign.
+
+---
+
+## Kronig–Penney results
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+![kp.png](../assets/05_bvps/kp.png){width="70%" fig-alt="Two-panel plot of dispersion-relation-like curves from the Kronig-Penney model: X-shaped crossing branches of a quantity (y-axis, 0 to 35) versus a variable spanning roughly -pi to pi, with data points marked along the curves."}
+
+---
+
+## Recap
+
+- original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+  - We introduced regular Sturm–Liouville problems, an interesting class of ODE problems.
+  - Numerically solvable using Numerov's algorithms.
+  - Application: quantum harmonic oscillator.
+    - See hands-on notebook, CompPhys/BVPs/schoedinger.ipynb.
+  - Application: particle in a periodic potential (Kronig–Penney)
+    - Make use of Bloch's theorem to find solutions
+    - Numerically solve for band structure.
