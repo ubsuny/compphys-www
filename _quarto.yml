@@ -18,15 +18,39 @@ website:
         contents:
           - section: "Introduction"
             contents:
-            - slides/00_introduction/00_intro.qmd
-            - slides/00_introduction/01_cpp.qmd
-            - slides/00_introduction/02_python.qmd
+            - slides/0.0_intro.qmd
+            - slides/0.1_cpp.qmd
+            - slides/0.2_python.qmd
+          - section: "Data analysis"
+            contents:
+            - slides/1.0_fitting.qmd
+            - slides/1.1_fft.qmd
+          - section: "Calculus"
+            contents:
+            - slides/2.0_calculus.qmd
+            - slides/2.1_rootfinding.qmd
+            - slides/2.2_minmax.qmd.qmd
           - section: "Linear algebra"
             contents:
-            - slides/04_linalg/04_linalg.qmd
+            - slides/3.0_linalg.qmd
+            - slides/3.1_eigen.qmd
+          - section: "Differential equations"
+            contents:
+            - slides/4.0_bvps.qmd
+            - slides/4.1_odes.qmd
+            - slides/4.2_pdes.qmd
+          - section: "Monte Carlo methods"
+            contents:
+            - slides/5.0_mc.qmd
           - section: "Machine Learning"
             contents:
-              - slides/07_ml/07_ml.qmd
+            - slides/6.0_ml.qmd
+          - section: "Additional topics"
+            contents:
+            - slides/7.0_advdiffeq.qmd
+            - slides/7.1_biophys.qmd
+            - slides/7.2_qm.qmd
+            - slides/7.3_qft.qmd
 
 format:
   html:

@@ -2,6 +2,31 @@
 title: "Computational Physics"
 ---
 
-This is a Quarto website.
+This website provides the materials for Computational Physics at the University at Buffalo (PHY 410/411 for undergraduates, PHY 505/506 for graduate students).
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+# Syllabus
+See the syllabi for [410/505](syllabus_410.qmd) and [411/506](syllabus_411.qmd).
+
+# Code
+Our [CompPhys](https://github.com/ubsuny/CompPhys) repository contains a comprehensive set of examples for the class (credit to Prof. Richard Gonsalves, with updates from Profs. Salvatore Rappoccio, Tim Thomay, and David Yu). 
+
+# Schedule
+The first 4-8 weeks will cover programming basics, depending on the prior knowledge of the class. After that, the computational physics topics include:
+
+1. Data analysis: fitting and Fourier transforms
+2. Linear algebra: solving systems of equations and eigenvalue/vectors
+3. Calculus: derivatives, integrals, root finding, minimization
+4. Differential equations: boundary value problems, ordinary and partial differential equations
+5. Monte Carlo methods: random numbers, integration, Metropolis-Hastings
+6. Machine learning
+7. Additional topics in quantum mechanics/field theory/computing
+
+PHY410/505 typically covers topics 1-4, and select items from 5 or 7 if time permits. PHY411/506 will pick up from there.
+
+## Assignments
+Fall term: 6 homework assignments (roughly 2 weeks each), a midterm, and a final exam.  
+
+Spring term: 2-3 homework assignments, a midterm, and a final project. 
+
+# This website
+This website was prepared using [Quarto](https://quarto.org/docs/websites). 
