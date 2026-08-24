@@ -139,7 +139,7 @@ execute:
 
 ## What is Computational Physics?
 
-![](../assets/0.0_intro/Screenshot-2025-08-25-at-9.23.34-AM.png){width="70%" fig-alt="Screenshot of Wikipedia article for "Computational Physics"}
+![](../assets/0.0_intro/Screenshot-2025-08-25-at-9.23.34-AM.png){width="70%" fig-alt="Screenshot of Wikipedia article for 'Computational Physics'"}
 
 ::: {.fragment}
 - This is probably not very interesting to you all
