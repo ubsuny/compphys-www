@@ -78,8 +78,6 @@ installation and setup instructions:
 - Windows:
   - [Windows Subsystem for Linux 2
     (WSL2)](https://learn.microsoft.com/en-us/windows/wsl/install)
-  - <http://mingw-w64.sourceforge.net>: GCC for Windows (included in
-    cygwin)
 - Mac:
   - [XCode](https://developer.apple.com/xcode/)
 - Linux:

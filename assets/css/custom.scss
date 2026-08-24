@@ -41,3 +41,24 @@ $ub-gray: #666666;
   font-weight: 300;
   text-align: center;
 }
+
+.reveal pre code {
+  font-size: 1.3em; 
+}
+
+.center-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  padding: 0.75em 1.25em;
+  background: var(--r-background-color, white);
+
+  width: max-content;
+  max-width: 80%;
+  text-align: center;
+}

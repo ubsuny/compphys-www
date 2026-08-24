@@ -24,6 +24,7 @@ format:
     include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    pdf-max-pages-per-slide: 1
 execute:
   keep-ipynb: false
 ---
@@ -138,7 +139,7 @@ execute:
 
 ## What is Computational Physics?
 
-![Screenshot 2025-08-25 at 9.23.34 AM.png](../assets/0.0_intro/Screenshot-2025-08-25-at-9.23.34-AM.png){width="70%" fig-alt="TODO: describe image"}
+![](../assets/0.0_intro/Screenshot-2025-08-25-at-9.23.34-AM.png){width="70%" fig-alt="Screenshot of Wikipedia article for "Computational Physics"}
 
 ::: {.fragment}
 - This is probably not very interesting to you all

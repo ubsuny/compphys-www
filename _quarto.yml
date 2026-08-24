@@ -19,8 +19,9 @@ website:
           - section: "Introduction"
             contents:
             - slides/0.0_intro.qmd
-            - slides/0.1_cpp.qmd
-            - slides/0.2_python.qmd
+            - slides/0.1_basics.qmd
+            - slides/0.2_cpp.qmd
+            - slides/0.3_python.qmd
           - section: "Data analysis"
             contents:
             - slides/1.0_fitting.qmd
