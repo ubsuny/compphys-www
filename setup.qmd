@@ -68,7 +68,7 @@ Once you have an account, **please send your username to David by email**, so yo
 ## Create an SSH key
 The most convenient way to interact with GitHub from the command line is via SSH (HTTPS also works, but is usually less convenient). Follow the [GitHub instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to create an "SSH key," which is basically a password that lets your terminal authenticate to github.com over SSH. If you set a password on your SSH key (highly recommended), **make sure to write down the password!**
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 ## SSH key tips
 
 Your computer's `ssh` program doesn't automatically know about the SSH key. You might see an error like:
@@ -87,7 +87,9 @@ Host github.com
     IdentityFile ~/.ssh/id_ed25519_github
 ```
 
-where `id_ed25519_github` is whatever you named your key. Second, if you set a password on your SSH key (highly recommended!), you may be asked for your password every time you interact with github.com. You can avoid this by adding the SSH key to the ssh-agent program, storing the authentication for a while:
+where `id_ed25519_github` is whatever you named your key. 
+
+Second, if you set a password on your SSH key (highly recommended!), you may be asked for your password every time you interact with github.com. You can avoid this by adding the SSH key to the ssh-agent program, storing the authentication for a while:
 
 ```
 eval "$(ssh-agent -s)"
@@ -139,8 +141,6 @@ In more detail:
 - `cd ~/PHY410` changes directory to the new folder.
 - `git clone git@github.com:ubsuny/CompPhys` clones the class git repo. In other words, it downloads all the files in the repository, along with setting up some git infrastructure inside the folder (more on this later). 
 
-
-## Set up the pixi software environment
 You should now see a folder, `CompPhys`, under your top-level folder. For me, it looks like this:
 
 ```bash
@@ -152,6 +152,8 @@ total 8
 drwxr-xr-x  43 dryu  staff   1.3K Aug 22 17:45 CompPhys
 ```
 
+
+## Set up the pixi software environment
 To set up the pixi software environment, navigate (`cd`) to your top level folder, i.e., one level above `CompPhys`, and execute the following two commands, one at a time:
 
 ```bash
