@@ -145,11 +145,11 @@ You should now see a folder, `CompPhys`, under your top-level folder. For me, it
 
 ```bash
 ~/PHY410 % pwd
-/Users/dryu/PHY410
+/Users/myusername/PHY410
 
 ~/PHY410 % ll
 total 8
-drwxr-xr-x  43 dryu  staff   1.3K Aug 22 17:45 CompPhys
+drwxr-xr-x  43 myusername  staff   1.3K Aug 22 17:45 CompPhys
 ```
 
 
@@ -171,8 +171,8 @@ Now, your top-level folder should look something like this:
 ```bash
 (compphys-env) ~/PHY410/pixitest % ll
 total 8
-drwxr-xr-x  43 dryu  staff   1.3K Aug 22 17:45 CompPhys
--rw-r--r--   1 dryu  staff   3.1K Aug 22 17:45 activate.sh
+drwxr-xr-x  43 myusername  staff   1.3K Aug 22 17:45 CompPhys
+-rw-r--r--   1 myusername  staff   3.1K Aug 22 17:45 activate.sh
 ```
 
 Note the `(compphys-env0)` at the start of the command prompt interface: this indicates that the pixi environment is active. If that string is *not* present, that means the pixi environment is *not* active: you need to call `source activate.sh` to load the environment again (for example, if you opened a new terminal window). 
@@ -181,7 +181,7 @@ Inside the `(compphys-env0)` environment, if you run `python`, it will use the e
 
 ```bash
 (compphys-env) ~/PHY410 % which python
-/Users/dryu/Documents/Buffalo/PHY410/CompPhys/.pixi/envs/default/bin/python
+/Users/myusername/PHY410/CompPhys/.pixi/envs/default/bin/python
 ```
 
 Finally, let's test it out! You should now be able to launch a Jupyter notebook server, which will be our main way of writing and executing python for the class:
@@ -191,7 +191,7 @@ Finally, let's test it out! You should now be able to launch a Jupyter notebook 
 ...
 ...
 ...
-[I 2026-08-26 09:52:59.289 ServerApp] Serving notebooks from local directory: /Users/dryu/Documents/Buffalo/PHY410/pixitest
+[I 2026-08-26 09:52:59.289 ServerApp] Serving notebooks from local directory: /Users/myusername/PHY410/pixitest
 [I 2026-08-26 09:52:59.289 ServerApp] Jupyter Server 2.20.0 is running at:
 [I 2026-08-26 09:52:59.289 ServerApp] http://localhost:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
 [I 2026-08-26 09:52:59.289 ServerApp]     http://127.0.0.1:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
@@ -199,7 +199,7 @@ Finally, let's test it out! You should now be able to launch a Jupyter notebook 
 [C 2026-08-26 09:52:59.299 ServerApp] 
     
     To access the server, open this file in a browser:
-        file:///Users/dryu/Library/Jupyter/runtime/jpserver-85291-open.html
+        file:///Users/myusername/Library/Jupyter/runtime/jpserver-85291-open.html
     Or copy and paste one of these URLs:
         http://localhost:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
         http://127.0.0.1:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
