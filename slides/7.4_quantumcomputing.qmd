@@ -113,7 +113,7 @@ execute:
 
 ## Why? Part 2
 
-![Three Types of Quantum Computing.jpg](../assets/7.4_quantumcomputing/Three-Types-of-Quantum-Computing.jpeg){width="70%" fig-alt="TODO: describe image"}
+![Three Types of Quantum Computing.jpg](../assets/7.4_quantumcomputing/qc-types.jpeg){width="70%" fig-alt="TODO: describe image"}
 
 ---
 

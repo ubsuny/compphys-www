@@ -1851,7 +1851,7 @@ print(b)
 - electron_eta = [0.2, -2.8, -3.7, 1.2, 1.9]
 - electron_phi = [...]
 
-![pasted-movie.png](../assets/0.4_python/slide94_image20.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/cms-coordinates.png){width="70%" fig-alt="TODO: describe image"}
 
 ![Screenshot 2025-09-23 at 11.58.00 PM.png](../assets/0.4_python/Screenshot-2025-09-23-at-11.58.00-PM.png){width="70%" fig-alt="TODO: describe image"}
 

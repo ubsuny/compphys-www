@@ -682,7 +682,7 @@ execute:
 
 - original version:: : Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/7.0_advdiffeq/slide38_pasted-movie.png){fig-alt="TODO"}
+![](../assets/7.0_advdiffeq/cosmic-distances.png){fig-alt="Graphic of cosmic distance scales"}
 
 - Full resolution at [https://upload.wikimedia.org/wikipedia/commons/b/ba/Location_of_Earth_%289x1-English_Annot-small%29.png](https://upload.wikimedia.org/wikipedia/commons/b/ba/Location_of_Earth_%289x1-English_Annot-small%29.png)
 - Observational cosmology has established that matter is distributed"hierarchical structure" in the universe at different distance scales
@@ -707,7 +707,7 @@ execute:
 - [https://en.wikipedia.org/wiki/Large-scale_structure_of_the_universe#/media/File:2MASS_LSS_chart-NEW_Nasa.jpg](https://en.wikipedia.org/wiki/Large-scale_structure_of_the_universe#/media/File:2MASS_LSS_chart-NEW_Nasa.jpg)
 - original version:: : Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/7.0_advdiffeq/slide39_image26.png){fig-alt="TODO"}
+![](../assets/7.0_advdiffeq/cosmic-distances.png){fig-alt="Graphic of cosmic distance scales"}
 
 - Full resolution at [https://upload.wikimedia.org/wikipedia/commons/b/ba/Location_of_Earth_%289x1-English_Annot-small%29.png](https://upload.wikimedia.org/wikipedia/commons/b/ba/Location_of_Earth_%289x1-English_Annot-small%29.png)
 - Observational cosmology has established that matter is distributed"hierarchical structure" in the universe at different distance scales
@@ -716,7 +716,7 @@ execute:
 - We can model this with state-of-the-art $N$-body simulation!
   - Crucial link between theory (e.g. $ \Lambda $CDM model) and observation
 
-![](../assets/7.0_advdiffeq/slide39_Euclid_flagship_mock_galaxy_catalogue_18k.png){fig-alt="TODO"}
+![](../assets/7.0_advdiffeq/euclid-sim.png){fig-alt="Euclid simulation of the universe"}
 
 - EUCLID simulation of large-scale structure ([https://www.euclid-ec.org/public/data/simulations/](https://www.euclid-ec.org/public/data/simulations/)); you can download it!
 
