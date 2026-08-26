@@ -35,7 +35,7 @@ Once you have WSL installed, you should generally run everything inside Ubuntu, 
 
 ::::
 
-We will cover Unix basics more below. For now, here are a few essential commands:
+Unix basics are covered in more detail in [these slides](slides/0.1_unix.qmd). For now, here are a few essential commands:
 
 - `ls`: list the contents of the current directory
 - `ls -lrth`: list the contents of the current directory with more details
@@ -99,6 +99,8 @@ Mac users can also configure the system keychain to store the SSH key; see Googl
 
 # Creating the software environment
 ## Git
+Git is covered in more detail in [these slides](slides/0.2_git.qmd). For now, you can just copy-and-paste the commands.
+
 If your computer does not already have git installed, follow the installation instructions at <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>.
 
 ## Pixi
@@ -128,8 +130,6 @@ Specifically, run the following commands (either type the commands or copy-and-p
 mkdir ~/PHY410
 cd ~/PHY410
 git clone git@github.com:ubsuny/CompPhys
-pixi shell --manifest-path CompPhys/pixi.toml
-pixi shell-hook > activate.sh
 ```
 
 In more detail:
@@ -138,12 +138,71 @@ In more detail:
     - Alternatively, you can use your OS's Finder/Explorer/etc. to create the folder using the graphical interface. However, it's best to get comfortable with the command line!
 - `cd ~/PHY410` changes directory to the new folder.
 - `git clone git@github.com:ubsuny/CompPhys` clones the class git repo. In other words, it downloads all the files in the repository, along with setting up some git infrastructure inside the folder (more on this later). 
+
+
+## Set up the pixi software environment
+You should now see a folder, `CompPhys`, under your top-level folder. For me, it looks like this:
+
+```bash
+~/PHY410 % pwd
+/Users/dryu/PHY410
+
+~/PHY410 % ll
+total 8
+drwxr-xr-x  43 dryu  staff   1.3K Aug 22 17:45 CompPhys
+```
+
+To set up the pixi software environment, navigate (`cd`) to your top level folder, i.e., one level above `CompPhys`, and execute the following two commands, one at a time:
+
+```bash
+pixi shell --manifest-path CompPhys/pixi.toml
+pixi shell-hook > activate.sh
+```
+
 - `pixi shell --manifest-path CompPhys/pixi.toml` tells pixi to create and set up a new software environment, following the instructions in the file `CompPhys/pixi.toml`. 
-    - Important: call this command from your top-level folder, not from inside `CompPhys`! This ensures that the environment is available from your top-level folder and not just inside `CompPhys`, and thus is easily shared with your future assignment repositories. 
+    - Important: call this command from your top-level folder, not from inside `CompPhys`. This ensures that the environment is available from your top-level folder and not just inside `CompPhys`, and thus is easily shared with your future assignment repositories. 
     - You will notice that your command line has a new appearance, indicating that you are now "inside" the pixi environment.
 - `pixi shell-hook > activate.sh` creates a convenience script: every time you start a new session, you can call `source activate.sh` to launch the environment again. 
 
-That's it for setup! You should have access to all the software listed in `CompPhys/pixi.toml`. For example, you can launch a Jupyter notebook server by executing `jupyter lab`. 
+Now, your top-level folder should look something like this:
 
+```bash
+(compphys-env) ~/PHY410/pixitest % ll
+total 8
+drwxr-xr-x  43 dryu  staff   1.3K Aug 22 17:45 CompPhys
+-rw-r--r--   1 dryu  staff   3.1K Aug 22 17:45 activate.sh
+```
 
+Note the `(compphys-env0)` at the start of the command prompt interface: this indicates that the pixi environment is active. If that string is *not* present, that means the pixi environment is *not* active: you need to call `source activate.sh` to load the environment again (for example, if you opened a new terminal window). 
 
+Inside the `(compphys-env0)` environment, if you run `python`, it will use the environment's dedicated copy of python and all of the packages, rather than the system python. The `which` command can tell us exactly which `python` is being used:
+
+```bash
+(compphys-env) ~/PHY410 % which python
+/Users/dryu/Documents/Buffalo/PHY410/CompPhys/.pixi/envs/default/bin/python
+```
+
+Finally, let's test it out! You should now be able to launch a Jupyter notebook server, which will be our main way of writing and executing python for the class:
+
+```bash
+(compphys-env) ~/PHY410/pixitest % jupyter lab
+...
+...
+...
+[I 2026-08-26 09:52:59.289 ServerApp] Serving notebooks from local directory: /Users/dryu/Documents/Buffalo/PHY410/pixitest
+[I 2026-08-26 09:52:59.289 ServerApp] Jupyter Server 2.20.0 is running at:
+[I 2026-08-26 09:52:59.289 ServerApp] http://localhost:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
+[I 2026-08-26 09:52:59.289 ServerApp]     http://127.0.0.1:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
+[I 2026-08-26 09:52:59.289 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2026-08-26 09:52:59.299 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///Users/dryu/Library/Jupyter/runtime/jpserver-85291-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
+        http://127.0.0.1:8888/lab?token=05272dcd4bee56a7b74e60b9725ae31ffaf4675b492e24ea
+```
+
+Try running the notebook at `CompPhys/JupyterExamples/example_jupyter.ipynb`. 
+
+That's it for setup! You should have access to all the software listed in `CompPhys/pixi.toml`. I recommend taking a look at the `.toml` file to see what you installed.
