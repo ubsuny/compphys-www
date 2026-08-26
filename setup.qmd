@@ -1,0 +1,149 @@
+---
+title: "Setup"
+date: "today"
+date-format: "[Fall] YYYY"
+author: 
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  html:
+    html-math-method: katex
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+---
+
+# Unix environment
+This course requires a laptop with a Unix terminal:
+
+- For Linux and Mac users, the terminal is built in. 
+- For Windows users, you should install Windows Subsystem for Linux (WSL), which lets you run Linux inside Windows. 
+
+:::: {.callout-note collapse="true"}
+## Installing WSL
+To install WSL on a Windows machine, follow the directions at <https://learn.microsoft.com/en-us/windows/wsl/install>.
+
+Unless you have a preferred Linux distribution (distro), I suggest you install **Ubuntu**, which has the most support in the WSL ecosystem. (You can even install Ubuntu directly from the Microsoft store, but this can create inconsistencices if you ever want to install more distros from the command line.)
+
+Once you have WSL installed, you should generally run everything inside Ubuntu, following **Linux** instructions inside WSL, not Windows instructions. The main exception is Visual Studio Code: you should run vscode as a normal Windows program, and connect it to WSL using the dedicated extension (see <https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode>). 
+
+::: {.callout-caution}
+**Make sure to write down your username and password!** They are equivalent to your laptop's username and password inside WSL Ubuntu. If you lose it, there is no way to recover except reinstalling Ubuntu.
+:::
+
+::::
+
+We will cover Unix basics more below. For now, here are a few essential commands:
+
+- `ls`: list the contents of the current directory
+- `ls -lrth`: list the contents of the current directory with more details
+- `pwd`: print your current directory
+- `mkdir somefolder`: create a new folder named `somefolder` in your current directory
+- `cd somefolder`: from the current directory, change to the folder `somefolder`
+    - `cd` with no argument always changes directory to your home folder
+    - `cd ~` does the same thing: `~` is an alias for your home folder
+    - `cd ..` goes up one folder (`..` always points to one folder above your current directory)
+- Hitting `tab` triggers auto-completion in the command line. This saves you from typing out entire, long filenames. Learn to use it!
+
+
+
+# Github
+The course materials are managed through GitHub, so you will need a GitHub account. If you don't have an account already, head over to <github.com> to create one. 
+
+Once you have an account, **please send your username to David by email**, so you can be added to our GitHub group at <https://github.com/ubsuny>. 
+
+::: {.callout-caution collapse="true"}
+## Choose your username carefully!
+ GitHub only partially supports changing your username later on (while you can change the username, your contributions will remain attached to your old username). Make sure your username is professional. I also suggest choosing something easy to type (e.g. avoid unnecessary punc_tu-a.tion and MiXedCapitalizatioN). 
+:::
+
+
+::: {.callout-caution collapse="true"}
+## Make sure to write down your username and password!
+ It might seem silly for me to keep reminding you, but lost passwords cause problems every year. Remember, if you are unable to login, it is almost certainly your own fault, not the website or your computer's fault.
+:::
+
+## Create an SSH key
+The most convenient way to interact with GitHub from the command line is via SSH (HTTPS also works, but is usually less convenient). Follow the [GitHub instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to create an "SSH key," which is basically a password that lets your terminal authenticate to github.com over SSH. If you set a password on your SSH key (highly recommended), **make sure to write down the password!**
+
+::: {.callout-tip collapse="true"}
+## SSH key tips
+
+Your computer's `ssh` program doesn't automatically know about the SSH key. You might see an error like:
+
+```
+$ ssh -T git@github.com
+> Permission denied (publickey).
+```
+
+This means the `ssh` program didn't know to use your SSH key to authenticate to github.com. To tell `ssh` to use your SSH key to authenticate to github.com, you can edit your SSH configuration file at `~/.ssh/config`, adding the following entry:
+
+```
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_github
+```
+
+where `id_ed25519_github` is whatever you named your key. Second, if you set a password on your SSH key (highly recommended!), you may be asked for your password every time you interact with github.com. You can avoid this by adding the SSH key to the ssh-agent program, storing the authentication for a while:
+
+```
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519_github
+```
+
+Mac users can also configure the system keychain to store the SSH key; see Google for instructions.
+:::
+
+# Creating the software environment
+## Git
+If your computer does not already have git installed, follow the installation instructions at <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>.
+
+## Pixi
+We will use pixi to create and manage the software environment for this class. You might be familiar with tools like conda or pip; pixi is similar to conda (in fact, pixi uses conda under the hood), with better performance and wider compatibility. 
+
+To install pixi, follow the simple installation directions at <https://pixi.prefix.dev/latest/installation/>. 
+
+## Cloning the CompPhys git repository
+Now, we will `git clone` the main git repo for the class, <https://github.com/ubsuny/CompPhys>. If you have not used git before, don't worry, we will learn more about it later. For now, just copy-and-paste the commands into your terminal. 
+
+First, create an empty top-level folder for this class. I used `~/PHY410`, but you can use whatever you want. The reason for having a top-level folder, instead of just cloning the CompPhys repo and doing everything there, is that you will have a separate git repo for each assignment. By the end of the semester, your top-level folder will look something like this:
+
+```
+PHY410
+├── activate.sh
+├── CompPhys
+├── assignment1
+├── assignment2
+├── finalproject
+└── midterm1
+└── some-scratchwork.txt
+```
+
+Specifically, run the following commands (either type the commands or copy-and-paste carefully; I suggest doing only 1 line at a time):
+
+```bash
+mkdir ~/PHY410
+cd ~/PHY410
+git clone git@github.com:ubsuny/CompPhys
+pixi shell --manifest-path CompPhys/pixi.toml
+pixi shell-hook > activate.sh
+```
+
+In more detail:
+
+- `mkdir ~/PHY410` creates a new folder, `PHY410`, under my home directory (`~`). You can modify this command to create the folder anywhere you like, named whatever you like. 
+    - Alternatively, you can use your OS's Finder/Explorer/etc. to create the folder using the graphical interface. However, it's best to get comfortable with the command line!
+- `cd ~/PHY410` changes directory to the new folder.
+- `git clone git@github.com:ubsuny/CompPhys` clones the class git repo. In other words, it downloads all the files in the repository, along with setting up some git infrastructure inside the folder (more on this later). 
+- `pixi shell --manifest-path CompPhys/pixi.toml` tells pixi to create and set up a new software environment, following the instructions in the file `CompPhys/pixi.toml`. 
+    - Important: call this command from your top-level folder, not from inside `CompPhys`! This ensures that the environment is available from your top-level folder and not just inside `CompPhys`, and thus is easily shared with your future assignment repositories. 
+    - You will notice that your command line has a new appearance, indicating that you are now "inside" the pixi environment.
+- `pixi shell-hook > activate.sh` creates a convenience script: every time you start a new session, you can call `source activate.sh` to launch the environment again. 
+
+That's it for setup! You should have access to all the software listed in `CompPhys/pixi.toml`. For example, you can launch a Jupyter notebook server by executing `jupyter lab`. 
+
+
+

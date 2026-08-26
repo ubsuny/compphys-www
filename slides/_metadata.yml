@@ -1,0 +1,16 @@
+format:
+  clean-revealjs:
+    theme: [default, ../assets/css/custom.scss]
+    template-partials:
+      - ../assets/templates/title-slide.html
+    slide-number: c/t
+    width: 1600
+    height: 900
+    center: true
+    footer: "<a href=\"https://dryu.web.cern.ch/dryu/compphys\">UB Computational Physics</a>"
+    incremental: false
+    chalkboard: true
+    pdf-separate-fragments: true
+    pdf-max-pages-per-slide: 1
+execute:
+  keep-ipynb: false

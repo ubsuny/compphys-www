@@ -120,7 +120,7 @@ execute:
   - GitHub education: [https://education.github.com](https://education.github.com) (FREE STUFF)
   - GitHub classroom: https://classroom.github.com/classrooms.
 
-![og-image.png](../assets/0.2_cpp/og-image.png){width="70%" fig-alt="TODO: describe image"}
+![og-image.png](../assets/0.3_cpp/og-image.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -207,11 +207,11 @@ execute:
 - Somewhere, that order is transferred into currents and voltages on transistors.
 - How does it happen in between?
 
-![](../assets/0.2_cpp/slide13_image1.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide13_image1.png){fig-alt="TODO"}
 
 - Siri! Get my mail!
 
-![](../assets/0.2_cpp/slide13_image2.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide13_image2.png){fig-alt="TODO"}
 
 ---
 
@@ -227,7 +227,7 @@ execute:
   - Interpreted
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.2_cpp/image11.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image11.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -245,7 +245,7 @@ execute:
   - Not readable.
 - Executable: actual program that you run.
 
-![](../assets/0.2_cpp/slide15_image3.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide15_image3.png){fig-alt="TODO"}
 
 - Compilation passes through a few stages:
 
@@ -264,7 +264,7 @@ execute:
   - Linking external libraries (=code other people wrote).
   - Advanced: understanding optimizations.
 
-![](../assets/0.2_cpp/slide16_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide16_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
 
 - Haltermann, Fig. 1.1
 
@@ -283,7 +283,7 @@ execute:
 - THESE are the important issues when concerning yourself with writing code
 - Speed, memory efficiency, etc, primarily impacted
 
-![](../assets/0.2_cpp/slide17_image13.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide17_image13.png){fig-alt="TODO"}
 
 - Memory address
 
@@ -302,9 +302,9 @@ execute:
   - Aka 1 or 0 in binary.
   - Almost always grouped into sets of 8: 8 bits =1 byte
 
-![TODO: describe image](../assets/0.2_cpp/image4.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image4.png){width="70%" fig-alt="TODO: describe image"}
 
-![pasted-movie.png](../assets/0.2_cpp/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -400,13 +400,13 @@ execute:
 
 ## Even more bases
 
-![TODO: describe image](../assets/0.2_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
 ## Even more bases
 
-![TODO: describe image](../assets/0.2_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
 
 - And now you are all 1s!
 
@@ -425,7 +425,7 @@ execute:
   - English uses this: 1234, the 1 is the biggest.
 - “Little end -ian” : least significant digit is first.
 
-![](../assets/0.2_cpp/slide28_image6.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide28_image6.png){fig-alt="TODO"}
 
 - Little endian:
   - ix86
@@ -438,7 +438,7 @@ execute:
   - PowerPC
   - IA64
 
-![](../assets/0.2_cpp/slide28_pasted-movie.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide28_pasted-movie.png){fig-alt="TODO"}
 
 - Trivia: big-endian and little-endian [come from Gulliver's Travels](https://www.ling.upenn.edu/courses/Spring_2003/ling538/Lecnotes/ADfn1.htm)
 
@@ -474,7 +474,7 @@ execute:
 - Great, let's try some math!
 - Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111
 - Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001
-![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001](../assets/0.2_cpp/image16.png){width="70%" fig-alt="TODO: describe image"}
+![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001](../assets/0.3_cpp/image16.png){width="70%" fig-alt="TODO: describe image"}
 
 - How about NEGATIVE numbers?
   - Well, uhh… easy too, right?
@@ -500,7 +500,7 @@ execute:
 - Decimal : 4 + (-3) => 0b100 + 0b111
   - ...=0b1011?
 - Crap. Doesn’t work! This is 11 in base-10!
-![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001Uhh, but shouldn’t “4 - 3” be the same as “4 + (-3”)? Uhhh…Decimal : 4 + (-3) => 0b100 + 0b111...=0b1011? Crap](../assets/0.2_cpp/image17.png){width="70%" fig-alt="TODO: describe image"}
+![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001Uhh, but shouldn’t “4 - 3” be the same as “4 + (-3”)? Uhhh…Decimal : 4 + (-3) => 0b100 + 0b111...=0b1011? Crap](../assets/0.3_cpp/image17.png){width="70%" fig-alt="TODO: describe image"}
 
 - How about NEGATIVE numbers?
   - Well, uhh… easy too, right?
@@ -534,7 +534,7 @@ execute:
   - 6 + (-6) = 0110+1010 = 10000 ✅
   - -2 = -(binary 0010) = binary 1101+1 = binary 1110
   - 6 + (-2) = 0110 + 1110 = 10100 ✅
-![Examples:… Examples:610 = binary 0110-610 = binary 1001+1=binary 10106 + (-6) = 0110+1010 = 10000 ✅-2 = -(binary 0010) = binary 1101+1 = binary 11106 + (-2) = 0110 + 1110 = 10100 ✅](../assets/0.2_cpp/image18.png){width="70%" fig-alt="TODO: describe image"}
+![Examples:… Examples:610 = binary 0110-610 = binary 1001+1=binary 10106 + (-6) = 0110+1010 = 10000 ✅-2 = -(binary 0010) = binary 1101+1 = binary 11106 + (-2) = 0110 + 1110 = 10100 ✅](../assets/0.3_cpp/image18.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -551,7 +551,7 @@ execute:
   - $$20 \equiv 4mod16$$
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/0.2_cpp/slide34_image19.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide34_image19.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -652,7 +652,7 @@ execute:
 - Floating point numbers: given a fixed number of bytes for your decimal object, use some bits for the exponent (7), some bits for the mantissa (3.154), and one bit for the sign (+).
   - Typical sizes: 2 bytes ("single precision") or 4 bytes ("double precision")
 
-![](../assets/0.2_cpp/slide41_image7.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide41_image7.png){fig-alt="TODO"}
 
 - Sign
 
@@ -706,7 +706,7 @@ execute:
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide46_image8.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide46_image8.png){fig-alt="TODO"}
 
 - Win16
 - Arduino
@@ -726,7 +726,7 @@ execute:
 
 ## Data types and range of values
 
-![TODO: describe image](../assets/0.2_cpp/image9.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image9.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -753,7 +753,7 @@ execute:
 
 ## Basic mechanics of C++
 
-![TODO: describe image](../assets/0.2_cpp/image3.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image3.png){width="70%" fig-alt="TODO: describe image"}
 
 - Now that we know how data are represented, we need to learn how to do things with it.
 - The first thing we need to learn is how to translate C++ to machine code. Recall the schematic of a compiler:
@@ -824,7 +824,7 @@ execute:
 
 - In general, your executable program will always look something like this:
 
-![](../assets/0.2_cpp/slide54_image10.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide54_image10.png){fig-alt="TODO"}
 
 ---
 
@@ -847,7 +847,7 @@ execute:
 - What’s “GNU”? “GNU’s not Unix”.
 - Free, and up to date with ANSI standards
 
-![](../assets/0.2_cpp/slide55_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide55_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
 
 ---
 
@@ -873,7 +873,7 @@ execute:
   - More on that later.
 - We execute it with “./“ (this means “execute from this directory”)
 
-![](../assets/0.2_cpp/slide56_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide56_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
 
 ---
 
@@ -1171,7 +1171,7 @@ execute:
 - DANGER! This is also compiler-dependent!
 - The C++ standard does NOT specify what the initial value is for any given variable, so it is technically allowed to be filled with random garbage.
 
-![](../assets/0.2_cpp/slide71_pasted-movie.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide71_pasted-movie.png){fig-alt="TODO"}
 
 ---
 
@@ -1350,7 +1350,7 @@ execute:
     - E.g. as a variable name
 - We will encounter many of these as we go along.
 
-![TODO: describe image](../assets/0.2_cpp/slide81_image11.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/slide81_image11.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1397,7 +1397,7 @@ execute:
   - See [Wikipedia](https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings) for more 🙂
   - Yes, [emojis, too](https://en.wikipedia.org/wiki/Emoticons_(Unicode_block))!
 
-![TODO: describe image](../assets/0.2_cpp/image12.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image12.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1412,7 +1412,7 @@ execute:
 
 - There are a few special characters:
 
-![](../assets/0.2_cpp/slide85_image13.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide85_image13.png){fig-alt="TODO"}
 
 ---
 
@@ -1427,7 +1427,7 @@ execute:
 
 - There are a few special characters:
 
-![](../assets/0.2_cpp/slide86_image13.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide86_image13.png){fig-alt="TODO"}
 
 - What about more than one character?
   - Gets complicated! More on this later.
@@ -1566,7 +1566,7 @@ execute:
 - Comparison operators: convert two values into a boolean
   - Most often seen in control statements (if, for, while, ...).
 
-![](../assets/0.2_cpp/slide94_image14.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide94_image14.png){fig-alt="TODO"}
 
 - bool expression = (14 < 16);
 - std::cout << expression << std::endl;
@@ -1738,7 +1738,7 @@ x = 2 + (3 * 4);
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide104_Screenshot-2025-09-07-at-10.50.26-PM.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide104_Screenshot-2025-09-07-at-10.50.26-PM.png){fig-alt="TODO"}
 
 - 5. *, /, %
 
@@ -1802,9 +1802,9 @@ x = 2 + (3 * 4);
   - Condition = boolean (true/false), calculated from some inputs
 - By chaining together if... else if... else..., you can control the flow of your code with arbitrarily complex logic.
 
-![TODO: describe image](../assets/0.2_cpp/image15.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image15.png){width="70%" fig-alt="TODO: describe image"}
 
-![TODO: describe image](../assets/0.2_cpp/slide108_image16.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/slide108_image16.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1858,7 +1858,7 @@ x = 2 + (3 * 4);
 
 - If you have a very simple "if" statement, you can use the following shorthand:
 
-![](../assets/0.2_cpp/slide111_image17.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide111_image17.png){fig-alt="TODO"}
 
 - std::string parity = (i % 2 == 0) ? "Even" :"Odd";
 
@@ -1924,7 +1924,7 @@ x = 2 + (3 * 4);
 - How about floating point numbers?
   - How does C++ handle, e.g., (5.0f = 5.0f)?
 
-![TODO: describe image](../assets/0.2_cpp/image7.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image7.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1959,7 +1959,7 @@ x = 2 + (3 * 4);
   - Easy to get into trouble... 1. + 1.e10 has an 11-digit mantissa!
 - Comparisons only make sense within the precision of the mantissa!
 
-![](../assets/0.2_cpp/slide117_image7.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide117_image7.png){fig-alt="TODO"}
 
 - Mantissa
 
@@ -1967,7 +1967,7 @@ x = 2 + (3 * 4);
 
 - Sign
 
-![](../assets/0.2_cpp/slide117_Screenshot-2025-09-08-at-12.14.48-AM.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide117_Screenshot-2025-09-08-at-12.14.48-AM.png){fig-alt="TODO"}
 
 ---
 
@@ -1998,7 +1998,7 @@ x = 2 + (3 * 4);
 
 ## Floating point comparisons
 
-![TODO: describe image](../assets/0.2_cpp/slide119_image18.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/slide119_image18.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2030,7 +2030,7 @@ x = 2 + (3 * 4);
   - “do while” loop
   - “goto” statements (don't use these)
 
-![TODO: describe image](../assets/0.2_cpp/image19.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image19.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2147,11 +2147,11 @@ x = 2 + (3 * 4);
   - "do while" will always execute statement at least once, and repeats if condition is TRUE
   - "while" only executes statement if condition is met, so it's possible to loop 0 times.
 
-![](../assets/0.2_cpp/slide127_image20.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide127_image20.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide127_image21.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide127_image21.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide127_image19.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide127_image19.png){fig-alt="TODO"}
 
 ---
 
@@ -2267,7 +2267,7 @@ x = 2 + (3 * 4);
   - std::cout << " = " <<  circle_area(radius) << std::endl;
 - }
 
-![pasted-movie.png](../assets/0.2_cpp/slide133_image23.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide133_image23.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2313,14 +2313,14 @@ x = 2 + (3 * 4);
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide136_image22.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide136_image22.png){fig-alt="TODO"}
 
 - C++ provides a ton of functions that you can #include <...>
   - Example: #include <cmath>
 
 - See [http://www.cplusplus.com/reference/cmath/](http://www.cplusplus.com/reference/cmath/)
 
-![](../assets/0.2_cpp/slide136_image23.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide136_image23.png){fig-alt="TODO"}
 
 ---
 
@@ -2328,14 +2328,14 @@ x = 2 + (3 * 4);
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide137_image22.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide137_image22.png){fig-alt="TODO"}
 
 - C++ provides a ton of functions that you can #include <...>
   - Example: #include <cmath>
 
 - See [http://www.cplusplus.com/reference/cmath/](http://www.cplusplus.com/reference/cmath/)
 
-![](../assets/0.2_cpp/slide137_image23.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide137_image23.png){fig-alt="TODO"}
 
   - Invoking a function is pretty straightforward
     - Works similarly to Python
@@ -2438,7 +2438,7 @@ x = 2 + (3 * 4);
 - }
 :::
 ::: {.column width="45%"}
-![Screenshot 2025-09-09 at 11.05.41 PM.png](../assets/0.2_cpp/Screenshot-2025-09-09-at-11.05.41-PM.png){width="100%" fig-alt="TODO: describe image"}
+![Screenshot 2025-09-09 at 11.05.41 PM.png](../assets/0.3_cpp/Screenshot-2025-09-09-at-11.05.41-PM.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -2605,19 +2605,19 @@ x = 2 + (3 * 4);
 - return 0;
 - }
 
-![](../assets/0.2_cpp/slide151_image26.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image26.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image27.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image27.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image28.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image28.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image29.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image29.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image29.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image29.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image30.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image30.png){fig-alt="TODO"}
 
-![](../assets/0.2_cpp/slide151_image31.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide151_image31.png){fig-alt="TODO"}
 
 ---
 
@@ -2644,7 +2644,7 @@ x = 2 + (3 * 4);
 - return 0;
 - }
 
-![Rectangle Rectangle](../assets/0.2_cpp/image32.png){width="70%" fig-alt="TODO: describe image"}
+![Rectangle Rectangle](../assets/0.3_cpp/image32.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2791,7 +2791,7 @@ x = 2 + (3 * 4);
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide160_image24.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide160_image24.png){fig-alt="TODO"}
 
 - Cookie
 - Cookie
@@ -2832,8 +2832,8 @@ x = 2 + (3 * 4);
   - Pointers!
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/0.2_cpp/slide162_image23.png){width="100%" fig-alt="TODO: describe image"}
-![TODO: describe image](../assets/0.2_cpp/image24.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide162_image23.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image24.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -2848,7 +2848,7 @@ x = 2 + (3 * 4);
 - The dread cry rang through the night…
 NO! POINTERS! NOOOOO!!!!!!
 
-![TODO: describe image](../assets/0.2_cpp/image25.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image25.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2924,7 +2924,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - &var returns the address of a variable
 - <type>* declares a pointer
 - *p dereferences a pointer = back to variable
-![](../assets/0.2_cpp/slide169_image37.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide169_image37.png){fig-alt="TODO"}
 
 - int x;
 
@@ -2945,7 +2945,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - &var returns the address of a variable
 - <type>* declares a pointer
 - *p dereferences a pointer = back to variable
-![](../assets/0.2_cpp/slide170_image37.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide170_image37.png){fig-alt="TODO"}
 
 - int x;
 
@@ -2972,7 +2972,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - &var returns the address of a variable
 - <type>* declares a pointer
 - *p dereferences a pointer = back to variable
-![](../assets/0.2_cpp/slide171_image37.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide171_image37.png){fig-alt="TODO"}
 
 - int x;
 
@@ -3012,7 +3012,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - &var returns the address of a variable
 - <type>* declares a pointer
 - *p dereferences a pointer = back to variable
-![](../assets/0.2_cpp/slide172_image37.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide172_image37.png){fig-alt="TODO"}
 
 - int x;
 
@@ -3062,7 +3062,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - &var returns the address of a variable
 - <type>* declares a pointer
 - *p dereferences a pointer = back to variable
-![](../assets/0.2_cpp/slide173_image37.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide173_image37.png){fig-alt="TODO"}
 
 - int x;
 
@@ -3470,7 +3470,7 @@ NO! POINTERS! NOOOOO!!!!!!
   - Compiler doesn't just add 3. It adds 3*(size), so effectively it moves 3 elements down the array!
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.2_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -3702,7 +3702,7 @@ NO! POINTERS! NOOOOO!!!!!!
   - Compiler doesn't just add 3. It adds 3*(size), so effectively it moves 3 elements down the array!
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.2_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.3_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -4177,7 +4177,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - +() operator returns a new Point object
 
 - p1 is not modified. Function is "const"!
-![](../assets/0.2_cpp/slide231_image43.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide231_image43.png){fig-alt="TODO"}
 
 ---
 
@@ -4286,7 +4286,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - this is a keyword: pointer to the object itself
 
 - p1 is modified. Function is *not* "const"!
-![](../assets/0.2_cpp/slide234_image44.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide234_image44.png){fig-alt="TODO"}
 
 - (Returns a ref. to p1, to support chaining)
 
@@ -4615,7 +4615,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 ## Inheritance
 
-![pasted-movie.png](../assets/0.2_cpp/slide255_image45.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide255_image45.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -4929,7 +4929,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - Using the same keywords when declaring a derived class (class GasCar : public Car{}) lets you further control the access in the derived class
   - And sub-sub-classes, etc.! E.g. class Lambourghini : public GasCar{...}
 
-![pasted-movie.png](../assets/0.2_cpp/slide270_image46.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide270_image46.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -4952,9 +4952,9 @@ NO! POINTERS! NOOOOO!!!!!!
 - This treats car1 and car2 in the same way, without having to worry about the implementation!
 - Here, we make a base class pointer (Car*) to the derived class object (Lambourghini, Rivian).
 
-![pasted-movie.png](../assets/0.2_cpp/slide271_image46.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide271_image46.png){width="70%" fig-alt="TODO: describe image"}
 
-![pasted-movie.png](../assets/0.2_cpp/slide271_image47.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide271_image47.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -4986,7 +4986,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 ## Friendship
 
-![pasted-movie.png](../assets/0.2_cpp/slide274_image48.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.3_cpp/slide274_image48.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -5006,7 +5006,7 @@ NO! POINTERS! NOOOOO!!!!!!
 - Friendship syntax: pretty simple. Remember the Mines of Moria?
   - "Speak friend and enter"
 
-![](../assets/0.2_cpp/slide276_image27.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide276_image27.png){fig-alt="TODO"}
 
 - class A{
 - public:
@@ -5055,7 +5055,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.2_cpp/slide280_image24.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide280_image24.png){fig-alt="TODO"}
 
 - Cookie
 

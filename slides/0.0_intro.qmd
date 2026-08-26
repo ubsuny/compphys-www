@@ -9,24 +9,10 @@ author:
     affiliations: University at Buffalo
 format:
   clean-revealjs:
-    theme: [default, ../assets/css/custom.scss]
-    template-partials:
-      - ../assets/templates/title-slide.html
-    slide-number: c/t
-    width: 1600
-    height: 900
-    center: true
-    footer: "UB Computational Physics"
-    incremental: false
-    chalkboard: true
-    pdf-separate-fragments: true
     html-math-method: katex
     include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    pdf-max-pages-per-slide: 1
-execute:
-  keep-ipynb: false
 ---
 
 # Welcome
@@ -1033,7 +1019,7 @@ theta(0.0, 0.0, 2.0, 0.0)
 ::: {.column width=60%}
 
 ```{python}
-#| echo: true
+#| echo: false
 #| error: true
 import math
 def theta(x0, y0, x1, y1):
@@ -1058,6 +1044,68 @@ theta(0.0, 0.0, 2.0, 0.0)
 - Don't leave landmines (=unexpected behavior, weird conventions, silent failure modes) in your code for others to discover!
 
 :::
+
+:::
+::::
+
+---
+
+## Development cycle
+
+:::: {.columns}
+::: {.column width=35%}
+1. Write the algorithm down on paper
+2. If you don’t understand everything : goto step 1
+    - else : continue
+3. Write pseudocode
+4. If you don’t understand everything : goto step 3
+    - else : continue
+5. Write code
+6. **Check code with unit tests**
+    - Check “pass” criterion
+    - Check “fail” criterion
+    - If unit test fails : goto Step 5
+7. Publish!
+:::
+::: {.column width=60%}
+
+```{python}
+#| echo: false
+#| error: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  AdotB = x0 * x1 + y0 * y1
+  AcrossB = x0 * y1 - x1 * y0
+  theta = math.acos(AdotB / (absA * absB))
+  if AcrossB < 0:
+    theta *= -1
+  return theta
+```
+
+```{python}
+#| echo: true
+#| error: true
+
+import unittest
+import sys
+
+class TestTheta(unittest.TestCase):
+  def test_1(self):
+    self.assertEqual(theta(1., 0., 0., 1.), math.pi/2.)
+
+  def test_2(self):
+    with self.assertRaises(ZeroDivisionError):
+      theta(0., 0., 0., 1.)
+
+  def test_3(self):
+    with self.assertRaises(TypeError):
+      theta(0., 0., "apples", "oranges")
+
+runner = unittest.TextTestRunner(stream=sys.stdout, verbosity=2)
+unittest.main(argv=['ignored'], exit=False, testRunner=runner);
+```
 
 :::
 ::::

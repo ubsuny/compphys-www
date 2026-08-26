@@ -1,0 +1,394 @@
+---
+title: "Introduction"
+date: "today"
+date-format: "[Fall] YYYY"
+author: 
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+format:
+  html:
+    html-math-method: katex
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+---
+
+# Introduction
+Welcome to UB Computational Physics! This lecture note accompanies the [first set of slides](../slides/0.0_intro.qmd). Please see the [410/505 syllabus](../syllabus_410.qmd) and [411/506 syllabus](../syllabus_411.qmd) for details about course itself.
+
+This course will cover:
+
+- Basics of technical computing (python and C++, as well as tools like git)
+- Data analysis, including fitting and the fast Fourier transforms (FFT)
+- Linear algebra, including solving systems of equations and finding eigenvectors and eigenvalues of matrices
+- Differential equations
+- Monte Carlo methods
+- Applications to fluid mechanics, general relativity, quantum mechanics, quantum field theory
+- Additional topics including quantum computing and machine learning
+
+## Warmup: the software development workflow
+In Computational Physics, one of our primary jobs is translating physics problems to a computer program. The course prerequisites assume that you have enough physics and programming ability to write simple physics programs, but might not have extensive experience in managing a larger software project. Thus, it is worthwhile to walk through a basic physics problem from a software development standpoint. 
+
+Let's consider the problem of determining the angle, $\theta$, between two vectors, $\vec{A} = (x_0,y_0)$ and $\vec{B} = (x_1, y_1)$. 
+
+```{ojs}
+//| echo: false
+vectorDiagram(
+  {x:4, y:1.2, label:"A", coordsTex:"x_0, y_0"},
+  {x:1.6, y:3.6, label:"B", coordsTex:"x_1, y_1"},)
+```
+
+For this simple problem, you could probably write down a python function immediately. However, during this course, you will program much harder problems, where going straight from textbook to the final answer is a bad idea. So, let's break down the task from a software development point of view. A computational physics workflow looks something like this:
+
+1. Write down the algorithm (in detail)
+2. Checkpoint:
+```
+if (you don't understand everything): 
+    goto 1 
+else:
+    continue
+```
+3. Write pseudocode
+4. Checkpoint:
+```
+if (you don't understand everything): 
+    goto 3
+else:
+    continue
+```
+5. Write code
+6. Checkpoint: define unit tests (aka control regions):
+    - Check "pass" criteria
+    - Check "fail" criteria
+    - `if (unit test fails): goto 5`
+7. Publish!
+
+#### 1. Write down algorithm
+The angle between two vectors can be determined using the dot product:
+$$
+\cos\theta = \frac{\vec{A}\cdot\vec{B}}{|\vec{A}||\vec{B}}
+\theta = \cos^{-1} \left(\frac{\vec{A}\cdot\vec{B}}{|\vec{A}||\vec{B}} \right)
+$$
+
+#### 2. Checkpoint
+The dot product is simple enough, so let's proceed.
+
+#### 3. Write pseudocode
+- We'll define a function, `\theta()`, that takes the two vectors as an input.
+- The intermediate steps are: calculate the dot product and absolute value of the vectors.
+- Python has a function `math.acos()` that we can use for the inverse cosine.
+```
+function theta
+Inputs: [(x0, y0), (x1, y1)]
+AdotB = x0 * x1 + y0 * y1
+absA = sqrt(x0^2 + y0^2)
+absB = sqrt(x1^1 + y1^2)
+theta = arccos(AdotB / (absA * absB))
+```
+
+#### 4. Checkpoint
+Wait: we missed something! `math.acos()` returns an angle in $[0,\pi]$. However, we probably want a *signed* angle in the range $[-\pi,\pi]$. It should be positive if $\vec{B}$ is counterclockwise of $\vec{A}$, and negative if clockwise. Let's add in some code to determine the sign. We can use the sign of the cross product, $\vec{A}\times\vec{B}$.
+
+#### 3. Write pseudocode
+```
+function theta
+Inputs: [(x0, y0), (x1, y1)]
+AdotB = x0 * x1 + y0 * y1
+absA = sqrt(x0^2 + y0^2)
+absB = sqrt(x1^1 + y1^2)
+AcrossB = (x0 * y1) - (x1 * y0)
+sign = AcrossB / abs(AcrossB)
+theta = sign * arccos(AdotB / (absA * absB))
+```
+#### 4. Checkpoint
+All OK now.
+
+#### 5. Write code
+Now we translate the pseudocode to real python code. 
+
+```python
+import math
+def theta(x0, y0, x1, y1):
+    AdotB = x0 * x1 + y0 * y1
+    absA = math.sqrt(x0^2 + y0^2)
+    absB = math.sqrt(x1^1 + y1^2)
+    AcrossB = (x0 * y1) - (x1 * y0)
+    sign = AcrossB / abs(AcrossB)
+    return sign * math.acos(AdotB / (absA * absB))
+```
+
+#### 6. Unit tests
+First, let's check that the function returns the correct answer for some straightforward cases.
+
+```{ojs}
+//| echo: false
+vectorDiagram(
+  {x:1.0, y:0.0, label:"A", coordsTex:"1.0, 0.0"},
+  {x:0.0, y:1.0, label:"B", coordsTex:"0.0, 1.0"},)
+```
+
+```{python}
+#| echo: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  AdotB = x0 * x1 + y0 * y1
+  AcrossB = x0 * y1 - x1 * y0
+  theta = math.acos(AdotB / (absA * absB))
+  if AcrossB < 0:
+    theta *= -1
+  return theta
+
+theta(1.0, 0.0, 0.0, 1.0)
+```
+✅
+
+Now let's try the reversed order, to test the sign, and change the magnitude of one of the vectors.
+```{ojs}
+//| echo: false
+vectorDiagram(
+  {x:0.0, y:2.0, label:"A", coordsTex:"0.0, 2.0"},
+  {x:1.0, y:0.0, label:"B", coordsTex:"1.0, 0.0"},)
+```
+
+```{python}
+#| echo: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  AdotB = x0 * x1 + y0 * y1
+  AcrossB = x0 * y1 - x1 * y0
+  theta = math.acos(AdotB / (absA * absB))
+  if AcrossB < 0:
+    theta *= -1
+  return theta
+
+theta(0.0, 2.0, 1.0, 0.0)
+```
+✅
+
+OK, it seems like the function works! But our job is not done: we should ensure that the function behaves in all circumstances, not just what our brains think of as physical circumstances. For example, what happens if we pass a zero-length vector to the function?
+
+```{python}
+#| echo: true
+#| error: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  AdotB = x0 * x1 + y0 * y1
+  AcrossB = x0 * y1 - x1 * y0
+  theta = math.acos(AdotB / (absA * absB))
+  if AcrossB < 0:
+    theta *= -1
+  return theta
+
+theta(0.0, 0.0, 2.0, 0.0)
+```
+⚠️
+
+Our program crashed with an error! It seems that we should go back to step 5. 
+
+#### 5. Write code
+Naively, you can imagine handling the case of a zero-length vector in a few different ways. For example, you could try to detect a zero-length vector and return a nonsense value:
+
+```{python}
+#| echo: true
+#| error: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  if (absA == 0) or (absB == 0):
+    print("[theta] WARNING : Zero-length vector detected, returning -999")
+    theta = -999
+  else:
+    AdotB = x0 * x1 + y0 * y1
+    AcrossB = x0 * y1 - x1 * y0
+    theta = math.acos(AdotB / (absA * absB))
+    if AcrossB < 0:
+        theta *= -1
+  return theta
+
+theta(0.0, 0.0, 2.0, 0.0)
+```
+
+This is bad for a few reasons! First, -999 might seem like nonsense, but it is still a number. If you use the `\theta()` function in a larger program, your program will probably happily continue running, using the -999 value in subsequent computations! Second, you should not rely on `print`ed messages to flag error conditions: the user may not notice the warning message, especially if its printed in a log file with thousands of other messages (or worse, if your program hides `print` outputs, for example in certain multithreading situations). 
+
+Instead of returning a nonsense number, what if we return a nonsense object? For example, we could return the `None` object.
+```{python}
+#| echo: true
+#| error: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  if (absA == 0) or (absB == 0):
+    print("[theta] WARNING : Zero-length vector detected, returning -999")
+    theta = None
+  else:
+    AdotB = x0 * x1 + y0 * y1
+    AcrossB = x0 * y1 - x1 * y0
+    theta = math.acos(AdotB / (absA * absB))
+    if AcrossB < 0:
+        theta *= -1
+  return theta
+
+theta(0.0, 0.0, 2.0, 0.0)
+```
+
+This is a bit better - at least we don't have a -999 floating around equations - but still dangerous. A program might still try to use the `None` value, for example in control statements like `if` statements. 
+
+It turns out the best option was our original code: just let your program fail with an exception! Let's look at the error message again:
+
+```{python}
+#| echo: false
+#| error: true
+import math
+def theta(x0, y0, x1, y1):
+  absA = math.sqrt(x0**2 + y0**2)
+  absB = math.sqrt(x1**2 + y1**2)
+  AdotB = x0 * x1 + y0 * y1
+  AcrossB = x0 * y1 - x1 * y0
+  theta = math.acos(AdotB / (absA * absB))
+  if AcrossB < 0:
+    theta *= -1
+  return theta
+
+theta(0.0, 0.0, 2.0, 0.0)
+```
+
+The exception message returned by python explains exactly what the problem was (dividing by zero), and even points you to the problematic line in the code. Then, the program stops, instead of trying to continue past the failure. So, the lessons here are:
+
+- Fail cleanly
+- Use exceptions
+- Don't leave "landmines" in your code (i.e., unexpected behavior, weird conventions, silent failure modes) for others to discover
+
+#### 6. Unit tests
+Using python's `unittest`` module, we can actually write down a unit test that *requires* a ZeroDivisionError if we input a zero-length vector. A full test of unit tests might look something like this:
+
+```{python}
+#| echo: true
+#| error: true
+
+import unittest
+import sys
+
+class TestTheta(unittest.TestCase):
+  def test_1(self):
+    self.assertEqual(theta(1., 0., 0., 1.), math.pi/2.)
+
+  def test_2(self):
+    with self.assertRaises(ZeroDivisionError):
+      theta(0., 0., 0., 1.)
+
+  def test_3(self):
+    with self.assertRaises(TypeError):
+      theta(0., 0., "apples", "oranges")
+
+runner = unittest.TextTestRunner(stream=sys.stdout, verbosity=2)
+unittest.main(argv=['ignored'], exit=False, testRunner=runner);
+```
+
+
+#### 7. Publish!
+Great, we have a usable `theta()` function! It would certainly be silly to publish it, but consider the 1994 "discovery" of the trapezoid rule:
+
+![](../assets/0.0_intro/Screenshot-2025-08-25-at-8.16.16-AM.png){width="100%" fig-alt="Funny screenshot of a paper purporting to have discovered the trapezoid rule "}
+
+More seriously: for our scientific code, "publish" should also mean "document and preserve your code". Science must be reproducible; we do science with code; therefore, our code must be reproducible, too! Most often, this means commiting your code to git, along with appropriate documentation (whether in the code itself, or in accompanying README files). 
+
+```{ojs}
+//| echo: false
+katex = require("katex@0.16.9/dist/katex.min.js")
+```
+
+```{ojs}
+//| echo: false
+function vectorDiagram(A, B, {width=500, height=320, displayWidth=null, scale=null, padding=70} = {}) {
+  const vectors = [A, B];
+  const LABEL_W = 160, LABEL_H = 44;
+
+  // Bounding box that always includes the origin and both vector tips
+  const xs = [0, A.x, B.x];
+  const ys = [0, A.y, B.y];
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const rangeX = Math.max(maxX - minX, 1e-6);
+  const rangeY = Math.max(maxY - minY, 1e-6);
+
+  // Reserve room for a label's footprint beyond the padded edges, so the
+  // auto-fit scale doesn't push vector tips right up against the boundary
+  // with nowhere left for their labels.
+  const availableW = width - 2 * padding - LABEL_W;
+  const availableH = height - 2 * padding - LABEL_H;
+
+  const MAX_SCALE = 160;
+  const autoScale = Math.min(availableW / rangeX, availableH / rangeY, MAX_SCALE);
+  const s = scale ?? autoScale;
+
+  const renderedW = rangeX * s, renderedH = rangeY * s;
+  const originX = padding + (availableW - renderedW) / 2 - minX * s;
+  const originY = height - padding - (availableH - renderedH) / 2 + minY * s;
+
+  const toScreen = (x, y) => [originX + x * s, originY - y * s];
+  const [ox, oy] = toScreen(0, 0);
+
+  const svg = d3.create("svg").attr("viewBox", [0, 0, width, height]);
+
+  if (displayWidth) {
+    svg.attr("width", displayWidth).attr("height", displayWidth * height / width);
+  } else {
+    svg.style("width", "100%").style("height", "auto");
+  }
+
+  svg.append("defs").html(`<marker id="arrow" markerWidth="8" markerHeight="8"
+    refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#378ADD"/></marker>`);
+
+  // Hard safety net: whatever the scale/position math above produced,
+  // never let a label's box actually leave the canvas.
+  function clampLabelPos(x, y, anchor) {
+    const margin = 4;
+    let cx = anchor === "start"
+      ? Math.min(x, width - LABEL_W - margin)
+      : Math.max(x, LABEL_W + margin);
+    let cy = Math.min(Math.max(y, LABEL_H - 16 + margin), height - 20 - margin);
+    return [cx, cy];
+  }
+
+  function addLabel(x, y, anchor, texStr, color) {
+    const [cx, cy] = clampLabelPos(x, y, anchor);
+    const rendered = katex.renderToString(texStr, {throwOnError: false, output: "html"});
+    svg.append("foreignObject")
+      .attr("x", anchor === "end" ? cx - LABEL_W : cx)
+      .attr("y", cy - 24)
+      .attr("width", LABEL_W).attr("height", LABEL_H)
+      .style("overflow", "visible")
+      .append("xhtml:div")
+      .style("font-size", "20px")
+      .style("color", color)
+      .style("text-align", anchor === "end" ? "right" : "left")
+      .html(rendered);
+  }
+
+  for (const v of vectors) {
+    const len = Math.hypot(v.x, v.y);
+    const [sx, sy] = toScreen(v.x, v.y);
+    if (len < 1e-6) {
+      svg.append("circle").attr("cx", ox).attr("cy", oy).attr("r", 5).attr("fill", "#E24B4A");
+      addLabel(ox + 10, oy - 10, "start",
+        `\\vec{${v.label}} = (${v.coordsTex}) \\ \\text{— zero vector}`, "#A32D2D");
+    } else {
+      svg.append("line").attr("x1", ox).attr("y1", oy).attr("x2", sx).attr("y2", sy)
+        .attr("stroke", "#378ADD").attr("stroke-width", 2.5).attr("marker-end", "url(#arrow)");
+      addLabel(sx + (v.x >= 0 ? 8 : -8), sy - 8, v.x >= 0 ? "start" : "end",
+        `\\vec{${v.label}} = (${v.coordsTex})`, "#0C447C");
+    }
+  }
+  return svg.node();
+}
+```

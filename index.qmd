@@ -29,4 +29,4 @@ Fall term: 6 homework assignments (roughly 2 weeks each), a midterm, and a final
 Spring term: 2-3 homework assignments, a midterm, and a final project. 
 
 # This website
-This website was prepared using [Quarto](https://quarto.org/docs/websites). 
+This website was prepared using [Quarto](https://quarto.org/docs/websites). The source files can be found at <https://github.com/ubsuny/compphys-www>.

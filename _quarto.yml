@@ -10,18 +10,15 @@ website:
     collapse-level: -1
     style: floating
     contents:
-      - section: "Syllabi"
-        contents:
-        - syllabus_410.qmd
-        - syllabus_411.qmd
       - section: "Slides"
         contents:
           - section: "Introduction"
             contents:
             - slides/0.0_intro.qmd
-            - slides/0.1_basics.qmd
-            - slides/0.2_cpp.qmd
-            - slides/0.3_python.qmd
+            - slides/0.1_unix.qmd
+            - slides/0.2_git.qmd
+            - slides/0.3_cpp.qmd
+            - slides/0.4_python.qmd
           - section: "Data analysis"
             contents:
             - slides/1.0_fitting.qmd
@@ -52,6 +49,17 @@ website:
             - slides/7.1_biophys.qmd
             - slides/7.2_qm.qmd
             - slides/7.3_qft.qmd
+      - section: "Notes"
+        contents:
+          - section: "Introduction"
+            contents:
+            - notes/0.0_intro.qmd
+            - notes/0.1_unix.qmd
+      - section: "Syllabi"
+        contents:
+        - syllabus_410.qmd
+        - syllabus_411.qmd
+      - setup.qmd
 
 format:
   html:

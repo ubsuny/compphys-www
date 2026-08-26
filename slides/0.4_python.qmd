@@ -637,7 +637,7 @@ execute:
 - http://56b923adbf51:8888/lab?token=2a9b24970a92fe4482766e3c7eb539859042c6dcbdbacdf8
 - http://127.0.0.1:8888/lab?token=2a9b24970a92fe4482766e3c7eb539859042c6dcbdbacdf8
 
-![pasted-movie.png](../assets/0.3_python/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -667,7 +667,7 @@ execute:
 - Be like Jane.
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.3_python/image1.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.4_python/image1.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -711,7 +711,7 @@ execute:
   - Besides introducing a ton of concepts and features.
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/0.3_python/slide32_image10.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide32_image10.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -734,8 +734,8 @@ execute:
 - Many things there, but we won’t go over all explicitly
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/0.3_python/slide33_image10.png){width="100%" fig-alt="TODO: describe image"}
-![pasted-movie.png](../assets/0.3_python/slide33_image11.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide33_image10.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide33_image11.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -900,7 +900,7 @@ print(b)
   - Visualize using matplotlib.
 - numpy is one of the cornerstones of the scientific python ecosystem.
 
-![pasted-movie.png](../assets/0.3_python/slide45_image12.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide45_image12.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1107,7 +1107,7 @@ print(b)
     - 3d array, 2x2x3
     - Etc!
 
-![](../assets/0.3_python/slide55_image2.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide55_image2.png){fig-alt="TODO"}
 
 - <!-- source pptx's hlinkClick target for this run is "http://12%20pt" - clearly a garbage/leftover artifact (looks like a font-size value "12 pt" that got treated as a link target), not a real URL. Linked to the visible URL itself pending confirmation. -->
 [https://www.datacamp.com/community/tutorials/python-numpy-tutorial](https://www.datacamp.com/community/tutorials/python-numpy-tutorial)
@@ -1164,7 +1164,7 @@ print(b)
 - [102., 202., 302., 402., 502., 602.],
 - [103., 203., 303., 403., 503., 603.]])
 
-![](../assets/0.3_python/slide58_image13.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide58_image13.png){fig-alt="TODO"}
 
 ---
 
@@ -1186,7 +1186,7 @@ print(b)
 - plt.ylabel('some numbers')
 - plt.show()
 
-![](../assets/0.3_python/slide60_image3.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide60_image3.png){fig-alt="TODO"}
 
 ---
 
@@ -1199,7 +1199,7 @@ print(b)
 
 - %matplotlib ipympl
 
-![](../assets/0.3_python/slide61_Screenshot-2025-09-22-at-11.34.54-AM.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide61_Screenshot-2025-09-22-at-11.34.54-AM.png){fig-alt="TODO"}
 
   - Try adding this to the top of:
   - [CompPhys/JupyterExamples/example_jupyter.ipynb](https://github.com/ubsuny/CompPhys/blob/main/JupyterExamples/example_jupyter.ipynb)
@@ -1275,9 +1275,9 @@ print(b)
 
 - >>> xgrid, ygrid = np.meshgrid(xvals, yvals)
 
-![](../assets/0.3_python/slide64_image15.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide64_image15.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide64_image16.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide64_image16.png){fig-alt="TODO"}
 
 ---
 
@@ -1314,7 +1314,7 @@ print(b)
 - pot_energy = gpot(rgrid)
 :::
 ::: {.column width="45%"}
-![Figure 5.png](../assets/0.3_python/Figure-5.png){width="100%" fig-alt="TODO: describe image"}
+![Figure 5.png](../assets/0.4_python/Figure-5.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -1358,7 +1358,7 @@ print(b)
 - Now, we’re able to get around one of the major limitations of python: for loops
 - for loops are very, very slow! Avoid them at all costs!
 
-![](../assets/0.3_python/slide70_image4.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide70_image4.png){fig-alt="TODO"}
 
 - Loops!
 
@@ -1851,9 +1851,9 @@ print(b)
 - electron_eta = [0.2, -2.8, -3.7, 1.2, 1.9]
 - electron_phi = [...]
 
-![pasted-movie.png](../assets/0.3_python/slide94_image20.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide94_image20.png){width="70%" fig-alt="TODO: describe image"}
 
-![Screenshot 2025-09-23 at 11.58.00 PM.png](../assets/0.3_python/Screenshot-2025-09-23-at-11.58.00-PM.png){width="70%" fig-alt="TODO: describe image"}
+![Screenshot 2025-09-23 at 11.58.00 PM.png](../assets/0.4_python/Screenshot-2025-09-23-at-11.58.00-PM.png){width="70%" fig-alt="TODO: describe image"}
 
 - The electron energy is measured by:
   - |eta|<1.479: ECAL barrel (EB)
@@ -1898,7 +1898,7 @@ print(b)
 
   - numpy.where(condition, [x, y, ]/)
   - Return elements chosen from x or y depending on condition.
-![](../assets/0.3_python/slide96_image22.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide96_image22.png){fig-alt="TODO"}
 
   - absx = (x > 0) ? x : -1 * x;
 
@@ -1931,17 +1931,17 @@ print(b)
   - Parallelization is achieved by just repeating this block:
   - (Single program, multiple data (SPMD))
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide99_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide99_image5.png){fig-alt="TODO"}
 
 ---
 
@@ -1949,13 +1949,13 @@ print(b)
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.3_python/slide100_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide100_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide100_image6.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide100_image6.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide100_image7.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide100_image7.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide100_image8.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide100_image8.png){fig-alt="TODO"}
 
 - Single instruction
 
@@ -1972,14 +1972,14 @@ print(b)
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
 - =
-![](../assets/0.3_python/slide101_image7.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide101_image7.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide101_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide101_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide101_image9.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide101_image9.png){fig-alt="TODO"}
 
 - =
-![](../assets/0.3_python/slide101_image10.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide101_image10.png){fig-alt="TODO"}
 
 ---
 
@@ -1995,7 +1995,7 @@ print(b)
   - “Get me N ints” versus “Get me an int”, N times
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.3_python/image11.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.4_python/image11.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -2010,7 +2010,7 @@ print(b)
 - Accessing cache is much faster than accessing memory
 - Accessing memory is much faster than accessing disk
 
-![TODO: describe image](../assets/0.3_python/image12.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.4_python/image12.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2018,13 +2018,13 @@ print(b)
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.3_python/slide104_image13.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide104_image13.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide104_image14.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide104_image14.png){fig-alt="TODO"}
 
 - Memory
 
-![](../assets/0.3_python/slide104_image15.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide104_image15.png){fig-alt="TODO"}
 
 - CPU
 
@@ -2088,9 +2088,9 @@ Slice.
 
 - [https://en.wikipedia.org/wiki/Loop_unrolling](https://en.wikipedia.org/wiki/Loop_unrolling)
 
-![](../assets/0.3_python/slide106_pasted-movie.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide106_pasted-movie.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide106_image26.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide106_image26.png){fig-alt="TODO"}
 
 ---
 
@@ -2157,17 +2157,17 @@ allow the compiler to appropriately vectorize the operation
   - Parallelization is achieved by just repeating this block:
   - (Single program, multiple data (SPMD))
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide112_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide112_image5.png){fig-alt="TODO"}
 
 ---
 
@@ -2175,13 +2175,13 @@ allow the compiler to appropriately vectorize the operation
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.3_python/slide113_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide113_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide113_image6.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide113_image6.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide113_image7.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide113_image7.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide113_image8.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide113_image8.png){fig-alt="TODO"}
 
 - Single instruction
 
@@ -2198,14 +2198,14 @@ allow the compiler to appropriately vectorize the operation
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
 - =
-![](../assets/0.3_python/slide114_image7.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide114_image7.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide114_image5.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide114_image5.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide114_image9.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide114_image9.png){fig-alt="TODO"}
 
 - =
-![](../assets/0.3_python/slide114_image10.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide114_image10.png){fig-alt="TODO"}
 
 ---
 
@@ -2221,7 +2221,7 @@ allow the compiler to appropriately vectorize the operation
   - “Get me N ints” versus “Get me an int”, N times
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.3_python/image11.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.4_python/image11.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -2236,7 +2236,7 @@ allow the compiler to appropriately vectorize the operation
 - Accessing cache is much faster than accessing memory
 - Accessing memory is much faster than accessing disk
 
-![TODO: describe image](../assets/0.3_python/image12.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/0.4_python/image12.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2244,13 +2244,13 @@ allow the compiler to appropriately vectorize the operation
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.3_python/slide117_image13.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide117_image13.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide117_image14.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide117_image14.png){fig-alt="TODO"}
 
 - Memory
 
-![](../assets/0.3_python/slide117_image15.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide117_image15.png){fig-alt="TODO"}
 
 - CPU
 
@@ -2262,7 +2262,7 @@ allow the compiler to appropriately vectorize the operation
 
 ## Architecture of processors
 
-![pasted-movie.png](../assets/0.3_python/slide118_image29.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide118_image29.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2320,9 +2320,9 @@ Slice.
 
 - [https://en.wikipedia.org/wiki/Loop_unrolling](https://en.wikipedia.org/wiki/Loop_unrolling)
 
-![](../assets/0.3_python/slide120_pasted-movie.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide120_pasted-movie.png){fig-alt="TODO"}
 
-![](../assets/0.3_python/slide120_image26.png){fig-alt="TODO"}
+![](../assets/0.4_python/slide120_image26.png){fig-alt="TODO"}
 
 ---
 
@@ -2393,7 +2393,7 @@ allow the compiler to appropriately vectorize the operation
   - value=1
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/0.3_python/slide126_image30.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide126_image30.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -2495,7 +2495,7 @@ allow the compiler to appropriately vectorize the operation
 
 - Jupyter notebooks have a nice "timeit magic" function.
 
-![Screenshot 2025-09-26 at 11.21.45 AM.png](../assets/0.3_python/Screenshot-2025-09-26-at-11.21.45-AM.png){width="70%" fig-alt="TODO: describe image"}
+![Screenshot 2025-09-26 at 11.21.45 AM.png](../assets/0.4_python/Screenshot-2025-09-26-at-11.21.45-AM.png){width="70%" fig-alt="TODO: describe image"}
 
 - Try it out on your computer!
   - CompPhys/ArrayProgramming/Speed.ipynb
@@ -2758,7 +2758,7 @@ allow the compiler to appropriately vectorize the operation
   - numba: just-in-time compilation of python code.
   - swig: interface between C++ and python.
 
-![pasted-movie.png](../assets/0.3_python/slide145_image32.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/0.4_python/slide145_image32.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -2779,4 +2779,4 @@ allow the compiler to appropriately vectorize the operation
 
 ## Slide 147
 
-![eingesetzter-Film.png](../assets/0.3_python/eingesetzter-Film.png){width="70%" fig-alt="TODO: describe image"}
+![eingesetzter-Film.png](../assets/0.4_python/eingesetzter-Film.png){width="70%" fig-alt="TODO: describe image"}

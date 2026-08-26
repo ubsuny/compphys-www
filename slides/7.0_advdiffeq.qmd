@@ -1,25 +1,12 @@
 ---
 title: "Topics in differential equations"
 date: "today"
-date-format: "[Spring] YYYY"
+date-format: "[Fall] YYYY"
 author:
   - name: David Yu
     orcid: 0000-0001-5921-5231
     email: dyu23@buffalo.edu
     affiliations: University at Buffalo
-format:
-  clean-revealjs:
-    theme: [default, ../assets/css/custom.scss]
-    template-partials:
-      - ../assets/templates/title-slide.html
-    slide-number: c/t
-    width: 1600
-    height: 900
-    center: true
-    footer: "UB Computational Physics"
-    incremental: false
-    chalkboard: true
-    pdf-separate-fragments: true
 execute:
   keep-ipynb: false
 ---

@@ -35,6 +35,21 @@ $ub-gray: #666666;
   }
 }
 
+.reveal .footer a {
+  color: $ub-gray;
+  font-weight: 300;
+}
+
+.reveal .slide-number,
+.reveal.has-logo .slide-number {
+  color: #595959 !important; // #666666 → ~5.7:1 on white, passes AA
+}
+
+.reveal .hljs-ln-numbers {
+  opacity: 1;
+  color: #595959; // explicit #666666 instead of a 60%-opacity fade
+}
+
 .quarto-figure figcaption, .caption {
   color: $ub-gray;
   font-size: 0.8em;
