@@ -57,7 +57,7 @@ execute:
 
 :::
 ::: {.column width="40%"}
-![Git branching model ([nvie.com](https://nvie.com/posts/a-successful-git-branching-model/))](../assets/0.1_unix/slide81_image35.png){width="70%" fig-alt="Git branching model"}
+![Git branching model ([nvie.com](https://nvie.com/posts/a-successful-git-branching-model/))](../assets/0.1_unix/slide81_image35.png){width="85%" fig-alt="Git branching model"}
 :::
 ::::
 
