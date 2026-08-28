@@ -254,7 +254,6 @@ alias emacs='emacs -nw'
 
 # Customize command prompt (can do wild stuff)
 export PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
-
 ```
 
 ---

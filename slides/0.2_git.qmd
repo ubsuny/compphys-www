@@ -8,33 +8,75 @@ author:
     orcid: 0000-0001-5921-5231
     email: dyu23@buffalo.edu
     affiliations: University at Buffalo
+  - name: Credit to Kevin Pedro
+    affiliations: Fermilab
 execute:
   keep-ipynb: false
 ---
 
-## GIT
+# Git overview
 
-- With thanks to Kevin Pedro (Fermilab)
-
----
 
 ## Git introduction
 
 :::: {.columns}
-::: {.column width="55%"}
-- Git is a version control system: a tool to manage and track changes in a codebase.
+::: {.column width=25%}
+![](../assets/0.2_git/gitlogo.png){width=90% fig-alt="Git logo"}
+:::
+::: {.column width="75%"}
+- Git is a **version control system**: a tool to manage and track changes in a codebase.
   - [Invented by Linus Torvalds](https://blog.brachiosoft.com/en/posts/git/) for managing the Linux kernel!
-- Visualize code development as a graph:
-  - Vertical line = branch: a copy of the code created for a specific purpose (main copy; bug fix; specific feature development).
-  - Point = commit: some unit of development.
-    - With a commit message to document what was done!
-  - Arrow = merge: pull changes between branches
+- It's not the only VCS, but nearly 100% of scientists use it. 
+- Not only code: useful for your thesis, writing papers in latex, easy websites, ...
+::: 
+::::
+
+---
+
+## Code development as a graph
+
+
+:::: {.columns}
+::: {.column width=60%}
+- Key idea: model code development as a graph:
+
+::::: {.fragment}
+  - Vertical line = **branch**: a copy of the code created for a specific purpose (main copy; bug fix; feature dev).
+:::::
+::::: {.fragment}
+  - Point = **commit**: snapshot of project (immutable, documented).
+    - "New feature"
+    - "Fixed bug"
+:::::
+::::: {.fragment}
+  - Arrow = **merge**: pull changes between branches
     - Merge new features into the main branch.
     - Manage concurrent developments, e.g., feature developer pulls in a hotfix.
 - [https://nvie.com/posts/a-successful-git-branching-model/](https://nvie.com/posts/a-successful-git-branching-model/)
+:::::
+
 :::
-::: {.column width="45%"}
-![pasted-movie.png](../assets/0.1_unix/slide81_image35.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width="40%"}
+![Git branching model ([nvie.com](https://nvie.com/posts/a-successful-git-branching-model/))](../assets/0.1_unix/slide81_image35.png){width="70%" fig-alt="Git branching model"}
+:::
+::::
+
+---
+
+## Remote repositories
+
+:::: {.columns}
+::: {.column width=60%}
+- In addition to defining the fundamental branching model, git provides tools for connecting **remote repositories**
+- You project might have copies on:
+  - Your own laptop
+  - N colleagues' laptops
+  - GitHub (main repo, plus personal copies called *forks*)
+  - Live web server, production server, robot dog, ...
+- The branch/commit/merge concept is the same, but there is some overhead to communicate across remote repositories. 
+:::
+::: {.column width=40%}
+![An aspen "forest" may actual be one gigantic, connected organism](../assets/0.2_git/aspen.jpg){width=90% fig-alt="Connected aspen trees"} 
 :::
 ::::
 
@@ -42,106 +84,52 @@ execute:
 
 ## Landscape of VCSes
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Git is a distributed VCS.
-  - Distributed: Mercurial (Hg), Fossil
-  - Centralized: Concurrent version systems (CVS), Subversion (SVN), Perforce (popular in industry)
-  - Any of these are infinitely better than copying-and-pasting folder and files on your own computer!
+:::: {.columns}
+::: {.column width="55%"}
+- Git is a **distributed VCS**.
+  - *Distributed*: Mercurial (Hg), Fossil
+  - *Centralized*: concurrent version systems (CVS), Subversion (SVN), Perforce (popular in industry)
+  - Any of these are infinitely better than copying-and-pasting multiple copies of a project on your own computer!
 - Github: a server for hosting and managing git repositories.
   - Lots of bells and whistles.
   - It has a [website](https://github.com/), [desktop app](https://desktop.github.com/download/), and [command line tools](https://cli.github.com/).
-  - Other options: gitlab (used extensively at CERN), BitBucket, Gitea, …
+  - Other options: gitlab (used extensively at CERN), BitBucket, Gitea, ...
+:::
+::: {.column width="45%"}
+:::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+![Distributed ([nvie.com](https://nvie.com/posts/a-successful-git-branching-model/))](../assets/0.1_unix/slide82_vcs_centralized.png){fig-alt="Diagram of distributed VCS model"}
+:::
 
-![](../assets/0.1_unix/slide82_pasted-movie.png){fig-alt="TODO"}
+::: {.fragment .fade-in-then-out fragment-index=0}
+![Centralized ([nvie.com](https://nvie.com/posts/a-successful-git-branching-model/))](../assets/0.1_unix/slide82_pasted-movie.png){fig-alt="Diagram of centralized VCS model"}
+:::
 
-![](../assets/0.1_unix/slide82_vcs_centralized.png){fig-alt="TODO"}
+::: {.fragment fragment-index=1}
+- Note: as far as git is concerned, all branches across remotes are on equal footing (in principle). 
+  We humans label and use them differently (for example, the `main` branch on GitHub is often considered the primary copy; GitHub also defines user permissions).
+- The local and remote repo might share branch names (definitely share `main`, possibly others), but remember that git sees them as different branches, and humans are responsible for maintaining the correspondence, usually through "**tracking**". 
+:::
 
-- Centralized
+::::
 
-- Distributed
-
----
-
-## Setup: basics
-
-- I think everyone has installed git and made a Github account
-  - If not, try to catch up now.
-- Demo: some basic setup
-  - ~/.gitconfig contains a few parameters.
-  - Set with:
-  - git config --global user.name [first last]
-  - git config --global user.email email@email.com
-  - git config --global user.github [Github username]
-  - git config --global core.editor nano
-
----
-
-## Setup: SSH keys
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Fastest/best way to use git is over SSH (vs. HTTP)
-- To communicate between your terminal and GitHub.com, you need SSH keys (basically a password for your terminal session)
-  - [https://docs.github.com/en/authentication/connecting-to-github-with-ssh](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-
-![](../assets/0.1_unix/slide84_image5.png){fig-alt="TODO"}
-
-![](../assets/0.1_unix/slide84_image5.png){fig-alt="TODO"}
-
-![](../assets/0.1_unix/slide84_image6.png){fig-alt="TODO"}
-
-- Enter file in which to save the key (/Users/dryu/.ssh/id_ed25519): /Users/dryu/.ssh/id_ed25519_phy410
-- Enter passphrase for "/Users/dryu/.ssh/id_ed25519_phy410" (empty for no passphrase):
-- Enter same passphrase again:
-- Your identification has been saved in /Users/dryu/.ssh/id_ed25519_phy410
-- Your public key has been saved in /Users/dryu/.ssh/id_ed25519_phy410.pub
-- The key fingerprint is:
-- SHA256:iYFcw453lvE3S5REO4zaKc/fn9ULHDklWSwcv4GpL2o dyu23@buffalo.edu
-- The key's randomart image is:
-- +--[ED25519 256]--+
-- |     .o    o+oo. |
-- |   . o...  oo+*. |
-- |    oo.  +..+=.+ |
-- |    . oo++..=.+ o|
-- |     ..oS o+ * . |
-- |         +  + o .|
-- |          o. +  o|
-- |         E..... +|
-- |        ..  . .+.|
-- +----[SHA256]-----+
-
-- Copy the contents of id_<alg>.pub here
+:::
+::::
 
 ---
 
-## Setup: SSH agent
+## Aside: Git vs. GitHub
 
-- An SSH agent allows git to use your (password-protected) SSH key without typing your password every time.
-  - Instead, only needs your password once at login:
-- eval "$(ssh-agent -s)"
-- ssh-add ~/.ssh/id_rsa_github
-- You might also have to tell SSH which key to use. Add the following lines to ~/.ssh/config:
-- Host github.com
-- IdentityFile ~/.ssh/my_key
-  - Then run:
-- chmod 644 ~/.ssh/config
+- Git != GitHub
+ - [git](https://git-scm.com/) is the actual version control software
+ - [GitHub](https://github.com) is a cloud-based hosting platform for git repositories.
+- GitHub is not unique! Other options: [GitLab](https://about.gitlab.com/) (used by CERN), [Bitbucket](https://bitbucket.org/product/), [Gitea](gitea) (self-hosted option)
 
-![pasted-movie.png](../assets/0.1_unix/slide85_image38.png){width="70%" fig-alt="TODO: describe image"}
-
-- Pro tip: your terminal runs the ~/.bashrc file on launch. So, you can put commands here that get run at the start of every new session.
-- # start ssh-agent
-- if [ -z $SSH_AGENT_PID ]; then
-- eval `ssh-agent -s` > /dev/null
-- fi
-- alias addkey='ssh-add ~/.ssh/my_key'
-![Pro tip: your terminal runs the ~/.bashrc file on launch. So, you can put commands here that get run at the start of every new session.… Pro tip: your terminal runs the ~/.bashrc file on launch. So, you can put commands here that get run at the start of](../assets/0.1_unix/image39.png){width="70%" fig-alt="TODO: describe image"}
-
----
+# Working with git
 
 ## Working with git
 
-- Next, let's introduce some of the basic git commands.
+- Next, let's introduce some of the basic git comcepts and commands.
 - Warnings:
   - Names of the commands can be confusing and unintuitive!
   - Different VCSes can use the same words for different things.
@@ -154,180 +142,272 @@ execute:
 
 ## Big picture
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+![](../assets/0.2_git/git-workflow-updated.png){fig-alt="Diagram of basic git commands"}
 
-![](../assets/0.1_unix/slide87_image7.png){fig-alt="TODO"}
+---
 
-- [github.com](http://github.com)
+## Example: cloning our CompPhys repo
 
-- pull from github
-- push to github
+:::: {.columns}
+::: {.column width=50%}
+![](../assets/0.2_git/git-workflow-updated.png){fig-alt="Diagram of basic git commands"}
+:::
+
+::: {.column width=50%}
+- You should already have cloned our class git repo, <https://github.com/ubsuny/CompPhys>. If not, do so now, following the [setup instructions](../setup.qmd). 
+
+One-liner:
+```
+git clone -b main git@github.com:ubsuny/CompPhys
+```
+
+Separate:
+```
+git clone git@github.com:ubsuny/CompPhys
+git switch main
+```
+
+:::: {.callout-tip}
+Git may identify the correct branch during `git clone`, but you can be specific to be safe.
+::::
+:::
+::::
 
 ---
 
 ## Repositories
 
-- Repositories ("repos"): a collection of files that make up a software project.
-  - Top-level object in git
-- Repositories contain:
+- What exactly is a repository (or repo)?
+  - Repo = collection of files that make up a software project.
+- Repositories can contain:
   - Source code
   - README files and other documentation (often written in [Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github))
   - Input files (e.g. configuration data, YAML)
-- DO NOT INCLUDE:
-  - Large binary files (executables)
-  - Large data
+- The repo "lives" in the `.git` folder (`ls -a` to see hidden files)
+
+::: {.callout-important}
+### DO NOT INCLUDE
+- Don't upload binary files (executables/compiled programs) or large data!
   - These make the repo size explode, and bog down git operations that should be very fast.
-  - Tip: .gitignore file specifies file types to ignore
+  - .gitignore file specifies file types to ignore and/or use "Git LFS" tool
+- Jupyter notebooks are also annoying to manage! 
+  - Lots of metadata under the hood that git tries to manage.
+:::
 
 ---
 
-## Demo: create and clone hello world
+## Demo: compphys-git-exercise
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-![](../assets/0.1_unix/slide89_image43.png){fig-alt="TODO"}
-
-- Command line equivalent:
-- git init
-
-![](../assets/0.1_unix/slide89_image8.png){fig-alt="TODO"}
-
-- Create a repo
-
-- Clone the repo to laptop
-
-- cd PHY410
-- git clone git@github.com/ubsuny/helloworld2025.git
+- For the rest of class, we will do a basic git exercise:
+    1. **Basic workflow**: Fork+clone an example repository, add a new file, commit and push back to GitHub, open a pull request
+    2. **Branching**: Create a new branch in local repo, modify a file, merge back to local main branch
+    3. **Pulling and merging**: learn how to keep your local repo in sync with the primary ubsuny repo with `git fetch/merge/pull`. 
+- Step 0: **fork** the repository at <https://github.com/ubsuny/compphys-git-exercise> to your personal GitHub area, so you have a personal copy on GitHub
+- Exercise doubles as a survey: I ask you to add some info on your laptop to GitHub
+- *If you are new to git*: try to complete at least (1) and (2) in class! Ask each other or the instructor for help. 
+- *If you are already experienced with git*: please do at least (1), so I have your hardware info. But feel free to take off afterwards, this is all for today's class.
 
 ---
 
-## Demo: create and clone hello world
+## Setup: basics
 
-- dryu@cast-dyu23ml PHY410 % cd $HOME/PHY410
-- dryu@cast-dyu23ml PHY410 % git clone git@github.com:ubsuny/helloworld2025test.git
-- Cloning into 'helloworld2025test'...
-- Enter passphrase for key '/Users/dryu/.ssh/id_rsa_github_cmslpc':
-- remote: Enumerating objects: 3, done.
-- remote: Counting objects: 100% (3/3), done.
-- remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
-- Receiving objects: 100% (3/3), done.
-- dryu@cast-dyu23ml PHY410 % ll
-- drwxr-xr-x   4 dryu  staff   128B Aug 29 10:14 helloworld2025test
-- dryu@cast-dyu23ml PHY410 % cd helloworld2025test
-- dryu@cast-dyu23ml helloworld2025test % ls
-- README.md
-- dryu@cast-dyu23ml helloworld2025test % ll
-- total 8
-- -rw-r--r--  1 dryu  staff    20B Aug 29 10:14 README.md
+- I think everyone has installed git and made a Github account
+  - If not, try to catch up now.
+- You should also have an SSH key linked to Github.
+- Let's also do some basic configuration. Execute the following commands:
+
+```bash
+git config --global user.name [first last]
+git config --global user.email email@email.com
+git config --global user.github [Github username]
+# Optional
+git config --global core.editor nano
+```
+
+- You should be able to see these values in your local git configuration file: `less ~/.gitconfig`.
 
 ---
 
-## Basic concepts
+## Demo: compphys-git-exercise 1
 
+:::: {.columns}
+::: {.column width=50%}
+- First exercise: probably the simplest and most common workflow.
+    - Fork the repo at <https://github.com/ubsuny/compphys-git-exercise>
+    - Clone the repo with `git clone` (the `main` branch might automatically be selected, if not you might need a `git switch origin/main`). 
+    - Follow the directions in `README.md`: copy `template.md` to a new file and edit it.
+    - Stage (=git add) and commit (=git commit) the file
+    - Push commit to github (your forked repo, not the ubsuny repo)
+    - Open a "pull request"
+:::
+::: {.column width=50%}
+![](../assets/0.2_git/git-workflow-ex1.png){fig-alt="Diagram of basic git commands"}
+
+:::
+::::
+
+---
+
+## Demo: compphys-git-exercise 2
+
+:::: {.columns .vcenter}
+::: {.column width=50%}
+- Second exercise: working with branches
+    - All in your local repo, no interaction with github
+    - See `README.md` for the instructions
+:::
+::: {.column width=50%}
+![](../assets/0.2_git/git-workflow-branches.jpg){fig-alt="Diagram of basic git commands"}
+
+:::
+::::
+
+---
+
+## Demo: compphys-git-exercise 3
+
+:::: {.columns}
+::: {.column width=50%}
+- Third exercise: merging remote updates
+    - After most of you have finished Exercise 1, the ubsuny repo will have new files from everyone.
+    - But, your local repo only has your own file, not everyone else's. How do you keep your local repo in sync, i.e., download all the new commits in the ubsuny repo?
+    - Answer: `git fetch` and `git merge` (or the combo command, `git pull`). 
+  - Hopefully the merge goes smoothly; if not, resolving merge conflicts is beyond today's lecture.
+:::
+::: {.column width=50%}
+![](../assets/0.2_git/git-workflow-fetchmerge.png){fig-alt="Diagram of basic git commands"}
+
+:::
+::::
+
+# Detailed overview
+- The remaining slides go into more detail on git concepts.
+- I won't read them out loud, but if you are new to git, I highly recommend reading through them!
+
+---
+
+## Branches and commits
+
+:::: {.columns}
+::: {.column width=60%}
 - Branch: development area for project
   - Basically, just a copy of the files that git keeps track of.
   - main is the default name for the central branch, i.e., "true" code.
-  - Create branches for specific feature development or bug fix, e.g.,feat-pdesolver or fix-hcal-energy-segfault. These likely have a finite lifecycle, lasting until feature is merged back to main.
+  - Create branches for feature devel. or bug fix: `feat-pdesolver` or `fix-segfault`. Finite lifecycle, often deleted once feature is merged into main branch.
 - Commit: a set of changes to the project
   - Modify, add, or delete files.
   - Under the hood, a commit is just a diff: a list of lines changed, added, or removed.
   - Commits are indexed by a hash: an algo (e.g. SHA-1) creates a unique identifier based on commit metadata (parent commit, date, author, message, etc.)
-
-- dryu@cast-dyu23ml helloworld2025test % git branch -a
-- * main
-- remotes/origin/HEAD -> origin/main
-- remotes/origin/main
-- dryu@cast-dyu23ml helloworld2025test % git checkout -b learning-branch
-- Switched to a new branch 'learning-branch'
-- dryu@cast-dyu23ml helloworld2025test % git branch -a
-- * learning-branch
-- main
-- remotes/origin/HEAD -> origin/main
-- remotes/origin/main
+:::
+::: {.column width=40%}
+```bash
+dryu@cast-dyu23ml helloworld2025test % git branch -a
+* main
+remotes/origin/HEAD -> origin/main
+remotes/origin/main
+dryu@cast-dyu23ml helloworld2025test % git checkout -b learning-branch
+Switched to a new branch 'learning-branch'
+dryu@cast-dyu23ml helloworld2025test % git branch -a
+* learning-branch
+main
+remotes/origin/HEAD -> origin/main
+remotes/origin/main
+```
+:::
+::::
 
 ---
 
-## Basic concepts
-
-- Tag: a specific named version of the project (i.e. snapshot)
-- Release: a Github extension of the tag concept with some extra metadata (release notes, downloadable tarball, ...)
-  - Under the hood, tags and releases are just labels for a specific commit!
-- (Un)tracked files: whether git is tracking a given file. The folder corresponding to your repo can contain both tracked and untracked files.
+## Active vs. frozen
 
 - Commits are the fundamental unit of git.
-  - A given commit is frozen and unique.
+  - A given commit is **frozen** and unique.
   - Commits are ordered. Since each commit is a diff, they intrinsically depend on the parent commit.
-- Branches are active, and can change
-  - Under the hood, a branch points to the latest commit (called HEAD).
+- Branches are **active**, and can change
+  - Under the hood, a branch stores a "pointer" to its latest commit (called HEAD).
   - The branch updates every time you make a commit, i.e., it moves HEAD to point to the latest commit.
 - Use git log to view the commit history
-
-- Active vs. frozen
+- **Tag**: a specific named version of the project (i.e. snapshot, intended for publishing. "v2.1")
+- **Release**: a Github extension of the tag concept with some extra metadata (release notes, downloadable tarball, ...)
+  - Under the hood, tags and releases are just labels for a specific commit
+- (Un)tracked files: whether git is tracking a given file. The folder corresponding to your repo can contain both tracked and untracked files.
 
 ---
 
 ## Basic workflow
 
 :::: {.columns}
-::: {.column width="55%"}
+::: {.column width="75%"}
 - origin: copy of repo stored on [github.com](http://github.com)
 - local: copy of repo stored on your laptop
   - Stored in the .git folder
   - Don't touch this folder! Only git should interact with it.
 - Working area: actual files that you are coding on
 :::
-::: {.column width="45%"}
-![Screenshot 2025-08-29 at 10.45.57 AM.png](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width="25%"}
+![Screenshot 2025-08-29 at 10.45.57 AM.png](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="50%" fig-alt="Diagram of Github-local communication"}
 :::
 ::::
 
 ---
 
-## Working with branches
+## Working with branches 1
 
 :::: {.columns}
-::: {.column width="55%"}
-- git switch [branch or commit hash]
+::: {.column width="75%"}
+- `git switch [branch or commit hash]`
   - Switch to the specified branch (or commit)
   - This command affects your working area: the files will change to correspond to the branch!
   - Don't worry, nothing is lost. Git is smart enough to stop you if you are about to delete something permanently.
-- git switch -c [new-branch-name]
+- `git switch -c [new-branch-name]`
   - Create a new branch and switch to it.
   - Needs git v2.23 or newer.
-- git restore [ref] [file]
+- `git restore [ref] [file]`
   - Switch specified file to the version in ref
-- git checkout
-  - Older command combining switch and restore.
-  - git checkout [branch-name]: switch to branch
-  - git checkout -b [new-branch-name]: create and switch to new branch
-  - Many more options, see git checkout --help
 :::
-::: {.column width="45%"}
-![Screenshot 2025-08-29 at 10.45.57 AM.png](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width="25%"}
+![](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="50%" fig-alt="Diagram of basic git workflow"}
 :::
 ::::
 
 ---
 
-## Working with branches
+## Working with branches 2
 
 :::: {.columns}
-::: {.column width="55%"}
-- git branch -a
+::: {.column width="75%"}
+- `git checkout`
+  - Older command combining switch and restore (confusingly!)
+  - `git checkout [branch-name]`: switch to branch
+  - `git checkout -b [new-branch-name]`: create and switch to new branch
+  - Many more options, see `git checkout --help`
+:::
+::: {.column width="25%"}
+![](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="50%" fig-alt="Diagram of basic git workflow"}
+:::
+::::
+
+---
+
+## Working with branches 3
+
+:::: {.columns}
+::: {.column width="75%"}
+- `git branch -a`
   - List all branches (-a includes remote branches)
-- git branch [branch]
+- `git branch [branch]`
   - Make a new branch
-- git branch [branch] [ref]
+- `git branch [branch] [ref]`
   - Make a new branch to follow ref
-- git branch -m [old] [new]
+- `git branch -m [old] [new]`
   - Rename a branch
-- git branch -d [branch]
+- `git branch -d [branch]`
   - Delete a branch
 - Additional commands
   - Don't try to memorize them all now. Google is your friend!
 :::
-::: {.column width="45%"}
-![Screenshot 2025-08-29 at 10.45.57 AM.png](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width="25%"}
+![](../assets/0.1_unix/Screenshot-2025-08-29-at-10.45.57-AM.png){width="50%" fig-alt="Diagram of basic git workflow"}
 :::
 ::::
 
@@ -335,162 +415,136 @@ execute:
 
 ## Working with commits
 
-- git add [a new file]
+:::: {.columns}
+::: {.column width=50%}
+- `git add [a new file]`
   - Tell git to track a new file
-- git commit -am "documentation message"
+- `git commit -am "documentation message"`
   - Make a commit (snapshot) of all current changes to tracked files
   - If you don't specify -m, git will open an editor an make you do it :)
-- git rm [unwanted file]
+- `git rm [unwanted file]`
   - Delete a file and stop tracking it
-  - git rm --cached [unwanted file]: stop tracking a file, but do not delete it
-- git mv [old path] [new path]
-  - Rename a file, both in git and on your filesystem
-- git *** --dry-run:
+  - `git rm --cached [unwanted file]`: stop tracking a file, but do not delete it
+:::
+::: {.column width=50%}
+- `git mv [old path] [new path]`
+  - Rename a file, both in git and on your filesystem (not strictly necessary: you can do a normal `mv` and then `git add` the new file, too)
+- `git *** --dry-run`:
   - Git prints what the command will do, without actually executing it.
 
-- dryu@cast-dyu23ml helloworld2025test % git rm --cached helloworld.txt
-- rm 'helloworld.txt'
-- dryu@cast-dyu23ml helloworld2025test % git status
-- On branch learning-branch
-- Changes to be committed:
-- (use "git restore --staged <file>..." to unstage)
-- deleted:    helloworld.txt
+```bash
+dryu@cast-dyu23ml helloworld2025test % git rm --cached helloworld.txt
+rm 'helloworld.txt'
+dryu@cast-dyu23ml helloworld2025test % git status
+On branch learning-branch
+Changes to be committed:
+(use "git restore --staged <file>..." to unstage)
+deleted:    helloworld.txt
+```
+:::
+::::
 
 ---
 
 ## Working with forks and remotes
 
+:::: {.columns}
+::: {.column width=50%}
 - A remote is a copy of the repo somewhere else in the world, i.e. not the copy on your laptop.
   - A fork is a copy of the repo. For example, you can fork [github.com/ubsuny/CompPhys](http://github.com/ubsuny/CompPhys) to your own account, [github.com/DryRun/CompPhys](http://github.com/DryRun/CompPhys)
-- git remote
-  - -v: print list of remotes
-  - add [name] [url]: add a new remote (e.g., your fork on GitHub)
-  - rename [old name] [new name]: change name
-  - set-url [remote name] [new url]: change url
-  - remove [remote name to remote]: removes the remote from your list (does not delete)
-
-- git push [remote] [ref]
+- `git remote`
+  - `-v`: print list of remotes
+  - `add [name] [url]`: add a new remote (e.g., your fork on GitHub)
+  - `rename [old name] [new name]`: change name
+  - `set-url [remote name] [new url]`: change url
+  - `remove [remote name to remote]`: removes the remote from your list (does not delete)
+:::
+::: {.column width=50%}
+- `git push [remote] [ref]`
   - Send local [ref] to remote
-  - Ex.: git push origin HEAD:feature-branch
-  - git push [remote] [ref]:[remote_ref]: push local [ref] to remote, and change name on the remote to [remote_ref].
+  - Ex.: `git push origin feature-branch`
+- `git push [remote] [local_ref]:[remote_ref]`: push local [ref] to remote, and change name on the remote to [remote_ref].
     - Ex.: git push origin HEAD:feat-branch pushes your HEAD to a remote branch named feat-branch
+:::
+::::
 
 ---
 
 ## Demo: make some changes, commit, and push
 
+:::: {.columns}
+::: {.column width=50%}
 - Make some changes:
-- dryu@cast-dyu23ml helloworld2025test % echo "Hello world" > helloworld.txt
+```bash
+dryu@cast-dyu23ml helloworld2025test % echo "Hello world" > helloworld.txt
+```
 - Tell git to track this file:
-- dryu@cast-dyu23ml helloworld2025test % git add helloworld.txt
+```bash
+dryu@cast-dyu23ml helloworld2025test % git add helloworld.txt
+```
 - Inspect changes:
-- dryu@cast-dyu23ml helloworld2025test % git status
-- On branch learning-branch
-- Changes to be committed:
-- (use "git restore --staged <file>..." to unstage)
-- modified:   helloworld.txt
-
+```bash
+dryu@cast-dyu23ml helloworld2025test % git status
+On branch learning-branch
+Changes to be committed:
+(use "git restore --staged <file>..." to unstage)
+modified:   helloworld.txt
+```
+:::
+::: {.column width=50%}
 - Make a commit with a message:
-- dryu@cast-dyu23ml helloworld2025test % git commit -m "Add helloworld.txt"
-- [learning-branch 6010c00] Add helloworld.txt
-- 1 file changed, 1 insertion(+), 1 deletion(-)
-- dryu@cast-dyu23ml helloworld2025test % git status
-- On branch learning-branch
-- nothing to commit, working tree clean
+```bash
+dryu@cast-dyu23ml helloworld2025test % git commit -m "Add helloworld.txt"
+[learning-branch 6010c00] Add helloworld.txt
+1 file changed, 1 insertion(+), 1 deletion(-)
+dryu@cast-dyu23ml helloworld2025test % git status
+On branch learning-branch
+nothing to commit, working tree clean
+```
 - Push to github:
-- dryu@cast-dyu23ml helloworld2025test % git push origin HEAD:learning-branch
-- ...
-- To github.com:ubsuny/helloworld2025test.git
-- * [new branch]      HEAD -> learning-branch
+```bash
+dryu@cast-dyu23ml helloworld2025test % git push origin HEAD:learning-branch
+...
+To github.com:ubsuny/helloworld2025test.git
+* [new branch]      HEAD -> learning-branch
+```
 - Head to GitHub and make a pull request (PR)
+:::
+::::
 
 ---
 
 ## Utilities
 
+:::: {.columns}
+::: {.column width=60%}
 - Git provides tools for human understanding of the repo
-- git status
+- `git status`
   - See current state of working area, e.g., modified files ready to be committed.
-- git log
+- `git log`
   - View commit history
   - --raw, --graph, --decorate
-- git diff
+- `git diff`
   - Print changes using Unix diff format
   - git diff [some file] shows changes to one file
   - git diff [c1] [c2] compares two specific commits
-- git grep
+- `git grep`
   - Search code
+:::
+::: {.column width=40%}
+```bash
+dryu@cast-dyu23ml helloworld2025test % git status
+On branch learning-branch
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+modified:   helloworld.txt
+no changes added to commit (use "git add" and/or "git commit -a")
+dryu@cast-dyu23ml helloworld2025test % git log --pretty=oneline --abbrev-commit
+a7b0cff (HEAD -> learning-branch) Add helloworld.txt
+8618aa5 (origin/main, origin/HEAD, main) Initial commit
+dryu@cast-dyu23ml helloworld2025test % git status
+```
+:::
+::::
 
-- dryu@cast-dyu23ml helloworld2025test % git status
-- On branch learning-branch
-- Changes not staged for commit:
-- (use "git add <file>..." to update what will be committed)
-- (use "git restore <file>..." to discard changes in working directory)
-- modified:   helloworld.txt
-- no changes added to commit (use "git add" and/or "git commit -a")
-- dryu@cast-dyu23ml helloworld2025test % git log --pretty=oneline --abbrev-commit
-- a7b0cff (HEAD -> learning-branch) Add helloworld.txt
-- 8618aa5 (origin/main, origin/HEAD, main) Initial commit
-- dryu@cast-dyu23ml helloworld2025test % git status
-
----
-
-## Recap
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-![](../assets/0.1_unix/slide100_image7.png){fig-alt="TODO"}
-
-![](../assets/0.1_unix/slide100_image45.png){fig-alt="TODO"}
-
-- [github.com](http://github.com)
-
-- pull from github
-- push to github
-- 1. git clone ssh://git@github.com:ubsuny/CompPhys
-
-- 2. git switch -c my-branch
-- (or git checkout -b my-branch)
-
-- 3. Do your coding
-
-- 4. git add [modified file]
-
-- 5. git commit -m "I did a thing"
-
-- 6. git push origin HEAD:new-feature-branch
-
-- 4+5. git commit -am "I did a thing"
-
----
-
-## Recap
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-![](../assets/0.1_unix/slide101_image7.png){fig-alt="TODO"}
-
-![](../assets/0.1_unix/slide101_image45.png){fig-alt="TODO"}
-
-- [github.com](http://github.com)
-
-- pull from github
-- push to github
-- 1. git clone ssh://git@github.com:ubsuny/CompPhys
-
-- 2. git switch -c my-branch
-- (or git checkout -b my-branch)
-
-- 3. Do your coding
-
-- 4. git add [modified file]
-
-- 5. git commit -m "I did a thing"
-
-- 6. git push origin HEAD:new-feature-branch
-
-- 4+5. git commit -am "I did a thing"
-
-- For the first few assignments, we will go over the exact git commands you will need to run!
-
----

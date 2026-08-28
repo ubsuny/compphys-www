@@ -17,5 +17,183 @@ format:
 
 # Unix basics
 
-Test
+Linux is family of operating system, like Windows or MacOS, created by Linus Torvalds in the early 1990s. You might see Linux and Unix used interchangably; technically, Unix is an older, proprietary system, while Linux is an open-source and community-driven system that aims to be "like Unix." Historically, Linux/Unix has been less mainstream in day-to-day computing, but they are quite commonplace nowadays. MacOS users should be quite familiar with Unix already, as MacOS is built on top of Unix. Even Microsoft users might be familiar with Linux, as Microsoft now works closely with Canonical to integrate Ubuntu into the Microsoft ecosystem. For a deep dive on Linux, see <https://www.edx.org/learn/linux/the-linux-foundation-introduction-to-linux#!>. 
 
+Linux is available in number distributions ("distros"). Some common variants are Ubuntu, Debian, Fedora, and Red Hat Enterprise Linux (RHEL). For this class, you can use Ubuntu, unless you have a specific reason to use something else.
+
+![Some common Linux distributions](../assets/0.1_unix/slide55_image27.png){fig-alt="Numerous logos of common Linux distributions"}
+
+## Command line
+We will primarily use Linux from the command line, aka a terminal, instead of using a mouse to click on things. Just like the File Explorer (Windows) or Finder (Mac), your terminal is always "inside" some folder on your computer, and you can do all of the same things: inspect or open files, create folder, move to a different folder, etc. One of the main benefits of the command line is that your interactions with the OS itself can be programmed (or *scripted*). The drawback is that you have to learn a small but nontrivial "language" of commands that are typed into the command line. A "cheat sheet" of common commands can be found [here](http://barc.wi.mit.edu/education/bioinfo/pages/scripts/unix_cheat_sheet.html). 
+
+### Shells
+The specific program that interprets your typed commands is called a "shell." There are a few common variants available, including bash, zsh, and tcsh (Ubuntu uses bash by default; MacOS uses zsh; tcsh is less common). These are all largely equivalent, except for slight syntax differences (particularly in how you define variables). 
+
+### Important commands
+ Here are some essential commands:
+
+| Command | Description |
+| --- | --- |
+| `pwd` | **p**rint current **w**orking **d**irectory |
+| `ls` | **l**i**s**t files in current dir | 
+| `mkdir` | **m**a**k**e a new **dir**ectory | 
+| `cd some_dir` | **c**hange **d**irectory to `some_dir` |
+| `less some_file` | open `some_file` in a text viewer |
+| `cat some_file` | print `some_file` to the terminal |
+| `cat file1 file2` | con**cat**enate files (and then print to terminal) | 
+| `nano some_file.txt` | barebones text editor |
+| `emacs some_file.txt` or `vim some_file.txt` | sophisticated text editors |
+| `code some_file.txt` | open file in VSCode |
+| `cp some_file new_path` | **c**o**p**y file to `new_path` |
+| `cp -r some_dir new_path` | **c**o**p**y directory **r**ecursively to `new_path` |
+| `mv some_file new_path` | move file to `new_path` |
+| `touch new_file` | create a new empty file |
+| `touch existing_file` | update "last modified date" of file | 
+| `ln -s some_file shortcut_name` | create "soft link" (alias/shortcut) |
+| `rm some_file` | **r**e**m**ove a file (=delete) |
+| `rm -r some_dir` | delete a directory **r**ecursively |
+
+::: {.callout-tip}
+Most command line tools accept "flags" that modify their behavior. For example, `ls` just prints the contents of a folder by default:
+
+```
+~/PHY410/CompPhys % ls
+AdvCpp			Calculus		MinMax
+AdvDiffEq		Catch2			ODEs
+...
+```
+
+`ls -lrth` changes the behavior of `ls` in four ways:
+
+- `-l`: long format (date, file size, etc.)
+- `-r`: reverse sort order
+- `-t`: sort by time order (descending)
+- `-h`: file sizes in human-readable format
+
+```
+~/PHY410/CompPhys % ls -lrth
+total 72
+drwxrwxr-x@  5 dryu  staff   160B Aug  5  2025 AdvCpp
+drwxrwxr-x@  3 dryu  staff    96B Aug  5  2025 Catch2
+drwxrwxr-x@ 10 dryu  staff   320B Nov 17  2025 ODEs
+drwxrwxr-x@  6 dryu  staff   192B Nov 21  2025 MinMax
+drwxrwxr-x@ 22 dryu  staff   704B Oct 31  2025 Calculus
+drwxrwxr-x@ 16 dryu  staff   512B Feb  6  2026 AdvDiffEq
+```
+:::
+
+::: {.callout-warning}
+### Deleting files
+Be very careful when deleting files! There is no trash can or recycle bin; when you `rm` a file, it is deleted immediately and forever. 
+
+One way to delete more safely is `rm -i` (**i**nteractive). This asks for confirmation before deleting each file. The opposite flag is `rm -f` (**f**orce), which tells `rm` *not* to ask for confirmation. 
+:::
+
+### Advanced commands
+There are many more commands available in your terminal, most of which you don't need to memorize. Here are some examples, just to give an idea of what you can do:
+
+| Command | Description |
+| --- | --- |
+| `grep -R 'pattern' ./*py` | search for text ('pattern') in specified files |
+| `file /path/to/search -name "filename"` | search by filename |
+| `sed` | search-and-replace in files (be very careful!) |
+| `awk` | Search/manipulate text files (quite complex) |
+| `|` | "piping", used to chain commands together (e.g. `grep -R "import" ./*py | less`) |
+| `command > file.txt` (`>&`, `>>`, `>>&`, ...) | various ways to save command output to file |
+| `top` | activity monitor, shows running processes |
+
+
+## Pro tips
+
+### Tab completion
+
+At first glance, you might think that typing files into the terminal is super annoying. Actually, Linux provides an excellent tool to help: **tab completion**. If you start typing and hit tab, the terminal will auto-complete as much of the current string as possible, and print the possible completions. You should use this often, especially when typing long file paths. 
+
+### Command history
+
+The terminal saves all of your recent commands. Hitting the up arrow will scroll backwords through your command history (and similarly for the down arrow). You can also search for commands with `ctrl-r`. 
+
+### cd special arguments
+A few useful tricks with `cd`:
+- `cd` with no arguments returns to your home directory
+- `cd ..` goes up one directory
+- `cd -` goes to the previous directory you were in
+
+### aliases
+You can define custom commands with *aliases*. For example, `alias ll="ls -lrth"` defines a new command, `ll`, as a shortcut for `ls -lrth`. Of course, you probably don't want to have to define an alias every time you open a new terminal, so you can put these in a special file, described next.
+
+### .bashrc and similar
+When you open a new terminal, the shell automatically executes a specific script. The name depends on the shell flavor and also the exact terminal type, but it's often `.bashrc` (for bash), `.zshrc` (for zsh), or `.tcshrc` (for tcsh), or sometimes `.bash_profile` or `.profile` (you might have to experiment). This script can be used to customize your shell behavior. Here are a few examples from my `.zshrc` file:
+
+```
+# Always ask before deleting, unless -f
+alias rm='rm -i'
+
+# More useful ls
+alias ll='ls -ltrhG'
+
+# Use nano when programs ask for text input
+export EDITOR=nano
+
+# Default to terminal-only emacs, no slow X window app
+alias emacs='emacs -nw'
+
+# Customize command prompt appearance (can do wild stuff)
+export PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
+```
+
+
+### wildcards
+In many circumstance, command line tools accept wildcards (`*`), which lets you do pattern matching. For example, `ls *txt` lists all files ending in `txt`. 
+
+## Permissions
+
+In the example of `ls -lrth` above, the command printed quite a lot of information to the screen. For example:
+
+```
+~/PHY410/CompPhys % ll runDocker.sh
+-rwxr-xr-x@  1 dryu  staff   1.0K Feb  8  2026 runDocker.sh
+```
+
+Most of the line is intuitive: from right to left, we have the file name, last modified date, and file size. 
+
+The next two items, `dryu` and `staff` are (1) the user that owns the file and (2) the group that owns the file (you usually don't need to worry about the group, this is more for shared clusters or system administration). On your personal computer, the owner will most commonly by you or `root`, which is the "super user" aka adminstrator account. 
+
+Finally, the random-looking string of characters at the start of the line describe the **Unix permissions** of the file. The line contains 10 characters.
+
+- First character: `-` for file or `d` for directory (not very important)
+- Next 3 characters: user permissions
+- Next 3 characters: group permissions
+- Next 3 characters: everyone else's permissions
+
+In each group, the characters specify (in order) the **r**ead, **w**rite, and e**x**ecute permissions. If the letter is present, the permission is granted; if there is a `-` instead, the permission is blocked. The permissions can also be expressed as a number: for each group of 3, compute the sum of `r=4`, `w=2`, and `x=1` for a number from 0-7. For example, for a single group of 3, `rwx=7` and `r--=4`. For an example of the full set of permissions, `rw-rw-r-- = 664`. 
+
+The permissions can be changed with the `chmod` command. File and group ownership can be modified with `chown` and `chgrp`, respectively. Google for more instructions when you need it.
+
+Finally, MacOS has a number of additional permissions "features" that we will not worry about here. 
+
+## Code editors
+
+Finally, we come to one of the greatest scientific controveries of all time: the Editor Wars! 
+
+![<http://cube-drone.com/comics/c/holy-war>](../assets/0.1_unix/image4.png){width="70%" fig-alt="Cartoon comparing vim, emacs, and nano"}
+
+![<https://xkcd.com/378/>](../assets/0.1_unix/image34.png){width="70%" fig-alt="XKCD cartoon satirizing code editor wars"}
+
+You will need to choose a code editor for this class. A few popular options:
+
+-- In-terminal editors
+  - nano: most basic, great for quick edits
+  - emacs/vim: industry standards. Also useful for quick edits; a lot of people use emacs/vim for everything
+    - Critical info: how to quit 😹
+      - vim: `esc` then `:q` 
+      - emacs: `ctrl-x ctrl-c`
+- Graphical editors
+  - Visual Studio Code (vscode)
+    - vscode is extremely popular these days, probably most useful in industry. It’s even baked into github.com.
+  - Sublime Text (note: paid, though very generous free features).
+
+Use what you’re most comfortable with! ...but if you are not sure, use vscode.
+
+## Final word
+When in doubt, use Google/AI! There is a lot to remember, which can only be learned over time, by doing it yourself. You will be a 🧙 before you know it!
