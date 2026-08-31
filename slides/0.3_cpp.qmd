@@ -129,9 +129,9 @@ $\longrightarrow$
 :::
 ::::
 
----
+# Data representations
 
-## Computers
+## Data representations
 
 :::: {.columns .vcenter}
 ::: {.column width=60%}
@@ -142,7 +142,7 @@ $\longrightarrow$
   - Aka 1 or 0 in binary.
   - Almost always grouped into sets of 8: 8 bits =1 byte
 
-![A RAM chip](../assets/0.3_cpp/pasted-movie.png){width="50%" fig-alt="A RAM chip"}
+![A RAM chip](../assets/0.3_cpp/pasted-movie.png){width="40%" fig-alt="A RAM chip"}
 
 :::
 ::: {.column width=40%}
@@ -241,8 +241,6 @@ $$
 ::: {.fragment .center-box}
 <span style="font-size: 5rem; font-family: 'Comic Sans MS', 'Comic Sans', 'cursive', 'sans serif';">And now you are all 1s!</span>
 :::
-
-# Data representations
 
 ## Endianness
 
@@ -553,7 +551,7 @@ where we discard the overflow bit
   - Typical sizes: 2 bytes ("single precision") or 4 bytes ("double precision")
 
 ::: {style="display: block; margin: auto;"}
-![Sign, exponent, and mantissa bits](../assets/0.3_cpp/slide41_image7.png){fig-align="center" width=50% fig-alt="Bit representation of floating point numbers"}
+![Sign, exponent, and mantissa bits](../assets/0.3_cpp/slide41_image7.png){fig-align="center" width=30% fig-alt="Bit representation of floating point numbers"}
 :::
 
 
