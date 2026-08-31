@@ -614,8 +614,6 @@ float proton_mass = 1.6726e-27;
 
 ## Data types and n(bits)
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
 ![<https://en.cppreference.com/cpp/language/types>](../assets/0.3_cpp/slide46_image8.png){fig-alt="Table of data types"}
 
 ---
@@ -769,6 +767,7 @@ Then execute:
 ./hello
 ```
 
+- If this is already familiar to you, check out some of the other examples in this folder.
 - What about assembler and linker? We'll return to that.
 
 :::
