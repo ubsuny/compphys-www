@@ -11,207 +11,36 @@ execute:
   keep-ipynb: false
 ---
 
-## Announcements
-
-- Office hours officially set: Wednesdays, 11:30am–12:30pm
-- Assignment 1 is posted to UBLearns
-  - Accept on Github Classroom: [https://classroom.github.com/a/uwfJMSPr](https://classroom.github.com/a/uwfJMSPr)
-  - Topics: data representations in C++
-  - Due date: Wednesday, September 10 @11:59pm
-- Today's lecture:
-  - Recap Git usage; demonstrate GitHub Classroom
-  - Start on basics of programming, with focus on how to represent data in a computer.
-
----
-
-## Announcements
-
-- Some setup tips:
-  - ssh-agent (reminder: saves your SSH key password, so you don't have to type the password)
-    - GitHub has instructions for automatically starting your SSH agent once per reboot: see [documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases?platform=windows).
-  - SSH config file:
-    - Best practice: tell SSH exactly which key to use.
-    - Edit ~/.ssh/config and add the following:
-- Host github.com
-- IdentityFile ~/.ssh/id_ed25519_mygithubkey
-      - Then, change the permissions:
-- sudo chmod 600 ~/.ssh/config
-  - Docker container error: write permissions errors in CompPhys folder?
-    - Use ./runDocker_wfix.sh
-    - Updated this morning; do a git pull to download the latest version.
-
----
-
-# GIT(hub) (classroom)
-
----
-
-## Recall: git workflow
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Pull remote repo
-
-- GitHub.com
-
-- Local repo
-- (.git folder)
-
-- Staging area
-
-- Working directory
-
-- Checkout branch (optional)
-
-- Stage changes
-
-- Commit staged changes
-
-- Push remote repo
-
----
-
-## Recall: git workflow
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Pull remote repo
-
-- 5. git commit -m "I did a thing"
-
-- 6. git push origin HEAD:main
-
-- 4+5. git commit -am "Updated some files"
-- (Shortcut to commit all modifications to existing files)
-
-- GitHub.com
-
-- Local repo
-- (.git folder)
-
-- Staging area
-
-- Working directory
-
-- Checkout branch (optional)
-
-- 2. git switch -c my-branch
-- (or git checkout -b my-branch)
-- Not necessary for homework, just use the `main` branch
-
-- 3. Do your coding
-- (Do your homework)
-
-- Stage changes
-
-- Commit staged changes
-
-- Push remote repo
-
-- 1. git clone ssh://git@github.com:ubsuny/compphys-assignment1-DryRun
-
-- 4. git add [new/modified files]
-
----
-
-## GitHub Classroom
-
-- We will be using GitHub classroom for our assignments
-  - GitHub education: [https://education.github.com](https://education.github.com) (FREE STUFF)
-  - GitHub classroom: https://classroom.github.com/classrooms.
-
-![og-image.png](../assets/0.3_cpp/og-image.png){width="70%" fig-alt="TODO: describe image"}
-
----
-
-## Assignments in GitHub Classroom
-
-- "Dummy" assignment: [https://classroom.github.com/a/ggKpp7aK](https://classroom.github.com/a/ggKpp7aK)
-- Assignments in GHC use all the basic concepts:
-  - Fork: when you start an assignment, GHC makes a forked repository for you, at github.com/ubsuny/<assignment>-<username>
-  - Clone: copy the forked repository to your laptop
-  - (No extra branches needed, just do your work in the main branch)
-  - Do the actually assignment on your laptop
-    - Code on your laptop, compile/run programs in the container
-  - Stage and commit: when you're ready to submit, make a commit with all your assignment code
-  - Push: Push the commit to your fork on github.com
-  - Pull request: Make a PR to the main repository so the teacher can grade it :)
-    - Note: GHC will eventually mark as "Submitted." Seems a bit slow.
-
----
-
-## Assignments in GitHub Classroom
-
-- "Dummy" assignment: [https://classroom.github.com/a/ggKpp7aK](https://classroom.github.com/a/ggKpp7aK)
-- Assignments in GHC use all the basic concepts:
-  - Fork: when you start an assignment, GHC makes a forked repository for you, at github.com/ubsuny/<assignment>-<username>
-  - Clone: copy the forked repository to your laptop
-  - (No extra branches needed, just do your work in the main branch)
-  - Do the actually assignment on your laptop
-    - Code on your laptop, compile/run programs in the container
-  - Stage and commit: when you're ready to submit, make a commit with all your assignment code
-  - Push: Push the commit to your fork on github.com
-  - Pull request: Make a PR to the main repository so the teacher can grade it :)
-    - Note: GHC will eventually mark as "Submitted." Seems a bit slow.
-
-- git push origin HEAD:main
-
-- cd <assignment>-<username>
-- mkdir AssignmentN
-- cd AssignmentN
-- <Do homework>
-
-- git clone ssh://git@github.com:ubsuny/<assignment>-<username>
-
-- git add AssignmentN
-- (Should add all files inside, otherwise do more git adds)
-- git commit -am "Add AssignmentN files"
-
----
-
-## Assignments in GitHub Classroom
-
-- Format of most assignments:
-  - Upload code to GitHub Classroom:
-    - Entire [github.com/ubsuny/CompPhys](http://github.com/ubsuny/CompPhys) repository used as a "template." This is what GHC uses to make your fork, github.com/ubsuny/<assignment>-<username>.
-    - Make a new folder, say CompPhys/AssignmentN. Copy any necessary files into this folder.
-      - This keeps the template code separate from your own work.
-      - The contents of CompPhys/AssignmentN will be graded.
-  - Upload the corresponding writeup to UBLearns
-  - I will try to be as specific about possible about what your code and writeup should include.
-- Let's do a trial run with the dummy assignment.
-
----
-
 # Programming basics
 
 ---
 
 ## Programming
 
-- We will now be learning how to program.
+- We will spend around 2-3 weeks reviewing the basics of programming.
 - We are learning C++ first, because:
   - It's harder (better, faster, stronger).
   - It is a better way to learn what your computer is *actually* doing.
 - Then, we will learn python, because:
   - It's quicker and easier with many practical applications.
+- This will build a foundation for understanding computational physics algorithms. 
 
 ---
 
 ## Computers
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
 - In the 1980s, you needed to know UNIX to check email.
 - Now, you just bark the order into your phone.
 - Somewhere, that order is transferred into currents and voltages on transistors.
 - How does it happen in between?
 
-![](../assets/0.3_cpp/slide13_image1.png){fig-alt="TODO"}
+::: {layout="[[30, 10, 30]]" .vcenter}
+!["Siri! Get my mail!](../assets/0.3_cpp/slide13_image1.png){fig-alt="Homer Simpson yelling at a computer"}
 
-- Siri! Get my mail!
+$\longrightarrow$
 
-![](../assets/0.3_cpp/slide13_image2.png){fig-alt="TODO"}
+![](../assets/0.3_cpp/slide13_image2.png){fig-alt="Picture of Siri on an iPhone"}
+:::
 
 ---
 
@@ -219,15 +48,14 @@ execute:
 
 :::: {.columns}
 ::: {.column width="55%"}
-- Your voice is being recognized by software that does a waveform analysis
-  - We’ll look at the basics of waveform analysis later in the semester!
+- Your voice is being recognized by software that does a waveform analysis (topic of FFT module later this semester!)
 - That software is written in some high level language that translates commands (source code) to instructions for your computer chip.
 - Two main modes :
   - Compiled
   - Interpreted
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/0.3_cpp/image11.png){width="100%" fig-alt="TODO: describe image"}
+![Compiled vs. interpreted](../assets/0.3_cpp/image11.png){width="100%" fig-alt="Schematic differences between compiled and interpreted programming languages. Compiled languages (C, C++, Go, Fortran, Pascal, etc.) include steps for language [compiling step], machine code, and ready to run. Interpreted language (python, PHP, Ruby, Javascript, etc.) include steps for language, ready to run! [interpreting step], virtual machine, machine code."}
 :::
 ::::
 
@@ -235,8 +63,8 @@ execute:
 
 ## Compiling C++
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
+:::: {.columns .vcenter}
+::: {.column width=60%}
 - Source code: "high-level," written in human-readable language.
   - Usually modular: divided into independent pieces.
 - Assembly code: "low-level," instructions correspond directly to processor operations.
@@ -244,57 +72,69 @@ execute:
 - Object files: Binary instructions for the CPU.
   - Not readable.
 - Executable: actual program that you run.
+:::
+::: {.column width=40%}
+![](../assets/0.3_cpp/slide15_image3.png){fig-alt="Steps of compiling a C++ program: soruce code, compiler, assembler, linker, executable program." width=80%}
 
-![](../assets/0.3_cpp/slide15_image3.png){fig-alt="TODO"}
-
-- Compilation passes through a few stages:
-
-- Compiler steps: lexical analysis; syntax analysis; semantic analysis; assembly code generation+optimization
+- Compilation includes several stages:
+    - Lexical analysis
+    - Syntax analysis
+    - Semantic analysis
+    - Assembly code generation
+    - Optimization
+:::
+::::
 
 ---
 
 ## Compiling C++
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
+:::: {.columns .vcenter}
+::: {.column width=70%}
 - In practice, you rarely have to worry about most of these steps.
   - I have never read a single piece of assembly code.
-- You do have to become proficient in invoking the tools. For example:
+- You do have to become proficient in invoking the tools. Examples:
   - Debugging compiler errors.
   - Linking external libraries (=code other people wrote).
   - Advanced: understanding optimizations.
-
-![](../assets/0.3_cpp/slide16_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
-
-- Haltermann, Fig. 1.1
+:::
+::: {.column width=30%}
+![Haltermann, Fig. 1.1](../assets/0.3_cpp/slide16_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="Steps of a compiler" width=100%}
+:::
+::::
 
 ---
 
 ## Assembly code
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+:::: {.columns}
+::: {.column width=30%}
+![Example assembly code](../assets/0.3_cpp/slide17_image13.png){fig-alt="Example assembly code"}
 
-- Assembly code is something you need to UNDERSTAND, but not necessarily to WRITE
+- Memory addresses
+- Actions
+- Arguments
+
+:::
+::: {.column width=70%}
+- As a computational physicist, you need to *understand* assembly code, but not necessarily know how to *write* it. 
 - Mnemonic for specific chipset instructions
 - Architecture specific (AMD, Intel, etc)
 - Basic instructions:
-  - “Move contents of Register 1 into Register 2”
-  - “Add contents of Register 1 and Register 2 together, store in Register 3”
-- THESE are the important issues when concerning yourself with writing code
-- Speed, memory efficiency, etc, primarily impacted
-
-![](../assets/0.3_cpp/slide17_image13.png){fig-alt="TODO"}
-
-- Memory address
-
-- Action
-
-- Arguments
+  - "Move contents of Register 1 into Register 2"
+  - "Add contents of Register 1 and Register 2 together, store in Register 3"
+- Therse are the important issues when concerning yourself with writing code:
+  - Affects speed, memory efficiency, etc.
+  - These things are the core limitations of our algorithms!
+:::
+::::
 
 ---
 
 ## Computers
 
+:::: {.columns .vcenter}
+::: {.column width=60%}
 - We need to understand the guts of what's going on, before we can learn to use them correctly.
 - Everything in the computer is stored in a specific memory location: an address.
 - It's ultimately a set of 2-state transistors:
@@ -302,256 +142,285 @@ execute:
   - Aka 1 or 0 in binary.
   - Almost always grouped into sets of 8: 8 bits =1 byte
 
-![TODO: describe image](../assets/0.3_cpp/image4.png){width="70%" fig-alt="TODO: describe image"}
+![A RAM chip](../assets/0.3_cpp/pasted-movie.png){width="50%" fig-alt="A RAM chip"}
 
-![pasted-movie.png](../assets/0.3_cpp/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
-
----
-
-## Counting in binary
-
-- Everyday numbers = base 10
-
-- $$1 \times {10}^{3}+3 \times {10}^{2}+5 \times {10}^{1}+7 \times {10}^{0}=1357$$
+:::
+::: {.column width=40%}
+![Schematic of computer data storage](../assets/0.3_cpp/image4.png){width="80%" fig-alt="An array of bytes, each with an address"}
+:::
+::::
 
 ---
 
 ## Counting in binary
 
 - Everyday numbers = base 10
+
+$$
+1 \times {10}^{3}+3 \times {10}^{2}+5 \times {10}^{1}+7 \times {10}^{0}=1357
+$$
+
+::: {.fragment }
 - Numbers in memory = base 2
-  - Binary digits = bits
+  - "Bits": **bi**nary dig**its**
 
-- $$1 \times {2}^{3}+0 \times {2}^{2}+0 \times {2}^{1}+1 \times {2}^{0}=9$$
+$$
+1 \times {2}^{3}+0 \times {2}^{2}+0 \times {2}^{1}+1 \times {2}^{0}=9
+$$
+:::
 
----
+::: {.fragment}
+$$
+1 \times 2^7+0 \times 2^6+0 \times 2^5+1 \times 2^4+1 \times 2^3+0 \times 2^2+0 \times 2^1+0 \times 2^0=152
+$$
+:::
 
-## Counting in binary
-
-- Everyday numbers = base 10
-- Numbers in memory = base 2
-  - Binary digits = bits
-
-- $$1 \times {2}^{7}+0 \times {2}^{6}+0 \times {2}^{5}+1 \times {2}^{4}+1 \times {2}^{3}+0 \times {2}^{2}+0 \times {2}^{1}+0 \times {2}^{0}=152$$
 
 ---
 
 ## Even more bases
 
 - Reading binary is cumbersome
-  - Lots of digits!
-  - 15210 = 100110002
-- For compactness, print functions often use octal (base-8) or hexadecimal (base-16).
-- For a given number, how do you tell what base? Convention: use prefixes
-  - Binary = "0b" (e.g. 0b1011000)
-  - Octal = "0"
-  - Hexadecimal = "0x"
+  - Lots of digits 😵 15210 = 100110002
+- For human-readability, `print` functions often use octal (base-8) or hexadecimal (base-16).
+  - Example: $152_{10}= 2\times8^2 + 3\times8^1 + 0\times 8^0 := 230_8$
+- Convention for printing: prefix denote which base the following digits use
 
-- Octal:
-  - $$152=2 \times {8}^{2}+3 \times {8}^{1}+0 \times {8}^{0}$$
-  - Write as 0230
-
-- (Subscript 10 means "base 10")
+Base | Prefix | $1234_{10}$ 
+--- | --- | ---
+Binary | `0b` | `0b10011010010`
+Octal | `0o` | `0o2322` 
+Hexadecimal | `0x` | `0x4d2`
 
 ---
 
-## Even more bases
+## Hexadecimal
 
-- Reading binary is cumbersome
-  - Lots of digits!
-  - 15210 = 100110002
-- For compactness, print functions often use octal (base-8) or hexadecimal (base-16).
-- For a given number, how do you tell what base? Convention: use prefixes
-  - Binary = "0b" (e.g. 0b1011000)
-  - Octal = "0"
-  - Hexadecimal = "0x"
+- For hexadecimal, we need 15 digits. How does that work?
+- Answer: use a few letters to go past 9:
+  -  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f
 
-- Hexadecimal:
-  - Firstly, we need to be able to count to 15! Use a few numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f
-  - $$152=9 \times {16}^{1}+8 \times {16}^{0}$$
-  - Write as 0x98
+$$
+\begin{aligned}
+161 &= 10\times 16^1 + 1 \times 16^0 \\
+&= a \times 16^1 + 1\times16^0 \\
+&:= 0xa1
+\end{aligned}
+$$
 
----
-
-## Even more bases
-
-- Reading binary is cumbersome
-  - Lots of digits!
-  - 15210 = 100110002
-- For compactness, print functions often use octal (base-8) or hexadecimal (base-16).
-- For a given number, how do you tell what base? Convention: use prefixes
-  - Binary = "0b" (e.g. 0b1011000)
-  - Octal = "0"
-  - Hexadecimal = "0x"
-
-- Hexadecimal:
-  - Firstly, we need to be able to count to 15! Use a few numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f
-  - $$255=15 \times {16}^{1}+15$$
-  - Using 15==f, write as:
-  - 0xff
+::: {.fragment}
+$$
+\begin{aligned}
+255 &= 15 \times 16^1 + 15 \times 16^0 \\
+&= f \times 16^1 + f \times 16^0 \\
+&:= 0xff
+\end{aligned}
+$$
+:::
 
 ---
 
-## Even more bases
+## Examples
 
-
-
----
-
-## Even more bases
-
-![TODO: describe image](../assets/0.3_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
-
----
-
-## Even more bases
-
-![TODO: describe image](../assets/0.3_cpp/image5.png){width="70%" fig-alt="TODO: describe image"}
-
-- And now you are all 1s!
+| Decimal | Binary | Octal | Hexadecimal |
+| --- | --- | --- | --- | 
+| `1`   |	`0b1`      | 	`0o1` 	|`0x1`  |
+| `4`   |	`0b100`    | 	`0o4`	  |`0x4`  |
+| `10`  |	`0b1010`   | 	`0o12`	|`0xa`  |
+| `15`  |	`0b1111"`  |  `0o17`	|`0xf`  |
+| `16`  |	`0b10000`  | 	`0o20`	|`0x10` |
+| `32`  |	`0b100000` | 	`0o40`	|`0x20` |
+| `40`  |	`0b101000` | 	`0o50`	|`0x28` |
 
 ---
+
+## 10 types of people
+
+![](../assets/0.3_cpp/image5.png){width=70% fig-align="center" fig-alt="Meme: 10 types of people in the world, those who understand binary and those who don't"}
+
+::: {.fragment .center-box}
+<span style="font-size: 5rem; font-family: 'Comic Sans MS', 'Comic Sans', 'cursive', 'sans serif';">And now you are all 1s!</span>
+:::
+
+# Data representations
 
 ## Endianness
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
+:::: {.columns}
+::: {.column width=60%}
 - Aside: what do binary numbers actually look like in transistors in memory?
-  - Just like letters: you can write left-to-right or right-to-left.
+- Just like letters: you can write left-to-right or right-to-left.
   - Some architectures do one, some the other.
-- This is which “end” to start from : the “Endian” debate
-  - From Gulliver’s Travels, as in which end of the soft boiled egg to crack
-- “Big end -ian” : most significant digit (i.e., biggest digit) is first.
+- This is which "end" to start from : the **Endian** debate
+- "Big end-ian" : most significant digit (i.e., biggest digit) is first.
   - English uses this: 1234, the 1 is the biggest.
-- “Little end -ian” : least significant digit is first.
+- "Little end-ian" : least significant digit is first.
 
-![](../assets/0.3_cpp/slide28_image6.png){fig-alt="TODO"}
+![Gulliver's Travels: which end of the egg do you crack first? [link](https://www.ling.upenn.edu/courses/Spring_2003/ling538/Lecnotes/ADfn1.htm)](../assets/0.3_cpp/slide28_pasted-movie.png){fig-alt="Cartoon of a big-endian egghead fighting a little-endian egghead, from Gulliver's Travels"}
+:::
+::: {.column width=40%}
 
-- Little endian:
+![](../assets/0.3_cpp/slide28_image6.png){fig-alt="Little-endian versus big-endian data representation"}
+
+- Little-endian:
   - ix86
   - AMD64
-- Big endian:
+- Big-endian:
   - SPARC
   - Atmel AVR32
-- Bi endian:
+- Bi-endian (support both):
   - ARM (>v3)
   - PowerPC
   - IA64
-
-![](../assets/0.3_cpp/slide28_pasted-movie.png){fig-alt="TODO"}
-
-- Trivia: big-endian and little-endian [come from Gulliver's Travels](https://www.ling.upenn.edu/courses/Spring_2003/ling538/Lecnotes/ADfn1.htm)
-
----
+:::
+::::
 
 ## What about negative numbers?
 
-- How about NEGATIVE numbers?
-  - Well, uhh… easy too, right?
-  - -2 (base 10) = -10 (binary) ...?
-  - But how to represent that in transistors? We need to use one bit to indicate the sign!
+- To get a feel for the problems our CPUs have to solve, let's consider an interesting problem: how do we represent **negative numbers**?
+  - Naively, this might seem trivial: just convert the number to binary exactly like a positive number?
+  -  -5 (base 10) = -101 (binary)
+- But: how do we represent the sign in a transistor? 
+  - Again, the solution might seem trivial: we need to devote one bit to the sign. 
+  - How about just allocating the first bit? 
+
+```
+ 5 = 0b0101
+-5 = 0b1101
+```
+
 
 ---
 
-## What about negative numbers?
-
-- How about NEGATIVE numbers?
-  - Well, uhh… easy too, right?
-  - -2 (base 10) = -10 (binary) ...?
-  - But how to represent that in transistors? We need to use one bit to indicate the sign!
-- Naive solution:
-  - We have to sacrifice one bit to represent sign info.
-  - Let's use the first bit.
-  - -210 = binary 110
-  - The first bit is used to represent sign:
-    - 0=positive (010=2)
-    - 1=negative (110=-1)
-
----
-
-## What about negative numbers?
-
-- Great, let's try some math!
-- Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111
-- Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001
-![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001](../assets/0.3_cpp/image16.png){width="70%" fig-alt="TODO: describe image"}
-
-- How about NEGATIVE numbers?
-  - Well, uhh… easy too, right?
-  - -2 (base 10) = -10 (binary) ...?
-  - But how to represent that in transistors? We need to use one bit to indicate the sign!
-- Naive solution:
-  - We have to sacrifice one bit to represent sign info.
-  - Let's use the first bit.
-  - -210 = binary 110
-  - The first bit is used to represent sign:
-    - 0=positive (010=2)
-    - 1=negative (110=-1)
-
----
-
-## What about negative numbers?
-
-- Great, let's try some math!
-- Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111
-- Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001
-- Uhh, but shouldn’t “4 - 3” be the same as “4 + (-3”)?
-- Uhhh…
-- Decimal : 4 + (-3) => 0b100 + 0b111
-  - ...=0b1011?
-- Crap. Doesn’t work! This is 11 in base-10!
-![Great, let's try some math!… Great, let's try some math!Decimal 4 + 3 = 7   =>  0b100 + 0b011 = 0b111Decimal 4 - 3 = 1  => 0b100 - 0b011 = 0b001Uhh, but shouldn’t “4 - 3” be the same as “4 + (-3”)? Uhhh…Decimal : 4 + (-3) => 0b100 + 0b111...=0b1011? Crap](../assets/0.3_cpp/image17.png){width="70%" fig-alt="TODO: describe image"}
-
-- How about NEGATIVE numbers?
-  - Well, uhh… easy too, right?
-  - -2 (base 10) = -10 (binary) ...?
-  - But how to represent that in transistors? We need to use one bit to indicate the sign!
-- Naive solution:
-  - We have to sacrifice one bit to represent sign info.
-  - Let's use the first bit.
-  - -210 = binary 110
-  - The first bit is used to represent sign:
-    - 0=positive (010=2)
-    - 1=negative (110=-1)
-
----
-
-## "Two's complement"
-
-- Solution : two’s complement representation
-  - [https://en.wikipedia.org/wiki/Two's_complement](https://en.wikipedia.org/wiki/Two's_complement)
-- Let's fix N=4 bits.
-  - First bit is reserved for sign info,
-  - Other 3 bits for the actual number.
-- To compute the "two's complement" representation of a given number, $x$:
-  - Invert the digits ($0 \leftrightarrow 1$)
-  - Add 1
-  - Ignore any overflow, i.e., if we exceed N=4 bits, just throw away biggest digits.
-
-- Examples:
-  - 610 = binary 0110
-  - -610 = binary 1001+1=binary 1010
-  - 6 + (-6) = 0110+1010 = 10000 ✅
-  - -2 = -(binary 0010) = binary 1101+1 = binary 1110
-  - 6 + (-2) = 0110 + 1110 = 10100 ✅
-![Examples:… Examples:610 = binary 0110-610 = binary 1001+1=binary 10106 + (-6) = 0110+1010 = 10000 ✅-2 = -(binary 0010) = binary 1101+1 = binary 11106 + (-2) = 0110 + 1110 = 10100 ✅](../assets/0.3_cpp/image18.png){width="70%" fig-alt="TODO: describe image"}
-
----
-
-## "Two's complement"
+## Naive negative numbers
 
 :::: {.columns}
-::: {.column width="55%"}
-- Why does this work???
-- Answer: modular arithmetic!
-- N=4 bits can represent positive integers from 0–15.
-  - What happens if we take 10+10=20? This is outside our "range," but we want math to work, i.e., we want closure under addition.
-  - Solution: modular arithmetic
-    - "Wrap around" like a clock.
-  - $$20 \equiv 4mod16$$
+::: {.column width=40%}
+- Naive negative numbers: use first bit to denote +/- (+=0, -=1)
+- OK, let's try some math. 
+  - ` 4 = 0b0100`
+  - ` 3 = 0b0011`
+  - `-3 = 0b1101`
 :::
-::: {.column width="45%"}
-![pasted-movie.png](../assets/0.3_cpp/slide34_image19.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width=60%}
+:::: {.r-stack}
+
+::: {.fragment .fade-out fragment-index=0}
+### Addition
+- In base 10:
+```
+ 4
++3
+--
+ 7
+```
+
+- In binary:
+```
+ 0b0100
++0b0011
+ ------
+ 0b0111
+ ```
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=0}
+### Subtraction
+- In base 10:
+```
+ 4
+-3
+--
+ 1
+```
+
+- In binary (kind of annoying!):
+```
+ 0b0100
+-0b0011
+ ------
+ 0b0001
+ ```
+:::
+
+::: {.fragment .fade-in fragment-index=1}
+### Adding a negative number
+- Here's where our naive solution goes wrong: *subtracting 3 should be the same as adding -3*
+- In base 10:
+```
+ 4
++(-3)
+--
+ 1
+```
+
+- In binary:
+```
+ 0b0100
++0b1011
+ ------
+ 0b1111
+ ```
+- This is -7, not 1! 
+
+:::
+
+
+::::
+:::
+::::
+
+---
+
+## Two's Complement
+
+:::: {.columns}
+::: {.column width=50%}
+- Solution: "two's complement" ([wikipedia](https://en.wikipedia.org/wiki/Two's_complement))
+- Let's fix `N=4` bits
+  - $2^4=16$ possible values, so we can represent, e.g., -8 to 7
+  - First bit is still reserved for sign (+=0, -=1)
+  - Other 3 bits for the number
+- Positive numbers: `0b0xyz`, just like our naive strategy
+- Negative numbers:
+  - Flip all the bits: $0 \leftrightarrow 1$
+  - Add 1
+  - Throw away any overflow (if adding 1 rolls over to a 5th bit, just discard it)
+:::
+::: {.column width=50%}
+Examples:
+
+:::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+6-6=0
+```
+ 6 = 0b0110
+-6 = 0b1001 + 1 = 0b1010
+  ```
+
+Then:
+```
+6 + (-6) =  0b0110
+           +0b1010
+            ------
+         =  0b0000   
+```
+where we discard the overflow bit
+:::
+
+::: {.fragment .fade-in fragment-index=0}
+6-2=4
+```
+ 6 = 0b0110
+-2 = -(0b0010) = 0b1101+1 = 0b1110
+6-2 =  0b0110
+      +0b1110
+       ------
+    =  0b0100
+```
+:::
+::::
+
 :::
 ::::
 
@@ -559,57 +428,79 @@ execute:
 
 ## "Two's complement"
 
-- Why does this work???
-- Answer: modular arithmetic!
-- N=4 bits can represent positive integers from 0–15.
-  - What happens if we take 10+10=20? This is outside our "range," but we want math to work, i.e., we want closure under addition.
-  - Solution: modular arithmetic
-    - "Wrap around" like a clock.
-  - $$20 \equiv 4mod16$$
+:::: {.columns}
+::: {.column width="60%"}
+- ***Why does this work???***
+- Answer: [**modular arithmetic**](https://en.wikipedia.org/wiki/Modular_arithmetic)! Remember how that works?
+  - "Integers modulo $m$": for any integer, take the remainder divided by $m$
+- N=4 bits can represent $2^4=16$ integers (e.g. 0-15)
+  - Can define perfectly sensible +, -, and * on 0-15: just **wrap around like clock** if you go over 16 (or under 0)
+  - *Closed* under +-*, in mathematics
+  - This system is "integers modulo 16", or $\mathbb{Z}/16\mathbb{Z}$
+- Example: 10+10=20, wrap around to 4
+  - We write: $20 \equiv 4 \mod 16$
+:::
+::: {.column width="40%"}
+![A clock is $\mathbb{Z}/12\mathbb{Z}$](../assets/0.3_cpp/slide34_image19.png){width="100%" fig-alt="Image of a clock representing integers modulo 12 "}
+:::
+::::
 
-- N=4 bits can also represent positive and negative integers, say from -8 to 7 (by convention).
-- Key fact: $-x \equiv -x+16mod16$
-  - $$-1 \equiv 15mod16$$
-  - $$-7 \equiv 9mod16$$
+---
+
+## "Two's complement"
+:::: {.columns}
+::: {.column width=75%}
+- How does this relate to two's complement?
+- $[0, 15]$ is just one choice for representing $\mathbb{Z}/16\mathbb{Z}$
+- We could just as well have chosen $[-8, 7]$! 
+  - In the clock analogy, we could label hours using [-6, 5] instead of [1, 12]
+- Examples:$-1 \equiv 15 \mod 16$; $-7 \equiv 9 \mod 16$
+:::
+::: {.column width=25%}
+| 0 | 0 |
+| --- | --- |
+| 1 | 1 |
+| 2 | 2 | 
+| 3 | 3 |
+| 4 | 4 |
+| 5 | 5 |
+| 6 | 6 |
+| 7 | 7 | 
+| 8 | -8| 
+| 9 | -7 |
+| 10 | -6 |
+| 11 | -5 | 
+| 12 | -4 | 
+| 13 | -3 |
+| 14 | -2 |
+| 15 | -1 |
+:::
+::::
 
 ---
 
 ## "Two's complement"
 
-- Why does this work???
-- Answer: modular arithmetic!
-- N=4 bits can represent positive integers from 0–15.
-  - What happens if we take 10+10=20? This is outside our "range," but we want math to work, i.e., we want closure under addition.
-  - Solution: modular arithmetic
-    - "Wrap around" like a clock.
-  - $$20 \equiv 4mod16$$
+- Thus, our N=4 bits define a perfectly good system for arithmetic (+-*) on integers -8 through 7. 
+     - It's equivalent to a system with only positive integers, $[0, 15]$, using the correspondence ($-1\equiv 15\mod 16$, $-2 \equiv 14\mod 16$, ...)!
+- Finally, why does the weird bit-flipping procedure work?
+- Reason by example: starting from `1=0b0001`, the algorithm tells us -1 is obtained by flipping the bits and adding 1:
 
-- N=4 bits can also represent positive and negative integers, say from -8 to 7 (by convention).
-- Key fact: $-x \equiv -x+16mod16$
-  - $$-1 \equiv 15mod16$$
-  - $$-7 \equiv 9mod16$$
-- In mod 16, 15 is exactly the same number as -1!
-  - Addition, subtraction, and multiplication all work exactly the same.
-  - So, (-8, -1) is mapped to (8, 15) instead.
+```
+ 1 = 0b0001
+-1 = 0b1110 + 1 = 0b1111
+1 + (-1) = 0b0001 + 0b1111 = 0b0000
+```
 
----
-
-## "Two's complement"
-
-- So, why did we flip all the bits and add 1?
-- Reason by example: starting from 1=0b0001, let's try adding the flipped number:
-  - 0b0001 + 0b1110 = 0b1111 = 15 = 24-1
-  - 0b1110 + 1 = 24 - 0b0001
-  - $ \Rightarrow $0b1110 + 1 $ \equiv $ -(0b0001) mod 16
-
-- Ta-daaa! Like magic, but it’s math!
+- In detail: flipping bits of $x$ is equivalent to $15-x$; we want the additive inverse ($x + (-x) = 16$), so we just have to add 1 more to get $16-x$.
+- Like magic, but it’s math!
 
 ---
 
 ## "Two's complement"
 
 - Why is this so important for computers?
-  - Addition, subtraction, and multiplication all work using normal math.
+  - Addition and subtraction can both be handled by an addition unit in your CPU
   - No need for special instructions for the chip!
     - We could make things work with the "naive" representation.
     - Addition becomes an "if" statement: CPU does different things depending on +(pos) or +(neg) number.
@@ -617,20 +508,27 @@ execute:
 
 ---
 
-## Representing numbers on a computer
+## Bits and bytes
 
-- Storage of numbers on computers is done in binary.
-- 1 bit is not super useful!
-  - Instead, computers use fixed-sized groups of bits: bytes!
-  - Yes, like “gigabyte” (GB). Versus "gigabit" (Gb).
-- How many bits are in a byte?
-  - Architecture dependent, but usually 8 bits =1 byte
-  - Everything from 1-48 bits per byte has been used
-- 8-bit byte : 00111100
-  - Can represent integers from 0 - 255
-  - In hexadecimal : 0x0 - 0xff
-- How do you store bigger numbers?
-  - Use multiple bytes!
+:::: {.columns}
+::: {.column width=50%}
+- OK, back to more practical matters: how numbers are actually stored in a C++ program.
+- Of course, numbers are stored in binary, but 1 bit is not very useful by itself.
+- Instead, computers use fixed-sized groups of bits: **bytes**
+  - E.g. "gigabyte" (GB), versus "gigabit" (Gb)
+:::
+::: {.column width=50%}
+- [How many bits are in a byte?](https://en.wikipedia.org/wiki/Byte)
+  - This is actually architecture dependent! 
+  - Usually (almost always) 8 bits per byte
+- An 8-bit byte looks something like `00111100`. 
+- Can represent integers from 0-255 (or signed integers from -128-127). 
+  - Or, in hexadecimal, 0x0-0xff
+- Obvious question: how do you store bigger numbers?
+  - Answer: use multiple bytes
+:::
+::::
+
 
 ---
 
@@ -639,28 +537,25 @@ execute:
 - The range of integers you can represent depends on:
   - How many bytes used?
   - Signed or unsigned?
+- Example: 4 bytes = 32 bits
+  -$2^32 = 4294967296$
+  - So, unsigned integers from 0-4294967295
+  - Or signed integers from -2147483648 - 2147483647
 
 ---
 
 ## Decimals
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
 - What about decimal numbers?
-  - Naive attempt: just convert the numbers you see, 2.2 $ \rightarrow $ binary 10.10. But how do we represent where the decimal goes?
-- Better idea: use scientific notation. Example: 3.154e+7 (seconds in a year :)
-- Floating point numbers: given a fixed number of bytes for your decimal object, use some bits for the exponent (7), some bits for the mantissa (3.154), and one bit for the sign (+).
+  - Naive attempt: just convert the numbers you see? For example $2.2  \rightarrow $  `0b10.10`. But how do we represent the location of the decimal?
+- Better idea: use **scientific notation**. Example: 3.154e+7 (seconds in a year 🙂)
+- **Floating point numbers**: given a fixed number of bytes for your decimal object, use some bits for the exponent (7), some bits for the mantissa (3.154), and one bit for the sign (+).
   - Typical sizes: 2 bytes ("single precision") or 4 bytes ("double precision")
 
-![](../assets/0.3_cpp/slide41_image7.png){fig-alt="TODO"}
+::: {style="display: block; margin: auto;"}
+![Sign, exponent, and mantissa bits](../assets/0.3_cpp/slide41_image7.png){fig-align="center" width=50% fig-alt="Bit representation of floating point numbers"}
+:::
 
-- Sign
-
-- Exp.
-
-- Mantissa
-
----
 
 # C++ Intro
 
@@ -669,8 +564,8 @@ execute:
 ## C++ intro
 
 - This brings us finally to C++!
-- The first concept we need to understand: data type
-  - Data types tell the computer how you are going to INTERPRET the bits on the register
+- If you are only familiar with python, a first essential topic is **data types**
+  - Data types tell the computer how you are going to *interpret** the bits on the register
 - Example : Computer gives you 
 11110110100111010111011010011101
   - What the heck is that?
@@ -683,20 +578,37 @@ execute:
 
 ## "Strong typing"
 
-- Since computing (and nature) is hard, you have to understand what the computer is giving you and how you are interpreting it.
-- This is why C++ is “strongly typed”: you need to tell the computer EXACTLY how you are representing the number.
-- int x = 10;
-- float proton_mass = 1.6726e-27;
-- On the other hand, Python is "weakly typed": you don't have to declare variable types. Instead, Python figures it out at runtime.
+- Computing is intrinsically very complex. At all times, the program has to understand every bit of data, and you have to be able to interpret the results.
+- C++ is **strongly typed**: you must declare the type of every variable, i.e., how you are representing each number in bits.
+```
+int x = 10;
+float proton_mass = 1.6726e-27;
+```
+- On the other hand, Python is **weakly typed**: you don't have to declare variable types. Instead, Python figures it out at runtime (slow!)
 
-- Commonly used data types
+---
+
+## Commonly used C++ types
+
+| Type | Size | Min | Max |
+| --- | --- | --- | --- |
+| bool              | 1 bit   | 0     | 1 |
+| unsigned char     | 1 byte  | 0     | 255 |
+| char              | 1 byte  | -128  | 127 |
+| unsigned int      | 2 bytes | 0     | 65,535 |
+| int               | 2 bytes | -32,768 |  32,767 |
+| unsigned long int | 4 bytes | 0     | 4,294,967,295 |
+| long int          | 4 bytes | -2,147,483,648  | 2,147,483,647 |
+| float             | 4 bytes |  1.2E-38 |  3.4E+38 |
+| double            | 8 bytes | 2.3E-308 | 1.7E+308 |
+ 
 
 ---
 
 ## An annoyance
 
-- The C++ standard specifies that “int”, for instance, must be AT LEAST 16 bits (2 bytes). It can be more, and sometimes is!
-- This is ARCHITECTURE DEPENDENT
+- The C++ standard specifies that "int", for instance, must be AT LEAST 2 bytes. It can be more, and sometimes is!
+- This is **architecture dependent**
 - size of int on linux+intel != size of int on mac+amd
 - When in doubt, check [http://en.cppreference.com/w/cpp/language/types](http://en.cppreference.com/w/cpp/language/types)
 
@@ -706,174 +618,167 @@ execute:
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/0.3_cpp/slide46_image8.png){fig-alt="TODO"}
-
-- Win16
-- Arduino
-
-- Win32
-- Unix
-- Linux
-- macOS
-
-- Win64
-
-- Unix
-- Linux
-- macOS
+![<https://en.cppreference.com/cpp/language/types>](../assets/0.3_cpp/slide46_image8.png){fig-alt="Table of data types"}
 
 ---
 
 ## Data types and range of values
 
-![TODO: describe image](../assets/0.3_cpp/image9.png){width="70%" fig-alt="TODO: describe image"}
+![<https://en.cppreference.com/cpp/language/types>](../assets/0.3_cpp/image9.png){width="70%" fig-alt="Table of data types and their ranges"}
 
 ---
 
 ## Recap
 
-- tl;dr :
+- tl;dr:
   - Data types are hard and not very intuitive!
   - They are designed for efficiency/performance, not ease of use.
-  - C++ types you will use the most :
-    - char
-    - int, unsigned int
-    - float, double
-  - You need to be aware of the intricacies and difficulties, though… you WILL run into this if you do any serious numerical computing in the future.
-- Assignment 1 is posted, due next Wednesday, September 10 at 11:59pm.
-  - Assignment 1/problem 1 is about the two's complement algorithm.
-  - Assignment 1/problems 2&3 are about the capacity of various integer types.
+  - C++ types you will use the most:
+    - `char`
+    - `int`, `unsigned int`
+    - `float`, `double`
+  - You need to be aware of the intricacies and difficulties, though... you **will** run into this if you do any serious numerical computing in the future.
+- Assignment 1 is posted, due Monday, September 14 at 11:59pm (2 weeks).
+  - Problem 1.1 is about the two's complement algorithm.
+  - Problems 1.2 and 1.3 investigate the capacity of various data types.
 - Up next: compiling and executing C++ programs.
-
----
 
 # Compiling
 
 ---
 
-## Basic mechanics of C++
+## Writing and compiling C++
 
-![TODO: describe image](../assets/0.3_cpp/image3.png){width="70%" fig-alt="TODO: describe image"}
+- Up next: learning how to write and compile a C++ program. 
+- A compiler works something like this:
 
-- Now that we know how data are represented, we need to learn how to do things with it.
-- The first thing we need to learn is how to translate C++ to machine code. Recall the schematic of a compiler:
+![Mechanics of the C++ compiler](../assets/0.3_cpp/image3.png){width="70%" fig-alt="C++ compiler steps: compiler, assembler, linker"}
+
+- You write the C++ source code; the compiler translates it to machine code, and then assembles the pieces into a full program.
 
 ---
 
-## Basic mechanics of C++
+## Hello World
 
-- The “Hello World” program is simple:
-- Go to CompPhys/ReviewCpp/BasicExamples/hello.cc:
+- Our first example from the CompPhys repository: go to `CompPhys/ReviewCpp/BasicExamples/hello.cc` in your code editor.
+- The program is fairly simple:
 
-- #include <iostream>
-- int main(void){
-- std::cout << "Hello, world" << std::endl;
-- return 0;
-- }
+```c++
+#include <iostream>
+
+int main(void){
+  std::cout << "Hello, world" << std::endl;
+  return 0;
+}
+```
 
 - ...but not as simple as Python!
 
-- print("Hello, world")
+```python
+print("Hello, world")
+```
 
 ---
 
-## Basic mechanics of C++
+## Hello World explained
 
-- The “Hello World” program is simple:
-- Go to CompPhys/ReviewCpp/hello.cc:
+:::: {.columns .vcenter}
+::: {.column width=40%}
+```c++
+#include <iostream>
 
-- #include <iostream>
-- int main(void){
-- std::cout << "Hello, world" << std::endl;
-- return 0;
-- }
-
-- Includes input/output modules
-
-- Main function : inputs nothing (void), returns an int
-
-- Prints “Hello, world” to the screen, with an end line
-
-- Returns 0 (success)
-
----
-
-## Basic mechanics of C++
-
-- The “Hello World” program is simple:
-- Go to CompPhys/ReviewCpp/hello.cc:
-
-- #include <iostream>
-- int main(void){
-  - // A comment
-- std::cout << "Hello, world" << std::endl;
-- return 0; // Comment
-- }
-- /*
-- A two-line
-- comment
-- */
-
-- You can (should!) also add comments: useful for humans, completely ignored by compiler.
+int main(void){
+  std::cout << "Hello, world" << std::endl;
+  return 0;
+}
+```
+:::
+::: {.column width=60%}
+:::: {.fragment}
+- `#include` is similar to python `import`: allows you to use external code.
+  - `<iostream>` is a library providing input/output to the terminal, most notably the basic print function.
+::::
+:::: {.fragment}
+- `int main` function: input=nothing (`void`), output=`int`.
+  - `int main()` function is the conventional entrypoint for a C++ program.
+::::
+:::: {.fragment}
+- `std::cout` is similar to python `print()`, except with a "stream" syntax rather than function syntax.
+  - `std::endl;` is a newline character (`\n` in python)
+::::
+:::: {.fragment}
+- `0` is a return value indicate successful completion; other values (often 1) indicate failure. 
+::::
+:::
+::::
 
 ---
 
-## Basic mechanics of C++
+## Adding a comment
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+- We should add some documentation to the program (OK, maybe this is overkill here, but in general you should document your code thoroughly!).
+- C++ has a couple ways of adding comments to code:
 
-- In general, your executable program will always look something like this:
+```c++
+#include <iostream>
+int main(void){
+  // A comment
+  std::cout << "Hello, world" << std::endl;
+  return 0; // Comment
+}
+/*
+A two-line
+comment
+*/
+```
 
-![](../assets/0.3_cpp/slide54_image10.png){fig-alt="TODO"}
+- Everything on a line after `//`, or between `/*` and `*/`, is completely ignored by the compiler. 
 
 ---
 
-## Hands-on: compiling a program
+## Compilation
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Let's try compiling the "Hello, world" program!
-
-- $ ls
-- hello.cc
-- $ g++ hello.cc -o hello.exe
-- $ ls
-- hello.cc    hello.exe
-- $ ./hello.exe
-- Hello, world
-
-- We will be using the “g++” compiler
-- This is the “GNU” compiler
-- What’s “GNU”? “GNU’s not Unix”.
-- Free, and up to date with ANSI standards
-
-![](../assets/0.3_cpp/slide55_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
+![From Haltermann](../assets/0.3_cpp/slide55_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-align="center" fig-alt="Detailed breakdown of a C++ compiler"}
 
 ---
 
 ## Hands-on: compiling a program
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
+:::: {.columns}
+::: {.column width=50%}
 - Let's try compiling the "Hello, world" program!
+- The compiler depends on your OS: 
+  - `g++` for Linux
+  - `clang++` for MacOS (might also have `g++`)
+- `g++` is the "GNU" compiler
+  - GNU = "GNU's Not Unix"; GCC = "GNU Compiler Collection"
+  - Free, up-to-date withANSI standards
+- `clang++` is an Apple compiler, replacement for GCC
+- These are "front-ends" (human interface), while actually compilation is done by the "back-end"
+:::
+::: {.column width=50%}
 
-- $ ls
-- hello.cc
-- $ g++ hello.cc -o hello.exe
-- $ ls
-- hello.cc    hello.exe
-- $ ./hello.out
-- Hello, world
+Compile:
+```bash
+cd PHY410
+source activate.sh
+cd CompPhys/ReviewCpp/BasicExamples
+g++ hello.cc -o hello
+```
 
-- First, we see “[hello.cc](http://hello.cc)” in the directory
-- Then we execute the compilation command with “g++”
-  - The “-o” is the label we want the output to be named
-- Then we see the executable “hello.exe” already
-- What about the Assembler and Linker?
-  - More on that later.
-- We execute it with “./“ (this means “execute from this directory”)
+Then execute:
+```bash
+./hello
+```
 
-![](../assets/0.3_cpp/slide56_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-alt="TODO"}
+- What about assembler and linker? We'll return to that.
+
+:::
+::::
+
+---
+
+# Slides under construction
 
 ---
 
@@ -881,7 +786,7 @@ execute:
 
 - The syntax here has to be precise!
 - What happens if we make a mistake? Compiler errors!
-- Example: remove the semicolon (“;”) after “std::endl”:
+- Example: remove the semicolon (";") after "std::endl":
 
 - std::cout << "Hello, world" << std::endl
 
@@ -892,7 +797,7 @@ execute:
 - hello.cc:5: error: expected ‘;’ before ‘return’
 
 - The compiler tells you EXACTLY what is wrong:
-  - Line number 5, expects “;” before the statement “return”
+  - Line number 5, expects ";" before the statement "return"
 - Fix, and try again, and it works again.
 
 ---
@@ -902,19 +807,19 @@ execute:
 - Moral of the story :
   - Computers are dumb.
   - They do EXACTLY what you tell them to do, so it’s almost always (>99%) your fault when something goes wrong.
-  - This is called “pilot error” (you’re the pilot).
+  - This is called "pilot error" (you’re the pilot).
 - They also tell you EXACTLY what went wrong.
   - It may not be anything you are thinking about at that time, but it will be extremely precise
   - Note : Clarity is NOT the same thing as being precise.
-  - Example : You get overheated in your jacket. Someone asks you what is wrong, and you reply “The internal core temperature of my body has not been maintained accurately, the insulation of the air within my coat is trapping excess heat inside it, causing my temperature to rise. My brain has sent an electrical signal to my pituitary gland to activate glands in my body to release perspiration to attempt to utilize a phase transition of the water to steam to cool my skin”.
+  - Example : You get overheated in your jacket. Someone asks you what is wrong, and you reply "The internal core temperature of my body has not been maintained accurately, the insulation of the air within my coat is trapping excess heat inside it, causing my temperature to rise. My brain has sent an electrical signal to my pituitary gland to activate glands in my body to release perspiration to attempt to utilize a phase transition of the water to steam to cool my skin".
   - That’s precise, but not clear.
-  - “I’m sweating” is clear, but not precise.
+  - "I’m sweating" is clear, but not precise.
 
 ---
 
 ## "What does THAT mean???"
 
-- How about a different mistake : take the “std::” off the “cout”:
+- How about a different mistake : take the "std::" off the "cout":
 
 - cout << "Hello, world" << std::endl;
 
@@ -924,15 +829,15 @@ execute:
 
 - At this point, you have no idea what that means!
   - Compiler tells you precisely what is wrong.
-  - Compiler does not tell you “You missed the std::” like the last time. It is not smart enough to tell you what is wrong!
+  - Compiler does not tell you "You missed the std::" like the last time. It is not smart enough to tell you what is wrong!
   - But, it tells you what it knows to be the problem.
-- We will get to “declarations” and “scope” later.
+- We will get to "declarations" and "scope" later.
 
 ---
 
 ## "What does THAT mean???"
 
-- How about a different mistake : take the “std::” off the “cout”:
+- How about a different mistake : take the "std::" off the "cout":
 
 - cout << "Hello, world" << std::endl;
 
@@ -942,9 +847,9 @@ execute:
 
 - At this point, you have no idea what that means!
   - Compiler tells you precisely what is wrong.
-  - Compiler does not tell you “You missed the std::” like the last time. It is not smart enough to tell you what is wrong!
+  - Compiler does not tell you "You missed the std::" like the last time. It is not smart enough to tell you what is wrong!
   - But, it tells you what it knows to be the problem.
-- We will get to “declarations” and “scope” later.
+- We will get to "declarations" and "scope" later.
 
   - Fixing bugs is (obviously) a critical skill for programming.
     - Compiler errors, runtime errors, segmentation faults, ...
@@ -957,22 +862,22 @@ execute:
 
 ## Compiler errors
 
-- These are examples of “compiler errors”
+- These are examples of "compiler errors"
   - That means you didn’t set the code up correctly within a file
-- We will also get to “linker errors”
+- We will also get to "linker errors"
   - That means you didn’t set the code up correctly ACROSS different files
-- And of course, there are “runtime errors”
+- And of course, there are "runtime errors"
   - That means the code is technically correct syntactically, but you didn’t think about the output of the code.
 
 ---
 
 ## Compiler errors
 
-- These are examples of “compiler errors”
+- These are examples of "compiler errors"
   - That means you didn’t set the code up correctly within a file
-- We will also get to “linker errors”
+- We will also get to "linker errors"
   - That means you didn’t set the code up correctly ACROSS different files
-- And of course, there are “runtime errors”
+- And of course, there are "runtime errors"
   - That means the code is technically correct syntactically, but you didn’t think about the output of the code.
 
 - There are many tools to find problems:
@@ -991,12 +896,12 @@ execute:
 ## Values and variables
 
 - Now that we have the structure, how do we do stuff?
-- First concept : “Values”
+- First concept : "Values"
   - ints like 1, 2, 4, 3359
   - floats like 3.14
-  - strings like “my string”
+  - strings like "my string"
 - For numbers, we just write the number directly. The compiler understands these.
-  - Example: Instead of printing the string “Hello, World”, print the value “4”:
+  - Example: Instead of printing the string "Hello, World", print the value "4":
   - std::cout << 4 << std::endl;
 - Now, if we compile and execute:
 
@@ -1065,7 +970,7 @@ execute:
 
 - So this is actually the best case scenario : the compiler caught the error.
   - Technically this is NOT a syntax error : it is completely, 100% correct syntax
-  - This is the first example of a “runtime error” : the error would occur at runtime
+  - This is the first example of a "runtime error" : the error would occur at runtime
   - However, some clever compilers can catch SOME runtime errors, but it is NOT REQUIRED BY THE C++ STANDARD
   - The same code on a different compiler and machine behaves differently! Worst case: compiler doesn't catch error, but crams -300000000000 into your 16 bits, interpreted incorrectly using two's complement.
 - That’s the worst case scenario: The code happily runs and gives you complete garbage, which is exactly what you told it to do.
@@ -1213,13 +1118,13 @@ execute:
 
 - Let's take a closer look at variable assignment.
 - int x = 0;
-  - The value “x” in memory is a specific register with the value “0” stored on it.
+  - The value "x" in memory is a specific register with the value "0" stored on it.
 - x = 10;
-  - Change the value of x: the memory address remains the same, but the value within it changes to “10”
+  - Change the value of x: the memory address remains the same, but the value within it changes to "10"
 
-- “x”
+- "x"
 
-- “x”
+- "x"
 
 ---
 
@@ -1229,25 +1134,25 @@ execute:
 
 - Let's take a closer look at variable assignment.
 - int x = 0;
-  - The value “x” in memory is a specific register with the value “0” stored on it.
+  - The value "x" in memory is a specific register with the value "0" stored on it.
 - x = 10;
-  - Change the value of x: the memory address remains the same, but the value within it changes to “10”
+  - Change the value of x: the memory address remains the same, but the value within it changes to "10"
 
-- “x”
+- "x"
 
-- “x”
+- "x"
 
-- Specifically, the sequence is a “COPY” :
-  - Take the value “10” (0b1010)
-  - Copy it into the register that “x” is allocated (address 0x1001)
-  - Ensure that the value “10” is also preserved
+- Specifically, the sequence is a "COPY" :
+  - Take the value "10" (0b1010)
+  - Copy it into the register that "x" is allocated (address 0x1001)
+  - Ensure that the value "10" is also preserved
 
 ---
 
 ## Variable assignment
 
 - Why am I taking care to be pedantic about this?
-- Because in C++, “assignment” can be very generic.
+- Because in C++, "assignment" can be very generic.
 - A variable could be something much more complicated than just one integer:
 
 - FacebookData x = facebook.copy();
@@ -1255,7 +1160,7 @@ execute:
 - This is terrible, terrible, terrible, because it actually copies ALL of the data in facebook three times!
   - facebook.copy(): copies FacebookData to a local register.
   - Copies that register to a global scope register.
-  - Copies that copied register to “x”
+  - Copies that copied register to "x"
 - Ugh, that could take awhile!
 
 ---
@@ -1329,11 +1234,11 @@ execute:
 
 - x = y;
 
-- Put the value “0” into “x”
-- Put the value “1” into “y”
+- Put the value "0" into "x"
+- Put the value "1" into "y"
 
-- Copy the value from “y”
-- place it into the value for “x”
+- Copy the value from "y"
+- place it into the value for "x"
 
 - Addresses of x and y remain the same.
 - Value of x is updated; value of y is unchanged.
@@ -1343,9 +1248,9 @@ execute:
 
 ## C++ identifiers
 
-- We have now seen that there is a special word in C++ : “int”.
+- We have now seen that there is a special word in C++ : "int".
 - What about others?
-  - They are called “identifiers”
+  - They are called "identifiers"
   - It is a special term in the language that cannot be used for anything else
     - E.g. as a variable name
 - We will encounter many of these as we go along.
@@ -1439,7 +1344,7 @@ execute:
 ## Constants
 
 - So if we have a variable, what if we want it to remain… umm… constant?
-- Syntax in C++ is “const”:
+- Syntax in C++ is "const":
 
 - const double PI = 3.14159265359;
 
@@ -1485,7 +1390,7 @@ execute:
   - Unary operators have just one argument: for numbers, just have +, - (flip sign)
 
 - 42;                    // value: 42
-- sum = value1 + value2; // value: “sum”
+- sum = value1 + value2; // value: "sum"
 - 12 > 13;               // value: false
 
 ---
@@ -1638,7 +1543,7 @@ execute:
 - How does 13. / 4 = float / int give you the correct decimal answer?
 - Key fact: integers are a subset of reals
   - int can be converted to float
-  - The way we say this is int is “narrower” than float, and float is “wider” than int
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
 - So, given (float / int), we can "widen" the int.
   - Resulting in (float / float).
 
@@ -1649,7 +1554,7 @@ execute:
 - How does 13. / 4 = float / int give you the correct decimal answer?
 - Key fact: integers are a subset of reals
   - int can be converted to float
-  - The way we say this is int is “narrower” than float, and float is “wider” than int
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
 - So, given (float / int), we can "widen" the int.
   - Resulting in (float / float).
 
@@ -1657,8 +1562,8 @@ execute:
   - You can't write 1.9 as an int.
 - The C++ standard says : TRUNCATION, TRUNCATION, TRUNCATION
 - It does NOT round!!!
-  - int i = 1.999999; gives you “1”, not “2”
-- Some compilers will warn you (“potential loss of data”)
+  - int i = 1.999999; gives you "1", not "2"
+- Some compilers will warn you ("potential loss of data")
 - Other compilers will happily give you the garbage you asked for.
 
 ---
@@ -1668,7 +1573,7 @@ execute:
 - How does 13. / 4 = float / int give you the correct decimal answer?
 - Key fact: integers are a subset of reals
   - int can be converted to float
-  - The way we say this is int is “narrower” than float, and float is “wider” than int
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
 - So, given (float / int), we can "widen" the int.
   - Resulting in (float / float).
 
@@ -1676,14 +1581,14 @@ execute:
   - You can't write 1.9 as an int.
 - The C++ standard says : TRUNCATION, TRUNCATION, TRUNCATION
 - It does NOT round!!!
-  - int i = 1.999999; gives you “1”, not “2”
-- Some compilers will warn you (“potential loss of data”)
+  - int i = 1.999999; gives you "1", not "2"
+- Some compilers will warn you ("potential loss of data")
 - Other compilers will happily give you the garbage you asked for.
 
-- Moral of the story: if you have an expression with mixed types, the standard will “widen” the narrower one, if it knows how.
-  - “float / int” will give you a “float”
-  - “int / float” will give you a “float”
-  - But “int / int” will give you an “int”
+- Moral of the story: if you have an expression with mixed types, the standard will "widen" the narrower one, if it knows how.
+  - "float / int" will give you a "float"
+  - "int / float" will give you a "float"
+  - But "int / int" will give you an "int"
 
 ---
 
@@ -1724,7 +1629,7 @@ execute:
 ## Operator precedences
 
 - Operators follow the same rules you’ve always learned:
-“Please Excuse My Dear Aunt Sally”
+"Please Excuse My Dear Aunt Sally"
 Parentheses, Exponentiation, Multiplication, Division, Addition, Subtraction
 - Associativity also follows this
 - However: as a best practice, use parentheses to be clear when necessary! Compare:
@@ -2024,11 +1929,11 @@ x = 2 + (3 * 4);
 - It’s a royal pain to count. Humans suck at it.
   - Computers are really, really fantastic at it, though!
   - Similarly, computers are great at doing the same thing over and over (and over and over andoverandoverandover)
-- This is referred to as “iteration”. C++ options:
-  - “for” loop
-  - “while” loop
-  - “do while” loop
-  - “goto” statements (don't use these)
+- This is referred to as "iteration". C++ options:
+  - "for" loop
+  - "while" loop
+  - "do while" loop
+  - "goto" statements (don't use these)
 
 ![TODO: describe image](../assets/0.3_cpp/image19.png){width="70%" fig-alt="TODO: describe image"}
 
@@ -2142,7 +2047,7 @@ x = 2 + (3 * 4);
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-- Similar to “for” loops are: “while” loops and "do while" loops.
+- Similar to "for" loops are: "while" loops and "do while" loops.
   - These are rather similar to each other.
   - "do while" will always execute statement at least once, and repeats if condition is TRUE
   - "while" only executes statement if condition is met, so it's possible to loop 0 times.
@@ -3260,12 +3165,12 @@ NO! POINTERS! NOOOOO!!!!!!
 - Also usable with CONST
 
 - Pass by value:
-  - COPIES value into a temporary variable called “x”
+  - COPIES value into a temporary variable called "x"
 
-  - Pass POINTER to variable, pointer is called “x”
+  - Pass POINTER to variable, pointer is called "x"
 
 - Pass by reference:
-  - Pass REFERENCE to variable temporarily called “x”
+  - Pass REFERENCE to variable temporarily called "x"
 
 - Use when you don’t want to modify value, and cheap to copy
 
@@ -3347,10 +3252,10 @@ NO! POINTERS! NOOOOO!!!!!!
   - Otherwise you get a memory leak!
   - Adds memory that does not get cleaned up; eventually, your computer runs out of memory, and your program crashes.
 - Can be non-obvious
-  - What if a function creates a “new” variable and returns it?
+  - What if a function creates a "new" variable and returns it?
   - Still in scope.
   - Stays on the heap.
-  - This is called a “factory”
+  - This is called a "factory"
 
 ---
 
@@ -3462,7 +3367,7 @@ NO! POINTERS! NOOOOO!!!!!!
 :::: {.columns}
 ::: {.column width="55%"}
 - It's not a coincidence that we're learning arrays right after pointers.
-- The syntax “arr[3]” means:
+- The syntax "arr[3]" means:
   - Go to the position 3 variables after the first one.
 - Since array elements are contiguous in memory, we can actually do a similar thing with pointers!
   - Take pointer to first element.
@@ -3569,7 +3474,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 ## Reading from file (and writing)
 
-- Example : copy double from one file to another: “fileio.cc”
+- Example : copy double from one file to another: "fileio.cc"
 
 - #include <fstream>
 - #include <iostream>
@@ -3694,7 +3599,7 @@ NO! POINTERS! NOOOOO!!!!!!
 :::: {.columns}
 ::: {.column width="55%"}
 - It's not a coincidence that we're learning arrays right after pointers.
-- The syntax “arr[3]” means:
+- The syntax "arr[3]" means:
   - Go to the position 3 variables after the first one.
 - Since array elements are contiguous in memory, we can actually do a similar thing with pointers!
   - Take pointer to first element.
@@ -3797,7 +3702,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 ## Reading from file (and writing)
 
-- Example : copy double from one file to another: “fileio.cc”
+- Example : copy double from one file to another: "fileio.cc"
 
 - #include <fstream>
 - #include <iostream>
@@ -4330,9 +4235,9 @@ NO! POINTERS! NOOOOO!!!!!!
 - In your homework (Assignment 2, Problem 2), you will make your own header file (LorentzVector.h)
   - Note: this will be a "templated class" (next lecture), with declarations and definitions all in one file.
 - Then include into your "int main()" file with:
-  - #include “LorentzVector.h”
-- Note the “” versus <>:
-  - “”: Looks in current directory.
+  - #include "LorentzVector.h"
+- Note the "" versus <>:
+  - "": Looks in current directory.
   - <>: Looks in default directories.
 
 ---
@@ -4359,7 +4264,7 @@ NO! POINTERS! NOOOOO!!!!!!
   - DECLARE the class in the header file
   - DEFINE the class in the source file
   - COMPILE the source into an object library
-  - LINK the “main” source file to the object library
+  - LINK the "main" source file to the object library
   - RUN!
 
 ---
@@ -5076,7 +4981,7 @@ NO! POINTERS! NOOOOO!!!!!!
 
 ## Class template syntax
 
-- Similar to function templates, declare with “template <class T>”.
+- Similar to function templates, declare with "template <class T>".
 - Remember, T is a PLACEHOLDER for the template. T itself is not a class, and does not "exist."
   - The template code is not actually compiled, but rather is used to generate real compiled code.
 
@@ -5099,7 +5004,7 @@ NO! POINTERS! NOOOOO!!!!!!
 ## std::vector<>
 
 - So: std::vector<T> is a template
-  - It doesn’t matter if “T” is a float or an int (or a UBPerson, or a Car*), the operations of “std::vector” are unchanged!
+  - It doesn’t matter if "T" is a float or an int (or a UBPerson, or a Car*), the operations of "std::vector" are unchanged!
 - The standard library provides template std::vector<T>,
   - Then, you create actual classes like std::vector<int>, std::vector<UBPerson>, etc.
 
@@ -5116,7 +5021,7 @@ NO! POINTERS! NOOOOO!!!!!!
 ## Multiple template arguments
 
 - You can even have multiple template parameters!
-- Example: “std::map”, an "associative container"
+- Example: "std::map", an "associative container"
   - Equivalent to python dicts
   - Similar a vector, but lets you look up data by "key", which can by anything.
   - (You can also define a sorting algorithm)
