@@ -38,7 +38,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![pasted-movie.png](../assets/05_bvps/pasted-movie.png){width="70%" fig-alt="Circuit diagram of a resistor grid/lattice with nodes labeled X, E, F, and B connected by a 2x4 array of resistors."}
+![pasted-movie.png](../assets/5.0_bvps/pasted-movie.png){width="70%" fig-alt="Circuit diagram of a resistor grid/lattice with nodes labeled X, E, F, and B connected by a 2x4 array of resistors."}
 
 ---
 
@@ -105,7 +105,7 @@ execute:
  \psi (L)=0
 \end{aligned}$$
 
-![](../assets/05_bvps/slide07_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+![](../assets/5.0_bvps/slide07_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
 
 ---
 
@@ -125,7 +125,7 @@ execute:
  \psi (x) & =A{e}^{ikx}+B{e}^{-ikx}
 \end{matrix}$$
 
-![](../assets/05_bvps/slide08_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+![](../assets/5.0_bvps/slide08_image1.png){fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
 
 - Apply the boundary conditions:
 
@@ -168,7 +168,7 @@ execute:
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/05_bvps/slide10_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+![pasted-movie.png](../assets/5.0_bvps/slide10_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
 :::
 ::::
 
@@ -189,8 +189,8 @@ execute:
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/05_bvps/slide11_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
-![pasted-movie.png](../assets/05_bvps/slide11_image11.png){width="100%" fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
+![pasted-movie.png](../assets/5.0_bvps/slide11_image10.png){width="100%" fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+![pasted-movie.png](../assets/5.0_bvps/slide11_image11.png){width="100%" fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
 :::
 ::::
 
@@ -211,14 +211,14 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/05_bvps/slide12_pasted-movie.png){fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
+![](../assets/5.0_bvps/slide12_pasted-movie.png){fig-alt="Fan art of Tracer (from the video game Overwatch), a character in an orange/brown outfit crouching and firing a glowing blue pistol, trailing blue lightning-like energy streaks - a decorative/joke image, not course content."}
 
-![](../assets/05_bvps/slide12_image11.png){fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
+![](../assets/5.0_bvps/slide12_image11.png){fig-alt="Fan art of Zenyatta (from the video game Overwatch), a floating robotic monk meditating with hands pressed together, surrounded by glowing orbs and a rainbow halo effect - a decorative/joke image, not course content."}
 
 - When in doubt of which to use, 
 from NR : Be a gunslinger!
 - “Shoot first, then relax later”
-![](../assets/05_bvps/slide12_image12.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.0_bvps/slide12_image12.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -234,7 +234,7 @@ from NR : Be a gunslinger!
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+![shoot.png](../assets/5.0_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
 
 ---
 
@@ -249,7 +249,7 @@ from NR : Be a gunslinger!
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+![shoot.png](../assets/5.0_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
 
 ---
 
@@ -264,7 +264,7 @@ from NR : Be a gunslinger!
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![shoot.png](../assets/05_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
+![shoot.png](../assets/5.0_bvps/shoot.png){width="70%" fig-alt="Diagram illustrating the shooting method: three trial trajectories (1, 2, 3) starting from the required boundary value on the left, arcing toward the right edge - trajectory 1 overshoots and trajectory 2 undershoots the desired boundary value, while trajectory 3 (a linear combination) hits it."}
 
 ---
 
@@ -327,7 +327,7 @@ from NR : Be a gunslinger!
 - $${u}_{j} \approx \frac{1}{2}\left[ {u}_{g,j+1}+{u}_{g,i-1}+{h}^{2}f({x}_{j},{u}_{g,j},{u}_{g,j}^{′} \right]$$
 
 - Like Euler's method for ODEs, this is a "workhorse" method for more advanced algorithms
-![](../assets/05_bvps/slide18_image14.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.0_bvps/slide18_image14.png){fig-alt="Decorative hand-painted maroon/pink rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -385,7 +385,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/05_bvps/image1.png){width="100%" fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
+![TODO: describe image](../assets/5.0_bvps/image1.png){width="100%" fig-alt="Diagram of an infinite square well potential: V = infinity at the walls x=0 and x=L (shaded regions), V=0 in the interior between them."}
 :::
 ::::
 
@@ -536,7 +536,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 - Sturm–Liouville problems are common in applied mathematics.
 - For example, the time-independent Schroedinger equation!
 
-![](../assets/05_bvps/slide31_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
+![](../assets/5.0_bvps/slide31_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
 
 - $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+V(x) \psi (x)=E \psi (x)$$
 
@@ -552,7 +552,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/05_bvps/slide32_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
+![](../assets/5.0_bvps/slide32_800px-HarmOsziFunktionen.png){fig-alt="Plot of the quantum harmonic oscillator eigenfunctions Psi_0(x) through Psi_7(x), each offset vertically and shown against the parabolic potential well, with increasing numbers of nodes for higher energy levels."}
 
 - For the QHO, $\hat{H}=\frac{{\hat{p}}^{2}}{2m}+\frac{1}{2}m{ \omega }^{2}{\hat{x}}^{2}$
 - You might remember the solutions from your QM class:
@@ -629,7 +629,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 - $$-\frac{{ \hbar }^{2}}{2m}\frac{{d}^{2} \psi (x)}{d{x}^{2}}+\frac{1}{2}m{ \omega }^{2} \psi (x)=E \psi (x)$$
 :::
 ::: {.column width="45%"}
-![continuous.png](../assets/05_bvps/continuous.png){width="100%" fig-alt="Plot titled 'Continuous Search Function': F(E) versus E, showing a periodic sawtooth-like function with several vertical asymptotes (poles) where F(E) jumps between +10 and -10."}
+![continuous.png](../assets/5.0_bvps/continuous.png){width="100%" fig-alt="Plot titled 'Continuous Search Function': F(E) versus E, showing a periodic sawtooth-like function with several vertical asymptotes (poles) where F(E) jumps between +10 and -10."}
 :::
 ::::
 
@@ -639,7 +639,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![schroedinger.png](../assets/05_bvps/schroedinger.png){width="70%" fig-alt="Top: several overlapping bell-shaped wavefunction/wavepacket curves of varying width and color, all vanishing at the domain edges. Bottom: a related function of energy with several vertical asymptotes (poles), used to locate eigenvalues."}
+![schroedinger.png](../assets/5.0_bvps/schroedinger.png){width="70%" fig-alt="Top: several overlapping bell-shaped wavefunction/wavepacket curves of varying width and color, all vanishing at the domain edges. Bottom: a related function of energy with several vertical asymptotes (poles), used to locate eigenvalues."}
 
   - Try it out yourself in CompPhys/BVPs/schroedinger.ipynb.
 
@@ -659,7 +659,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
   - Kronig–Penney model: 1D "crystal".
   - $N$ heavy nuclei at fixed lattice sites (spacing=$a)$
 
-![](../assets/05_bvps/slide39_1d-lattice.png){fig-alt="Diagram of a 1D periodic lattice: red dots representing atoms at positions x=0, x=a, ..., x=Na along the top, with a green square-wave periodic potential V(x) drawn beneath, one well per atomic site."}
+![](../assets/5.0_bvps/slide39_1d-lattice.png){fig-alt="Diagram of a 1D periodic lattice: red dots representing atoms at positions x=0, x=a, ..., x=Na along the top, with a green square-wave periodic potential V(x) drawn beneath, one well per atomic site."}
 
 - Problem is best solved in the Fourier domain. We expect solutions like...
 
@@ -685,7 +685,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
   - This is intrinsically related to the Fourier transform and the Nyquist frequency.
 :::
 ::: {.column width="45%"}
-![Brillouin_zone.png](../assets/05_bvps/Brillouin_zone.png){width="100%" fig-alt="Two-panel diagram (a, b) showing real-space lattices of blue dots (square lattice in (a), a different symmetry in (b)) mapped by an arrow to their reciprocal-space lattices, with the first Brillouin zone shaded in red/pink around the central reciprocal lattice point in each case."}
+![Brillouin_zone.png](../assets/5.0_bvps/Brillouin_zone.png){width="100%" fig-alt="Two-panel diagram (a, b) showing real-space lattices of blue dots (square lattice in (a), a different symmetry in (b)) mapped by an arrow to their reciprocal-space lattices, with the first Brillouin zone shaded in red/pink around the central reciprocal lattice point in each case."}
 :::
 ::::
 
@@ -757,9 +757,9 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - So in short, our solutions take the form of a solution from the 1st Brillouin zone, modulated by a simple plane wave:
 
-![Bloch_function.tiff](../assets/05_bvps/Bloch_function.png){width="70%" fig-alt="Sketch of a Bloch function: a rapidly oscillating periodic curve (solid) modulated by and bounded within a slowly-varying envelope (dashed), crossing a flat baseline."}
+![Bloch_function.tiff](../assets/5.0_bvps/Bloch_function.png){width="70%" fig-alt="Sketch of a Bloch function: a rapidly oscillating periodic curve (solid) modulated by and bounded within a slowly-varying envelope (dashed), crossing a flat baseline."}
 
-![BlochWaves1D.png](../assets/05_bvps/BlochWaves1D.png){width="70%" fig-alt="Six-panel grid illustrating the construction of a Bloch wave for two different k values (columns): the periodic part u(x) (top row), the plane-wave factor e^(ikx) (middle row), and their product, the full Bloch wave psi(x) = u(x)e^(ikx) (bottom row), each shown as overlaid real (blue) and imaginary (red) parts."}
+![BlochWaves1D.png](../assets/5.0_bvps/BlochWaves1D.png){width="70%" fig-alt="Six-panel grid illustrating the construction of a Bloch wave for two different k values (columns): the periodic part u(x) (top row), the plane-wave factor e^(ikx) (middle row), and their product, the full Bloch wave psi(x) = u(x)e^(ikx) (bottom row), each shown as overlaid real (blue) and imaginary (red) parts."}
 
 ---
 
@@ -834,7 +834,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![kp.png](../assets/05_bvps/kp.png){width="70%" fig-alt="Two-panel plot of dispersion-relation-like curves from the Kronig-Penney model: X-shaped crossing branches of a quantity (y-axis, 0 to 35) versus a variable spanning roughly -pi to pi, with data points marked along the curves."}
+![kp.png](../assets/5.0_bvps/kp.png){width="70%" fig-alt="Two-panel plot of dispersion-relation-like curves from the Kronig-Penney model: X-shaped crossing branches of a quantity (y-axis, 0 to 35) versus a variable spanning roughly -pi to pi, with data points marked along the curves."}
 
 ---
 

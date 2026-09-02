@@ -123,7 +123,7 @@ execute:
   - Starting with a few more definitions.
 :::
 ::: {.column width="45%"}
-![10-graphing-polynomials-01.png](../assets/04_linalg/10-graphing-polynomials-01.png){width="100%" fig-alt="Graph of a polynomial function f(x) with two local maxima (labeled (-3,2) and (2,1)) and two local minima (labeled (-1,-3) and (4,-1)) marked with red dots."}
+![10-graphing-polynomials-01.png](../assets/4.0_linalg/10-graphing-polynomials-01.png){width="100%" fig-alt="Graph of a polynomial function f(x) with two local maxima (labeled (-3,2) and (2,1)) and two local minima (labeled (-1,-3) and (4,-1)) marked with red dots."}
 :::
 ::::
 
@@ -274,9 +274,9 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 ## Householder method
 
-![Screenshot 2025-11-07 at 12.20.38 PM.png](../assets/04_linalg/Screenshot-2025-11-07-at-12.20.38-PM.png){width="70%" fig-alt="Equation (11.3.7): a block-matrix identity showing the matrix P1 (containing a smaller (n-1)-dimensional sub-block (n-1)P1) multiplied by matrix A, equal to a reduced matrix with pivot entries a00 and k in the first column and an 'irrelevant' block filling the remainder."}
+![Screenshot 2025-11-07 at 12.20.38 PM.png](../assets/4.0_linalg/Screenshot-2025-11-07-at-12.20.38-PM.png){width="70%" fig-alt="Equation (11.3.7): a block-matrix identity showing the matrix P1 (containing a smaller (n-1)-dimensional sub-block (n-1)P1) multiplied by matrix A, equal to a reduced matrix with pivot entries a00 and k in the first column and an 'irrelevant' block filling the remainder."}
 
-![Screenshot 2025-11-07 at 12.20.59 PM.png](../assets/04_linalg/Screenshot-2025-11-07-at-12.20.59-PM.png){width="70%" fig-alt="Equation A' = P.A.P: a matrix with pivot entries a00 and k arranged along the top-left border and an 'irrelevant' block filling the remainder, resulting from conjugating A by the permutation/reflection matrix P."}
+![Screenshot 2025-11-07 at 12.20.59 PM.png](../assets/4.0_linalg/Screenshot-2025-11-07-at-12.20.59-PM.png){width="70%" fig-alt="Equation A' = P.A.P: a matrix with pivot entries a00 and k arranged along the top-left border and an 'irrelevant' block filling the remainder, resulting from conjugating A by the permutation/reflection matrix P."}
 
 - Let's say ${}^{(n-1)}{\mathbf{P}}_{1}$ is the orthogonal matrix that rotates $({a}_{10},{a}_{20},...,{a}_{n-1,0})$ to $(k,0,...,0)$. Then:
 
@@ -286,13 +286,13 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.20.59-PM.png){fig-alt="Equation A' = P.A.P: a matrix with pivot entries a00 and k arranged along the top-left border and an 'irrelevant' block filling the remainder, resulting from conjugating A by the permutation/reflection matrix P."}
+![](../assets/4.0_linalg/slide65_Screenshot-2025-11-07-at-12.20.59-PM.png){fig-alt="Equation A' = P.A.P: a matrix with pivot entries a00 and k arranged along the top-left border and an 'irrelevant' block filling the remainder, resulting from conjugating A by the permutation/reflection matrix P."}
 
-![](../assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.21.16-PM.png){fig-alt="Definition of P2: a block matrix with a 2x2 identity block in the upper-left corner and a smaller (n-2)-dimensional sub-block (n-2)P2 filling the rest."}
+![](../assets/4.0_linalg/slide65_Screenshot-2025-11-07-at-12.21.16-PM.png){fig-alt="Definition of P2: a block matrix with a 2x2 identity block in the upper-left corner and a smaller (n-2)-dimensional sub-block (n-2)P2 filling the rest."}
 
 - Next iteration:
 
-![](../assets/04_linalg/slide65_Screenshot-2025-11-07-at-12.20.38-PM.png){fig-alt="Equation (11.3.7): a block-matrix identity showing the matrix P1 (containing a smaller (n-1)-dimensional sub-block (n-1)P1) multiplied by matrix A, equal to a reduced matrix with pivot entries a00 and k in the first column and an 'irrelevant' block filling the remainder."}
+![](../assets/4.0_linalg/slide65_Screenshot-2025-11-07-at-12.20.38-PM.png){fig-alt="Equation (11.3.7): a block-matrix identity showing the matrix P1 (containing a smaller (n-1)-dimensional sub-block (n-1)P1) multiplied by matrix A, equal to a reduced matrix with pivot entries a00 and k in the first column and an 'irrelevant' block filling the remainder."}
 
 ---
 
@@ -311,7 +311,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 - Where $\mathbf{u}$ look like:
 
-![](../assets/04_linalg/slide66_Screenshot-2025-11-07-at-12.17.34-PM.png){fig-alt="Vector diagram illustrating a Householder reflection: vector x and its reflection ||x||y drawn from a common origin symmetric about a dashed horizontal axis, with the difference vector x - ||x||y drawn perpendicular to that axis."}
+![](../assets/4.0_linalg/slide66_Screenshot-2025-11-07-at-12.17.34-PM.png){fig-alt="Vector diagram illustrating a Householder reflection: vector x and its reflection ||x||y drawn from a common origin symmetric about a dashed horizontal axis, with the difference vector x - ||x||y drawn perpendicular to that axis."}
 
 - [https://www.cs.cornell.edu/~bindel/class/cs6210-f12/notes/lec16.pdf](https://www.cs.cornell.edu/~bindel/class/cs6210-f12/notes/lec16.pdf)
 
@@ -346,7 +346,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
   - You can also see that for asymmetric matrices, the Householder method still works to zero out half the matrix, say the bottom half triangle.
   - This is Hessenberg form:
 
-![Screenshot 2025-11-09 at 6.22.46 PM.png](../assets/04_linalg/Screenshot-2025-11-09-at-6.22.46-PM.png){width="70%" fig-alt="Diagram of a matrix sparsity pattern showing an upper-Hessenberg-like structure: X marks fill the upper triangle and the first subdiagonal, with blanks (implied zeros) below."}
+![Screenshot 2025-11-09 at 6.22.46 PM.png](../assets/4.0_linalg/Screenshot-2025-11-09-at-6.22.46-PM.png){width="70%" fig-alt="Diagram of a matrix sparsity pattern showing an upper-Hessenberg-like structure: X marks fill the upper triangle and the first subdiagonal, with blanks (implied zeros) below."}
 
 - From here, the QL (or QR) methods efficiently finish off the problem.
   - $O(N)$ for tridiagonal matrices, $O({N}^{2})$ for Hessenberg matrices.
@@ -411,7 +411,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 - [https://en.wikipedia.org/wiki/File:Singular-Value-Decomposition.svg](https://en.wikipedia.org/wiki/File:Singular-Value-Decomposition.svg)
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/04_linalg/slide71_image31.png){width="100%" fig-alt="Diagram of the singular value decomposition M = U.Sigma.V*: a unit circle (top left) maps under M directly to an ellipse (top right) with axes sigma1, sigma2, or equivalently via V* to another unit circle (bottom left), then Sigma to an ellipse (bottom right), then U to the same final ellipse - illustrating the commuting decomposition M = U.Sigma.V*."}
+![pasted-movie.png](../assets/4.0_linalg/slide71_image31.png){width="100%" fig-alt="Diagram of the singular value decomposition M = U.Sigma.V*: a unit circle (top left) maps under M directly to an ellipse (top right) with axes sigma1, sigma2, or equivalently via V* to another unit circle (bottom left), then Sigma to an ellipse (bottom right), then U to the same final ellipse - illustrating the commuting decomposition M = U.Sigma.V*."}
 :::
 ::::
 
@@ -450,7 +450,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 - Common problem in particle physics: connecting theory predictions (e.g. differential cross section from QFT calculation) with detector observations:
 
-![Screenshot 2025-11-10 at 11.45.30 AM.png](../assets/04_linalg/Screenshot-2025-11-10-at-11.45.30-AM.png){width="70%" fig-alt="Three-panel physics figure connected by arrows: a cross-section plot (d(sigma)/dM vs M at sqrt(s)=7 TeV, with NLL/NNLL uncertainty bands), an ATLAS detector cutaway diagram with a top-antitop-quark-pair Feynman diagram above it, and a stacked histogram of ttbar event yields versus m_ttbar with data points and background components - illustrating an analysis pipeline from theory prediction to detector to measured spectrum."}
+![Screenshot 2025-11-10 at 11.45.30 AM.png](../assets/4.0_linalg/Screenshot-2025-11-10-at-11.45.30-AM.png){width="70%" fig-alt="Three-panel physics figure connected by arrows: a cross-section plot (d(sigma)/dM vs M at sqrt(s)=7 TeV, with NLL/NNLL uncertainty bands), an ATLAS detector cutaway diagram with a top-antitop-quark-pair Feynman diagram above it, and a stacked histogram of ttbar event yields versus m_ttbar with data points and background components - illustrating an analysis pipeline from theory prediction to detector to measured spectrum."}
 
 - [https://www-library.desy.de/preparch/desy/proc/proc14-02/P52.pdf](https://www-library.desy.de/preparch/desy/proc/proc14-02/P52.pdf)
 
@@ -471,7 +471,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 - See e.g. [Blobel 2011](https://indico.cern.ch/event/107747/contributions/32645/attachments/24317/35000/blobel.pdf), [Spano 2013](https://www-library.desy.de/preparch/desy/proc/proc14-02/P52.pdf), [Schmitt 2022](https://www.desy.de/~sschmitt/talks/220829_unfolding_V2.pdf) for more.
 :::
 ::: {.column width="45%"}
-![Screenshot 2025-11-10 at 11.55.26 AM.png](../assets/04_linalg/Screenshot-2025-11-10-at-11.55.26-AM.png){width="100%" fig-alt="Three-panel 'unfolding' figure: a 2D response-matrix heatmap A_ij (E_reco vs E_true), a 1D reconstructed spectrum with data points and a fit curve (mu_j and y_j), and a true-spectrum histogram x_j with three bins - labeled 'This example: no background.'"}
+![Screenshot 2025-11-10 at 11.55.26 AM.png](../assets/4.0_linalg/Screenshot-2025-11-10-at-11.55.26-AM.png){width="100%" fig-alt="Three-panel 'unfolding' figure: a 2D response-matrix heatmap A_ij (E_reco vs E_true), a 1D reconstructed spectrum with data points and a fit curve (mu_j and y_j), and a true-spectrum histogram x_j with three bins - labeled 'This example: no background.'"}
 :::
 ::::
 
@@ -491,7 +491,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 - Approximate by masses on springs
 :::
 ::: {.column width="45%"}
-![fig-11.4.1a.png](../assets/04_linalg/fig-11.4.1a.png){width="100%" fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
+![fig-11.4.1a.png](../assets/4.0_linalg/fig-11.4.1a.png){width="100%" fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
 :::
 ::::
 
@@ -503,7 +503,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 - Start from the Lagrangian:
 
-![](../assets/04_linalg/slide78_fig-11.4.1a.png){fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
+![](../assets/4.0_linalg/slide78_fig-11.4.1a.png){fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
 
 - $$\mathcal{L}=\frac{1}{2}{m}_{0}{\mathop{x}\limits^{ \cdot }}_{0}^{2}+\frac{1}{2}{m}_{1}{\mathop{x}\limits^{ \cdot }}_{1}^{2}+\frac{1}{2}{m}_{2}{\mathop{x}\limits^{ \cdot }}_{2}^{2}-\frac{1}{2}\left[ {k}_{01}({x}_{0}-{x}_{1}{)}^{2}+{k}_{12}({x}_{1}-{x}_{2}{)}^{2} \right]$$
 
@@ -526,7 +526,7 @@ det({\mathbf{Z}}^{-1}.\mathbf{A}.\mathbf{Z}- \lambda \mathbf{1}) & =det({\mathbf
 
 - We can write this as a matrix equation,
 
-![](../assets/04_linalg/slide79_fig-11.4.1a.png){fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
+![](../assets/4.0_linalg/slide79_fig-11.4.1a.png){fig-alt="Diagram of a linear triatomic molecule model: three masses (m, M, m) connected by two springs (K, K) along the x-axis, with displacements x1, x2, x3 labeled; three rows (a), (b), (c) below show different relative motion patterns (all moving together, one mass fixed, and a symmetric stretch) with arrows indicating each mass's direction of motion."}
 
 - $$\mathbf{M}.\mathop{\mathbf{x}}\limits^{ \cdot  \cdot }=-\mathbf{K}.\mathbf{x}$$
 

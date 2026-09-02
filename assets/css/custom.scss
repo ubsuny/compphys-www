@@ -9,6 +9,14 @@ $ub-gray: #666666;
   align-items: center;
 }
 
+.columns.hcenter {
+  display: flex;
+  justify-content: space-evenly;
+
+  > .column {
+    flex: 0 0 auto;
+  }
+}
 #title-slide {
   .title {
     color: $ub-blue;

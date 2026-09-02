@@ -42,7 +42,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![pasted-movie.png](../assets/04_linalg/pasted-movie.png){width="70%" fig-alt="A 3D plot of three intersecting planes (green, yellow, and gray) meeting along a common line (thick blue line through the origin) - illustrating the geometric solution of a 3-equation, 3-unknown linear system."}
+![pasted-movie.png](../assets/4.0_linalg/pasted-movie.png){width="70%" fig-alt="A 3D plot of three intersecting planes (green, yellow, and gray) meeting along a common line (thick blue line through the origin) - illustrating the geometric solution of a 3-equation, 3-unknown linear system."}
 
 - [Alksentrs](https://en.wikipedia.org/wiki/User:Alksentrs) at [en.wikipedia](https://en.wikipedia.org/) - Own work (Original text: Own work, based on [en:Image:Linearsubspace.svg](https://en.wikipedia.org/wiki/Image:Linearsubspace.svg) (by [en:User:Jakob.scholbach](https://en.wikipedia.org/wiki/User:Jakob.scholbach)).) Transferred from [en.wikipedia](https://en.wikipedia.org/) to Commons by [User:Ylebru](https://commons.wikimedia.org/wiki/User:Ylebru) using [CommonsHelper](http://tools.wikimedia.de/~magnus/commonshelper.php).
 
@@ -62,7 +62,7 @@ execute:
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 :::
 ::: {.column width="45%"}
-![matrix_transform.tiff](../assets/04_linalg/matrix_transform.png){width="100%" fig-alt="Hand-drawn joke: a 2x2 rotation matrix [cos90 sin90; -sin90 cos90] multiplying a vector (a1, a2), with the result written as a blurred/redacted expression - a sight gag about the answer being illegible."}
+![matrix_transform.tiff](../assets/4.0_linalg/matrix_transform.png){width="100%" fig-alt="Hand-drawn joke: a 2x2 rotation matrix [cos90 sin90; -sin90 cos90] multiplying a vector (a1, a2), with the result written as a blurred/redacted expression - a sight gag about the answer being illegible."}
 :::
 ::::
 
@@ -80,7 +80,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![matrix_transform.tiff](../assets/04_linalg/matrix_transform.png){width="70%" fig-alt="Hand-drawn joke: a 2x2 rotation matrix [cos90 sin90; -sin90 cos90] multiplying a vector (a1, a2), with the result written as a blurred/redacted expression - a sight gag about the answer being illegible."}
+![matrix_transform.tiff](../assets/4.0_linalg/matrix_transform.png){width="70%" fig-alt="Hand-drawn joke: a 2x2 rotation matrix [cos90 sin90; -sin90 cos90] multiplying a vector (a1, a2), with the result written as a blurred/redacted expression - a sight gag about the answer being illegible."}
 
 ---
 
@@ -118,7 +118,7 @@ execute:
 - OK, back to the drawing board.
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/04_linalg/slide07_image11.png){width="100%" fig-alt="Peanuts-style cartoon of a boy in a baseball cap and glove shouting 'AAUGH!' in frustration - a humorous reaction image."}
+![pasted-movie.png](../assets/4.0_linalg/slide07_image11.png){width="100%" fig-alt="Peanuts-style cartoon of a boy in a baseball cap and glove shouting 'AAUGH!' in frustration - a humorous reaction image."}
 :::
 ::::
 
@@ -229,7 +229,7 @@ execute:
   - (Or getting as close as possible given the inputs; assume we do have a solution for now.)
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/04_linalg/slide13_image12.png){width="100%" fig-alt="Diagram titled 'Reduced Row-Echelon Form': a 4x4 augmented matrix on the left reduced via an arrow to its RREF on the right, with pivot 1s and eliminated 0s highlighted in blue and purple."}
+![pasted-movie.png](../assets/4.0_linalg/slide13_image12.png){width="100%" fig-alt="Diagram titled 'Reduced Row-Echelon Form': a 4x4 augmented matrix on the left reduced via an arrow to its RREF on the right, with pivot 1s and eliminated 0s highlighted in blue and purple."}
 :::
 ::::
 
@@ -247,7 +247,7 @@ execute:
 
 - original version:: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/04_linalg/slide14_pasted-movie.png){fig-alt="A sequence of four 3x4 augmented matrices connected by right-arrows, showing step-by-step Gaussian elimination of a 3-equation system from its original form down to reduced triangular form."}
+![](../assets/4.0_linalg/slide14_pasted-movie.png){fig-alt="A sequence of four 3x4 augmented matrices connected by right-arrows, showing step-by-step Gaussian elimination of a 3-equation system from its original form down to reduced triangular form."}
 
 - Subtract multiples of row 1 from rows 2 and 3 to eliminate their first column
 
@@ -348,7 +348,7 @@ $$\begin{pmatrix} a_{00} & a_{01} & a_{02} & b_0 \\ \frac{a_{10}-a_{00}a_{10}}{a
 
 - Gauss–Jordan elimination is a variation on the previous algorithm:
 
-![](../assets/04_linalg/slide19_Screenshot-2025-11-04-at-8.57.53-PM.png){fig-alt="Equation (2.1.1): a block-matrix identity showing a 4x4 matrix A multiplied by four block columns (coordinate vectors x0, x1, x2 and the identity block Y) equal to four block columns (b0, b1, b2 and the 4x4 identity matrix), using a square-cup symbol to denote horizontal block concatenation."}
+![](../assets/4.0_linalg/slide19_Screenshot-2025-11-04-at-8.57.53-PM.png){fig-alt="Equation (2.1.1): a block-matrix identity showing a 4x4 matrix A multiplied by four block columns (coordinate vectors x0, x1, x2 and the identity block Y) equal to four block columns (b0, b1, b2 and the 4x4 identity matrix), using a square-cup symbol to denote horizontal block concatenation."}
 
 - This basically just packs several equations into one big matrix multiplication:
 
@@ -377,7 +377,7 @@ $$\begin{pmatrix} a_{00} & a_{01} & a_{02} & b_0 \\ \frac{a_{10}-a_{00}a_{10}}{a
   - Then the LHS is just $\left( {\mathbf{x}}_{i}\mathbf{Y} \right)$, i.e., we have our solution for both ${\mathbf{x}}_{i}$ and $\mathbf{Y}={\mathbf{A}}^{-1}$.
   - Same pivoting arguments apply.
 
-![Screenshot 2025-11-04 at 8.57.53 PM.png](../assets/04_linalg/Screenshot-2025-11-04-at-8.57.53-PM.png){width="70%" fig-alt="Equation (2.1.1): a block-matrix identity showing a 4x4 matrix A multiplied by four block columns (coordinate vectors x0, x1, x2 and the identity block Y) equal to four block columns (b0, b1, b2 and the 4x4 identity matrix), using a square-cup symbol to denote horizontal block concatenation."}
+![Screenshot 2025-11-04 at 8.57.53 PM.png](../assets/4.0_linalg/Screenshot-2025-11-04-at-8.57.53-PM.png){width="70%" fig-alt="Equation (2.1.1): a block-matrix identity showing a 4x4 matrix A multiplied by four block columns (coordinate vectors x0, x1, x2 and the identity block Y) equal to four block columns (b0, b1, b2 and the 4x4 identity matrix), using a square-cup symbol to denote horizontal block concatenation."}
 
 ---
 
@@ -735,7 +735,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Recall back to the beginning of October: generalized ${ \chi }^{2}$ fitting.
 
-![](../assets/04_linalg/slide36_droppedImage.png){fig-alt="Hand-drawn sketch of a wiggly curve fit through several data points with vertical error bars, axes labeled y versus x - illustrating a generalized chi-squared fit."}
+![](../assets/4.0_linalg/slide36_droppedImage.png){fig-alt="Hand-drawn sketch of a wiggly curve fit through several data points with vertical error bars, axes labeled y versus x - illustrating a generalized chi-squared fit."}
 
 - $${ \chi }^{2}(\vec{a})=\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}{\left( \frac{{y}_{i}-y(x;\vec{a})}{{ \sigma }_{i}} \right)}^{2}$$
 
@@ -793,7 +793,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 \end{matrix}$$
 
 - $$\vec{a}=({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}{\mathbf{A}}^{T}\vec{b}$$
-![](../assets/04_linalg/slide39_image21.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
+![](../assets/4.0_linalg/slide39_image21.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
 
 - What about $ \sigma ({a}_{i})$? As usual, use propagation of uncertainty... but it's a lot of algebra! See Numerical Recipes for derivation.
 - The full covariance matrix is given by:
@@ -837,7 +837,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Main use case: measuring ${R}_{x}$ by balancing ${R}_{2}$ so that no current flows through ${V}_{G}$.
 
-![](../assets/04_linalg/slide41_pasted-movie.png){fig-alt="Wheatstone bridge circuit diagram: a battery (+) connects to a diamond-shaped bridge of four resistors R1, R2 (variable, with an arrow indicating adjustability), R3, and Rx at corners A, B, C, D, with a galvanometer V_G bridging D and B."}
+![](../assets/4.0_linalg/slide41_pasted-movie.png){fig-alt="Wheatstone bridge circuit diagram: a battery (+) connects to a diamond-shaped bridge of four resistors R1, R2 (variable, with an arrow indicating adjustability), R3, and Rx at corners A, B, C, D, with a galvanometer V_G bridging D and B."}
 
 ---
 
@@ -851,7 +851,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Ra
 
-![](../assets/04_linalg/slide42_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
+![](../assets/4.0_linalg/slide42_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
 
 - i1
 
@@ -871,7 +871,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Ra
 
-![](../assets/04_linalg/slide43_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
+![](../assets/4.0_linalg/slide43_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
 
 - i1
 
@@ -899,7 +899,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Ra
 
-![](../assets/04_linalg/slide44_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
+![](../assets/4.0_linalg/slide44_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
 
 - i1
 
@@ -941,7 +941,7 @@ $$\mathbf{M} = \begin{pmatrix} 2-c & -1 & 0 & \cdots & 0 & 0 \\ -1 & 2-c & -1 & 
 
 - Ra
 
-![](../assets/04_linalg/slide45_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
+![](../assets/4.0_linalg/slide45_300px-Wheatstonebridge.svg.png){fig-alt="Simplified schematic of a Wheatstone bridge: a diamond arrangement of four resistors R1, R2, R3, Rx around corners A, B, C, D, with a galvanometer V_G connecting D and B, powered by a battery on the left."}
 
 - i1
 

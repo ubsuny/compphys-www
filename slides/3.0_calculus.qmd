@@ -30,7 +30,7 @@ execute:
 - Conceptually, this is probably the easiest chapter.
   - However, the devil is in the details!
 
-![](../assets/2.0_calculus/slide03_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
+![](../assets/3.0_calculus/slide03_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
 
 - References:
   - Chs. 1 and 2 of Garcia
@@ -85,7 +85,7 @@ execute:
 
 - $${f}^{′}(x)=\frac{f(x+h)-f(x)}{h}=\frac{(x+h)-x}{h}$$
 
-![](../assets/2.0_calculus/slide07_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
+![](../assets/3.0_calculus/slide07_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
 
 ---
 
@@ -110,7 +110,7 @@ execute:
 
 - $${f}^{′}(x)=\frac{f(x+h)-f(x)}{h}$$
 
-![](../assets/2.0_calculus/slide08_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
+![](../assets/3.0_calculus/slide08_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
 
 ---
 
@@ -140,7 +140,7 @@ execute:
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide10_pasted-movie.png){fig-alt="Log-log plot of the measured slope of a finite-difference derivative estimate versus step size h: the slope is wildly wrong for very small h (dominated by floating-point roundoff error), oscillates, then settles to the correct value of 1 as h grows past roughly 1e-14."}
+![](../assets/3.0_calculus/slide10_pasted-movie.png){fig-alt="Log-log plot of the measured slope of a finite-difference derivative estimate versus step size h: the slope is wildly wrong for very small h (dominated by floating-point roundoff error), oscillates, then settles to the correct value of 1 as h grows past roughly 1e-14."}
 
 - Looking closer, the floating point errors actually have a specific pattern.
 - $(x+h)-x$ has a finite number of possible values.
@@ -163,7 +163,7 @@ execute:
     - Find the optimum between the two effects.
     - Depends on the algorithm!
 
-![](../assets/2.0_calculus/slide11_pasted-movie.png){fig-alt="Same log-log plot of measured derivative slope versus step size h, now with 'All values' (blue, dense sampling) and 'Exact values' (red dots) overlaid and a reference line near h ~ 1e-15, showing the same roundoff-driven oscillation at small h settling to slope 1 at larger h."}
+![](../assets/3.0_calculus/slide11_pasted-movie.png){fig-alt="Same log-log plot of measured derivative slope versus step size h, now with 'All values' (blue, dense sampling) and 'Exact values' (red dots) overlaid and a reference line near h ~ 1e-15, showing the same roundoff-driven oscillation at small h settling to slope 1 at larger h."}
 
 ---
 
@@ -184,7 +184,7 @@ execute:
 
 - This is our next "devil":
 
-![](../assets/2.0_calculus/slide12_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
+![](../assets/3.0_calculus/slide12_droppedImage.png){fig-alt="Cartoon of Stewie Griffin from Family Guy dressed as a devil with a pitchfork, standing next to a teddy bear (humorous aside, not course content)."}
 
 - Minimize the truncation error!
 
@@ -296,7 +296,7 @@ execute:
 
 - $${f}^{′}(x)=\frac{f(x+2h)-8f(x+h)+8f(x-h)-f(x-2h)}{12h}+\mathcal{O}({h}^{4})$$
 
-![](../assets/2.0_calculus/slide19_image12.png){fig-alt="Decorative hand-painted pink rectangular border/frame; the image itself contains no other content."}
+![](../assets/3.0_calculus/slide19_image12.png){fig-alt="Decorative hand-painted pink rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -423,7 +423,7 @@ execute:
 - So, Neville's algorithm gives us a recursive algorithm to compute an $N$th order polynomial going through $N+1$ points.
 - You can visualize the process in a "tableau", moving from left to right.
 
-![](../assets/2.0_calculus/slide24_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
+![](../assets/3.0_calculus/slide24_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
 
 - Numerical Recipes 5.7
 
@@ -435,7 +435,7 @@ execute:
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide25_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
+![](../assets/3.0_calculus/slide25_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
 
 - $$F(h) \equiv {f}^{′}(x;h)=\frac{f(x+h)-f(x-h)}{2h}$$
 
@@ -488,7 +488,7 @@ execute:
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide26_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
+![](../assets/3.0_calculus/slide26_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
 
 - $$F(h) \equiv {f}^{′}(x;h)=\frac{f(x+h)-f(x-h)}{2h}$$
 
@@ -542,7 +542,7 @@ execute:
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide27_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
+![](../assets/3.0_calculus/slide27_Screenshot-2025-10-24-at-9.18.03-AM.png){fig-alt="Triangular tableau of Neville's algorithm interpolants p_{i,j}(x), built up from the base values p_{k,k}(x) = y_k at the left, with the final interpolated value p_{0,4}(x) boxed at the apex."}
 
 - $$F(h) \equiv {f}^{′}(x;h)=\frac{f(x+h)-f(x-h)}{2h}$$
 
@@ -609,7 +609,7 @@ execute:
 
 - By IkamusumeFan - Own workThis plot was created with Matplotlib., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=28296067
 
-![](../assets/2.0_calculus/slide29_Riemann_Integration_and_Darboux_Upper_Sums.gif){fig-alt="Animated GIF illustrating Riemann/Darboux upper-sum rectangles under a curve becoming narrower and converging to the true area as the number of subdivisions increases."}
+![](../assets/3.0_calculus/slide29_Riemann_Integration_and_Darboux_Upper_Sums.gif){fig-alt="Animated GIF illustrating Riemann/Darboux upper-sum rectangles under a curve becoming narrower and converging to the true area as the number of subdivisions increases."}
 
 ---
 
@@ -655,7 +655,7 @@ y(a) & =0,y(b)=I
 
 - $${ \int }_{a}^{b}dxf(x) \approx (b-a)\left[ \frac{f(b)+f(a)}{2} \right]$$
 
-![](../assets/2.0_calculus/slide32_Trapezoidal_rule_illustration.png){fig-alt="Illustration of the trapezoid rule: the area under a curve from x=0 to x=2 is approximated by a single trapezoid step (labeled 'Step=1/1'), shown as the shaded region bounded by the curve, the x-axis, and vertical lines at x=1 and x=2."}
+![](../assets/3.0_calculus/slide32_Trapezoidal_rule_illustration.png){fig-alt="Illustration of the trapezoid rule: the area under a curve from x=0 to x=2 is approximated by a single trapezoid step (labeled 'Step=1/1'), shown as the shaded region bounded by the curve, the x-axis, and vertical lines at x=1 and x=2."}
 
 - $$\frac{f(a)+f(b)}{2}$$
 
@@ -715,7 +715,7 @@ I-T &  \sim -\frac{{h}^{3}}{12}{f}^{′′}(a)
 - Almost all of your modern computer games will allow
 you to set the amount of  tessellation to optimize  performance or beauty depending on your taste
 
-![](../assets/2.0_calculus/slide35_Polygon-to-monotone.png){fig-alt="Geometry diagram decomposing a non-monotone polygon into monotone pieces via added diagonal cuts (shown in green), with horizontal dotted reference lines marking the split points."}
+![](../assets/3.0_calculus/slide35_Polygon-to-monotone.png){fig-alt="Geometry diagram decomposing a non-monotone polygon into monotone pieces via added diagonal cuts (shown in green), with horizontal dotted reference lines marking the split points."}
 
 ---
 
@@ -725,7 +725,7 @@ you to set the amount of  tessellation to optimize  performance or beauty depend
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide36_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-J3tI7ANSmxD21M-tbnid-YzWMZ8gDNWsTOM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.hardwareheaven.com-2Freviews-2F1452-2Fpg12-2Fnvidia-geforce-gtx-680-kepl.png){fig-alt="Screenshot of a video game's graphics options menu (display, texture, and environment settings), unrelated to the course content — apparently a decorative/joke image."}
+![](../assets/3.0_calculus/slide36_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-J3tI7ANSmxD21M-tbnid-YzWMZ8gDNWsTOM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.hardwareheaven.com-2Freviews-2F1452-2Fpg12-2Fnvidia-geforce-gtx-680-kepl.png){fig-alt="Screenshot of a video game's graphics options menu (display, texture, and environment settings), unrelated to the course content — apparently a decorative/joke image."}
 
 - This is tessellation
 
@@ -761,7 +761,7 @@ I-{I}_{T} &  \sim \mathcal{O}((N-1){h}^{3}) \sim \mathcal{O}((b-a){h}^{2})
 - [Simpson's rule](http://en.wikipedia.org/wiki/Simpson's_rule) is more accurate than the trapezoidal rule, and not really slower.
 - Idea: instead of approximating with a trapezoid, use a parabola:
 
-![](../assets/2.0_calculus/slide38_Simpsons_method_illustration.png){fig-alt="Diagram illustrating Simpson's rule: the true function f(x) (blue) and its parabolic interpolant P(x) (red) over the interval [a,b], agreeing at the endpoints a, b and the midpoint m."}
+![](../assets/3.0_calculus/slide38_Simpsons_method_illustration.png){fig-alt="Diagram illustrating Simpson's rule: the true function f(x) (blue) and its parabolic interpolant P(x) (red) over the interval [a,b], agreeing at the endpoints a, b and the midpoint m."}
 
 - Conceptually similar to the "symmetric derivative": use 3 points gets you better accuracy.
 
@@ -791,7 +791,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide40_droppedImage.png){fig-alt="Python code listing for a composite Simpson's rule integrator: def simpson(f, a, b, n), computing h=(b-a)/n and summing f(a), f(b), and weighted interior points (4x for odd indices, 2x for even indices) before returning s*h/3."}
+![](../assets/3.0_calculus/slide40_droppedImage.png){fig-alt="Python code listing for a composite Simpson's rule integrator: def simpson(f, a, b, n), computing h=(b-a)/n and summing f(a), f(b), and weighted interior points (4x for odd indices, 2x for even indices) before returning s*h/3."}
 
 ---
 
@@ -821,7 +821,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Note: if we intelligently scale $h$ between steps, we can reuse the computations from the previous iteration!
 
-![](../assets/2.0_calculus/slide42_trap.png){fig-alt="Diagram of nested quadrature point sets between endpoints a and b for N=2, 3, 5, and 9 points, showing how added points (open circles) interleave with previous sample points (filled circles) in a nested/adaptive sampling scheme."}
+![](../assets/3.0_calculus/slide42_trap.png){fig-alt="Diagram of nested quadrature point sets between endpoints a and b for N=2, 3, 5, and 9 points, showing how added points (open circles) interleave with previous sample points (filled circles) in a nested/adaptive sampling scheme."}
 
 ---
 
@@ -858,7 +858,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide72_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-KNA3hA7hC-cbUM-tbnid-LHuNeYpqHFU2PM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.jupiterscientific.org-2Fsciinfo-2Fcrosssection.html-ei-xyU3UoHTMo-p4AOsl.png){fig-alt="Diagram of a scattering cross-section setup: a beam of incoming particles (dots with velocity arrows) in a field B travels a distance vt toward a target T, sweeping out a cylindrical volume of cross-sectional area A = piR^2."}
+![](../assets/3.0_calculus/slide72_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-KNA3hA7hC-cbUM-tbnid-LHuNeYpqHFU2PM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.jupiterscientific.org-2Fsciinfo-2Fcrosssection.html-ei-xyU3UoHTMo-p4AOsl.png){fig-alt="Diagram of a scattering cross-section setup: a beam of incoming particles (dots with velocity arrows) in a field B travels a distance vt toward a target T, sweeping out a cylindrical volume of cross-sectional area A = piR^2."}
 
 - Application of integration and root finding: classical cross section calculations.
   - Billiard (Rutherford scattering); particle physics; astrophysics; optics; ...
@@ -870,7 +870,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 - https://www.jupiterscientific.org/sciinfo/crosssection.html
 
 - $$\frac{\text{Interactions}}{\text{time}}=I\left[ \frac{\text{number}}{\text{area} \cdot \text{time}} \right] \times  \sigma [\text{area}]$$
-![](../assets/2.0_calculus/slide72_image34.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
+![](../assets/3.0_calculus/slide72_image34.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -880,7 +880,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide73_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
+![](../assets/3.0_calculus/slide73_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
 
 - We will focus on this specific geometry:
   - Incoming particles moving in +x direction.
@@ -909,7 +909,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide75_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
+![](../assets/3.0_calculus/slide75_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
 
 - $ \theta $ = scattering angle (total change in angle from $t=- \infty $ to $t= \infty $).
 - $b( \theta )$ = impact parameter resulting in scattering angle $ \theta $.
@@ -928,7 +928,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide76_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
+![](../assets/3.0_calculus/slide76_pasted-movie.png){fig-alt="Classic scattering geometry diagram (after Thornton & Rex): a particle deflected by angle theta at impact parameter b (with spread db) traces an arc of radius r, sweeping out a ring of circumference r sin(theta) as it precesses by rd(theta)."}
 
 - Define the differential cross section as the rate of scattered particles into $d \Omega $ divided by the incoming flux:
 
@@ -949,7 +949,7 @@ I & ={ \int }_{a}^{b}dxf(x)=\frac{h}{3}[f(a)+4(a+h)+2f(a+2h)+4f(a+3h)+2f(a+4h)+.
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide77_droppedImage.png){fig-alt="Hard-sphere (billiard-ball) scattering diagram: an incoming particle with impact parameter b strikes a circle of radius R, deflecting through angle theta, with the scattering angle alpha marked at both the impact point and the circle's center."}
+![](../assets/3.0_calculus/slide77_droppedImage.png){fig-alt="Hard-sphere (billiard-ball) scattering diagram: an incoming particle with impact parameter b strikes a circle of radius R, deflecting through angle theta, with the scattering angle alpha marked at both the impact point and the circle's center."}
 
 - Consider scattering off a hard billiard ball of radius R
   - E.g. V(r) jumps to infinity at R.
@@ -974,7 +974,7 @@ b( \theta ) & =Rsin \alpha =Rsin(( \pi - \theta )/2)=Rcos( \theta /2) \\
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.0_calculus/slide78_droppedImage.png){fig-alt="Hard-sphere (billiard-ball) scattering diagram: an incoming particle with impact parameter b strikes a circle of radius R, deflecting through angle theta, with the scattering angle alpha marked at both the impact point and the circle's center."}
+![](../assets/3.0_calculus/slide78_droppedImage.png){fig-alt="Hard-sphere (billiard-ball) scattering diagram: an incoming particle with impact parameter b strikes a circle of radius R, deflecting through angle theta, with the scattering angle alpha marked at both the impact point and the circle's center."}
 
 - Consider scattering off a hard billiard ball of radius R
   - E.g. V(r) jumps to infinity at R.
@@ -1003,7 +1003,7 @@ b( \theta ) & =Rsin \alpha =Rsin(( \pi - \theta )/2)=Rcos( \theta /2) \\
 - We went through a page of calculations, but in the end, we were basically adding up the [b, b+db] rings in the incoming phase space corresponding to each $d \Omega $ ring in the outgoing phase space.
   - Along with some change of variables in the integration, $db \rightarrow d \theta $.
 - So obtaining $ \pi {R}^{2}$ is not a surprise!
-![](../assets/2.0_calculus/slide78_image37.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
+![](../assets/3.0_calculus/slide78_image37.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -1052,7 +1052,7 @@ E & =E{b}^{2}\left( (\frac{1}{{r}^{2}}\frac{dr}{d \theta }{)}^{2}+\frac{1}{{r}^{
 \frac{dr}{d \theta } & = \pm \frac{{r}^{2}}{b}\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(r)}{E}}
 \end{matrix}$$
 
-![](../assets/2.0_calculus/slide80_image38.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
+![](../assets/3.0_calculus/slide80_image38.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
 
 - So, we have $\frac{dr}{d \theta }$ (or $\frac{d \theta }{dr}$), and can integrate it to find $ \Delta  \theta $ for given $ \Delta r$, or vice versa.
 
@@ -1071,7 +1071,7 @@ E & =E{b}^{2}\left( (\frac{1}{{r}^{2}}\frac{dr}{d \theta }{)}^{2}+\frac{1}{{r}^{
 \frac{dr}{d \theta } & = \pm \frac{{r}^{2}}{b}\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(r)}{E}}
 \end{matrix}$$
 
-![](../assets/2.0_calculus/slide81_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
+![](../assets/3.0_calculus/slide81_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
 
 ---
 
@@ -1094,7 +1094,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 { \theta }_{s} & = \pi -2{ \theta }_{0}= \pi -2{ \int }_{{r}_{min}}^{ \infty }\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(r)}{E}}}
 \end{matrix}$$
 
-![](../assets/2.0_calculus/slide82_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
+![](../assets/3.0_calculus/slide82_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
 
 - We can numerically integrate this for any $V(r)$!
 
@@ -1110,7 +1110,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 
 - $${ \theta }_{s}= \pi -2{ \theta }_{0}= \pi -2{ \int }_{{r}_{min}}^{ \infty }\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(r)}{E}}}$$
 
-![](../assets/2.0_calculus/slide83_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
+![](../assets/3.0_calculus/slide83_fowles-6-14-1.png){fig-alt="Figure 6.14.1 (from Fowles): hyperbolic path of a charge q scattering off a repulsive charge Q at the origin, showing impact parameter b, distance of closest approach r_min, incoming asymptote angle theta_0, and scattering angle theta_s."}
 
 - $$\begin{matrix}
 \frac{d \sigma }{d \Omega } & =\frac{N}{I}=\frac{b}{sin \theta }\left| \frac{db}{d \theta } \right|
@@ -1139,11 +1139,11 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 
 - Coulomb potential is given by:
 
-![](../assets/2.0_calculus/slide85_pasted-movie.png){fig-alt="2D color-map plot (log-scaled colorbar from 1e-2 to 1e1) of a potential or field peaked at the origin, with a red trajectory line bending from a horizontal incoming path through a scattering angle theta."}
+![](../assets/3.0_calculus/slide85_pasted-movie.png){fig-alt="2D color-map plot (log-scaled colorbar from 1e-2 to 1e1) of a potential or field peaked at the origin, with a red trajectory line bending from a horizontal incoming path through a scattering angle theta."}
 
 - $$V(r)=\frac{k{q}_{1}{q}_{2}}{r}$$
 
-![](../assets/2.0_calculus/slide85_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
+![](../assets/3.0_calculus/slide85_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
 
 - This turns out to be analytically solvable.
 - First, define a symmetric coordinate system:
@@ -1163,7 +1163,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 - Arranging the vectors into an isosceles triangle, we have $| \Delta \mathbf{p}|=2psin( \theta /2)$.
   - Further, $ \Delta \mathbf{p}$ points in the direction of $\hat{\mathbf{u}}$.
 
-![](../assets/2.0_calculus/slide86_droppedImage.png){fig-alt="Vector triangle showing the initial momentum p, final momentum p', and the momentum transfer |Δp| = 2p sin(theta/2) as the dashed line between their tips, with the scattering angle theta marked between p and p'."}
+![](../assets/3.0_calculus/slide86_droppedImage.png){fig-alt="Vector triangle showing the initial momentum p, final momentum p', and the momentum transfer |Δp| = 2p sin(theta/2) as the dashed line between their tips, with the scattering angle theta marked between p and p'."}
 
 - We can also compute $ \Delta \mathbf{p}$ directly from Newton's law:
 
@@ -1187,7 +1187,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 
 - $$| \Delta \mathbf{p}|={ \int }_{- \infty }^{ \infty }\frac{k{q}_{1}{q}_{2}}{{r}^{2}}cos \psi dt$$
 
-![](../assets/2.0_calculus/slide87_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
+![](../assets/3.0_calculus/slide87_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
 
 - Hence the impulse is:
 
@@ -1204,11 +1204,11 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 - $\mathop{ \psi }\limits^{ \cdot }$ can also be determined from conservation of angular momentum.
   - For a given point $(r, \psi )$, the angular momentum is:
 
-![](../assets/2.0_calculus/slide88_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
+![](../assets/3.0_calculus/slide88_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
 
-![](../assets/2.0_calculus/slide88_image43.png){fig-alt="LaTeX label: the magnitude of the initial angular momentum, |L1 (vector)| = mvb."}
+![](../assets/3.0_calculus/slide88_image43.png){fig-alt="LaTeX label: the magnitude of the initial angular momentum, |L1 (vector)| = mvb."}
 
-![](../assets/2.0_calculus/slide88_image44.png){fig-alt="LaTeX label: the magnitude of the angular momentum computed from the final state, |L2 (vector)| = |r x p'|."}
+![](../assets/3.0_calculus/slide88_image44.png){fig-alt="LaTeX label: the magnitude of the angular momentum computed from the final state, |L2 (vector)| = |r x p'|."}
 
 - $$\begin{matrix}
 {L}_{z} & =m{r}^{2}\mathop{ \psi }\limits^{ \cdot } \\
@@ -1225,7 +1225,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 
 - Substituting in the tricks and performing the integral,
 
-![](../assets/2.0_calculus/slide89_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
+![](../assets/3.0_calculus/slide89_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
 
 - $$\begin{matrix}
 | \Delta \mathbf{p}| & ={ \int }_{- \infty }^{ \infty }\frac{k{q}_{1}{q}_{2}}{{r}^{2}}cos \psi dt \\
@@ -1240,7 +1240,7 @@ d \theta  & =\frac{b}{{r}^{2}}\frac{dr}{\sqrt{1-\frac{{b}^{2}}{{r}^{2}}-\frac{V(
 b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 \end{aligned}$$
 
-![](../assets/2.0_calculus/slide89_image42.png){fig-alt="Vector triangle showing the initial momentum p, final momentum p', and the momentum transfer |Δp| = 2p sin(theta/2) as the dashed line between their tips, with the scattering angle theta marked between p and p'."}
+![](../assets/3.0_calculus/slide89_image42.png){fig-alt="Vector triangle showing the initial momentum p, final momentum p', and the momentum transfer |Δp| = 2p sin(theta/2) as the dashed line between their tips, with the scattering angle theta marked between p and p'."}
 
 ---
 
@@ -1252,7 +1252,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 
 - Finally, going back to our "master formula" for radial scattering cross sections,
 
-![](../assets/2.0_calculus/slide90_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
+![](../assets/3.0_calculus/slide90_droppedImage.png){fig-alt="Diagram of a particle's trajectory bending past a target nucleus: incoming momentum p and outgoing momentum p' are shown as arrows, with impact parameter b, deflection angle psi along the path, scattering angle theta, and the local direction vector u marked at a point on the curve."}
 
 - Our final result for the differential cross section is the famous Rutherford scattering formula:
 
@@ -1266,7 +1266,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
   - This is sort of what we expect: the Coulomb force extends to infinity.
 - Note 2: you will do this in your homework for a non-analytical case, i.e., where you have to do a numerical derivative for $\frac{db}{d \theta }$
 
-![](../assets/2.0_calculus/slide90_image45.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
+![](../assets/3.0_calculus/slide90_image45.png){fig-alt="Decorative hand-painted blue rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -1291,7 +1291,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 - Potential has minimum at $r={2}^{\frac{1}{6}}$, $V(r={2}^{\frac{1}{6}})=-{V}_{0}$.
 - Potential crosses zero at $r= \sigma $ ($ \sigma =1$ here).
 
-![](../assets/2.0_calculus/slide92_pasted-movie.png){fig-alt="Plot of the Lennard-Jones potential V(r) versus r, showing a steep repulsive wall near r ~ 0.9 and a shallow attractive minimum near r ~ 1.1, approaching zero at large r."}
+![](../assets/3.0_calculus/slide92_pasted-movie.png){fig-alt="Plot of the Lennard-Jones potential V(r) versus r, showing a steep repulsive wall near r ~ 0.9 and a shallow attractive minimum near r ~ 1.1, approaching zero at large r."}
 
 - (Note: just set $ \sigma =1$ for this class)
 
@@ -1310,7 +1310,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 
 - $$V(r)=4{V}_{0}\left[ \frac{ \sigma }{{r}^{12}}-\frac{ \sigma }{{r}^{6}} \right]$$
 
-![](../assets/2.0_calculus/slide93_pasted-movie.png){fig-alt="Plot of the Lennard-Jones potential V(r) versus r, showing a steep repulsive wall near r ~ 0.9 and a shallow attractive minimum near r ~ 1.1, approaching zero at large r."}
+![](../assets/3.0_calculus/slide93_pasted-movie.png){fig-alt="Plot of the Lennard-Jones potential V(r) versus r, showing a steep repulsive wall near r ~ 0.9 and a shallow attractive minimum near r ~ 1.1, approaching zero at large r."}
 
 ---
 
@@ -1333,7 +1333,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 - Orbiting occurs when ${\mathbf{F}}_{eff}({r}_{0})=-\frac{d{V}_{eff}}{dr}\hat{r}=0$
 - Since ${v}_{r} \sim 0$ for a ~circular orbit, $E={V}_{eff}({r}_{0})$.
 
-![](../assets/2.0_calculus/slide94_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
+![](../assets/3.0_calculus/slide94_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
 
 - [https://en.wikipedia.org/wiki/Effective_potential](https://en.wikipedia.org/wiki/Effective_potential)
 
@@ -1358,7 +1358,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 - Orbiting occurs when ${\mathbf{F}}_{eff}({r}_{0})=-\frac{d{V}_{eff}}{dr}\hat{r}=0$
 - Since ${v}_{r} \sim 0$ for a ~circular orbit, $E={V}_{eff}({r}_{0})$.
 
-![](../assets/2.0_calculus/slide95_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
+![](../assets/3.0_calculus/slide95_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
 
 - Incoming trajectory
 
@@ -1387,7 +1387,7 @@ b( \theta )=\frac{k{q}_{1}{q}_{2}}{m{v}^{2}}cot( \theta /2)
 - Orbiting occurs when ${\mathbf{F}}_{eff}({r}_{0})=-\frac{d{V}_{eff}}{dr}\hat{r}=0$
 - Since ${v}_{r} \sim 0$ for a ~circular orbit, $E={V}_{eff}({r}_{0})$.
 
-![](../assets/2.0_calculus/slide96_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
+![](../assets/3.0_calculus/slide96_pasted-movie.png){fig-alt="Plot comparing the bare Lennard-Jones potential V(r) (blue, V0=1) to the effective potential including the centrifugal barrier (orange, LJ_eff, Eb^2=1.1); the effective potential develops an outer barrier around r ~ 1.5-2 that the bare potential lacks."}
 
 - Critical trajectory
 

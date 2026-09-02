@@ -38,7 +38,7 @@ execute:
   - Familiar quantum mechanics lies in the sub-domain $(\vec{x},\text{Re}[t])$
   - With a clever manipulation of the Hamiltonian ($V \rightarrow V-{E}_{T}$), we arrange for the wave function to converge to the ground state as $t \rightarrow i \infty $
 
-![](../assets/7.3_qft/slide03_Screenshot-2026-02-18-at-11.17.21-AM.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide03_Screenshot-2026-02-18-at-11.17.21-AM.png){fig-alt="TODO"}
 
 - x
 - Re[t]
@@ -63,7 +63,7 @@ execute:
 - This yields Schroedinger's equation:
 - $$H \psi =E \psi  \Rightarrow i \hbar \frac{ \partial }{ \partial t} \psi =-\frac{{ \hbar }^{2}}{2m}{ \nabla }^{2} \psi +V \psi $$
 
-![TODO: describe image](../assets/7.3_qft/image1.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image1.png){width="70%" fig-alt="TODO: describe image"}
 
 - Quantum harmonic oscillator solutions
 
@@ -98,7 +98,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 - The Schroedinger equation is manifestly not compatible with special relativity!
   - Distinct treatment of space and time
 
-![TODO: describe image](../assets/7.3_qft/image2.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image2.png){width="70%" fig-alt="TODO: describe image"}
 
 - Relativistic vs. Newtonian kinetic energy
 
@@ -166,7 +166,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 - Pauli matrices
 :::
 ::: {.column width="45%"}
-![TODO: describe image](../assets/7.3_qft/image10.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image10.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -254,12 +254,12 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
   - Compton scattering
   - Z boson production, e.g., ${e}^{+}{e}^{-} \rightarrow {Z}^{0} \rightarrow { \mu }^{+}{ \mu }^{-}$
 
-![](../assets/7.3_qft/slide15_image11.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide15_image11.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide15_image3.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide15_image3.png){fig-alt="TODO"}
 
 - Compton scattering
-![](../assets/7.3_qft/slide15_image12.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide15_image12.png){fig-alt="TODO"}
 
 - Compton scattering differential cross section formula
 
@@ -315,7 +315,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![Untitled - February 20, 2026 11.49 2.jpg](../assets/7.3_qft/Untitled---February-20-2026-11.49-2.jpeg){width="70%" fig-alt="TODO: describe image"}
+![Untitled - February 20, 2026 11.49 2.jpg](../assets/8.3_qft/Untitled---February-20-2026-11.49-2.jpeg){width="70%" fig-alt="TODO: describe image"}
 
 - VEGAS algorithm
 - Start with $p(x)$ corresponding to 3 uniform bins
@@ -326,7 +326,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![Untitled - February 20, 2026 11.49.jpg](../assets/7.3_qft/Untitled---February-20-2026-11.49.jpeg){width="70%" fig-alt="TODO: describe image"}
+![Untitled - February 20, 2026 11.49.jpg](../assets/8.3_qft/Untitled---February-20-2026-11.49.jpeg){width="70%" fig-alt="TODO: describe image"}
 
 - VEGAS algorithm
 - Sampling is $ \approx $ uniform over the whole interval
@@ -339,7 +339,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/7.3_qft/slide21_Untitled---February-20-2026-11.49-3.jpeg){fig-alt="TODO"}
+![](../assets/8.3_qft/slide21_Untitled---February-20-2026-11.49-3.jpeg){fig-alt="TODO"}
 
 - VEGAS algorithm
 - Calculate relative contribution of each bin to the total integral
@@ -354,7 +354,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![Untitled - February 20, 2026 11.49 5.jpg](../assets/7.3_qft/Untitled---February-20-2026-11.49-5.jpeg){width="70%" fig-alt="TODO: describe image"}
+![Untitled - February 20, 2026 11.49 5.jpg](../assets/8.3_qft/Untitled---February-20-2026-11.49-5.jpeg){width="70%" fig-alt="TODO: describe image"}
 
 - VEGAS algorithm
 - Smaller bins where $f(x)$ is large, i.e., $p(x)$ concentrated in more important areas
@@ -398,7 +398,7 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 - Interactions are then specified in terms of interactions of the currents and the fields
 - See Peskin + Schroeder, for instance
 
-![droppedImage.tiff](../assets/7.3_qft/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.tiff](../assets/8.3_qft/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
 
 - Feynman diagram of electron-muon scattering
 
@@ -412,17 +412,17 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
   - Must be near nucleus to conserve momentum
 - Specify polarization of incoming light beams:
 
-![](../assets/7.3_qft/slide27_image14.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide27_image14.png){fig-alt="TODO"}
 
 - Linear and circular polarization
 - Linear polarization
 
 - Circular polarization
 
-![](../assets/7.3_qft/slide27_image15.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide27_image15.png){fig-alt="TODO"}
 
 - EM fields of a photon using polarization vectors. E+ and E- are + and - helicity states
-![](../assets/7.3_qft/slide27_image3.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide27_image3.png){fig-alt="TODO"}
 
 - Compton scattering
 
@@ -436,35 +436,35 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 - Initial conditions:
 - Kinematics and conservation of 4-momentum gives:
 
-![](../assets/7.3_qft/slide28_image16.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image16.png){fig-alt="TODO"}
 
 - Compton scattering formulae
-![](../assets/7.3_qft/slide28_image17.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image17.png){fig-alt="TODO"}
 
 - Compton scattering formulae
-![](../assets/7.3_qft/slide28_image18.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image18.png){fig-alt="TODO"}
 
 - Compton scattering formulae
-![](../assets/7.3_qft/slide28_droppedImage.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_droppedImage.png){fig-alt="TODO"}
 
 - Compton scattering Feynman diagrams
-![](../assets/7.3_qft/slide28_image20.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image20.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image21.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image21.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image22.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image22.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image23.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image23.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image20.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image20.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image21.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image21.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image22.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image22.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image23.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image23.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide28_image24.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide28_image24.png){fig-alt="TODO"}
 
 ---
 
@@ -474,12 +474,12 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - Differential cross section:
 
-![](../assets/7.3_qft/slide29_image11.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide29_image11.png){fig-alt="TODO"}
 
 - Differential cross section formula
-![](../assets/7.3_qft/slide29_image25.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide29_image25.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide29_image26.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide29_image26.png){fig-alt="TODO"}
 
 - Compton scattering differential cross section, including polarization
 
@@ -489,10 +489,10 @@ E= \pm m{\left( 1+{p}^{2}/{m}^{2} \right)}^{\frac{1}{2}}
 
 - With some convenient units, can work in dimensionless units:
 
-![TODO: describe image](../assets/7.3_qft/image27.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image27.png){width="70%" fig-alt="TODO: describe image"}
 
 - Natural units for Compton scattering
-![TODO: describe image](../assets/7.3_qft/image12.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image12.png){width="70%" fig-alt="TODO: describe image"}
 
 - Note: Averaged over initial electron
 spin states, summed over final electron
@@ -507,7 +507,7 @@ spin states
   - e+e- —> Z —> e+e-
   - pp —> Z —> e+e-
 
-![droppedImage.tiff](../assets/7.3_qft/slide31_image4.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.tiff](../assets/8.3_qft/slide31_image4.png){width="70%" fig-alt="TODO: describe image"}
 
 - Standard Model particles
 
@@ -515,7 +515,7 @@ spin states
 
 ## Quantum Field Theory
 
-![TODO: describe image](../assets/7.3_qft/image5.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image5.png){width="70%" fig-alt="TODO: describe image"}
 
 - Standard Model Lagrangian
 
@@ -527,9 +527,9 @@ spin states
 
 - Electroweak interaction: follows SU(2) x U(1) symmetry
 
-![](../assets/7.3_qft/slide33_droppedImage.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide33_droppedImage.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide33_droppedImage.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide33_droppedImage.png){fig-alt="TODO"}
 
 - Z
 - Drell–Yan scattering Feynman diagrams
@@ -543,9 +543,9 @@ spin states
 
 - Group theory representations:
 
-![droppedImage.tiff](../assets/7.3_qft/slide34_image28.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.tiff](../assets/8.3_qft/slide34_image28.png){width="70%" fig-alt="TODO: describe image"}
 
-![droppedImage.tiff](../assets/7.3_qft/slide34_image29.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.tiff](../assets/8.3_qft/slide34_image29.png){width="70%" fig-alt="TODO: describe image"}
 
 - Gauge bosons of the Standard Model
 - Quantum Field Theory
@@ -561,10 +561,10 @@ spin states
 - Similar to superconductor or ferromagnet!
 - Simplest field to do this is a “Sombrero” potential
 
-![](../assets/7.3_qft/slide35_droppedImage.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide35_droppedImage.png){fig-alt="TODO"}
 
 - "Mexican hat" potential
-![](../assets/7.3_qft/slide35_image8.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide35_image8.png){fig-alt="TODO"}
 
 - Broken symmetry
 - Nambu-Goldstone boson
@@ -583,12 +583,12 @@ spin states
 - There is a mixing angle:
 - “Weinberg angle”:
 
-![](../assets/7.3_qft/slide36_image30.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide36_image30.png){fig-alt="TODO"}
 
 - Mixing of EM and weak fields
-![](../assets/7.3_qft/slide36_image31.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide36_image31.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide36_image32.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide36_image32.png){fig-alt="TODO"}
 
 - Equations for electroweak mixing angle
 
@@ -599,10 +599,10 @@ spin states
 - You’ve been told proton looks like this:
 - Really looks like this:
 
-![TODO: describe image](../assets/7.3_qft/image9.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image9.png){width="70%" fig-alt="TODO: describe image"}
 
 - Naive view of proton
-![TODO: describe image](../assets/7.3_qft/slide37_image10.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/slide37_image10.png){width="70%" fig-alt="TODO: describe image"}
 
 - Better view of proton
 - Distributions of stuff
@@ -614,7 +614,7 @@ INSIDE the proton!
 
 - Parton distribution functions (PDFs):
 
-![TODO: describe image](../assets/7.3_qft/image33.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image33.png){width="70%" fig-alt="TODO: describe image"}
 
 - Proton parton distribution functions
 - x = fraction of particle’s momentum to proton’s momentum
@@ -626,10 +626,10 @@ INSIDE the proton!
 - Can FACTORIZE the computation into a hard process and the parton distribution function integration:
 - So for production of leptons:
 
-![TODO: describe image](../assets/7.3_qft/image34.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image34.png){width="70%" fig-alt="TODO: describe image"}
 
 - Factorization theorem
-![TODO: describe image](../assets/7.3_qft/image35.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image35.png){width="70%" fig-alt="TODO: describe image"}
 
 - Cartoon of factorization into PDFs and hard-scattering matrix element
 
@@ -640,7 +640,7 @@ INSIDE the proton!
 - Drell-Yan cross section from CMS:
 - J. High Energy Phys. 10, 007 (2011)
 
-![TODO: describe image](../assets/7.3_qft/image36.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image36.png){width="70%" fig-alt="TODO: describe image"}
 
 - Measurement of Drell–Yan scattering cross section
 
@@ -650,7 +650,7 @@ INSIDE the proton!
 
 - Look at the Drell-Yan matrix element:
 
-![TODO: describe image](../assets/7.3_qft/image37.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image37.png){width="70%" fig-alt="TODO: describe image"}
 
 - Feynman diagram of Drell–Yan process
 
@@ -662,11 +662,11 @@ INSIDE the proton!
 
 - Differential Cross Section is:
 
-![](../assets/7.3_qft/slide42_image38.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide42_image38.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide42_image39.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide42_image39.png){fig-alt="TODO"}
 
-![](../assets/7.3_qft/slide42_image40.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide42_image40.png){fig-alt="TODO"}
 
 - Drell–Yan scattering cross section
 
@@ -677,7 +677,7 @@ INSIDE the proton!
 - So look back at the master formula:
 - Your homework problem will be to perform a MC simulation of the pp —-> Z ——> e+e- cross section!
 
-![TODO: describe image](../assets/7.3_qft/image41.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.3_qft/image41.png){width="70%" fig-alt="TODO: describe image"}
 
 - Drell–Yan differential cross section
 
@@ -708,7 +708,7 @@ INSIDE the proton!
   - Main feature: iteratively construct an approximation to the inverse Hessian matrix.
 - Recall that the Hessian matrix is the N-D generalization of the second derivative:
 
-![](../assets/7.3_qft/slide45_350px-Gradient_descent.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide45_350px-Gradient_descent.png){fig-alt="TODO"}
 
 - Cartoon of Newton's method
 - $$\mathbf{A}=\left( \begin{matrix}
@@ -728,7 +728,7 @@ INSIDE the proton!
 
 - In the vicinity of ${\vec{x}}_{i}$, the Taylor expansions for $f(\vec{x})$ and $ \nabla f(\vec{x})$ are:
 
-![](../assets/7.3_qft/slide46_350px-Gradient_descent.png){fig-alt="TODO"}
+![](../assets/8.3_qft/slide46_350px-Gradient_descent.png){fig-alt="TODO"}
 
 - Cartoon of Newton's method
 - $$\begin{matrix}

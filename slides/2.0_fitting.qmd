@@ -57,7 +57,7 @@ execute:
 - Here’s a picture from the Hubble telescope released in 2012 showing lots of different galaxies from the Hubble extreme Deep Field ([http://en.wikipedia.org/wiki/Hubble_Extreme_Deep_Field](http://en.wikipedia.org/wiki/Hubble_Extreme_Deep_Field))
 - This is a photo of an event 13.2 billion years ago, just after the universe underwent inflation!
 
-![Hubble_Extreme_Deep_Field_%28full_resolution%29.png](../assets/1.0_fitting/Hubble_Extreme_Deep_Field_-28full_resolution-29.png){width="70%" fig-alt="TODO: describe image"}
+![Hubble_Extreme_Deep_Field_%28full_resolution%29.png](../assets/2.0_fitting/Hubble_Extreme_Deep_Field_-28full_resolution-29.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -65,7 +65,7 @@ execute:
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/1.0_fitting/slide07_189d3c5dec7a4a5f9abefc5bf5b4e4cc.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide07_189d3c5dec7a4a5f9abefc5bf5b4e4cc.png){fig-alt="TODO"}
 
 - Vera Rubin Observatory ([https://rubinobservatory.org/](https://rubinobservatory.org/))
 
@@ -73,9 +73,9 @@ execute:
 
 ## James Webb telescope
 
-![pasted-movie.png](../assets/1.0_fitting/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
 
-![pasted-movie.png](../assets/1.0_fitting/slide08_image12.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide08_image12.png){width="70%" fig-alt="TODO: describe image"}
 
 - [https://en.wikipedia.org/wiki/Webb%27s_First_Deep_Field](https://en.wikipedia.org/wiki/Webb's_First_Deep_Field)
 
@@ -89,9 +89,9 @@ execute:
   - r = 0.214 Mpc (1 Mega-parsec = $3.086 \times {10}^{19}$ km)
   - Relative velocity: -130 km/s (i.e., it's moving towards Earth).
 
-![pasted-movie.png](../assets/1.0_fitting/slide09_image13.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide09_image13.png){width="70%" fig-alt="TODO: describe image"}
 
-![pasted-movie.png](../assets/1.0_fitting/slide09_image14.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide09_image14.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -102,7 +102,7 @@ execute:
 - Hubble (and others) noticed a critical pattern: almost everything is moving away from Earth, and the velocity increases with distance.
 - The data were fit with the following linear relationship:
 
-![](../assets/1.0_fitting/slide10_hubble-fig1.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide10_hubble-fig1.png){fig-alt="TODO"}
 
 - $$rK+Xcos \alpha cos \delta +Ysin \alpha cos \delta +Zsin \delta =v$$
 
@@ -130,7 +130,7 @@ execute:
   - Everything has to be calibrated.
   - Uncertainties have to be understood.
 
-![pasted-movie.png](../assets/1.0_fitting/slide11_image16.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide11_image16.png){width="70%" fig-alt="TODO: describe image"}
 
 - [https://www.daviddarling.info/encyclopedia/C/cosmic_distance_ladder.html](https://www.daviddarling.info/encyclopedia/C/cosmic_distance_ladder.html)
 
@@ -144,9 +144,9 @@ execute:
   - The period is easy to measure, then the (absolute) luminosity can be calculated.
   - Finally, use inverse square law to calculate distance from absolute vs. apparent luminosity.
 
-![Delta_Cephei_lightcurve.png](../assets/1.0_fitting/Delta_Cephei_lightcurve.png){width="70%" fig-alt="TODO: describe image"}
+![Delta_Cephei_lightcurve.png](../assets/2.0_fitting/Delta_Cephei_lightcurve.png){width="70%" fig-alt="TODO: describe image"}
 
-![Cepheus_IAU.png](../assets/1.0_fitting/Cepheus_IAU.png){width="70%" fig-alt="TODO: describe image"}
+![Cepheus_IAU.png](../assets/2.0_fitting/Cepheus_IAU.png){width="70%" fig-alt="TODO: describe image"}
 
 - Example: [Delta Cephei](https://en.wikipedia.org/wiki/Delta_Cephei)
 
@@ -161,11 +161,11 @@ execute:
 
 - $$z+1=\frac{{ \lambda }_{\text{obs.}}}{{ \lambda }_{\text{emit}}}= \gamma (1+\frac{v}{c})$$
 
-![](../assets/1.0_fitting/slide13_pasted-movie.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide13_pasted-movie.png){fig-alt="TODO"}
 
 - [https://ned.ipac.caltech.edu/level5/Narlikar2/Figures/figure1_22.jpeg](https://ned.ipac.caltech.edu/level5/Narlikar2/Figures/figure1_22.jpeg)
 
-![](../assets/1.0_fitting/slide13_image20.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide13_image20.png){fig-alt="TODO"}
 
 - This is the key discovery: almost everything is redshifted!
 
@@ -179,7 +179,7 @@ execute:
 - Fitting is "easy" :)
 - Result:
 
-![](../assets/1.0_fitting/slide14_hubble-fig1.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide14_hubble-fig1.png){fig-alt="TODO"}
 
 - $$v \approx r \times 500\frac{\text{km}}{\text{s}}\frac{1}{\text{Mpc}}$$
 
@@ -195,7 +195,7 @@ execute:
 - A "static universe" was the prevailing view at the time. Famously, Einstein introduced the "cosmological constant" into the GR field equations to obtain a static solution.
 - So, now for a (tiny) bit of general relativity and cosmology.
 
-![Spacetime_curvature.tiff](../assets/1.0_fitting/Spacetime_curvature.png){width="70%" fig-alt="TODO: describe image"}
+![Spacetime_curvature.tiff](../assets/2.0_fitting/Spacetime_curvature.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -256,7 +256,7 @@ execute:
 - We want to fit a line to a bunch of points.
 - Let's start by considering what this means, and exactly how to write down our problem.
 
-![hubble-fig1.tiff](../assets/1.0_fitting/hubble-fig1.png){width="70%" fig-alt="TODO: describe image"}
+![hubble-fig1.tiff](../assets/2.0_fitting/hubble-fig1.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -404,7 +404,7 @@ b & ={y}_{0}-m{x}_{0}
 
   - Statistical variation: you can try to repeat the same measurement over and over to get a better estimate of the “true” value
 
-![url?sa=i&source=images&cd=&cad=rja&docid=E5svrW2BTrEeBM&tbnid=1Fh7s9lvf_oIfM-&ved=0CAgQjRwwAA&url=http%3A%2F%2Firuler.png](../assets/1.0_fitting/url-sa-i-source-images-cd-cad-rja-docid-E5svrW2BTrEeBM-tbnid-1Fh7s9lvf_oIfM--ved-0CAgQjRwwAA-url-http-3A-2F-2Firuler.png){width="70%" fig-alt="TODO: describe image"}
+![url?sa=i&source=images&cd=&cad=rja&docid=E5svrW2BTrEeBM&tbnid=1Fh7s9lvf_oIfM-&ved=0CAgQjRwwAA&url=http%3A%2F%2Firuler.png](../assets/2.0_fitting/url-sa-i-source-images-cd-cad-rja-docid-E5svrW2BTrEeBM-tbnid-1Fh7s9lvf_oIfM--ved-0CAgQjRwwAA-url-http-3A-2F-2Firuler.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -428,7 +428,7 @@ b & ={y}_{0}-m{x}_{0}
   - As you make more measurements, they follow a Gaussian (or “normal”, or bell-shaped curve) distribution
   - http://en.wikipedia.org/wiki/Normal_distribution
 
-![](../assets/1.0_fitting/slide32_Central_limit_thm.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide32_Central_limit_thm.png){fig-alt="TODO"}
 
 - 1
 
@@ -452,7 +452,7 @@ b & ={y}_{0}-m{x}_{0}
   - If you repeat the experiment multiple times, what happens?
   - Well, if something is "systematic," by definition you'll basically get the same thing again!
 
-![](../assets/1.0_fitting/slide33_Normal1.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide33_Normal1.png){fig-alt="TODO"}
 
 - $$ \sigma $$
 
@@ -468,7 +468,7 @@ b & ={y}_{0}-m{x}_{0}
   - If you repeat the experiment multiple times, what happens?
   - Well, if something is "systematic," by definition you'll basically get the same thing again!
 
-![](../assets/1.0_fitting/slide34_Normal1.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide34_Normal1.png){fig-alt="TODO"}
 
 - $$ \sigma $$
 
@@ -486,7 +486,7 @@ b & ={y}_{0}-m{x}_{0}
 - Typical probability distribution function: FLAT
   - You don’t know where it is, but it’s somewhere within that range.
 
-![](../assets/1.0_fitting/slide35_Normal1.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide35_Normal1.png){fig-alt="TODO"}
 
 - Systematic PDF : “Box”
 
@@ -702,7 +702,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - What about the overall quality of the fit?
 - Why do we care? Because all of these have the same fit:
 
-![Anscombe%27s_quartet_3.png](../assets/1.0_fitting/Anscombe-27s_quartet_3.png){width="70%" fig-alt="TODO: describe image"}
+![Anscombe%27s_quartet_3.png](../assets/2.0_fitting/Anscombe-27s_quartet_3.png){width="70%" fig-alt="TODO: describe image"}
 
 - But three of these are clearly garbage!
 
@@ -719,7 +719,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
   - See [68-95-99.7 rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule)
 :::
 ::: {.column width="45%"}
-![Screenshot 2025-10-01 at 1.49.01 PM.png](../assets/1.0_fitting/Screenshot-2025-10-01-at-1.49.01-PM.png){width="100%" fig-alt="TODO: describe image"}
+![Screenshot 2025-10-01 at 1.49.01 PM.png](../assets/2.0_fitting/Screenshot-2025-10-01-at-1.49.01-PM.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -737,7 +737,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 - $${ \chi }^{2}/ \nu =\frac{1}{N-2}\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}{\left( \frac{{y}_{i}-f({x}_{i})}{{ \sigma }_{i}} \right)}^{2}$$
 
-![](../assets/1.0_fitting/slide51_pasted-movie.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide51_pasted-movie.png){fig-alt="TODO"}
 
 ---
 
@@ -754,7 +754,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - $${ \chi }^{2}/ \nu =\frac{1}{N-2}\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}\left( {\frac{{y}_{i}-f({x}_{i})}{{ \sigma }_{i}}}^{2} \right)$$
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/1.0_fitting/slide52_image27.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide52_image27.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -768,11 +768,11 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
   - Or converted to p values.
 - See also: Kolmogorov-Smirnov test.
 
-![](../assets/1.0_fitting/slide53_droppedImage.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide53_droppedImage.png){fig-alt="TODO"}
 
-![](../assets/1.0_fitting/slide53_pasted-movie.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide53_pasted-movie.png){fig-alt="TODO"}
 
-![](../assets/1.0_fitting/slide53_image29.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide53_image29.png){fig-alt="TODO"}
 
 - $$\begin{matrix}
 {F}_{X}(x) & =P(X \leq x) \\
@@ -807,7 +807,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
   - else : continue
 - Step 7 : Publish!
 
-![Rectangle Rectangle](../assets/1.0_fitting/image30.png){width="70%" fig-alt="TODO: describe image"}
+![Rectangle Rectangle](../assets/2.0_fitting/image30.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -871,7 +871,7 @@ a & =\frac{{s}_{xx}{s}_{y}-{s}_{x}{s}_{xy}}{n{s}_{xx}-{s}_{x}^{2}} \\
 b & =\frac{n{s}_{xy}-{s}_{x}{s}_{y}}{n{s}_{xx}-{s}_{x}^{2}}
 \end{matrix}$$
 
-![](../assets/1.0_fitting/slide57_image31.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide57_image31.png){fig-alt="TODO"}
 
 - Potential failure condition: den = 0
 - What does this physically correspond to?
@@ -928,7 +928,7 @@ b & =\frac{n{s}_{xy}-{s}_{x}{s}_{y}}{n{s}_{xx}-{s}_{x}^{2}}
   - else : continue
 - Step 7 : Publish!
 
-![Rectangle Rectangle](../assets/1.0_fitting/image30.png){width="70%" fig-alt="TODO: describe image"}
+![Rectangle Rectangle](../assets/2.0_fitting/image30.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1058,9 +1058,9 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - for i = 0... N-1 :
 - chi2 += ((y_i - a - b*x_i)/sigma_i)**2
 
-![](../assets/1.0_fitting/slide63_image32.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide63_image32.png){fig-alt="TODO"}
 
-![](../assets/1.0_fitting/slide63_image33.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide63_image33.png){fig-alt="TODO"}
 
 ---
 
@@ -1106,7 +1106,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 \text{Cov}(a,b) & =-\frac{{S}_{x}}{S{S}_{tt}}
 \end{matrix}$$
 
-![](../assets/1.0_fitting/slide65_droppedImage.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide65_droppedImage.png){fig-alt="TODO"}
 
 ---
 
@@ -1125,9 +1125,9 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 ## Data with uncertainties: Type 1a supernovae
 
-![pasted-movie.png](../assets/1.0_fitting/slide67_image16.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide67_image16.png){width="70%" fig-alt="TODO: describe image"}
 
-![Rectangle Rectangle](../assets/1.0_fitting/image35.png){width="70%" fig-alt="TODO: describe image"}
+![Rectangle Rectangle](../assets/2.0_fitting/image35.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1143,7 +1143,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - SN 1604 (discovered by Johannes Kepler)
 :::
 ::: {.column width="45%"}
-![sn1604.png](../assets/1.0_fitting/sn1604.png){width="100%" fig-alt="TODO: describe image"}
+![sn1604.png](../assets/2.0_fitting/sn1604.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -1160,7 +1160,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - Absolute magnitude $(M)$: the intrinsic brightness of an object, defined as $m$ when viewed from 10 parsecs.
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/1.0_fitting/slide69_image37.png){width="100%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/2.0_fitting/slide69_image37.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -1179,7 +1179,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 ## Supernova data
 
-![droppedImage.png](../assets/1.0_fitting/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/2.0_fitting/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1187,7 +1187,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/1.0_fitting/slide72_droppedImage.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide72_droppedImage.png){fig-alt="TODO"}
 
 - $$ \mu =25+5{log}_{10}\left( \frac{cz}{{H}_{0}} \right)+1.086(1-{q}_{0})z+...$$
 
@@ -1209,7 +1209,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 ## Accelerating expansion
 
-![Screenshot 2025-10-01 at 12.38.24 PM.png](../assets/1.0_fitting/Screenshot-2025-10-01-at-12.38.24-PM.png){width="70%" fig-alt="TODO: describe image"}
+![Screenshot 2025-10-01 at 12.38.24 PM.png](../assets/2.0_fitting/Screenshot-2025-10-01-at-12.38.24-PM.png){width="70%" fig-alt="TODO: describe image"}
 
 - As you may know, it turns out a linear fit breaks down for our universe :)
 - The expansion of the universe appears to be accelerating!
@@ -1246,7 +1246,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - Take the logarithm of both sides!
   - $$lny=lna+bx$$
 
-![droppedImage.png](../assets/1.0_fitting/slide77_image40.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/2.0_fitting/slide77_image40.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1257,7 +1257,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - Take the logarithm of both sides!
   - $$lny=lna+Nlnx$$
 
-![droppedImage.png](../assets/1.0_fitting/slide78_image41.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/2.0_fitting/slide78_image41.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1273,7 +1273,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 ## Earthquake data
 
-![map_plate_tectonics_world.png](../assets/1.0_fitting/map_plate_tectonics_world.png){width="70%" fig-alt="TODO: describe image"}
+![map_plate_tectonics_world.png](../assets/2.0_fitting/map_plate_tectonics_world.png){width="70%" fig-alt="TODO: describe image"}
 
 - Earthquakes occur when tectonic plates of the earth move relative to one another
 
@@ -1287,9 +1287,9 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 - Builds pressure, then slips, releasing a lot of energy.
 - Seismographs can measure the vibrations on the surface.
 
-![](../assets/1.0_fitting/slide81_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-GR6uHh7U24JzVM-tbnid-wWvzL5Es62FJCM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.colorado.edu-2Fphysics-2Fphys2900-2Fhomepages-2FMarianne.Hogan-2Fgraphs..png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide81_url-sa-i-rct-j-q-esrc-s-source-images-cd-cad-rja-docid-GR6uHh7U24JzVM-tbnid-wWvzL5Es62FJCM--ved-0CAUQjRw-url-http-3A-2F-2Fwww.colorado.edu-2Fphysics-2Fphys2900-2Fhomepages-2FMarianne.Hogan-2Fgraphs..png){fig-alt="TODO"}
 
-![](../assets/1.0_fitting/slide81_socal-faults.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide81_socal-faults.png){fig-alt="TODO"}
 
 - Magnitude is related to the squared
 - amplitude over the event!
@@ -1312,10 +1312,10 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
   - Frequency (N) of earthquakes of magnitude (M), defined as number of events with magnitude >= M
   - Empirical model:
 
-![](../assets/1.0_fitting/slide82_pasted-movie.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide82_pasted-movie.png){fig-alt="TODO"}
 
 - $$log(N)=a-b(M)$$
-![](../assets/1.0_fitting/slide82_image46.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide82_image46.png){fig-alt="TODO"}
 
 - Note: $M \sim log{M}_{0}$
 
@@ -1325,7 +1325,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/1.0_fitting/slide83_N_M_plot.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide83_N_M_plot.png){fig-alt="TODO"}
 
 - Frequency vs magnitude plot of earthquakes between 1904 and 2000 :
 
@@ -1357,9 +1357,9 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/1.0_fitting/slide85_droppedImage.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide85_droppedImage.png){fig-alt="TODO"}
 
-![](../assets/1.0_fitting/slide85_image49.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide85_image49.png){fig-alt="TODO"}
 
 ---
 
@@ -1367,7 +1367,7 @@ a & =\frac{{S}_{y}-{S}_{x}b}{S} \\
 
 - The data we’ll fit : all earthquakes in southern California from 1973 until today
 
-![droppedImage.png](../assets/1.0_fitting/slide86_image50.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/2.0_fitting/slide86_image50.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1434,7 +1434,7 @@ because it transforms
 multiplication into addition!
 :::
 ::: {.column width="45%"}
-![Binary_logarithm_plot_with_ticks.png](../assets/1.0_fitting/Binary_logarithm_plot_with_ticks.png){width="100%" fig-alt="TODO: describe image"}
+![Binary_logarithm_plot_with_ticks.png](../assets/2.0_fitting/Binary_logarithm_plot_with_ticks.png){width="100%" fig-alt="TODO: describe image"}
 :::
 ::::
 
@@ -1445,7 +1445,7 @@ multiplication into addition!
 - Be sure to be careful about fitting histograms vs. points!
   - Bins are not points! Think about your data. What should the x coordinate be?
 
-![figure_1.png](../assets/1.0_fitting/figure_1.png){width="70%" fig-alt="TODO: describe image"}
+![figure_1.png](../assets/2.0_fitting/figure_1.png){width="70%" fig-alt="TODO: describe image"}
 
 - least_squares fit to data:
 - slope b = -0.657 +-  0.014
@@ -1479,7 +1479,7 @@ multiplication into addition!
 
 ## Generalized least squares
 
-![droppedImage.png](../assets/1.0_fitting/slide93_image53.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/2.0_fitting/slide93_image53.png){width="70%" fig-alt="TODO: describe image"}
 
 - We are still just minimizing the distance between the points and the fit, relative to the uncertainties.
 
@@ -1507,7 +1507,7 @@ multiplication into addition!
 \end{matrix}$$
 
 - $$ \Rightarrow \mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}\mathop{\mathop{ \sum }\limits_{k=0}}\limits^{M-1}\frac{{Y}_{j}({x}_{i}){Y}_{k}({x}_{i})}{{ \sigma }_{i}^{2}}{a}_{k}=\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}\frac{{Y}_{j}({x}_{i}){y}_{i}}{{ \sigma }_{i}^{2}}$$
-![Text Equation Square](../assets/1.0_fitting/image54.png){width="70%" fig-alt="TODO: describe image"}
+![Text Equation Square](../assets/2.0_fitting/image54.png){width="70%" fig-alt="TODO: describe image"}
 
 ---
 
@@ -1516,14 +1516,14 @@ multiplication into addition!
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
 - $$ \Rightarrow \mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}\mathop{\mathop{ \sum }\limits_{k=0}}\limits^{M-1}\frac{{Y}_{j}({x}_{i}){Y}_{k}({x}_{i})}{{ \sigma }_{i}^{2}}{a}_{k}=\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}\frac{{Y}_{j}({x}_{i}){y}_{i}}{{ \sigma }_{i}^{2}}$$
-![](../assets/1.0_fitting/slide96_image55.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide96_image55.png){fig-alt="TODO"}
 
 - We can simplify this with matrix notation. Let:
 
 - $$\begin{matrix}
 {A}_{ij}{A}_{ik}{a}_{k} & ={A}_{ij}{b}_{i}
 \end{matrix}$$
-![](../assets/1.0_fitting/slide96_image56.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide96_image56.png){fig-alt="TODO"}
 
 - $${A}_{ij}=\frac{{Y}_{j}({x}_{i})}{{ \sigma }_{i}},{b}_{i}=\frac{{y}_{i}}{{ \sigma }_{i}}$$
 
@@ -1575,7 +1575,7 @@ multiplication into addition!
 \end{matrix}$$
 
 - $$\mathop{a}\limits^{⃗}=({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}{\mathbf{A}}^{T}\mathop{b}\limits^{⃗}$$
-![](../assets/1.0_fitting/slide98_image57.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide98_image57.png){fig-alt="TODO"}
 
 ---
 
@@ -1587,7 +1587,7 @@ multiplication into addition!
 - The full covariance matrix is given by:
 
 - $$\mathop{a}\limits^{⃗}=({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}{\mathbf{A}}^{T}\mathop{b}\limits^{⃗}$$
-![](../assets/1.0_fitting/slide99_image58.png){fig-alt="TODO"}
+![](../assets/2.0_fitting/slide99_image58.png){fig-alt="TODO"}
 
 - $$\mathbf{C} \equiv ({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}$$
 
@@ -1654,4 +1654,4 @@ multiplication into addition!
 \end{matrix}$$
 
 - $$\mathop{a}\limits^{⃗}=({\mathbf{A}}^{T}\mathbf{A}{)}^{-1}{\mathbf{A}}^{T}\mathop{b}\limits^{⃗}$$
-![Text Equation Square](../assets/1.0_fitting/image58.png){width="70%" fig-alt="TODO: describe image"}
+![Text Equation Square](../assets/2.0_fitting/image58.png){width="70%" fig-alt="TODO: describe image"}

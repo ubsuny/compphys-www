@@ -17,38 +17,42 @@ website:
             - slides/0.0_intro.qmd
             - slides/0.1_unix.qmd
             - slides/0.2_git.qmd
-            - slides/0.3_cpp.qmd
-            - slides/0.4_python.qmd
+          - section: "Programming review"
+            contents:
+            - slides/1.0_datareps.qmd
+            - slides.1.1_cppbasics.qmd
+            - slides/1.2_templates.qmd
+            - slides/1.3_pointers.qmd
+            - slides/1.4_python.qmd
           - section: "Data analysis"
             contents:
-            - slides/1.0_fitting.qmd
-            - slides/1.1_fft.qmd
+            - slides/2.0_fitting.qmd
+            - slides/2.1_fft.qmd
           - section: "Calculus"
             contents:
-            - slides/2.0_calculus.qmd
-            - slides/2.1_rootfinding.qmd
-            - slides/2.2_minmax.qmd.qmd
+            - slides/3.0_calculus.qmd
+            - slides/3.1_minmax.qmd
           - section: "Linear algebra"
             contents:
-            - slides/3.0_linalg.qmd
-            - slides/3.1_eigen.qmd
+            - slides/4.0_linalg.qmd
+            - slides/4.1_eigen.qmd
           - section: "Differential equations"
             contents:
-            - slides/4.0_bvps.qmd
-            - slides/4.1_odes.qmd
-            - slides/4.2_pdes.qmd
+            - slides/5.0_bvps.qmd
+            - slides/5.1_odes.qmd
+            - slides/5.2_pdes.qmd
           - section: "Monte Carlo methods"
             contents:
-            - slides/5.0_mc.qmd
+            - slides/6.0_mc.qmd
           - section: "Machine Learning"
             contents:
-            - slides/6.0_ml.qmd
+            - slides/7.0_ml.qmd
           - section: "Additional topics"
             contents:
-            - slides/7.0_advdiffeq.qmd
-            - slides/7.1_biophys.qmd
-            - slides/7.2_qm.qmd
-            - slides/7.3_qft.qmd
+            - slides/8.0_advdiffeq.qmd
+            - slides/8.1_biophys.qmd
+            - slides/8.2_qm.qmd
+            - slides/8.3_qft.qmd
       - section: "Notes"
         contents:
           - section: "Introduction"

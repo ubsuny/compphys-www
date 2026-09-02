@@ -40,7 +40,7 @@ execute:
 
 - Minimization versus maximization : what’s the difference?
 
-![](../assets/2.1_minmax/slide04_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
+![](../assets/3.2_minmax/slide04_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
 
 ---
 
@@ -52,9 +52,9 @@ execute:
 
 - Minimization versus maximization : what’s the difference?
 
-![](../assets/2.1_minmax/slide05_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
+![](../assets/3.2_minmax/slide05_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
 
-![](../assets/2.1_minmax/slide05_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
+![](../assets/3.2_minmax/slide05_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
 
 - Just a factor of -1. The algorithms are otherwise identical.
 - So we usually just speak of "minimization", and maximization is implicit.
@@ -71,13 +71,13 @@ execute:
   - Local extrema:  easy
   - Global extrema: hard
 
-![](../assets/2.1_minmax/slide06_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
+![](../assets/3.2_minmax/slide06_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
 
 - Global minimum
 
 - Local minima
 
-![](../assets/2.1_minmax/slide06_pasted-movie.png){fig-alt="Photograph of a chalkboard sign in a shop window reading 'THANK YOU for shopping LOCAL' - a pun accompanying the discussion of local versus global extrema."}
+![](../assets/3.2_minmax/slide06_pasted-movie.png){fig-alt="Photograph of a chalkboard sign in a shop window reading 'THANK YOU for shopping LOCAL' - a pun accompanying the discussion of local versus global extrema."}
 
 ---
 
@@ -110,7 +110,7 @@ execute:
   - Iteratively shrink window until the bracket is $< \epsilon $.
 - Rather similar to the bisection algorithm for finding roots.
 
-![](../assets/2.1_minmax/slide09_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
+![](../assets/3.2_minmax/slide09_droppedImage.png){fig-alt="A bumpy curve between endpoints X1 and X2 with several labeled critical points (A through G): local maxima (A, C, G), local minima (B, D, F), and inflection-like points (E, X, Y, Z), illustrating the difference between local and global extrema."}
 
 - a
 
@@ -133,7 +133,7 @@ execute:
   - So, ${f}^{′}(x)$ must cross zero from - to + inside the window.
 - $f(b)$ is our initial guess.
 
-![](../assets/2.1_minmax/slide10_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide10_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -158,34 +158,7 @@ execute:
     - Update points to $[b,x,c]$ .
 - Repeat from both sides.
 
-![](../assets/2.1_minmax/slide11_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
-
-- a
-
-- b
-
-- c
-
-- x
-
----
-
-## Golden section search
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- Can solve for Fourier coefficients
-
-- Now choose another point $x$ inside the window, say (4) in this graphic.
-- For concreteness, start with $a<b<x<c$.
-- Two possible results:
-  - $f(b)<f(x)$: $f(b)$ is still our best minimum, but we can shrink the window.
-    - I.e., update points to $[a,b,x]$
-  - $f(b)>f(x)$: found a better minimum between $b$ and $c$.
-    - Update points to $[b,x,c]$ .
-- Repeat from both sides.
-
-![](../assets/2.1_minmax/slide12_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide11_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -212,7 +185,7 @@ execute:
     - Update points to $[b,x,c]$ .
 - Repeat from both sides.
 
-![](../assets/2.1_minmax/slide13_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide12_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -239,7 +212,7 @@ execute:
     - Update points to $[b,x,c]$ .
 - Repeat from both sides.
 
-![](../assets/2.1_minmax/slide14_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide13_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -266,7 +239,34 @@ execute:
     - Update points to $[b,x,c]$ .
 - Repeat from both sides.
 
-![](../assets/2.1_minmax/slide15_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide14_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+
+- a
+
+- b
+
+- c
+
+- x
+
+---
+
+## Golden section search
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Can solve for Fourier coefficients
+
+- Now choose another point $x$ inside the window, say (4) in this graphic.
+- For concreteness, start with $a<b<x<c$.
+- Two possible results:
+  - $f(b)<f(x)$: $f(b)$ is still our best minimum, but we can shrink the window.
+    - I.e., update points to $[a,b,x]$
+  - $f(b)>f(x)$: found a better minimum between $b$ and $c$.
+    - Update points to $[b,x,c]$ .
+- Repeat from both sides.
+
+![](../assets/3.2_minmax/slide15_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -290,7 +290,7 @@ execute:
   - I.e., we hit the limit when:
   - At the minimum, $f(x)$ looks approximately quadratic, $f(x) \approx f({x}_{0})+\frac{1}{2}{f}^{′′}({x}_{0})(x-{x}_{0}{)}^{2}$...
 
-![](../assets/2.1_minmax/slide16_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide16_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -323,7 +323,7 @@ execute:
   - I.e., we hit the limit when:
   - At the minimum, $f(x)$ looks approximately quadratic, $f(x) \approx f({x}_{0})+\frac{1}{2}{f}^{′′}({x}_{0})(x-{x}_{0}{)}^{2}$...
 
-![](../assets/2.1_minmax/slide17_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide17_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -353,7 +353,7 @@ execute:
 - How fast is the algorithm?
 - Once again, let's say $b<x<c$, and examine window size:
 
-![](../assets/2.1_minmax/slide18_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide18_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -393,7 +393,7 @@ z & =1-2w
 
 - Last slide: optimal choice is
 
-![](../assets/2.1_minmax/slide19_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
+![](../assets/3.2_minmax/slide19_Screenshot-2025-10-30-at-4.18.36-PM.png){fig-alt="Figure 10.2.1 (Numerical Recipes), 'Successive bracketing of a minimum': a curve initially bracketed by points 1, 3, 2; the function is evaluated at 4 (replacing 2), then 5 (replacing 1), then 6 (replacing 4), narrowing the bracket around the minimum to points 5, 3, 6."}
 
 - a
 
@@ -439,7 +439,7 @@ z & =1-2w
   - Find initial $[a,b,c]$ by coarsely scanning function (or with prior knowledge...).
   - Iteratively choose next point ($x$) in the larger of the two intervals, $\frac{3-\sqrt{5}}{2}(c-a)$ in from the edge.
 
-![](../assets/2.1_minmax/slide20_droppedImage.png){fig-alt="Hand-drawn sketch of a bowl-shaped curve with four vertical arrows labeled 1, 2, 3, 4 marking sample points from left to right, and the handwritten caption '2, 3, 4 works!' - indicating that points 2, 3, and 4 form a valid bracketing triple around the minimum."}
+![](../assets/3.2_minmax/slide20_droppedImage.png){fig-alt="Hand-drawn sketch of a bowl-shaped curve with four vertical arrows labeled 1, 2, 3, 4 marking sample points from left to right, and the handwritten caption '2, 3, 4 works!' - indicating that points 2, 3, and 4 form a valid bracketing triple around the minimum."}
 
 ---
 
@@ -484,7 +484,7 @@ z & =1-2w
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.1_minmax/slide24_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
+![](../assets/3.2_minmax/slide24_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
 
 - Solution: combine golden section and parabolic methods to get the best of both worlds.
 - Variables:
@@ -501,7 +501,7 @@ z & =1-2w
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.1_minmax/slide25_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
+![](../assets/3.2_minmax/slide25_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
 
 - Solution: combine golden section and parabolic methods to get the best of both worlds.
 - Variables:
@@ -523,7 +523,7 @@ z & =1-2w
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.1_minmax/slide26_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
+![](../assets/3.2_minmax/slide26_droppedImage.png){fig-alt="Hand-drawn sketch of a curve dipping from point a down to a minimum and back up to point b, with three points x, w, v marked near the minimum and small arrows labeling the spacings delta-x and delta-v between them."}
 
 - Solution: combine golden section and parabolic methods to get the best of both worlds.
 - Variables:
@@ -549,7 +549,7 @@ z & =1-2w
 
 - Can solve for Fourier coefficients
 
-![](../assets/2.1_minmax/slide27_mexican-hat.png){fig-alt="3D 'Mexican hat' (sombrero) potential V(phi) plotted over the complex plane (Re(phi), Im(phi)): an unstable ball sits at the central peak while a second ball rolls down into the circular trough of minima - the classic symmetry-breaking potential shape."}
+![](../assets/3.2_minmax/slide27_mexican-hat.png){fig-alt="3D 'Mexican hat' (sombrero) potential V(phi) plotted over the complex plane (Re(phi), Im(phi)): an unstable ball sits at the central peak while a second ball rolls down into the circular trough of minima - the classic symmetry-breaking potential shape."}
 
 - Minimization algorithms (in 1D) are demonstrated in CompPhys/MinMax/minmax1d.ipynb. Try them out!
 - Example: minimizing a quartic polynomial.
@@ -586,7 +586,7 @@ z & =1-2w
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/2.1_minmax/slide30_surface.png){fig-alt="3D surface plot of a bumpy, multi-modal function f(x,y) over x,y in [-1,1], colored orange-to-purple by height, with a contour plot of the same function projected onto the floor of the plot box - illustrating a rugged N-dimensional objective-function landscape with many local optima."}
+![](../assets/3.2_minmax/slide30_surface.png){fig-alt="3D surface plot of a bumpy, multi-modal function f(x,y) over x,y in [-1,1], colored orange-to-purple by height, with a contour plot of the same function projected onto the floor of the plot box - illustrating a rugged N-dimensional objective-function landscape with many local optima."}
 
 - Can solve for Fourier coefficients
 
@@ -686,7 +686,7 @@ z & =1-2w
   - Main feature: iteratively construct an approximation to the inverse Hessian matrix.
 - Recall that the Hessian matrix is the N-D generalization of the second derivative:
 
-![](../assets/2.1_minmax/slide35_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
+![](../assets/3.2_minmax/slide35_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
 
 - $$\mathbf{A}=\left( \begin{matrix}
 \frac{{ \partial }^{2}f}{ \partial {x}_{1}^{2}} & \frac{{ \partial }^{2}f}{ \partial {x}_{1} \partial {x}_{2}} & ... & \frac{{ \partial }^{2}f}{ \partial {x}_{1} \partial {x}_{n}} \\
@@ -711,7 +711,7 @@ z & =1-2w
   - Main feature: iteratively construct an approximation to the inverse Hessian matrix.
 - Recall that the Hessian matrix is the N-D generalization of the second derivative:
 
-![](../assets/2.1_minmax/slide36_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
+![](../assets/3.2_minmax/slide36_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
 
 - $$\mathbf{A}=\left( \begin{matrix}
 \frac{{ \partial }^{2}f}{ \partial {x}_{1}^{2}} & \frac{{ \partial }^{2}f}{ \partial {x}_{1} \partial {x}_{2}} & ... & \frac{{ \partial }^{2}f}{ \partial {x}_{1} \partial {x}_{n}} \\
@@ -730,7 +730,7 @@ z & =1-2w
 
 - In the vicinity of ${\vec{x}}_{i}$, the Taylor expansions for $f(\vec{x})$ and $ \nabla f(\vec{x})$ are:
 
-![](../assets/2.1_minmax/slide37_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
+![](../assets/3.2_minmax/slide37_350px-Gradient_descent.png){fig-alt="Blue elliptical contour lines of a 2D function around a central minimum, with a red arrow path from x0 through x1, x2, x3 to x4, zig-zagging inward toward the center - illustrating gradient descent's characteristic slow, zig-zagging convergence on an elongated (ill-conditioned) bowl."}
 
 - $$\begin{matrix}
 f(\vec{x}) & =f({\vec{x}}_{i})+(\vec{x}-{\vec{x}}_{i}) \nabla f({\vec{x}}_{i})+\frac{1}{2}(\vec{x}-{\vec{x}}_{i}{)}^{T}\mathbf{A}(\vec{x}-{\vec{x}}_{i}) \\
@@ -850,7 +850,7 @@ f(\vec{x}) & =f({\vec{x}}_{i})+(\vec{x}-{\vec{x}}_{i}) \nabla f({\vec{x}}_{i})+\
 - Let’s consider examples like NaCl, Na2Cl+,
 Na2Cl2, Na3Cl2+
 
-![](../assets/2.1_minmax/slide43_700px-NaCl_polyhedra.png){fig-alt="3D rendering of the rock-salt (NaCl) crystal structure: green chloride and white/gray sodium ions arranged on a cubic lattice, with two octahedral ion-coordination polyhedra highlighted (one gray, one green) to show the local bonding geometry."}
+![](../assets/3.2_minmax/slide43_700px-NaCl_polyhedra.png){fig-alt="3D rendering of the rock-salt (NaCl) crystal structure: green chloride and white/gray sodium ions arranged on a cubic lattice, with two octahedral ion-coordination polyhedra highlighted (one gray, one green) to show the local bonding geometry."}
 
 ---
 
@@ -862,7 +862,7 @@ Na2Cl2, Na3Cl2+
 
 - Starting point: write down the potential energy between two atoms.
 
-![](../assets/2.1_minmax/slide44_ion-potential.png){fig-alt="Plot titled 'Ion-Ion Potential Energy': V (eV) versus separation r_ij (nm) for two ion pairs - the Na+-Na+ curve is repulsive (positive, decaying toward zero), while the Na+-Cl- curve is attractive, dipping to a minimum around r ~ 0.2-0.3 nm before rising back toward zero."}
+![](../assets/3.2_minmax/slide44_ion-potential.png){fig-alt="Plot titled 'Ion-Ion Potential Energy': V (eV) versus separation r_ij (nm) for two ion pairs - the Na+-Na+ curve is repulsive (positive, decaying toward zero), while the Na+-Cl- curve is attractive, dipping to a minimum around r ~ 0.2-0.3 nm before rising back toward zero."}
 
 - $$V({r}_{ij})=\left\{\begin{aligned}
 -\frac{{e}^{2}}{4 \pi { \epsilon }_{0}{r}_{ij}}+ \alpha {e}^{-{r}_{ij}/ \rho }+b{\left( \frac{c}{{r}_{ij}} \right)}^{12}:{\text{Na}}^{+}{\text{-Cl}}^{-} \\
@@ -889,7 +889,7 @@ Na2Cl2, Na3Cl2+
 - So, this is some gigantic, complicated formula, but it's relatively straightforward (if tedious) to write it into a C++ or python function!
 - And then we use BFGS to minimize it.
 
-![](../assets/2.1_minmax/slide45_nacl-clusters.png){fig-alt="A grid of 20 numbered small NaCl cluster structures (green/gray ion positions connected by blue bonds), showing equilibrium geometries of increasing cluster size - from simple 2-3 ion chains up to complex 3D cage-like clusters of dozens of ions."}
+![](../assets/3.2_minmax/slide45_nacl-clusters.png){fig-alt="A grid of 20 numbered small NaCl cluster structures (green/gray ion positions connected by blue bonds), showing equilibrium geometries of increasing cluster size - from simple 2-3 ion chains up to complex 3D cage-like clusters of dozens of ions."}
 
 - [http://www-wales.ch.cam.ac.uk/CCD.html](http://www-wales.ch.cam.ac.uk/CCD.html)
 
@@ -908,6 +908,6 @@ Na2Cl2, Na3Cl2+
 - So, this is some gigantic, complicated formula, but it's relatively straightforward (if tedious) to write it into a C++ or python function!
 - And then we use BFGS to minimize it.
 
-![](../assets/2.1_minmax/slide46_nacl-clusters.png){fig-alt="A grid of 20 numbered small NaCl cluster structures (green/gray ion positions connected by blue bonds), showing equilibrium geometries of increasing cluster size - from simple 2-3 ion chains up to complex 3D cage-like clusters of dozens of ions."}
+![](../assets/3.2_minmax/slide46_nacl-clusters.png){fig-alt="A grid of 20 numbered small NaCl cluster structures (green/gray ion positions connected by blue bonds), showing equilibrium geometries of increasing cluster size - from simple 2-3 ion chains up to complex 3D cage-like clusters of dozens of ions."}
 
 - [http://www-wales.ch.cam.ac.uk/CCD.html](http://www-wales.ch.cam.ac.uk/CCD.html)

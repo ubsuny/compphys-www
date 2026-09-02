@@ -31,7 +31,7 @@ execute:
 
 - Finally, we’re able to solve the most trivial thing in your physics knowledge: the ODE! ([Wikipedia link](http://en.wikipedia.org/wiki/Ordinary_differential_equation))
 
-![Parabolic_trajectory.png](../assets/05_odes/Parabolic_trajectory.png){width="70%" fig-alt="Diagram of a parabolic trajectory: a dashed blue arc from ground level up and back down, with a gray ball partway up the arc and a red velocity-vector arrow pointing along its direction of motion."}
+![Parabolic_trajectory.png](../assets/5.1_odes/Parabolic_trajectory.png){width="70%" fig-alt="Diagram of a parabolic trajectory: a dashed blue arc from ground level up and back down, with a gray ball partway up the arc and a red velocity-vector arrow pointing along its direction of motion."}
 
 - $$\begin{matrix}
 \mathop{x}\limits^{ \cdot  \cdot }(t) & =-g \\
@@ -154,7 +154,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 - ${c}_{d}$ = drag coefficient
 - $A$ = area
 
-![](../assets/05_odes/slide10_pasted-movie.png){fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
+![](../assets/5.1_odes/slide10_pasted-movie.png){fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
 
 - [CompPhys/ODEs/projectiles.ipynb](https://github.com/ubsuny/CompPhys/blob/main/ODEs/projectiles.ipynb)
 
@@ -177,7 +177,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 - [CompPhys/ODEs/projectiles.ipynb](https://github.com/ubsuny/CompPhys/blob/main/ODEs/projectiles.ipynb)
 :::
 ::: {.column width="45%"}
-![pasted-movie.png](../assets/05_odes/pasted-movie.png){width="100%" fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
+![pasted-movie.png](../assets/5.1_odes/pasted-movie.png){width="100%" fig-alt="Photograph of a TV screen showing a live baseball broadcast (World Series, Dodgers at Blue Jays): a pitcher mid-delivery and a batter (Ohtani) swinging - a real-world 'projectile motion' example."}
 :::
 ::::
 
@@ -187,7 +187,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 
 - Results:
 
-![pasted-movie.png](../assets/05_odes/slide12_image11.png){width="70%" fig-alt="Plot comparing projectile-motion trajectories computed by different integrators (EXACT, EULER, EULERCROMER, MIDPOINT) as height versus time, all curves close together and decaying from about 1.8 to 0 over the flight."}
+![pasted-movie.png](../assets/5.1_odes/slide12_image11.png){width="70%" fig-alt="Plot comparing projectile-motion trajectories computed by different integrators (EXACT, EULER, EULERCROMER, MIDPOINT) as height versus time, all curves close together and decaying from about 1.8 to 0 over the flight."}
 
 ---
 
@@ -205,7 +205,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 - Consider a simple harmonic oscillator, like a pendulum.
   - Add damping (drag) and a driving force ${F}_{D}$:
 
-![](../assets/05_odes/slide14_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![](../assets/5.1_odes/slide14_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 
 - $$\frac{{d}^{2} \theta }{d{t}^{2}}=-{ \omega }_{0}^{2}- \gamma \frac{d \theta }{dt}+{F}_{D}cos({ \omega }_{D}t)$$
 
@@ -225,7 +225,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 - You might already guess that Euler's method will fail miserably!
 :::
 ::: {.column width="45%"}
-![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![pendulum.png](../assets/5.1_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 :::
 ::::
 
@@ -247,7 +247,7 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 - Try it out: CompPhys/ODEs/pendulum.ipynb
 :::
 ::: {.column width="45%"}
-![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![pendulum.png](../assets/5.1_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 :::
 ::::
 
@@ -255,9 +255,9 @@ x(t) & =-\frac{1}{2}g{t}^{2}+{v}_{0}t+{x}_{0}
 
 ## Pendulum oscillation
 
-![pasted-movie.png](../assets/05_odes/slide17_image13.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, EULERCROMER, MIDPOINT): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
+![pasted-movie.png](../assets/5.1_odes/slide17_image13.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, EULERCROMER, MIDPOINT): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
 
-![pendulum.png](../assets/05_odes/pendulum.png){width="70%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![pendulum.png](../assets/5.1_odes/pendulum.png){width="70%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 
 - Yikes! EULER is totally unstable.
   - MIDPOINT is also unstable.
@@ -322,7 +322,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
   - Leaps x(0), x(2), x(4), ...
   - v(1), v(3), v(5), ...
 
-![](../assets/05_odes/slide20_leap-frog.png){fig-alt="Vintage black-and-white photograph of two women in 1920s-style swimsuits playing leapfrog on a beach."}
+![](../assets/5.1_odes/slide20_leap-frog.png){fig-alt="Vintage black-and-white photograph of two women in 1920s-style swimsuits playing leapfrog on a beach."}
 
 ---
 
@@ -373,7 +373,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 ## Verlet method
 
-![pasted-movie.png](../assets/05_odes/slide23_image15.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, MIDPOINT, VERLET): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
+![pasted-movie.png](../assets/5.1_odes/slide23_image15.png){width="70%" fig-alt="Plot of pendulum angle versus time for several integrators (Analytic, EULER, MIDPOINT, VERLET): all oscillate between about -0.1 and 0.1, but EULER's amplitude visibly grows over ~100 time units while the others stay bounded and track the analytic solution."}
 
 - Stable (i.e. symplectic) ✅
 - $O({ \tau }^{4})$ ✅
@@ -384,9 +384,9 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - One more algorithm: these guys again
 
-![pasted-movie.png](../assets/05_odes/slide24_image16.png){width="70%" fig-alt="Black-and-white portrait photograph of Carl Runge: an older man with a moustache, round wire-rim glasses, and swept-back hair, wearing a suit."}
+![pasted-movie.png](../assets/5.1_odes/slide24_image16.png){width="70%" fig-alt="Black-and-white portrait photograph of Carl Runge: an older man with a moustache, round wire-rim glasses, and swept-back hair, wearing a suit."}
 
-![pasted-movie.png](../assets/05_odes/slide24_image17.png){width="70%" fig-alt="Black-and-white profile portrait photograph of Martin Wilhelm Kutta: an older balding man with a moustache, wearing a suit and bow tie."}
+![pasted-movie.png](../assets/5.1_odes/slide24_image17.png){width="70%" fig-alt="Black-and-white profile portrait photograph of Martin Wilhelm Kutta: an older balding man with a moustache, wearing a suit and bow tie."}
 
 ---
 
@@ -437,7 +437,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 {\mathbf{F}}_{4} & =f(\mathbf{x}+ \tau {\mathbf{F}}_{3},t+ \tau )
 \end{matrix}$$
 
-![](../assets/05_odes/slide27_Screenshot-2025-11-12-at-10.53.34-AM.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
+![](../assets/5.1_odes/slide27_Screenshot-2025-11-12-at-10.53.34-AM.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
 
 - $O({ \tau }^{5})$ accuracy per step, so $O({ \tau }^{4})$ accuracy accumulated along integration.
 
@@ -537,7 +537,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/05_odes/slide33_image19.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
+![](../assets/5.1_odes/slide33_image19.png){fig-alt="Figure 17.1.3 (Numerical Recipes): diagram of the fourth-order Runge-Kutta method, showing the derivative evaluated four times per step (once at the initial point y_n, twice at trial midpoints, once at a trial endpoint) to compute the final value y_n+1."}
 
 - Weighted average of different estimations of $\mathop{\mathbf{x}}\limits^{ \cdot }$
 
@@ -555,7 +555,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/05_odes/slide34_Screenshot-2025-11-14-at-12.51.37-PM.png){fig-alt="Generic Butcher tableau template: a table with nodes c_1...c_s down the left column, coefficients a_ij filling the interior grid, and weights b_1...b_s along the bottom row."}
+![](../assets/5.1_odes/slide34_Screenshot-2025-11-14-at-12.51.37-PM.png){fig-alt="Generic Butcher tableau template: a table with nodes c_1...c_s down the left column, coefficients a_ij filling the interior grid, and weights b_1...b_s along the bottom row."}
 
 - $${b}_{j}$$
 
@@ -580,7 +580,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - $$\frac{{d}^{2} \theta }{d{t}^{2}} \approx -{ \omega }_{0}^{2} \theta - \gamma \frac{d \theta }{dt}+{F}_{d}cos({ \omega }_{D}t)$$
 
-![](../assets/05_odes/slide36_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![](../assets/5.1_odes/slide36_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 
 - $$ \theta (t)=\frac{{F}_{D}cos({ \omega }_{d}t+ \phi )}{\sqrt{({ \omega }_{0}^{2}-{ \omega }_{D}^{2}{)}^{2}+( \gamma { \omega }_{D}{)}^{2}}}$$
 
@@ -594,7 +594,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - $$\frac{{d}^{2} \theta }{d{t}^{2}} \approx -{ \omega }_{0}^{2}sin \theta - \gamma \frac{d \theta }{dt}+{F}_{d}cos({ \omega }_{D}t)$$
 
-![](../assets/05_odes/slide37_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![](../assets/5.1_odes/slide37_pendulum.png){fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 
 - $$ \theta (t)=\frac{{F}_{D}cos({ \omega }_{d}t+ \phi )}{\sqrt{({ \omega }_{0}^{2}-{ \omega }_{D}^{2}{)}^{2}+( \gamma { \omega }_{D}{)}^{2}}}$$
 
@@ -613,7 +613,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 - You can read some current research on this here: [https://www.kip.uni-heidelberg.de/user/gasenzer/frame.php?n1=teaching_chaos](https://www.kip.uni-heidelberg.de/user/gasenzer/frame.php?n1=teaching_chaos)
 :::
 ::: {.column width="45%"}
-![pendulum.png](../assets/05_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
+![pendulum.png](../assets/5.1_odes/pendulum.png){width="100%" fig-alt="Diagram of a simple pendulum: a bob on a string of length L swinging between angles theta=-theta_max and theta=+theta_max, with the equilibrium (vertical, hanging) position marked at the bottom."}
 :::
 ::::
 
@@ -625,7 +625,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
   - We want to summarize the dynamical system graphically
   - We’re looking at full trajectories, but for linear systems, they’re “boring: they just go back and forth over the same path
 
-![pendul_verlet.png](../assets/05_odes/pendul_verlet.png){width="70%" fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
+![pendul_verlet.png](../assets/5.1_odes/pendul_verlet.png){width="70%" fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
 
 ---
 
@@ -637,7 +637,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 - Basic idea: choose a subspace (of small enough dimension to visualize), and see how often/where the trajectory goes through the subspace.
 - For the simple pendulum, we can take a line through the max:
 
-![](../assets/05_odes/slide40_pendul_verlet.png){fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
+![](../assets/5.1_odes/slide40_pendul_verlet.png){fig-alt="Plot of a pendulum angle theta versus time: a jagged, near-triangular oscillation between -30 and +30, characteristic of a large-amplitude/driven pendulum far from the small-angle limit."}
 
 ---
 
@@ -673,7 +673,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 - For the simple 1D oscillator, $(x,v)$ just forms an ellipse:
 
-![](../assets/05_odes/slide42_plot_circle.png){fig-alt="Two-panel plot: top, the same jagged pendulum-angle-versus-time oscillation between -30 and +30; bottom, the corresponding phase portrait (angle vs angular velocity) tracing a single near-perfect closed circle, indicating periodic (non-chaotic) motion for this parameter choice."}
+![](../assets/5.1_odes/slide42_plot_circle.png){fig-alt="Two-panel plot: top, the same jagged pendulum-angle-versus-time oscillation between -30 and +30; bottom, the corresponding phase portrait (angle vs angular velocity) tracing a single near-perfect closed circle, indicating periodic (non-chaotic) motion for this parameter choice."}
 
 - t
 
@@ -691,7 +691,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
 
 ## Poincaré sections and maps
 
-![Screenshot 2025-11-14 at 12.08.13 PM.png](../assets/05_odes/Screenshot-2025-11-14-at-12.08.13-PM.png){width="70%" fig-alt="3D diagram illustrating a Poincare section: a trajectory Gamma in (x1,x2,x3) space repeatedly pierces a surface S (spaced by height h along x3), leaving a sequence of points P0, P1, P2 on that surface."}
+![Screenshot 2025-11-14 at 12.08.13 PM.png](../assets/5.1_odes/Screenshot-2025-11-14-at-12.08.13-PM.png){width="70%" fig-alt="3D diagram illustrating a Poincare section: a trajectory Gamma in (x1,x2,x3) space repeatedly pierces a surface S (spaced by height h along x3), leaving a sequence of points P0, P1, P2 on that surface."}
 
 - Example: consider some general 3D flow.
 - Choose some plane, S, that the trajectory crosses repeatedly.
@@ -707,7 +707,7 @@ f(t- \tau ) & =f(t)- \tau {f}^{′}(t)+\frac{1}{2}{ \tau }^{2}{f}^{′′}(t)-\f
   - Pick a Poincaré section to be $( \theta ,\mathop{ \theta }\limits^{ \cdot })$ sampled at a sensible frequency
     - E.g. natural frequency (${ \omega }_{0}$), driving frequency (${ \omega }_{D}$).
 
-![droppedImage.png](../assets/05_odes/droppedImage.png){width="70%" fig-alt="Hand-drawn sketch of a pendulum: a bob swinging on a string from a pivot, with a dashed line and curved arrow showing its trajectory returning to intersect a tilted plane (representing a Poincare-section surface) at a dashed circle."}
+![droppedImage.png](../assets/5.1_odes/droppedImage.png){width="70%" fig-alt="Hand-drawn sketch of a pendulum: a bob swinging on a string from a pivot, with a dashed line and curved arrow showing its trajectory returning to intersect a tilted plane (representing a Poincare-section surface) at a dashed circle."}
 
 - For the linear case: let $x= \theta $, $y=\mathop{ \theta }\limits^{ \cdot }$.
 - Recall the analytical solution:
@@ -726,7 +726,7 @@ y \\
 
 ## Linear pendulum
 
-![poincare_sho_rk4.png](../assets/05_odes/poincare_sho_rk4.png){width="70%" fig-alt="Poincare-section scatter plot (axes roughly -180 to 180 on each side): points cluster tightly into a single small dot near (10, 0), indicating simple, non-chaotic periodic motion."}
+![poincare_sho_rk4.png](../assets/5.1_odes/poincare_sho_rk4.png){width="70%" fig-alt="Poincare-section scatter plot (axes roughly -180 to 180 on each side): points cluster tightly into a single small dot near (10, 0), indicating simple, non-chaotic periodic motion."}
 
 - For the linear case, the  Poincaré section is very simple:
   - $x= \theta $ is always the same (i.e. its maximum value)
@@ -740,7 +740,7 @@ y \\
 
 - Nonlinear pendulum: chaos!
 
-![](../assets/05_odes/slide46_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+![](../assets/5.1_odes/slide46_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
 
 - $$x= \theta $$
 
@@ -765,19 +765,19 @@ y \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+![](../assets/5.1_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
 
 - Start with $(x,\mathop{x}\limits^{ \cdot })$:
 
 - Squash onto one axis
 
-![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+![](../assets/5.1_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
 
 - Parameter ${F}_{D}=1.150$
 
-![](../assets/05_odes/slide48_image1.png){fig-alt="Poincare-section scatter plot: points confined to a narrow near-vertical band around a single g value (~1.15), spanning angular values from about -3 to 3."}
+![](../assets/5.1_odes/slide48_image1.png){fig-alt="Poincare-section scatter plot: points confined to a narrow near-vertical band around a single g value (~1.15), spanning angular values from about -3 to 3."}
 
-![](../assets/05_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
+![](../assets/5.1_odes/slide48_poincare_chaos_rk4.png){fig-alt="Poincare-section scatter plot (theta vs theta-dot, both axes roughly -180 to 180): points trace tangled spiral and loop structures rather than a single point or closed curve, indicating chaotic motion."}
 
 - Plot on y axis as a function of the parameter ${F}_{D}$
 
@@ -785,7 +785,7 @@ y \\
 
 ## Bifurcation diagrams
 
-![ppbif_q=2_g=0.99-1.51.png](../assets/05_odes/ppbif_q-2_g-0.99-1.51.png){width="70%" fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+![ppbif_q=2_g=0.99-1.51.png](../assets/5.1_odes/ppbif_q-2_g-0.99-1.51.png){width="70%" fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
 
 - Result:
 - What does this tell us?
@@ -796,7 +796,7 @@ y \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/05_odes/slide50_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+![](../assets/5.1_odes/slide50_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
 
 - Result:
 - What does this tell us?
@@ -808,7 +808,7 @@ y \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/05_odes/slide51_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+![](../assets/5.1_odes/slide51_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
 
 - Result:
 - What does this tell us?
@@ -821,7 +821,7 @@ y \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/05_odes/slide52_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+![](../assets/5.1_odes/slide52_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
 
 - Result:
 - What does this tell us?
@@ -835,7 +835,7 @@ y \\
 
 <!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
 
-![](../assets/05_odes/slide53_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
+![](../assets/5.1_odes/slide53_ppbif_q-2_g-0.99-1.51.png){fig-alt="Bifurcation diagram: driving amplitude g (1.0 to 1.5) on the horizontal axis versus a pendulum's long-term angular frequency omega (-0.5 to 2.5) on the vertical axis, showing period-doubling branches fanning out into dense chaotic bands (red) punctuated by narrow periodic windows."}
 
 - Result:
 - What does this tell us?
@@ -884,7 +884,7 @@ y \\
 
 - To cut to the chase, the trajectories look like this :
 
-![](../assets/05_odes/slide56_A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif){fig-alt="Animated GIF of the Lorenz attractor: a butterfly-shaped trajectory winding around two lobes in 3D phase space, traced out over time."}
+![](../assets/5.1_odes/slide56_A_Trajectory_Through_Phase_Space_in_a_Lorenz_Attractor.gif){fig-alt="Animated GIF of the Lorenz attractor: a butterfly-shaped trajectory winding around two lobes in 3D phase space, traced out over time."}
 
 - [https://faculty.college.emory.edu/sites/weeks/research/tseries1.html](https://faculty.college.emory.edu/sites/weeks/research/tseries1.html)
 
@@ -893,7 +893,7 @@ y \\
 - This is the Lorenz attractor.
 - In 1D, it looks like this:
 
-![](../assets/05_odes/slide56_vlorenz.png){fig-alt="Plot titled 'Lorenz attractor': the X variable versus time, showing irregular oscillations that switch unpredictably between two amplitude bands (roughly -15 to 15), characteristic of chaotic dynamics."}
+![](../assets/5.1_odes/slide56_vlorenz.png){fig-alt="Plot titled 'Lorenz attractor': the X variable versus time, showing irregular oscillations that switch unpredictably between two amplitude bands (roughly -15 to 15), characteristic of chaotic dynamics."}
 
 ---
 
@@ -944,7 +944,7 @@ y \\
 - [http://www.lactamme.polytechnique.fr/images/NCOR.73.16.D/display.html](http://www.lactamme.polytechnique.fr/images/NCOR.73.16.D/display.html)
 :::
 ::: {.column width="45%"}
-![image.png](../assets/05_odes/image.png){width="100%" fig-alt="A 4x4 grid of animation frames (numbered 01-16) from a colorful simulated trajectory visualization: glowing orbital rings and comet-like trailing particles in green, orange, blue, and pink build up around a bright central cluster across the sequence; watermarked 'JFC www.lactamme.polytechnique.fr'."}
+![image.png](../assets/5.1_odes/image.png){width="100%" fig-alt="A 4x4 grid of animation frames (numbered 01-16) from a colorful simulated trajectory visualization: glowing orbital rings and comet-like trailing particles in green, orange, blue, and pink build up around a bright central cluster across the sequence; watermarked 'JFC www.lactamme.polytechnique.fr'."}
 :::
 ::::
 
@@ -959,11 +959,11 @@ y \\
 - A sort of bifurcation diagram:
   - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
 
-![](../assets/05_odes/slide62_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
+![](../assets/5.1_odes/slide62_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
 
-![](../assets/05_odes/slide62_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+![](../assets/5.1_odes/slide62_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
 
-![](../assets/05_odes/slide62_image32.png){fig-alt="Equation image: F = -G m1 m2 / r^2 times r-hat, Newton's law of universal gravitation."}
+![](../assets/5.1_odes/slide62_image32.png){fig-alt="Equation image: F = -G m1 m2 / r^2 times r-hat, Newton's law of universal gravitation."}
 
 ---
 
@@ -977,15 +977,15 @@ y \\
   - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
   - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
 
-![](../assets/05_odes/slide63_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+![](../assets/5.1_odes/slide63_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
 
 - Divine nudges from time to time to maintain stability
 
 - (paraphrased)
 
-![](../assets/05_odes/slide63_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+![](../assets/5.1_odes/slide63_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
 
-![](../assets/05_odes/slide63_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+![](../assets/5.1_odes/slide63_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
 
 ---
 
@@ -999,13 +999,13 @@ y \\
   - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
   - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
 
-![](../assets/05_odes/slide64_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+![](../assets/5.1_odes/slide64_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
 
-![](../assets/05_odes/slide64_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+![](../assets/5.1_odes/slide64_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
 
-![](../assets/05_odes/slide64_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+![](../assets/5.1_odes/slide64_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
 
-![](../assets/05_odes/slide64_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
+![](../assets/5.1_odes/slide64_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
 
 - Laplace
 
@@ -1025,13 +1025,13 @@ y \\
   - 2-body dynamics is trivial; solved in the 17th century; it's what we make 1st year undergrads calculate.
   - 3-body dynamics : intractably difficult, chaotic dynamical system, people spend their entire lives on this problem
 
-![](../assets/05_odes/slide65_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
+![](../assets/5.1_odes/slide65_File-GodfreyKneller-IsaacNewton-1689.png){fig-alt="Painted portrait of Isaac Newton (after Godfrey Kneller, 1689), with long grey hair, wearing dark robes."}
 
-![](../assets/05_odes/slide65_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
+![](../assets/5.1_odes/slide65_droppedImage.png){fig-alt="3D rendered visualization of an orbital trajectory: a teal dotted path looping and crossing itself near a glowing yellow sphere, set against a black background."}
 
-![](../assets/05_odes/slide65_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
+![](../assets/5.1_odes/slide65_image34.png){fig-alt="Detail of Michelangelo's 'The Creation of Adam' fresco (Sistine Chapel ceiling): God's outstretched hand and arm reaching toward Adam, surrounded by attendant figures."}
 
-![](../assets/05_odes/slide65_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
+![](../assets/5.1_odes/slide65_File-Pierre-Simon-Laplace_-1749-1827-.png){fig-alt="Engraved portrait of Pierre-Simon Laplace, an older man with white hair wearing a formal dark coat with medals/sash."}
 
 - Laplace
 
@@ -1087,7 +1087,7 @@ y \\
 - Let's start with easy mode: 2-body system.
   - Let $\mathbf{r}={\mathbf{r}}_{m}-{\mathbf{r}}_{M}$.
 
-![](../assets/05_odes/slide68_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
+![](../assets/5.1_odes/slide68_kepler.png){fig-alt="Diagram of an elliptical orbit: a yellow focus (perihelion side) and a green orbiting body near aphelion, with the radius vector r, angle theta, semi-major axis a, and semi-minor axis b labeled."}
 
 - $$\frac{d}{dt}\left( \begin{aligned}
 t \\
@@ -1217,7 +1217,7 @@ m{\mathop{\mathbf{r}}\limits^{ \cdot  \cdot }}_{m}= & -\frac{GMm}{{r}^{2}}{\math
 - Figure 7.4.1 of Fowles/Cassiday
 :::
 ::: {.column width="45%"}
-![7.4.1.png](../assets/05_odes/7.4.1.png){width="100%" fig-alt="Figure 7.4.1: diagram of the restricted three-body problem, showing two large masses M1 and M2 (with separation b, and M1 at distance a from the origin) and a small test mass m at position r' (in a co-rotating frame with axes x', y'), with vectors r'_1 and r'_2 from each large mass to m, and fixed axes x, y shown for reference."}
+![7.4.1.png](../assets/5.1_odes/7.4.1.png){width="100%" fig-alt="Figure 7.4.1: diagram of the restricted three-body problem, showing two large masses M1 and M2 (with separation b, and M1 at distance a from the origin) and a small test mass m at position r' (in a co-rotating frame with axes x', y'), with vectors r'_1 and r'_2 from each large mass to m, and fixed axes x, y shown for reference."}
 :::
 ::::
 
@@ -1280,7 +1280,7 @@ y(t) & ={x}^{′}(t)sint+{y}^{′}(t)cost
   - [Wikipedia article](https://en.wikipedia.org/wiki/Lagrange_point) is definitely worth a read :)
 :::
 ::: {.column width="45%"}
-![File-Lagrange_points2.png](../assets/05_odes/File-Lagrange_points2.png){width="100%" fig-alt="Diagram of the five Lagrange points (L1-L5) of a two-body system: a bright sun-like central mass with field-line contours and orbital direction arrows, and the five equilibrium points marked around it, including a small companion body near L1/L2."}
+![File-Lagrange_points2.png](../assets/5.1_odes/File-Lagrange_points2.png){width="100%" fig-alt="Diagram of the five Lagrange points (L1-L5) of a two-body system: a bright sun-like central mass with field-line contours and orbital direction arrows, and the five equilibrium points marked around it, including a small companion body near L1/L2."}
 :::
 ::::
 
@@ -1298,7 +1298,7 @@ y(t) & ={x}^{′}(t)sint+{y}^{′}(t)cost
   - As ${m}_{3}$ moves away from a LP, the Coriolis force bends its trajectory.
   - Result: some bands of stability near LPs and between LPs. (Some trajectories still wander away.)
 
-![](../assets/05_odes/slide77_Animation_of_Wilkinson_Microwave_Anisotropy_Probe_trajectory.gif){fig-alt="Animated GIF of the WMAP satellite's trajectory: a black background with a small colored dot marking the spacecraft's position, with a timestamp (2001-06-30 21:16), velocity (0.000 km/s), and distance (7,551 km) readout in the corners."}
+![](../assets/5.1_odes/slide77_Animation_of_Wilkinson_Microwave_Anisotropy_Probe_trajectory.gif){fig-alt="Animated GIF of the WMAP satellite's trajectory: a black background with a small colored dot marking the spacecraft's position, with a timestamp (2001-06-30 21:16), velocity (0.000 km/s), and distance (7,551 km) readout in the corners."}
 
 - Example: the Wilkinson Microwave Anisotropy Probe (WMAP) sits near L2:
 
@@ -1310,7 +1310,7 @@ y(t) & ={x}^{′}(t)sint+{y}^{′}(t)cost
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![pasted-movie.png](../assets/05_odes/slide78_image38.png){width="70%" fig-alt="All-sky Mollweide-projection map of the cosmic microwave background temperature anisotropies (WMAP data): a mottled pattern of blue, green, yellow, and red patches representing tiny temperature fluctuations across the sky."}
+![pasted-movie.png](../assets/5.1_odes/slide78_image38.png){width="70%" fig-alt="All-sky Mollweide-projection map of the cosmic microwave background temperature anisotropies (WMAP data): a mottled pattern of blue, green, yellow, and red patches representing tiny temperature fluctuations across the sky."}
 
 ---
 

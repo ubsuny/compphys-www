@@ -178,7 +178,7 @@ n(x,t) &  \sim {e}^{- \omega t+ikx} \\
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![red-black-lattice.png](../assets/05_pdes/red-black-lattice.png){width="70%" fig-alt="Diagram of a red/black checkerboard lattice (indices i=0..9, j=0..9, labeled L=8): interior points alternate red and black in a checkerboard pattern, with hollow boundary points at j=0, j=9, i=0, i=9."}
+![red-black-lattice.png](../assets/5.2_pdes/red-black-lattice.png){width="70%" fig-alt="Diagram of a red/black checkerboard lattice (indices i=0..9, j=0..9, labeled L=8): interior points alternate red and black in a checkerboard pattern, with hollow boundary points at j=0, j=9, i=0, i=9."}
 
 ---
 
@@ -209,7 +209,7 @@ n(x,t) &  \sim {e}^{- \omega t+ikx} \\
   - Boundary points are open circles.
 :::
 ::: {.column width="45%"}
-![red-black-lattice.png](../assets/05_pdes/red-black-lattice.png){width="100%" fig-alt="Diagram of a red/black checkerboard lattice (indices i=0..9, j=0..9, labeled L=8): interior points alternate red and black in a checkerboard pattern, with hollow boundary points at j=0, j=9, i=0, i=9."}
+![red-black-lattice.png](../assets/5.2_pdes/red-black-lattice.png){width="100%" fig-alt="Diagram of a red/black checkerboard lattice (indices i=0..9, j=0..9, labeled L=8): interior points alternate red and black in a checkerboard pattern, with hollow boundary points at j=0, j=9, i=0, i=9."}
 :::
 ::::
 
@@ -256,9 +256,9 @@ n(x,t) &  \sim {e}^{- \omega t+ikx} \\
 
 - This converges (slightly) faster than the Jacobi method.
 
-![](../assets/05_pdes/slide17_image10.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.2_pdes/slide17_image10.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
 
-![](../assets/05_pdes/slide17_image10.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.2_pdes/slide17_image10.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
 
 ---
 
@@ -380,7 +380,7 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 - Set boundary conditions: Dirichlet, $V(0)=V(L+1)=0$.
 - Eigenvectors of differential operator are sines and cosines; we choose sines to satisfy $V(0)=V(L+1)=0$
 
-![](../assets/05_pdes/slide24_lattice1.png){fig-alt="Diagram of a 1D lattice: evenly spaced red dots between two hollow boundary points, labeled x=0 at the left end, x=h at the first interior point, x=ih at a general interior point, and x=Lh at the right end."}
+![](../assets/5.2_pdes/slide24_lattice1.png){fig-alt="Diagram of a 1D lattice: evenly spaced red dots between two hollow boundary points, labeled x=0 at the left end, x=h at the first interior point, x=ih at a general interior point, and x=Lh at the right end."}
 
 - Discretize, compute finite differences, resulting Jacobi iteration is:
 
@@ -634,7 +634,7 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 - Final comment: NR 20.7 covers spectral methods in substantially more detail, if you are interested!
 :::
 ::: {.column width="45%"}
-![droppedImage.png](../assets/05_pdes/droppedImage.png){width="100%" fig-alt="Screenshot of Python code (syntax-highlighted, dark background) titled 'Solve equation in Fourier space': sets up matrices V and W, computes Wm/Wn phase factors, and loops over m, n to solve V[m][n] = rho[m][n] * h**2 / denom wherever the denominator is nonzero."}
+![droppedImage.png](../assets/5.2_pdes/droppedImage.png){width="100%" fig-alt="Screenshot of Python code (syntax-highlighted, dark background) titled 'Solve equation in Fourier space': sets up matrices V and W, computes Wm/Wn phase factors, and loops over m, n to solve V[m][n] = rho[m][n] * h**2 / denom wherever the denominator is nonzero."}
 :::
 ::::
 
@@ -782,7 +782,7 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/05_pdes/slide48_restrict.png){fig-alt="Diagram of a restriction operation between grids: a 4x4 array of alternating black and red dots (fine grid) mapping conceptually to a coarser grid of hollow circles with red dots at their centers."}
+![](../assets/5.2_pdes/slide48_restrict.png){fig-alt="Diagram of a restriction operation between grids: a 4x4 array of alternating black and red dots (fine grid) mapping conceptually to a coarser grid of hollow circles with red dots at their centers."}
 
 - $${R}_{I,J}=\frac{1}{4}\left[ {r}_{i,j}+{r}_{i+1,j}+{r}_{i,j+1}+{r}_{i+1,j+1} \right]$$
 
@@ -814,13 +814,13 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 
 - $${2}^{3}=8 \rightarrow {2}^{2}=4 \rightarrow {2}^{1}=2 \rightarrow {2}^{0}=1$$
 
-![](../assets/05_pdes/slide50_cell-center.png){fig-alt="Three side-by-side grid diagrams illustrating cell-centered multigrid restriction: a 4x4 grid of small dots (mix of black, red, and hollow-red-circle centers) at left, refining detail in the middle panel, and a simplified version at right."}
+![](../assets/5.2_pdes/slide50_cell-center.png){fig-alt="Three side-by-side grid diagrams illustrating cell-centered multigrid restriction: a 4x4 grid of small dots (mix of black, red, and hollow-red-circle centers) at left, refining detail in the middle panel, and a simplified version at right."}
 
   - Cell-centered:
 
   - Grid-centered:
 
-![](../assets/05_pdes/slide50_vertex-center.png){fig-alt="Two grid diagrams illustrating vertex-centered multigrid restriction: 4x4 grids of nodes connected by lines, with black dots, red dots, and circled (highlighted) nodes marking which points participate in the coarse-grid transfer."}
+![](../assets/5.2_pdes/slide50_vertex-center.png){fig-alt="Two grid diagrams illustrating vertex-centered multigrid restriction: 4x4 grids of nodes connected by lines, with black dots, red dots, and circled (highlighted) nodes marking which points participate in the coarse-grid transfer."}
 
 - $${2}^{3}+1=9 \rightarrow {2}^{2}+1=5 \rightarrow {2}^{1}+1=3$$
 
@@ -863,9 +863,9 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 \frac{1}{16} & \frac{1}{8} & \frac{1}{16}
 \end{matrix} \right]$$
 
-![](../assets/05_pdes/slide52_cell.png){fig-alt="Small 2x2 grid diagram: four black dots at the corners and one red hollow circle at the center, illustrating a cell-centered grid stencil."}
+![](../assets/5.2_pdes/slide52_cell.png){fig-alt="Small 2x2 grid diagram: four black dots at the corners and one red hollow circle at the center, illustrating a cell-centered grid stencil."}
 
-![](../assets/05_pdes/slide52_vertex.png){fig-alt="Small 2x2 grid diagram: black dots at the four corners connected by lines, red dots at the edge midpoints, and a red hollow circle at the center, illustrating a vertex-centered grid stencil."}
+![](../assets/5.2_pdes/slide52_vertex.png){fig-alt="Small 2x2 grid diagram: black dots at the four corners connected by lines, red dots at the edge midpoints, and a red hollow circle at the center, illustrating a vertex-centered grid stencil."}
 
 ---
 
@@ -880,7 +880,7 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 :::
 ::: {.column width="45%"}
-![Screenshot 2025-12-03 at 12.30.19 PM.png](../assets/05_pdes/Screenshot-2025-12-03-at-12.30.19-PM.png){width="100%" fig-alt="Figure 20.6.1 (Numerical Recipes), 'Structure of multigrid cycles': tree diagrams for 2-grid, 3-grid, and 4-grid V-cycles (gamma=1) and W-cycles (gamma=2), where circled S nodes denote smoothing steps and boxed E nodes denote exact solves on the coarsest grid, connected by descending (restriction) and ascending (prolongation) lines."}
+![Screenshot 2025-12-03 at 12.30.19 PM.png](../assets/5.2_pdes/Screenshot-2025-12-03-at-12.30.19-PM.png){width="100%" fig-alt="Figure 20.6.1 (Numerical Recipes), 'Structure of multigrid cycles': tree diagrams for 2-grid, 3-grid, and 4-grid V-cycles (gamma=1) and W-cycles (gamma=2), where circled S nodes denote smoothing steps and boxed E nodes denote exact solves on the coarsest grid, connected by descending (restriction) and ascending (prolongation) lines."}
 :::
 ::::
 
@@ -1077,11 +1077,11 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 
 - $$i \hbar \frac{{ \psi }_{j}^{n+1}-{ \psi }_{j}^{n}}{{ \delta }_{t}}=-\frac{{ \hbar }^{2}}{2m}\frac{{ \psi }_{j+1}^{n+1}-2{ \psi }_{j}^{n+1}+{ \psi }_{j-1}^{n+1}}{{ \delta }_{x}^{2}}+{V}_{j}{ \psi }_{j}^{n+1}$$
 
-![](../assets/05_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.2_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
 
-![](../assets/05_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.2_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
 
-![](../assets/05_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
+![](../assets/5.2_pdes/slide66_image21.png){fig-alt="Decorative hand-painted pink/magenta rectangular border/frame; the image itself contains no other content."}
 
 - We can't solve this directly/straightforwardly at each iteration. Instead, rearrange and solve:
 
@@ -1473,7 +1473,7 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
   - [https://en.wikipedia.org/wiki/Flux](https://en.wikipedia.org/wiki/Flux)
   - [https://en.wikipedia.org/wiki/Stokes%27_theorem](https://en.wikipedia.org/wiki/Stokes%27_theorem)
 
-![File-General_flux_diagram.png](../assets/05_pdes/File-General_flux_diagram.png){width="70%" fig-alt="Diagram illustrating flux through a surface: a 3D view of vector field lines (blue) passing through a surface patch with normal vector dS and flux vector F (left), and two supporting 2D diagrams decomposing F and dS into components via Fcos(theta), Fsin(theta), dScos(theta), and dSsin(theta) (right)."}
+![File-General_flux_diagram.png](../assets/5.2_pdes/File-General_flux_diagram.png){width="70%" fig-alt="Diagram illustrating flux through a surface: a 3D view of vector field lines (blue) passing through a surface patch with normal vector dS and flux vector F (left), and two supporting 2D diagrams decomposing F and dS into components via Fcos(theta), Fsin(theta), dScos(theta), and dSsin(theta) (right)."}
 
 ---
 
@@ -1546,13 +1546,13 @@ $$r \simeq \left\{\begin{matrix} \frac{1}{2}pL^2 & \text{for Jacobi's method} \\
 
 - $\frac{c{ \delta }_{t}}{{ \delta }_{x}} \leq 1$ (CFL number)
 
-![](../assets/05_pdes/slide92_pasted-movie.png){fig-alt="Logo of the Canadian Football League (CFL): a black football-helmet outline containing a red maple leaf with 'CFL' lettered across it - a pun on the Courant-Friedrichs-Lewy (CFL) condition."}
+![](../assets/5.2_pdes/slide92_pasted-movie.png){fig-alt="Logo of the Canadian Football League (CFL): a black football-helmet outline containing a red maple leaf with 'CFL' lettered across it - a pun on the Courant-Friedrichs-Lewy (CFL) condition."}
 
 - Intuition: at some given point $(x,t)$, the domain of dependency = set of points in the "past cone" defined by $c$.
 - If the domain used for the finite difference update is wider in $x$ than the domain of dependency, the method is stable.
 - If the differencing domain is narrower, the method is unstable.
 
-![](../assets/05_pdes/slide92_courant.png){fig-alt="Two-panel diagram comparing CFL-stable and CFL-unstable finite-difference stencils on a space-time (x, t) grid of dots: the 'CFL Stable' case (left, green highlighted stencil) has its domain of dependence (shaded triangle) contained within the numerical stencil's influence, while the 'CFL Unstable' case (right, red stencil, pink shaded triangle) does not."}
+![](../assets/5.2_pdes/slide92_courant.png){fig-alt="Two-panel diagram comparing CFL-stable and CFL-unstable finite-difference stencils on a space-time (x, t) grid of dots: the 'CFL Stable' case (left, green highlighted stencil) has its domain of dependence (shaded triangle) contained within the numerical stencil's influence, while the 'CFL Unstable' case (right, red stencil, pink shaded triangle) does not."}
 
 ---
 
@@ -1651,11 +1651,11 @@ u(x,t+{ \delta }_{t}) &  \approx u(x,t)+{ \delta }_{t}\frac{ \partial u}{ \parti
 - The velocity depends on the density of the wave!
 - This leads to breaking and shock fronts:
 
-![](../assets/05_pdes/slide97_EC94-42521-1small.png){fig-alt="NASA schlieren photograph of a supersonic aircraft in flight, with visible curved shock-wave patterns in the air labeled 'shock waves' by an arrow pointing to the aircraft."}
+![](../assets/5.2_pdes/slide97_EC94-42521-1small.png){fig-alt="NASA schlieren photograph of a supersonic aircraft in flight, with visible curved shock-wave patterns in the air labeled 'shock waves' by an arrow pointing to the aircraft."}
 
-![](../assets/05_pdes/slide97_title-wave.jpeg){fig-alt="Photograph of a large breaking blue ocean wave curling into a barrel shape, spray flying off the crest."}
+![](../assets/5.2_pdes/slide97_title-wave.jpeg){fig-alt="Photograph of a large breaking blue ocean wave curling into a barrel shape, spray flying off the crest."}
 
-![](../assets/05_pdes/slide97_pasted-movie.png){fig-alt="Three-panel CFD/combustion visualization: at left, an array of rocket-engine-like nozzles with turbulent red/orange flow plumes merging beneath them; at right, two separate renderings of a nozzle emitting a turbulent plume, one blue-gray (top) and one orange (bottom)."}
+![](../assets/5.2_pdes/slide97_pasted-movie.png){fig-alt="Three-panel CFD/combustion visualization: at left, an array of rocket-engine-like nozzles with turbulent red/orange flow plumes merging beneath them; at right, two separate renderings of a nozzle emitting a turbulent plume, one blue-gray (top) and one orange (bottom)."}
 
 - [https://www.llnl.gov/article/53626/gordon-bell-finalist-team-pushes-scale-rocket-simulation-el-capitan](https://www.llnl.gov/article/53626/gordon-bell-finalist-team-pushes-scale-rocket-simulation-el-capitan)
 

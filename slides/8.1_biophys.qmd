@@ -22,10 +22,10 @@ execute:
 - Of course, the most important biology-inspired algorithm is the artificial neural network.
   - One lecture on the biophysics side, then a few weeks on machine learning.
 
-![TODO: describe image](../assets/7.1_biophys/image1.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image1.png){width="70%" fig-alt="TODO: describe image"}
 
 - Structure of the bovine cytochrome c oxidase complex, [https://doi.org/10.1093/gbe/evu025](https://doi.org/10.1093/gbe/evu025)
-![TODO: describe image](../assets/7.1_biophys/image2.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image2.png){width="70%" fig-alt="TODO: describe image"}
 
 - Schematic diagram of neurons
 
@@ -42,7 +42,7 @@ execute:
 - [Wikipedia](https://en.wikipedia.org/wiki/Protein_folding):
   - "Protein folding is the physical process by which a protein, after synthesis by a ribosome as a linear chain of amino acids, changes from an unstable random coil into a more ordered three-dimensional structure. This structure permits the protein to become biologically functional or active."
 
-![Protein_folding.png](../assets/7.1_biophys/Protein_folding.png){width="70%" fig-alt="TODO: describe image"}
+![Protein_folding.png](../assets/8.1_biophys/Protein_folding.png){width="70%" fig-alt="TODO: describe image"}
 
 - Protein before and after folding.
 - By DrKjaergaard - Own work, Public Domain, [https://commons.wikimedia.org/w/index.php?curid=1967109](https://commons.wikimedia.org/w/index.php?curid=1967109)
@@ -60,10 +60,10 @@ execute:
 - We'll study some simple-ish MC methods
 - Also see [Biophys. J. 100, 1058-1065 (2011) (UB's Markelz, Zheng)](https://doi.org/10.1016/j.bpj.2010.12.3731)
 
-![pasted-movie.png](../assets/7.1_biophys/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/8.1_biophys/pasted-movie.png){width="70%" fig-alt="TODO: describe image"}
 
 - Table of amino acids
-![TODO: describe image](../assets/7.1_biophys/image3.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image3.png){width="70%" fig-alt="TODO: describe image"}
 
 - Large proteins
 
@@ -80,7 +80,7 @@ execute:
 - But! The monomers cannot occupy the same place in space: the chain is self-avoiding
 - So this means it is not a Markov chain!
 
-![TODO: describe image](../assets/7.1_biophys/image4.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image4.png){width="70%" fig-alt="TODO: describe image"}
 
 - A self-avoiding chain
 
@@ -132,7 +132,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![TODO: describe image](../assets/7.1_biophys/image11.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image11.png){width="70%" fig-alt="TODO: describe image"}
 
 - Exact enumeration of self-avoiding walks
 
@@ -153,7 +153,7 @@ execute:
   - “Slithering snake” model instead
   - Uses MC techniques
 
-![](../assets/7.1_biophys/slide11_image5.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide11_image5.png){fig-alt="TODO"}
 
 - Snek
 - Enemies of the heir, beware
@@ -178,27 +178,27 @@ execute:
   - Else:
     - Retain config as next in ensemble
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide12_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide12_image14.png){fig-alt="TODO"}
 
 - Reptation algorithm
 
@@ -221,27 +221,27 @@ execute:
   - Else:
     - Retain config as next in ensemble
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide13_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide13_image14.png){fig-alt="TODO"}
 
 - Reptation
 
@@ -264,30 +264,30 @@ execute:
   - Else:
     - Retain config as next in ensemble
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide14_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image14.png){fig-alt="TODO"}
 
 - Reptation algorithm
-![](../assets/7.1_biophys/slide14_image15.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide14_image15.png){fig-alt="TODO"}
 
 ---
 
@@ -300,27 +300,27 @@ execute:
 - Run through CompPhys/BioPhys/reptation.ipynb
   - Animation is a bit finnicky... try restarting kernel, changing backend (%matplotlib ipympl, other options on Google), ...
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image14.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image13.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image13.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide15_image14.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide15_image14.png){fig-alt="TODO"}
 
 - Reptation algorithm
 
@@ -353,10 +353,10 @@ execute:
   - Some are more beneficial than others
   - Organisms with more beneficial genes reproduce more
 
-![CollapsedtreeLabels-simplified.png](../assets/7.1_biophys/CollapsedtreeLabels-simplified.png){width="70%" fig-alt="TODO: describe image"}
+![CollapsedtreeLabels-simplified.png](../assets/8.1_biophys/CollapsedtreeLabels-simplified.png){width="70%" fig-alt="TODO: describe image"}
 
 - Evolutionary history of life
-![File-The_Selfish_Gene3.png](../assets/7.1_biophys/File-The_Selfish_Gene3.png){width="70%" fig-alt="TODO: describe image"}
+![File-The_Selfish_Gene3.png](../assets/8.1_biophys/File-The_Selfish_Gene3.png){width="70%" fig-alt="TODO: describe image"}
 
 - "The Selfish Gene" by Richard Dawkins
 
@@ -387,7 +387,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![droppedImage.png](../assets/7.1_biophys/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/8.1_biophys/droppedImage.png){width="70%" fig-alt="TODO: describe image"}
 
 - XKCD of genetic algorithm
 
@@ -408,7 +408,7 @@ execute:
   - So, we also have to be practical and put cutoff conditions
   - Too many iterations or organisms
 
-![File-Allele-frequency.png](../assets/7.1_biophys/File-Allele-frequency.png){width="70%" fig-alt="TODO: describe image"}
+![File-Allele-frequency.png](../assets/8.1_biophys/File-Allele-frequency.png){width="70%" fig-alt="TODO: describe image"}
 
 - Evolution in genetic algorithm
 
@@ -424,7 +424,7 @@ execute:
   - There may be better ways to get to the end, but you are only given the immediate organisms to work with
 - (This should all sound familiar: local minima!)
 
-![droppedImage.png](../assets/7.1_biophys/slide23_image20.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/8.1_biophys/slide23_image20.png){width="70%" fig-alt="TODO: describe image"}
 
 - Branching evolutionary paths
 
@@ -440,7 +440,7 @@ execute:
   - There may be better ways to get to the end, but you are only given the immediate organisms to work with
 - (This should all sound familiar: local minima!)
 
-![droppedImage.png](../assets/7.1_biophys/slide24_image20.png){width="70%" fig-alt="TODO: describe image"}
+![droppedImage.png](../assets/8.1_biophys/slide24_image20.png){width="70%" fig-alt="TODO: describe image"}
 
 - Branching evolutionary paths
 - [🦀](https://en.wikipedia.org/wiki/Carcinisation)
@@ -469,7 +469,7 @@ execute:
 - Second notebook, CompPhys/BioPhys/genetic_protein.ipynb, is based on Unger and Moult, “Genetic algorithms for protein folding simulations”, J. Mol. Biol. 231, 75-81 (1993) ([https://pubmed.ncbi.nlm.nih.gov/8496967/](https://pubmed.ncbi.nlm.nih.gov/8496967/))
 - Looking for configurations of 2-d proteins hydrophobic (black) and hydrophilic (white) amino acids
 
-![TODO: describe image](../assets/7.1_biophys/image21.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image21.png){width="70%" fig-alt="TODO: describe image"}
 
 - Protein folding configurations
 
@@ -487,7 +487,7 @@ execute:
 0 &  & \text{otherwise}
 \end{matrix}\right.$$
 
-![](../assets/7.1_biophys/slide27_image21.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide27_image21.png){fig-alt="TODO"}
 
 - Protein folding configurations
 - E = -4
@@ -505,7 +505,7 @@ execute:
 - Wikipedia:
   - The name of the algorithm comes from annealing in metallurgy, a technique involving heating and controlled cooling of a material to alter its physical properties. This notion of slow cooling implemented in the simulated annealing algorithm is interpreted as a slow decrease in the probability of accepting worse solutions as the solution space is explored. Accepting worse solutions allows for a more extensive search for the global optimal solution. Simulated annealing algorithms work by progressively decreasing the temperature from an initial positive value to zero. At each time step, the algorithm randomly selects a solution close to the current one, measures its quality, and moves to it according to the temperature-dependent probabilities of selecting better or worse solutions.
 
-![Hill_Climbing_with_Simulated_Annealing.gif](../assets/7.1_biophys/Hill_Climbing_with_Simulated_Annealing.gif){width="70%" fig-alt="TODO: describe image"}
+![Hill_Climbing_with_Simulated_Annealing.gif](../assets/8.1_biophys/Hill_Climbing_with_Simulated_Annealing.gif){width="70%" fig-alt="TODO: describe image"}
 
 - By Kingpin13 - Own work, CC0, https://commons.wikimedia.org/w/index.php?curid=25010763
 
@@ -557,7 +557,7 @@ execute:
 - Excitations cause action potential across the axon
 - Biologist view:
 
-![TODO: describe image](../assets/7.1_biophys/image2.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image2.png){width="70%" fig-alt="TODO: describe image"}
 
 - Diagram of a neuron
 
@@ -575,7 +575,7 @@ execute:
 - Excitations cause action potential across the axon
 - Biologist view:
 
-![](../assets/7.1_biophys/slide33_image2.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide33_image2.png){fig-alt="TODO"}
 
 - Diagram of a neuron
 - Signal in (from other neurons)
@@ -596,7 +596,7 @@ execute:
 - Excitations cause action potential across the axon
 - Physicist view:
 
-![TODO: describe image](../assets/7.1_biophys/image22.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image22.png){width="70%" fig-alt="TODO: describe image"}
 
 - Circuit diagram approximating a neuron
 - Spherical cow approach
@@ -607,7 +607,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![Action_Potential.gif](../assets/7.1_biophys/Action_Potential.gif){width="70%" fig-alt="TODO: describe image"}
+![Action_Potential.gif](../assets/8.1_biophys/Action_Potential.gif){width="70%" fig-alt="TODO: describe image"}
 
 - Animation of an action potential ([https://en.wikipedia.org/wiki/Action_potential](https://en.wikipedia.org/wiki/Action_potential))
 
@@ -617,7 +617,7 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![pasted-movie.png](../assets/7.1_biophys/slide36_image23.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/8.1_biophys/slide36_image23.png){width="70%" fig-alt="TODO: describe image"}
 
 - Mechanisms underlying the action potential ([https://www.kenhub.com/en/library/physiology/action-potential](https://www.kenhub.com/en/library/physiology/action-potential))
 
@@ -637,7 +637,7 @@ execute:
   - [https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model](https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model)
   - [https://neuronaldynamics.epfl.ch/online/Ch2.S2.html#Ch2.F2](https://neuronaldynamics.epfl.ch/online/Ch2.S2.html#Ch2.F2)
 
-![pasted-movie.png](../assets/7.1_biophys/slide37_image24.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/8.1_biophys/slide37_image24.png){width="70%" fig-alt="TODO: describe image"}
 
 - Picture of Hodgkin and Huxley and lobster
 
@@ -657,7 +657,7 @@ execute:
   - [https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model](https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model)
   - [https://neuronaldynamics.epfl.ch/online/Ch2.S2.html#Ch2.F2](https://neuronaldynamics.epfl.ch/online/Ch2.S2.html#Ch2.F2)
 
-![pasted-movie.png](../assets/7.1_biophys/slide38_image25.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/8.1_biophys/slide38_image25.png){width="70%" fig-alt="TODO: describe image"}
 
 - Left: squid axon with electrode.
 - Right: measurement of action potential (bottom shows generated sine wave at 500 Hz)
@@ -681,7 +681,7 @@ execute:
 
 - $$\mathop{ \sum }\limits_{k}{I}_{k}={\overline{g}}_{\text{Na}}{m}^{3}h(u-{E}_{\text{Na}})+{\overline{g}}_{\text{K}}{n}^{4}(u-{E}_{\text{K}})+{\overline{g}}_{\text{L}}(u-{E}_{\text{L}})$$
 
-![](../assets/7.1_biophys/slide39_Screenshot-2026-03-04-at-12.11.43-PM.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide39_Screenshot-2026-03-04-at-12.11.43-PM.png){fig-alt="TODO"}
 
 - Fig. 2.2: Schematic diagram for the Hodgkin–Huxley model
 
@@ -709,13 +709,13 @@ execute:
 
 - $$n$$
 
-![](../assets/7.1_biophys/slide40_pasted-movie.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide40_pasted-movie.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide40_image27.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide40_image27.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide40_image27.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide40_image27.png){fig-alt="TODO"}
 
-![](../assets/7.1_biophys/slide40_image27.png){fig-alt="TODO"}
+![](../assets/8.1_biophys/slide40_image27.png){fig-alt="TODO"}
 
 - Neuron ion channels
 
@@ -735,7 +735,7 @@ execute:
 - (Effective conductance of e.g. sodium channels: ${R}_{Na}^{-1}={\overline{g}}_{Na}{m}^{3}h$)
 - $n/m/h$ follow $\frac{dx}{dt}={ \alpha }_{x}(1-x)-{ \beta }_{x}x$
 
-![TODO: describe image](../assets/7.1_biophys/image28.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image28.png){width="70%" fig-alt="TODO: describe image"}
 
 - Equivalent circuit diagram for neuron ion channels
 
@@ -761,7 +761,7 @@ execute:
 
 - Hands-on: reproducing Fig. 12 in the [H–H paper](https://pmc.ncbi.nlm.nih.gov/articles/instance/1392413/pdf/jphysiol01442-0106.pdf) (first case with $l=0$).
 
-![TODO: describe image](../assets/7.1_biophys/image29.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image29.png){width="70%" fig-alt="TODO: describe image"}
 
 - Figure 12 from [https://pmc.ncbi.nlm.nih.gov/articles/instance/1392413/pdf/jphysiol01442-0106.pdf](https://pmc.ncbi.nlm.nih.gov/articles/instance/1392413/pdf/jphysiol01442-0106.pdf), showing the numerically computed time evolution of an action potential for various input pulse amplitudes
 - Suggestion: read through (1) [review article](https://pmc.ncbi.nlm.nih.gov/articles/PMC3424716/) and (2) [modern textbook description](https://neuronaldynamics.epfl.ch/online/Ch2.S2.html#Ch2.F2), then (3) run notebook, referring to [paper pp. 518–525](https://pmc.ncbi.nlm.nih.gov/articles/instance/1392413/pdf/jphysiol01442-0106.pdf) for explanation of equations
@@ -774,10 +774,10 @@ execute:
 
 - "Details of the mechanism will probably not be settled for some time, but it seems difficult to escape the conclusion that the changes in ionic permeability depend on the movement of some component of the membrane which behaves as though it had a large charge or dipole moment."
 
-![pasted-movie.png](../assets/7.1_biophys/slide44_image30.png){width="70%" fig-alt="TODO: describe image"}
+![pasted-movie.png](../assets/8.1_biophys/slide44_image30.png){width="70%" fig-alt="TODO: describe image"}
 
 - Diagram of an actual voltage-gated sodium ion channel ([wikipedia](https://en.wikipedia.org/wiki/Voltage-gated_sodium_channel))
-![TODO: describe image](../assets/7.1_biophys/image22.png){width="70%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/8.1_biophys/image22.png){width="70%" fig-alt="TODO: describe image"}
 
 - Hodgkin and Huxley's circuit diagram
 - Also see: [10.1016/j.jemermed.2012.11.109](https://doi.org/10.1016/j.jemermed.2012.11.109)

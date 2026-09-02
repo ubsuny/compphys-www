@@ -21,10 +21,10 @@ execute:
   - Flipping a coin
 - In fact, quantum mechanics inherently is random
 
-![A random number generator](../assets/5.0_mc/image9.png){width="70%" fig-alt="Close-up photograph of a casino roulette wheel, showing the numbered red and black pockets and the spinning ball."}
+![A random number generator](../assets/6.0_mc/image9.png){width="70%" fig-alt="Close-up photograph of a casino roulette wheel, showing the numbered red and black pockets and the spinning ball."}
 
 - A random number generator
-![Casino Monte Carlo](../assets/5.0_mc/image10.png){width="70%" fig-alt="Photograph of the Casino de Monte-Carlo building exterior in Monaco, an ornate Belle Epoque facade with towers, with cars and pedestrians in front."}
+![Casino Monte Carlo](../assets/6.0_mc/image10.png){width="70%" fig-alt="Photograph of the Casino de Monte-Carlo building exterior in Monaco, an ornate Belle Epoque facade with towers, with cars and pedestrians in front."}
 
 - Casino Monte Carlo
 
@@ -41,7 +41,7 @@ execute:
 - If you want something truly random, you’ll need to hook your computer up to a Geiger counter or something, and count decays (say, from atmospheric muons)
 - Sounds silly, but people actually do this!
 
-![Geiger counter](../assets/5.0_mc/image11.png){width="70%" fig-alt="Photograph of a yellow handheld Geiger counter / radiation survey meter with an analog dial gauge."}
+![Geiger counter](../assets/6.0_mc/image11.png){width="70%" fig-alt="Photograph of a yellow handheld Geiger counter / radiation survey meter with an analog dial gauge."}
 
 - Geiger counter
 
@@ -93,7 +93,7 @@ execute:
   - On the other hand, poorly chosen $a/c/m$ will result in repetition: not random!
   - If ${x}_{k}={x}_{0}$ for some $k$, then the sequence starts to repeat.
 
-![Random number generators](../assets/5.0_mc/image12.png){width="70%" fig-alt="Wikipedia table listing common linear congruential generator parameters by source/compiler (Numerical Recipes, Borland, glibc, ANSI C, Microsoft, etc.), with columns for modulus m, multiplier a, increment c, and which output bits are used as the seed."}
+![Random number generators](../assets/6.0_mc/image12.png){width="70%" fig-alt="Wikipedia table listing common linear congruential generator parameters by source/compiler (Numerical Recipes, Borland, glibc, ANSI C, Microsoft, etc.), with columns for modulus m, multiplier a, increment c, and which output bits are used as the seed."}
 
 ---
 
@@ -126,7 +126,7 @@ execute:
 - Given this, we have to often need “REALLY” random numbers
 - So: "we" set up a spark chamber to actually generate random numbers so our triggers could perform adequate tests!
 
-![Proton-(anti)proton cross sections vs. collision energy](../assets/5.0_mc/image13.png){width="70%" fig-alt="Log-log plot titled 'proton - (anti)proton cross sections': cross section sigma (nb) versus collision energy sqrt(s) (TeV), with multiple curves (sigma_tot, sigma_b, sigma_jet at various thresholds, sigma_W, sigma_Z, sigma_t, sigma_Higgs) and vertical reference lines marking the Tevatron and LHC energies; right axis shows events/sec for a reference luminosity."}
+![Proton-(anti)proton cross sections vs. collision energy](../assets/6.0_mc/image13.png){width="70%" fig-alt="Log-log plot titled 'proton - (anti)proton cross sections': cross section sigma (nb) versus collision energy sqrt(s) (TeV), with multiple curves (sigma_tot, sigma_b, sigma_jet at various thresholds, sigma_W, sigma_Z, sigma_t, sigma_Higgs) and vertical reference lines marking the Tevatron and LHC energies; right axis shows events/sec for a reference luminosity."}
 
 - Proton-(anti)proton cross sections vs. collision energy
 
@@ -142,7 +142,7 @@ execute:
 
 - [https://blog.cloudflare.com/harnessing-office-chaos/](https://blog.cloudflare.com/harnessing-office-chaos/)
 
-![](../assets/5.0_mc/slide09_image14.png){fig-alt="Photograph of a wall of dozens of colorful lit lava lamps in a lobby, with a 'CLOUDFLARE' sign below - Cloudflare's LavaRand true-random-number-generator installation."}
+![](../assets/6.0_mc/slide09_image14.png){fig-alt="Photograph of a wall of dozens of colorful lit lava lamps in a lobby, with a 'CLOUDFLARE' sign below - Cloudflare's LavaRand true-random-number-generator installation."}
 
 - True random number generation using lava lamps
 
@@ -154,17 +154,17 @@ execute:
 
 - original version: Haade;vectorization: Wjh31, Quibik, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
-![](../assets/5.0_mc/slide10_image14.png){fig-alt="Photograph of a wall of dozens of colorful lit lava lamps in a lobby, with a 'CLOUDFLARE' sign below - Cloudflare's LavaRand true-random-number-generator installation."}
+![](../assets/6.0_mc/slide10_image14.png){fig-alt="Photograph of a wall of dozens of colorful lit lava lamps in a lobby, with a 'CLOUDFLARE' sign below - Cloudflare's LavaRand true-random-number-generator installation."}
 
 - True random number generation using lava lamps
 - [https://blog.cloudflare.com/randomness-101-lavarand-in-production/](https://blog.cloudflare.com/randomness-101-lavarand-in-production/)
 
 - [https://blog.cloudflare.com/harnessing-office-chaos/](https://blog.cloudflare.com/harnessing-office-chaos/)
 
-![](../assets/5.0_mc/slide10_image15.png){fig-alt="Photograph of an art installation of many chaotic double-pendulum devices (black rods with orange crossbars) mounted on a wall, used as a physical source of randomness."}
+![](../assets/6.0_mc/slide10_image15.png){fig-alt="Photograph of an art installation of many chaotic double-pendulum devices (black rods with orange crossbars) mounted on a wall, used as a physical source of randomness."}
 
 - True random number generation using multiple pendulums
-![](../assets/5.0_mc/slide10_image16.png){fig-alt="Photograph of a colorful hanging mobile/chandelier made of many small acrylic discs in different colors dangling from the ceiling, above a wall with a 'CLOUDFLARE' logo - another physical randomness source alongside the lava lamps and pendulums."}
+![](../assets/6.0_mc/slide10_image16.png){fig-alt="Photograph of a colorful hanging mobile/chandelier made of many small acrylic discs in different colors dangling from the ceiling, above a wall with a 'CLOUDFLARE' logo - another physical randomness source alongside the lava lamps and pendulums."}
 
 - True random number generation using mobiles
 
@@ -193,10 +193,10 @@ execute:
 
 - Less trivial example: what is the final angle of a particle after multiple scatterings off of a lattice?
 
-![A falling pencil](../assets/5.0_mc/image17.png){width="70%" fig-alt="Simple clip-art icon of a yellow pencil with a pink eraser, pointing diagonally with a shadow beneath it."}
+![A falling pencil](../assets/6.0_mc/image17.png){width="70%" fig-alt="Simple clip-art icon of a yellow pencil with a pink eraser, pointing diagonally with a shadow beneath it."}
 
 - A falling pencil
-![Trajectory of a particle passing through material with multiple scatterings](../assets/5.0_mc/image18.png){width="70%" fig-alt="Diagram of a 1D random walk: a wiggly solid line meandering within a shaded horizontal band of width x, with a dashed straight-line reference and an angle theta_0 marked at the right end."}
+![Trajectory of a particle passing through material with multiple scatterings](../assets/6.0_mc/image18.png){width="70%" fig-alt="Diagram of a 1D random walk: a wiggly solid line meandering within a shaded horizontal band of width x, with a dashed straight-line reference and an angle theta_0 marked at the right end."}
 
 - Trajectory of a particle passing through material with multiple scatterings
 
@@ -212,7 +212,7 @@ execute:
 - They all have a likelihood (cross section), and the outcome is truly random
 - So, to simulate Higgs boson production, we have to randomly sample between these four (with appropriate weights)
 
-![4 ways to make a Higgs boson](../assets/5.0_mc/image19.png){width="70%" fig-alt="Four Feynman-diagram panels illustrating Higgs production channels: gg fusion (top left, gluon loop producing H0), WW/ZZ fusion (top right), ttbar fusion (bottom left), and W/Z bremsstrahlung (bottom right), each showing incoming quarks/gluons producing an H0."}
+![4 ways to make a Higgs boson](../assets/6.0_mc/image19.png){width="70%" fig-alt="Four Feynman-diagram panels illustrating Higgs production channels: gg fusion (top left, gluon loop producing H0), WW/ZZ fusion (top right), ttbar fusion (bottom left), and W/Z bremsstrahlung (bottom right), each showing incoming quarks/gluons producing an H0."}
 
 - 4 ways to make a Higgs boson
 
@@ -225,7 +225,7 @@ execute:
 - Probabilistic computing methods are often called "Monte Carlo," after the Casino Monte Carlo in Monaco
   - (This is a much better name than "pseudo-random-number probabilistic event simulator")
 
-![James Bond gambling](../assets/5.0_mc/image20.png){width="70%" fig-alt="Film still from a poker scene (Casino Royale): several men in tuxedos seated at a card table with poker chips, one holding cards."}
+![James Bond gambling](../assets/6.0_mc/image20.png){width="70%" fig-alt="Film still from a poker scene (Casino Royale): several men in tuxedos seated at a card table with poker chips, one holding cards."}
 
 - James Bond gambling
 
@@ -281,7 +281,7 @@ execute:
 - To study the statistical properties of random walks, we could take the lattice to be periodic (a circle) with $L$ points, and take $L \rightarrow  \infty $.
   - For example, $P(x)=\frac{1}{L}$: the walker visits each site the same number of times, on average.
 
-![Random walk](../assets/5.0_mc/image21.png){width="70%" fig-alt="Plot of a 1D random walk (dashed zigzag line with diamond markers) rising and falling over ~20 steps, with a cartoon of a stumbling, drink-holding man walking beside the endpoint - illustrating the 'drunkard's walk'."}
+![Random walk](../assets/6.0_mc/image21.png){width="70%" fig-alt="Plot of a 1D random walk (dashed zigzag line with diamond markers) rising and falling over ~20 steps, with a cartoon of a stumbling, drink-holding man walking beside the endpoint - illustrating the 'drunkard's walk'."}
 
 - Random walk
 
@@ -316,10 +316,10 @@ execute:
 
 - $$⟨{x}_{n}^{2}⟩=⟨\mathop{\mathop{ \sum }\limits_{i,j=1}}\limits^{n}{s}_{i}{s}_{j}⟩=⟨\mathop{\mathop{ \sum }\limits_{i=1}}\limits^{n}{s}_{i}^{2}⟩+⟨\mathop{\mathop{ \sum }\limits_{i=1}}\limits^{n}\mathop{\mathop{ \sum }\limits_{j=1,j \neq i}}\limits^{n}{s}_{i}{s}_{j}⟩=n$$
 
-![Random walk in 2D](../assets/5.0_mc/image22.png){width="70%" fig-alt="A 2D random walk traced as a path of horizontal and vertical line segments forming a dense, maze-like branching pattern across the frame."}
+![Random walk in 2D](../assets/6.0_mc/image22.png){width="70%" fig-alt="A 2D random walk traced as a path of horizontal and vertical line segments forming a dense, maze-like branching pattern across the frame."}
 
 - Random walk in 2D
-![Random walk in 3D](../assets/5.0_mc/image23.png){width="70%" fig-alt="3D plot of three random walks (blue, green, and red paths) shown inside a labeled x/y/z axis box, each wandering irregularly through space."}
+![Random walk in 3D](../assets/6.0_mc/image23.png){width="70%" fig-alt="3D plot of three random walks (blue, green, and red paths) shown inside a labeled x/y/z axis box, each wandering irregularly through space."}
 
 - Random walk in 3D
 
@@ -336,7 +336,7 @@ execute:
   - The fraction of darts that hit the dart board gives the ratio $A(\text{dartboard})/{L}^{2}$.
 - Or, from a different point of view, we can use this method to determine $ \pi $.
 
-![Integration by darts, aka Monte Carlo integration](../assets/5.0_mc/image24.png){width="70%" fig-alt="Figure 2, 'Squares with zero, 250, 2500 and 25000 points': four panels, each a square containing an inscribed circle, with an increasing number of random dots scattered across the square (used to estimate pi via Monte Carlo)."}
+![Integration by darts, aka Monte Carlo integration](../assets/6.0_mc/image24.png){width="70%" fig-alt="Figure 2, 'Squares with zero, 250, 2500 and 25000 points': four panels, each a square containing an inscribed circle, with an increasing number of random dots scattered across the square (used to estimate pi via Monte Carlo)."}
 
 - Integration by darts, aka Monte Carlo integration
 - [https://thatsmaths.com/2020/05/28/the-monte-carlo-method/](https://thatsmaths.com/2020/05/28/the-monte-carlo-method/)
@@ -351,7 +351,7 @@ execute:
   - (Or, more advanced case, a known biased distribution)
 - The integral is the fraction of points "below the curve" (or "within the surface" in higher dimensions).
 
-![Monte Carlo integration of a torus in 3D](../assets/5.0_mc/image25.png){width="70%" fig-alt="3D diagram showing a torus (donut shape) being swept out between two concentric circles (radii 1 and 2, up to 4) in the xy-plane, with a shaded cross-sectional disk - illustrating volume-of-revolution integration."}
+![Monte Carlo integration of a torus in 3D](../assets/6.0_mc/image25.png){width="70%" fig-alt="3D diagram showing a torus (donut shape) being swept out between two concentric circles (radii 1 and 2, up to 4) in the xy-plane, with a shaded cross-sectional disk - illustrating volume-of-revolution integration."}
 
 - Monte Carlo integration of a torus in 3D
 - $f(x)=1$ if inside, $0$ if outside
@@ -368,7 +368,7 @@ execute:
 
 - $$I \approx \frac{V}{N}\mathop{\mathop{ \sum }\limits_{i=0}}\limits^{N-1}f({\mathbf{x}}_{i})$$
 
-![Cartoon of MC integration, from https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/monte-carlo-integration.html](../assets/5.0_mc/image26.png){width="70%" fig-alt="Diagram illustrating Monte Carlo integration: four panels each showing a sample point x_i under a curve with the rectangle f(x_i)*(b-a), and below, these rectangles combined and averaged (1/4 times their sum) to approximate the area under the full curve."}
+![Cartoon of MC integration, from https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/monte-carlo-integration.html](../assets/6.0_mc/image26.png){width="70%" fig-alt="Diagram illustrating Monte Carlo integration: four panels each showing a sample point x_i under a curve with the rectangle f(x_i)*(b-a), and below, these rectangles combined and averaged (1/4 times their sum) to approximate the area under the full curve."}
 
 - Cartoon of MC integration, from [https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/monte-carlo-integration.html](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/monte-carlo-integration.html)
 
@@ -432,10 +432,10 @@ execute:
 
 - Or this?
 
-![](../assets/5.0_mc/slide26_image27.png){fig-alt="Simple sketch of a sharp asymmetric triangular spike followed by a flat baseline, plotted over a faint dot grid."}
+![](../assets/6.0_mc/slide26_image27.png){fig-alt="Simple sketch of a sharp asymmetric triangular spike followed by a flat baseline, plotted over a faint dot grid."}
 
 - A nonuniform function
-![](../assets/5.0_mc/slide26_image28.png){fig-alt="Plot of a smooth blue curve that oscillates slowly at the edges but oscillates very rapidly (many closely-spaced wiggles) near the center - a function that is hard to sample accurately with uniform random points."}
+![](../assets/6.0_mc/slide26_image28.png){fig-alt="Plot of a smooth blue curve that oscillates slowly at the edges but oscillates very rapidly (many closely-spaced wiggles) near the center - a function that is hard to sample accurately with uniform random points."}
 
 - Another nonuniform function
 - Uniform sampling is not optimal here! We want to sample the "interesting" parts more than the "boring" parts.
@@ -458,7 +458,7 @@ execute:
 
 - Then, use $1/P(y)$ as a "weight" for each point in the MC integration process.
 
-![](../assets/5.0_mc/slide27_image29.png){fig-alt="Plot of a probability density function pdf(x) (red bell-like curve) with sample points marked as blue dots connected by vertical blue lines, annotated 'higher density of samples' where the curve peaks - illustrating importance sampling."}
+![](../assets/6.0_mc/slide27_image29.png){fig-alt="Plot of a probability density function pdf(x) (red bell-like curve) with sample points marked as blue dots connected by vertical blue lines, annotated 'higher density of samples' where the curve peaks - illustrating importance sampling."}
 
 - Example of biased sampling
 
@@ -550,7 +550,7 @@ execute:
 
 - General version of transformation algorithm:
 
-![Schematic of transforming a uniform deviate to an arbitrary distribution, from Numerical Recipes](../assets/5.0_mc/image30.png){width="70%" fig-alt="Diagram illustrating inverse transform sampling: the cumulative distribution function F(y) = integral of p(y)dy (bold curve, rising from 0 to 1) with the underlying probability density p(y) (shaded gray curve) below it; a uniform random deviate on the vertical axis maps via F(y) to a transformed deviate on the horizontal y axis."}
+![Schematic of transforming a uniform deviate to an arbitrary distribution, from Numerical Recipes](../assets/6.0_mc/image30.png){width="70%" fig-alt="Diagram illustrating inverse transform sampling: the cumulative distribution function F(y) = integral of p(y)dy (bold curve, rising from 0 to 1) with the underlying probability density p(y) (shaded gray curve) below it; a uniform random deviate on the vertical axis maps via F(y) to a transformed deviate on the horizontal y axis."}
 
 - Schematic of transforming a uniform deviate to an arbitrary distribution, from Numerical Recipes
 - The thick line is the cumulative distribution function (CDF) of $p(y)$, $F(y)$.
@@ -615,7 +615,7 @@ execute:
   - Recall MCMC: next step (${x}_{n+1}$) depends only on the current step (${x}_{n}$).
 - This is a type of random walk, similar to other MCMC methods
 
-![A mountain](../assets/5.0_mc/image31.png){width="70%" fig-alt="Photograph of a green mountain landscape with snow-capped peaks, a lush valley, and blue sky with scattered clouds."}
+![A mountain](../assets/6.0_mc/image31.png){width="70%" fig-alt="Photograph of a green mountain landscape with snow-capped peaks, a lush valley, and blue sky with scattered clouds."}
 
 - A mountain
 - Schematically, suppose we want to generate a sequence from a probability distribution, $P(x)$.
@@ -633,7 +633,7 @@ execute:
   - Record steps every so often
 - As more and more sample values are produced, the distribution more closely approximates the desired distribution, $P(x)$.
 
-![Example of a Metropolis–Hastings random walk, from https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html](../assets/5.0_mc/image32.png){width="70%" fig-alt="Scatter plot of red data points connected by red lines, overlaid with several concentric blue elliptical contours - illustrating a Markov-chain Monte Carlo sample path exploring a 2D target distribution."}
+![Example of a Metropolis–Hastings random walk, from https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html](../assets/6.0_mc/image32.png){width="70%" fig-alt="Scatter plot of red data points connected by red lines, overlaid with several concentric blue elliptical contours - illustrating a Markov-chain Monte Carlo sample path exploring a 2D target distribution."}
 
 - Example of a Metropolis–Hastings random walk, from [https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html](https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html)
 
@@ -674,7 +674,7 @@ execute:
     - If walker’s step size is much smaller than typical distances between “peaks” in the terrain
     - To emulate a “truly” random sequence, we don’t want to get “stuck” between peaks; reduce autocorrelation (consecutive points in M–H are nearby each other, which is not really what we want in a random sample).
 
-![](../assets/5.0_mc/slide40_image33.png){fig-alt="Diagram of a Markov chain / Metropolis subchain structure: a starting point x0 leads to a top chain x1_t through x_Nt, with additional branches x1_1...x1_nu, x2_1...x2_nu, x3_1...x3_nu, all eventually leading to a final state x_N."}
+![](../assets/6.0_mc/slide40_image33.png){fig-alt="Diagram of a Markov chain / Metropolis subchain structure: a starting point x0 leads to a top chain x1_t through x_Nt, with additional branches x1_1...x1_nu, x2_1...x2_nu, x3_1...x3_nu, all eventually leading to a final state x_N."}
 
 - Example of sparse recording to reduce autocorrelation
 - Only save these points
@@ -847,7 +847,7 @@ execute:
 - Hard-disk gas in two dimensions: a 2D gas consisting of $N$ "hard disks".
   - Simple interactions: disks bounce elastically off each other, no long range interactions. Ignore walls (consider periodic boundary conditions, aka a torus).
 
-![Hard-disk gas, from https://computational-physics.tripos.org/notes/monte-carlo.html](../assets/5.0_mc/image34.png){width="70%" fig-alt="Simple diagram of seven gray circles (disks) scattered at random, non-overlapping positions inside a light gray rectangle - illustrating a 2D hard-disk gas."}
+![Hard-disk gas, from https://computational-physics.tripos.org/notes/monte-carlo.html](../assets/6.0_mc/image34.png){width="70%" fig-alt="Simple diagram of seven gray circles (disks) scattered at random, non-overlapping positions inside a light gray rectangle - illustrating a 2D hard-disk gas."}
 
 - Hard-disk gas, from [https://computational-physics.tripos.org/notes/monte-carlo.html](https://computational-physics.tripos.org/notes/monte-carlo.html)
 - Paper title: "Equation of State Calculations by Fast Computing Machines"
@@ -913,7 +913,7 @@ execute:
     - To avoid modeling wall bounces, just have particles "wrap around" if they hit a boundary. (Equivalently, a torus rather than a box.)
   - Initial conditions: particles close-packed in upper left corner.
 
-![Hard-disk gas: initial configuration with close packing](../assets/5.0_mc/image35.png){width="70%" fig-alt="Two figures from the original Metropolis et al. (1953) paper: Fig. 2, the initial trigonal lattice of disks (marked with X's) in a square cell; and Fig. 3, the close-packed arrangement of disks used to determine the reference area A0 = (sqrt(3)/2) d0^2 N."}
+![Hard-disk gas: initial configuration with close packing](../assets/6.0_mc/image35.png){width="70%" fig-alt="Two figures from the original Metropolis et al. (1953) paper: Fig. 2, the initial trigonal lattice of disks (marked with X's) in a square cell; and Fig. 3, the close-packed arrangement of disks used to determine the reference area A0 = (sqrt(3)/2) d0^2 N."}
 
 - Hard-disk gas: initial configuration with close packing
 
@@ -928,10 +928,10 @@ execute:
   - Can be used to distinguish solids, liquids, and gases (see [Gould–Tobochnik chapter 8.5](http://www.compadre.org/STP/document/ServeFile.cfm?ID=7946&DocID=685))
   - The equation of state is deduced from the r.d.f:
 
-![Cartoon of radial distribution function](../assets/5.0_mc/image36.png){width="70%" fig-alt="Diagram of two concentric rings of spheres (pink and blue) surrounding a central dark red sphere, with radius vector r and shell thickness dr labeled - illustrating a radial distribution function shell."}
+![Cartoon of radial distribution function](../assets/6.0_mc/image36.png){width="70%" fig-alt="Diagram of two concentric rings of spheres (pink and blue) surrounding a central dark red sphere, with radius vector r and shell thickness dr labeled - illustrating a radial distribution function shell."}
 
 - Cartoon of radial distribution function
-![Equation of state and radial distribution function of hard-disk gas, from original Metropolis paper](../assets/5.0_mc/image37.png){width="70%" fig-alt="Two figures from the original Metropolis et al. (1953) paper: Fig. 4, a plot of (PA/NkT)-1 versus (A/A0)-1 comparing this paper's results (curve A) to free-volume theory (curves B, C); and Fig. 5, the radial distribution function N_m versus m, plotted as a scatter of extrapolated values after 16, 32, and 48 cycles."}
+![Equation of state and radial distribution function of hard-disk gas, from original Metropolis paper](../assets/6.0_mc/image37.png){width="70%" fig-alt="Two figures from the original Metropolis et al. (1953) paper: Fig. 4, a plot of (PA/NkT)-1 versus (A/A0)-1 comparing this paper's results (curve A) to free-volume theory (curves B, C); and Fig. 5, the radial distribution function N_m versus m, plotted as a scatter of extrapolated values after 16, 32, and 48 cycles."}
 
 - Equation of state and radial distribution function of hard-disk gas, from original Metropolis paper
 
@@ -953,7 +953,7 @@ execute:
   - where ${\mathbf{r}}_{i}$ is the position of and ${\mathbf{X}}_{i}^{\text{int}}$ is the force due to particle $i$.
 - Derivation is based on the following figure, which simply describes the elastic collisions between two disks:
 
-![](../assets/5.0_mc/slide55_image38.png){fig-alt="Fig. 1 from Metropolis et al. (1953), 'Collisions of rigid spheres': a circle of diameter d0 with a velocity vector v*delta-t approaching at angle phi, decomposed into components including v*cos(phi)*delta-t."}
+![](../assets/6.0_mc/slide55_image38.png){fig-alt="Fig. 1 from Metropolis et al. (1953), 'Collisions of rigid spheres': a circle of diameter d0 with a velocity vector v*delta-t approaching at angle phi, decomposed into components including v*cos(phi)*delta-t."}
 
 - Geometry of rigid sphere collisions
 
@@ -973,7 +973,7 @@ execute:
   - Specifically, divide nearby circle into 64 annuli of equal area and count disks inside
 - Average over histograms and fit a model function to extrapolate the number density to $r={d}_{0}$.
 
-![Radial distribution function](../assets/5.0_mc/image39.png){width="70%" fig-alt="Full-page reproduction of Fig. 5 from Metropolis et al. (1953): the radial distribution function N_m versus m, plotted as a scatter of extrapolated values after 16, 32, and 48 cycles, with its original figure caption."}
+![Radial distribution function](../assets/6.0_mc/image39.png){width="70%" fig-alt="Full-page reproduction of Fig. 5 from Metropolis et al. (1953): the radial distribution function N_m versus m, plotted as a scatter of extrapolated values after 16, 32, and 48 cycles, with its original figure caption."}
 
 - Radial distribution function
 - $$pA=N{k}_{B}T(1+\frac{ \pi {d}_{0}^{2}\overline{n}}{2})$$
@@ -1030,7 +1030,7 @@ execute:
   - Richer phenomenology: ferromagnetic phase at low T, paramagnetic phase at high T
   - ${2}^{nd}$ order phase transition at the Curie temperature, ${T}_{C}$
 
-![2D Ising model](../assets/5.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
+![2D Ising model](../assets/6.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
 
 - 2D Ising model
 
@@ -1045,7 +1045,7 @@ execute:
   - Atoms have both a rotational spin $(L)$ and an intrinsic spin $(S)$ contributing to the magnetic properties.
 - Nearby spins can interact with each other, leading to more interesting behavior than the colliding hard-disk gas.
 
-![L and S components of spin](../assets/5.0_mc/image41.png){width="70%" fig-alt="Diagram of a classical electron analogy for spin: a blue sphere (nucleus) with an orbiting smaller blue sphere (electron, labeled e-) on an elliptical orbit, with orbital angular momentum vector L and spin vector S labeled."}
+![L and S components of spin](../assets/6.0_mc/image41.png){width="70%" fig-alt="Diagram of a classical electron analogy for spin: a blue sphere (nucleus) with an orbiting smaller blue sphere (electron, labeled e-) on an elliptical orbit, with orbital angular momentum vector L and spin vector S labeled."}
 
 - L and S components of spin
 
@@ -1062,7 +1062,7 @@ execute:
 \end{matrix}\right.$$
 - We will consider a 2D, $L \times L$ grid of spins.
 
-![2D grid of spins](../assets/5.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
+![2D grid of spins](../assets/6.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
 
 - 2D grid of spins
 
@@ -1078,7 +1078,7 @@ execute:
 - Important approximation: assume that spins only interact with the 4 nearest neighbors.
   - Greatly reduces the number of computations requires (calculating ${E}_{ij}$ from all pairs would be very slow)
 
-![](../assets/5.0_mc/slide63_image40.png){fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
+![](../assets/6.0_mc/slide63_image40.png){fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
 
 - Spins only interact with nearest neighbors
 
@@ -1293,7 +1293,7 @@ execute:
 
 - $$E=-J\mathop{ \sum }\limits_{i \neq j}{s}_{i}{s}_{j}-H\mathop{ \sum }\limits_{i}{s}_{i}$$
 
-![Magnetization per spin versus step number below TC](../assets/5.0_mc/image42.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=2.2, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), showing the system fluctuating noisily around -1 before jumping up to fluctuate around +1 partway through, then back down - illustrating spin-flip dynamics near the critical temperature; annotated ''Ising data' using !'."}
+![Magnetization per spin versus step number below TC](../assets/6.0_mc/image42.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=2.2, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), showing the system fluctuating noisily around -1 before jumping up to fluctuate around +1 partway through, then back down - illustrating spin-flip dynamics near the critical temperature; annotated ''Ising data' using !'."}
 
 - Magnetization per spin versus step number below ${T}_{C}$
 
@@ -1307,7 +1307,7 @@ execute:
 
 - $$E=-J\mathop{ \sum }\limits_{i \neq j}{s}_{i}{s}_{j}-H\mathop{ \sum }\limits_{i}{s}_{i}$$
 
-![Magnetization per spin versus step number above TC](../assets/5.0_mc/image43.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=3.0, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), fluctuating rapidly and randomly between roughly -1 and +1 throughout, with no sustained ordering - illustrating disordered behavior above the critical temperature; annotated ''Ising data' using !'."}
+![Magnetization per spin versus step number above TC](../assets/6.0_mc/image43.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=3.0, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), fluctuating rapidly and randomly between roughly -1 and +1 throughout, with no sustained ordering - illustrating disordered behavior above the critical temperature; annotated ''Ising data' using !'."}
 
 - Magnetization per spin versus step number above ${T}_{C}$
 
@@ -1353,9 +1353,9 @@ execute:
 
 - $$E=-J\mathop{ \sum }\limits_{i \neq j}{s}_{i}{s}_{j}-H\mathop{ \sum }\limits_{i}{s}_{i}$$
 
-![2D grid of spins](../assets/5.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
+![2D grid of spins](../assets/6.0_mc/image40.png){width="70%" fig-alt="A grid pattern of up and down arrows arranged in rows and columns, representing a 2D Ising model spin lattice configuration."}
 
 - 2D grid of spins
-![Magnetization per spin versus step number below ￼TC](../assets/5.0_mc/image42.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=2.2, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), showing the system fluctuating noisily around -1 before jumping up to fluctuate around +1 partway through, then back down - illustrating spin-flip dynamics near the critical temperature; annotated ''Ising data' using !'."}
+![Magnetization per spin versus step number below ￼TC](../assets/6.0_mc/image42.png){width="70%" fig-alt="Plot titled '10x10 lattice, T=2.2, H=0': magnetization per spin versus Monte Carlo steps (0 to 10000), showing the system fluctuating noisily around -1 before jumping up to fluctuate around +1 partway through, then back down - illustrating spin-flip dynamics near the critical temperature; annotated ''Ising data' using !'."}
 
 - Magnetization per spin versus step number below ${T}_{C}$

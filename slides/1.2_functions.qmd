@@ -1,0 +1,758 @@
+---
+title: "Functions and templating"
+date: "today"
+date-format: "[Fall] YYYY"
+author:
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+execute:
+  keep-ipynb: false
+---
+
+# Functions
+
+---
+
+## Variable scope
+
+::: {.callout-tip}
+### Definition
+  **Scope** is the part of your code in which a given variable (/function/structure/class/etc.) is valid.
+:::
+- Alternative definition: the lifetime of a variable.
+- All the variables we've seen so far have *local scope*: they are limited to the curly braces, `{}`, in which they are created.
+- Example: `CompPhys/ReviewCpp/BasicExamples/scope.cpp`
+  - `for` loop variables are confined to the loop. They don't exist elsewhere.
+
+:::: {.columns}
+::: {.column width=50%}
+```c++
+#include <iostream>
+int main(void){
+  for( unsigned int i = 0; i < 10; ++i ) {
+    std::cout << i << std::endl;
+  }
+  std::cout << "i = " << i << std::endl;
+  return 0;
+}
+```
+:::
+::: {.column width=50%}
+::: {.fragment}
+```bash
+$ g++ scope.cc -o scope
+scope.cc:7:44: error: use of undeclared identifier 'i'
+    7 |   std::cout << "Outside the loop, i = " << i << std::endl;
+      |                                            ^
+1 error generated.
+```
+Compiler error: `i` does not exist outside the `{}` where it was defined.
+:::
+:::
+::::
+
+---
+
+
+## Don't do this
+
+:::: {.columns}
+::: {.column width=50%}
+
+::: {style="font-size: 2.0rem;"}
+```c++
+#include <iostream>
+int main(void){
+  int i = 1000;
+  std::cout << "Outside i = " << i << std::endl;
+  for( unsigned int i = 0; i < 5; ++i ) {
+    std::cout << i << std::endl;
+  }
+  std::cout << "Outisde i = " << i << std::endl;
+  return 0;
+}
+```
+:::
+
+:::
+::: {.column width=50%}
+::: {.fragment style="font-size: 2.0rem;"}
+```bash
+(compphys-env) ~/PHY410/student/CompPhys/ReviewCpp/BasicExamples % ./scope
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Outside the loop, i = 1000
+```
+:::
+:::
+::::
+
+- `i` is defined both inside and outside the `for` loop
+- C++ actually lets you do this: **shadowing** lets inner scope temporarily overrule an outer scope. 
+
+---
+
+## Local vs. global scope
+
+- **Local scope is generally a good idea**
+  - Principle of least privilege. It makes your code simpler, less prone to mistakes, easier to debug.
+  - Consider: let's say you have a 100,000 line program (maybe your `}` key is broken...); create `x` at line 2,000; `x` causes a crash at line 80,000. What happened in between the declaration and the crash???
+- However, sometimes you may really need global scope: variable is valid in your entire program.
+  - Example: `std::cout` is a global variable!
+
+:::: {.columns}
+::: {.column width=60%}
+```c++
+#include<cmath>
+const float PI=3.1415926;
+float circle_area(float radius) {
+  return PI * pow(radius, 2);
+}
+
+int main() {
+  float radius = 1.5;
+  std::cout << "Area = " << PI << " * " << radius << "**2" << std::endl;
+  std::cout << " = " <<  circle_area(radius) << std::endl;
+}
+```
+:::
+::: {.column width=20%}
+![](../assets/1.0_cpp/slide133_image23.png){width="70%" fig-alt="Shop local slogan"}
+:::
+::::
+
+---
+
+## Scope: python vs. C++
+
+::: {.callout-warning}
+Scope works differently in python and C++! 
+:::
+
+- Variables "leak out" of `for` loops, while they are confined to the `for () {...}` in C++. 
+```{python}
+#|echo: True
+for i in range(3):
+  print(i)
+print(f"After loop, i={i}")
+```
+- In C++, "shadowing" lets you temporarily replace a variable inside `{}`. In python, the variable is just overwritten:
+```{python}
+#|echo: True
+x = 10
+if True:
+    x = 20  # This does NOT shadow. It overwrites the existing 'x'.
+print(x)  # Prints 20
+```
+
+## Functions
+
+- Like functions in mathematics, programming functions define a map from inputs to outputs.
+- $f(x, y) = \sqrt{x^2+y^2}:\ \mathbb{R}^2\rightarrow \mathbb{R}$
+
+::: {style="text-align: center;"}
+```{python}
+"""
+function_flowchart.py
+
+Generates a simple horizontal flowchart demonstrating how a function works:
+
+    [ Input x ] --> [ Function f(x) ] --> [ Output x**2 ]
+
+The middle box (the function) uses a larger font to emphasize it as the
+"engine" of the process. Produces both a PNG (for slides) and an SVG
+(for crisp scaling / editing) in the same folder as this script.
+"""
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+
+# ---- Content for each box -------------------------------------------------
+boxes = [
+    {"text": "Inputs ($x,y$)", "fontsize": 15, "weight": "normal", "facecolor": "#eaf2ff"},
+    {"text": "Function $f(x,y)$", "fontsize": 22, "weight": "bold", "facecolor": "#fff3d6"},
+    {"text": "Output ($\sqrt{x^2+y^2}$)", "fontsize": 15, "weight": "normal", "facecolor": "#eaffef"},
+]
+
+# ---- Layout parameters -----------------------------------------------------
+box_width, box_height = 2.2, 1.3
+gap = 1.0
+y = 1.0
+x_positions = []
+x = 0.5
+for _ in boxes:
+    x_positions.append(x)
+    x += box_width + gap
+
+total_width = x_positions[-1] + box_width + 0.5
+
+fig, ax = plt.subplots(figsize=(11, 3.2))
+ax.set_xlim(0, total_width)
+ax.set_ylim(0, y + box_height + 1.0)
+ax.axis("off")
+
+# ---- Draw boxes -------------------------------------------------------------
+for bx, b in zip(x_positions, boxes):
+    box = FancyBboxPatch(
+        (bx, y), box_width, box_height,
+        boxstyle="round,pad=0.08,rounding_size=0.12",
+        linewidth=2, edgecolor="black", facecolor=b["facecolor"],
+    )
+    ax.add_patch(box)
+    ax.text(
+        bx + box_width / 2, y + box_height / 2, b["text"],
+        ha="center", va="center",
+        fontsize=b["fontsize"], fontweight=b["weight"], family="monospace",
+    )
+
+# ---- Draw arrows between consecutive boxes ----------------------------------
+for i in range(len(boxes) - 1):
+    x_start = x_positions[i] + box_width
+    x_end = x_positions[i + 1]
+    arrow = FancyArrowPatch(
+        (x_start, y + box_height / 2), (x_end, y + box_height / 2),
+        arrowstyle="-|>", mutation_scale=28, linewidth=2, color="black",
+    )
+    ax.add_patch(arrow)
+
+plt.tight_layout()
+```
+:::
+--- 
+
+## Functions
+
+- In programming, functions let us:
+  - Assign a name to a block of code
+  - Enable reuse of that block arbitrarily many times in your program
+
+:::: {.columns}
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[Python]{.underline}**
+:::
+
+```python
+def hypoteneuse(x, y):
+  return (x**2 + y**2)**0.5
+```
+:::
+
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[C++]{.underline}**
+:::
+
+```c++
+#include <cmath>
+float hypoteneuse(float x, float y) {
+  return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+}
+```
+:::
+::::
+
+---
+
+## A few examples
+
+C++ provides many functions. For example, with `#include<cmath>`, you get:
+
+```{=html}
+<div style="text-align: center;">
+<iframe src="https://cplusplus.com/reference/cmath/"
+        style="width: 100%; height: 800px; border: 1px solid #ccc;">
+</iframe>
+</div>
+```
+
+---
+
+## A few examples
+
+- Our familiar `int main(void) {...}` is a function!
+  - Input = nothing (`void`, actually optional to write it out)
+  - Output = `int` (return code indicating success/failure)
+- Of course, this is a special function in C++. The compiler turns this into your executable program.
+
+---
+
+## C++ syntax for functions
+
+:::: {.columns}
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[Python]{.underline}**
+:::
+
+```python
+def hypoteneuse(x, y):
+  return (x**2 + y**2)**0.5
+```
+:::
+
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[C++]{.underline}**
+:::
+
+```c++
+#include <cmath>
+float hypoteneuse(float x, float y) {
+  return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+}
+```
+:::
+::::
+
+- **Strong typing**: as with variables, C++ requires type declarations for everything: all the input variables as well as the returned output. 
+- **Single return object**: only one object can be returned; if you want several things, you have to figure out how to package it in a single object (e.g. `struct`, `class`)
+
+---
+
+## Default arguments
+
+- Like python, functions can have **default arguments**:
+```c++
+#include<cmath>
+const float PI=3.1415926; 
+
+float hypersphere_volume(float radius, int n_dim=2) {
+return pow(PI, n/2.) * pow(radius, n) / Gamma((n/2.)+1);
+} 
+
+int main() {
+float radius = 1.5;
+std::cout << "Circle: " <<  hypersphere_volume(radius) << std::endl;
+std::cout << "Sphere: " <<  hypersphere_volume(radius, 3) << std::endl;
+std::cout << "4-ball: " <<  hypersphere_volume(radius, 4) << std::endl;
+}
+```
+
+---
+
+## Default arguments
+
+- Unlike python, C++ is somewhat stricter about their use:
+  - In python, you can mix up the order using named args (`x = f(a=1, c=3, b=1)`)
+  - In C++, args are strictly matched from left-to-right; you cannot skip one and specify the next.
+
+```c++
+double dx(double t, double v0=0.0, double g=-9.8) {
+  return (v0 * t) + (0.5 * g * t * t);
+}
+
+int main() {
+  dx(2.0); // OK; defaults used for v0 and g
+  dx(2.0, 1.2); // OK; default used for g
+  dx(2.0, 1.2, -1.62); // OK (moon g)
+
+  dx(2.0, , -1.62); // Doesn't work in C++
+  dx(2.0, g=-1.62); // Doesn't work in C++
+  dx(2.0, -1.62); // It's a trap! This would use -1.62 as v0, not g
+}
+```
+
+
+## Function declaration
+
+- Functions have a **declaration** and **implementation**
+  - **Declaration**: `double f(double x, double y);` tells compiler the function name (`f`) and "signature" (input=2 doubles, output=double)
+  - **Implementation**: the actual definition of what `f` does
+- Note: all of our examples so far do both at the same time (the definition counts as a declaration).
+- Why would you separate the two?
+  - Most importantly: this lets you define functions in other files!
+  - Function can be compiled into an external library, and linked to your program on demand. 
+  - Your `int main()` file just needs the *declaration* (so it knows the name of the function and the types of the inputs and outputs); the compiler takes care of linking.
+
+:::: {.columns .vcenter}
+::: {.column width=50%}
+::: {style="font-size: 2.0rem;"}
+```c++
+// area.cpp
+double area(double r) {
+  return PI * r * r;
+}
+```
+:::
+:::
+::: {.column width=50%}
+::: {style="font-size: 2.0rem;"}
+```c++
+// main.cpp
+#include<iostream>
+
+double area(double r);
+
+int main() {
+  std::cout << area(1.0) << std::endl;
+}
+```
+:::
+:::
+::::
+
+
+---
+
+## Function I/O
+
+- Historically*, function parameters and return value are "passed by value": the whole contents of the inputs/outputs gets transferred. 
+  - The function and whatever-called-the-function have their own copies of all the I/O variables
+
+:::: {.columns .vcenter .hcenter}
+::: {.column width=30%}
+::: {style="font-size: 2.5rem;"}
+```c++
+double func(double x) {
+  double y = std::pow(x, 2);
+  return y;
+}
+
+int main() {
+  double x = 5.;
+  double y = func(x);
+}
+```
+:::
+:::
+::: {.column width=60%}
+If you have a super old compiler, it might do something like this:
+
+- When `func()` is called, it makes an internal copy of `x`
+- `main()` and `func()` each have their own copy of `y`
+-  `func()` returns the value, which is copied to the RHS of the assignment (temporary value).
+- Finally, value is copied into `main()`'s copy of `y`.
+:::
+::::
+
+---
+
+## Function I/O
+
+- Copying a `double` is not a big deal, but copying a 1 GB `std::vector<double>` would be super inefficient.
+- Thus, C++ gradually deployed improvements:
+  - C++11: "move" semantics; `main()` *steals* the memory from `func()`
+  - C++11/14: **RVO**/**NRVO** = "(named) return value optimization"; [unnecessary copies are *elided*]([https://en.wikipedia.org/wiki/Copy_elision#RVO](https://en.wikipedia.org/wiki/Copy_elision#RVO))
+  - C++17: copy elision becomes required!
+
+::: {.callout-tip style="width: 60%; margin: auto;"}
+Recommendation: **return by value** and let the compiler optimize the memory handling
+:::
+
+---
+
+## Function I/O
+
+- RVO/NRVO works great for simple return values, but you still need to be wary of unnecessary and expensive copies:
+
+```c++
+void f(std::vector<double> v)    // copies the whole vector
+for (auto x : big_container)     // copies every element!
+return this->member_;            // real copy, no elision
+return std::move(local);         // this *disables* NRVO!
+```
+
+- For large input arguments, pass by reference or pointer, not by value (more on this when we cover pointers)
+- For loops over vectors, avoid making a copy of every element; instead, reference the value in the original vector
+
+---
+
+## Function I/O demo
+
+- `CompPhys/ReviewCpp/BasicExamples/copy.cc` demonstrates function I/O 
+  - Note: added recently to the repository, do a `git pull` if you don't have it
+- Tests creation and/or copying of a struct, which prints a message every time the constructor or copy function is called
+- Behavior depends a lot on the compilation command (and g++ vs clang++!). Try the following, and observe whether the copy is called:
+
+```bash
+g++ copy.cc -o copy
+g++ copy.cc -o copy -fno-elide-constructors
+g++ copy.cc -o copy -std=c++03 -fno-elide-constructors
+```
+
+---
+
+## Function scope
+
+- Let's revisit scope in the context of functions.
+- A horrible example: CompPhys/ReviewCpp/BasicExamples/funcscope.cc
+  - The same name, `i`, is used for 3 different variables!
+  - [Don't do this!!!]{style="font-family: Comic Sans MS, sans serif; font-color: magenta;"}
+
+```c++
+#include <iostream>
+unsigned int i = 1000;
+int func( void ) {
+  static unsigned int count = 0;
+  unsigned int i = 2;
+  std::cout << "for the " << count << "th time, i = " << i << std::endl;
+  ++count;
+  return i;
+}
+int main(void){
+  for ( unsigned int i = 10; i < 20; ++i) {
+    std::cout << "i = " << i << ", func() = " << func() << ", global i = " << ::i << std::endl;
+  }
+return 0;
+}
+```
+
+- `::i` is similar to `std::cout`, except for the global scope instead of `std`
+
+---
+
+## Scope: python vs. C++
+
+---
+
+## Static variables
+
+- This example showcases one more interesting feature: **static variables**.
+  - Most variables inside the function `{}` are instantiated, then destroyed once the function is done.
+  - Static variables persist until the end of the program; they keep their value when you call the function many times.
+
+:::: {.columns}
+::: {.column width=50%}
+```c++
+#include <iostream>
+unsigned int i = 1000;
+int func( void ) {
+  static unsigned int count = 0;
+  unsigned int i = 2;
+  std::cout << "for the " << count << "th time, i = " << i << std::endl;
+  ++count;
+  return i;
+}
+int main(void){
+  for ( unsigned int i = 10; i < 20; ++i) {
+    std::cout << "i = " << i << ", func() = " << func() << ", global i = " << ::i << std::endl;
+  }
+return 0;
+}
+```
+
+:::
+::: {.column width=50%}
+```bash
+% ./funcscope                      
+i = 10, func() = for the 0th time, i = 2
+2, global i = 1000
+i = 11, func() = for the 1th time, i = 2
+2, global i = 1000
+i = 12, func() = for the 2th time, i = 2
+2, global i = 1000
+i = 13, func() = for the 3th time, i = 2
+2, global i = 1000
+i = 14, func() = for the 4th time, i = 2
+2, global i = 1000
+i = 15, func() = for the 5th time, i = 2
+2, global i = 1000
+i = 16, func() = for the 6th time, i = 2
+2, global i = 1000
+i = 17, func() = for the 7th time, i = 2
+2, global i = 1000
+i = 18, func() = for the 8th time, i = 2
+2, global i = 1000
+i = 19, func() = for the 9th time, i = 2
+2, global i = 1000
+```
+:::
+::::
+
+---
+
+## Recursive functions
+
+- Functions can call themselves: recursive functions
+  - Example: Fibonacci sequence CompPhys/ReviewCpp/BasicExamples/fibo.cc
+  - Problem 1.3 uses this technique
+
+```c++
+#include <iostream>
+int fibonacci(int n) {
+  if (n <= 0)
+  return 0;
+  else if (n == 1)
+  return 1;
+  else
+  return fibonacci(n - 2) + fibonacci(n - 1);
+}
+int main(void) {
+  for ( unsigned int i = 0; i < 10; ++i ) {
+    std::cout << fibonacci(i) << ", ";
+  }
+  std::cout << std::endl;
+  return 0;
+}
+```
+
+---
+
+## Overloading
+
+- Let's address a major concern: C++ is strict about types, but what if you don't care whether an input number is an `int`/`unsigned int`/`float`/`double`/etc?
+
+::: {.callout-tip}
+## Overloading
+Overloading in C++ lets you define multiple functions with the same name, differing only by input types, aka signatures. This could be the number of input args, their types, or even the order of types. It *cannot* just be the return type.
+:::
+
+- So, what if we want a generic $x^2$ function? 
+  - (Well, first of all, your compiler is smart enough to figure out that a number is a number, but for the sake of example we'll do it by hand.)
+  - Make a list of all the desired signatures:
+
+```c++
+int --> int
+float --> float
+double --> double
+unsigned int --> unsigned int
+short --> short
+unsigned long --> unsigned long
+```
+
+---
+
+## Overloading
+ 
+- In CompPhys/ReviewCpp/BasicExamples/xsquared_types.cc, we write all (some) of these out:
+ ```c++
+include <iostream>
+int squared(int x){ return x*x;}
+float squared(float x){ return x*x;}
+double squared(double x){ return x*x;}
+long squared( long x) { return x*x;}
+int main(void) {
+  int i = 5;
+  long j = 10;
+  float x = 0.5;
+  double y = 1.5;
+  std::cout << squared(i) << std::endl;
+  std::cout << squared(j) << std::endl;
+  std::cout << squared(x) << std::endl;
+  std::cout << squared(y) << std::endl;
+  return 0;
+}
+```
+::: {.fragment}
+Hmm, this seems like a huge pain, doesn't it?
+:::
+
+
+# Templates
+
+---
+
+## Templating
+
+- **Templates** help us quickly write functions for multiple types:
+
+```c++
+template<class T>
+T squared(T x) {
+ return x * x;
+}
+```
+
+- This is not compiled directly! Instead, when you need `squared()` for a given type `T`, the compiler generates and compiles the appropriate class for you (basically find-and-replace `T` with the desired type, and compile it). 
+
+
+---
+
+## Templating example
+
+- Starting from the template:
+```c++
+template<class T>
+T squared(T x) {
+  return x * x;
+}
+```
+
+- If the compiler sees either of the following:
+
+:::: {.columns .vcenter .hcenter}
+::: {.column width=30%}
+
+```c++
+float x = 1.2;
+std::cout << squared(x) << std::endl;
+```
+:::
+::: {.column width=30%}
+```c++
+template float squared<float>(float x);
+```
+:::
+::::
+
+- ...then the compiler generates and compiles the following:
+```c++
+float squared(float x) {
+  return x * x;
+}
+```
+
+---
+
+## Templating
+
+![](../assets/1.0_cpp/slide160_image24.png){fig-alt="Picture of a cookie cutter cutting dough to make cookies"}
+
+- A cookie cutter is a template that you use to generate cookies
+- Cookies can be different types (chocolate chip, sugar, peanut butter, bacon, ...)
+
+:::: {.columns .vcenter .hcenter}
+::: {.column width=25%}
+```c++
+template<class T>
+T squared(T x) {
+  return x * x;
+}
+```
+:::
+::: {.column width=10%}
+[→]{style="font-size: 10rem;"}
+:::
+::: {.column width=25%}
+```c++
+float squared(float x) {
+  return x * x;
+}
+```
+:::
+::::
+
+---
+
+
+## Recap
+
+:::: {.columns .vcenter}
+::: {.column width="75%"}
+- Variables are defined with **scope**: a region of validity in your code.
+  - Local scope: variables defined inside {} are valid only within those {}.
+  - Global scope: variables are valid anywhere in the program.
+  - Static variables: persist beyond their local scope, e.g., across multiple calls to a function.
+- Functions map inputs to outputs.
+  - Declaration vs. definition.
+  - Mechanics of returning values (don't return large objects directly!).
+  - Overloading: can reuse the same function name for different types.
+- Template functions helps you define functions for many types.
+:::
+::: {.column width="25%"}
+![pasted-movie.png](../assets/1.0_cpp/slide162_image23.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/1.0_cpp/image24.png){width="100%" fig-alt="TODO: describe image"}
+:::
+::::
+
