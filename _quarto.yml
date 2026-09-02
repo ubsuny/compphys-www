@@ -23,7 +23,8 @@ website:
             - slides/1.1_cppbasics.qmd
             - slides/1.2_functions.qmd
             - slides/1.3_pointers.qmd
-            - slides/1.4_python.qmd
+            - slides/1.4_classes.qmd
+            - slides/1.5_python.qmd
           - section: "Data analysis"
             contents:
             - slides/2.0_fitting.qmd
