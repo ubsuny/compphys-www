@@ -1,0 +1,16 @@
+---
+title: "Pointers"
+date: "today"
+date-format: "[Fall] YYYY"
+author:
+  - name: David Yu
+    orcid: 0000-0001-5921-5231
+    email: dyu23@buffalo.edu
+    affiliations: University at Buffalo
+execute:
+  keep-ipynb: false
+---
+
+# Functions
+
+---

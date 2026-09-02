@@ -20,8 +20,8 @@ website:
           - section: "Programming review"
             contents:
             - slides/1.0_datareps.qmd
-            - slides.1.1_cppbasics.qmd
-            - slides/1.2_templates.qmd
+            - slides/1.1_cppbasics.qmd
+            - slides/1.2_functions.qmd
             - slides/1.3_pointers.qmd
             - slides/1.4_python.qmd
           - section: "Data analysis"
