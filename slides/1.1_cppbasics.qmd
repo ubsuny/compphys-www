@@ -446,8 +446,7 @@ std::cout << "x=" << x << " / y=" << y <<std::endl;
 
 - Let's take a closer look at variables.
 
-:::: {.rstack}
-::: {.fragment .fade-out fragment-index=0}
+::: {.fragment}
 
 :::: {style="width: 20%; margin-left: 60px; font-size: 1.5em;"}
 ```c++
@@ -466,7 +465,7 @@ Memory address |	Value |
 
 :::
 
-::: {.fragment .fade-in fragment-index=0}
+::: {.fragment}
 :::: {style="width: 20%; margin-left: 60px; font-size: 1.5em;"}
 ```c++
 int x = 0;
@@ -483,7 +482,6 @@ Memory address |	Value |
 | `0x7ffd3a4b2c1c`	| `0x3a4b2cd0` | 
 | `0x7ffd3a4b2c18`	| `0x0000000a` | ←x
 :::
-::::
 
 ---
 
@@ -946,6 +944,30 @@ bool d = 1 < 2 < 3;  // compiles!!! NOT chained
 
 ---
 
+## Operator precedence
+
+```c++
+r = a++ + ++b * ~c % d - e >> 2 < f == g & h ^ i | j && k || l ? m = n : o, p++;
+```
+
+[Use parentheses!]{style="font-family: Comic Sans MS, sans serif; color: magenta;"}
+
+```c++
+(
+  r = (
+        (
+          ((((((((a++) + ((((++b) * (~c)) % d))) - e) >> 2) < f) == g) & h) ^ i) | j
+        ) && k || l
+          ? (m = n)
+          : o
+      )
+),
+(p++);
+```
+
+---
+
+
 ## Operator precedence (C++)
 ```{=html}
 <div style="text-align: center;">
@@ -987,6 +1009,7 @@ print(1 < 2 < 3)   # True
 **[C++]{.underline}**
 :::
 
+
 ```c++
 // no ** to worry about
 
@@ -1004,6 +1027,7 @@ bool b = 1 < 2 < 3;  // means (1<2)<3
 - Recommendation: always use parentheses! They cost nothing and protect you again the most dangerous kind of bugs (no error, but wrong answer)
 
 --- 
+
 
 ## Sequences
 
@@ -1441,8 +1465,6 @@ void greet(std::string name = "world") {
 int result = add(2, 3);
 ```
 
-- As always, you have to declare the return type, as well as all input variables
-  - `void` means "returns nothing" (Python functions implicitly return `None` if no `return is called)
 - Input arguments are quite restrictive
   - Types must all be declared
   - Default arguments are supported, with restrictions.

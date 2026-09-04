@@ -4,11 +4,13 @@ $ub-blue: #005bbb;
 $ub-gray: #666666;
 
 /*-- scss:rules --*/
+// Preferred column vertical alignment: vertically center content across columns
 .columns.vcenter {
   display: flex; 
   align-items: center;
 }
 
+// Preferred column horizontal alignment: space evenly if they don't fill the slide width
 .columns.hcenter {
   display: flex;
   justify-content: space-evenly;
@@ -17,6 +19,8 @@ $ub-gray: #666666;
     flex: 0 0 auto;
   }
 }
+
+// Title slide customization
 #title-slide {
   .title {
     color: $ub-blue;
@@ -43,21 +47,25 @@ $ub-gray: #666666;
   }
 }
 
+// Footer color and weight
 .reveal .footer a {
   color: $ub-gray;
   font-weight: 300;
 }
 
+// Darker slide numbers
 .reveal .slide-number,
 .reveal.has-logo .slide-number {
   color: #595959 !important; // #666666 → ~5.7:1 on white, passes AA
 }
 
+// Darker line numbers in code blocks
 .reveal .hljs-ln-numbers {
   opacity: 1;
   color: #595959; // explicit #666666 instead of a 60%-opacity fade
 }
 
+// Figure caption customization
 .quarto-figure figcaption, .caption {
   color: $ub-gray;
   font-size: 0.8em;
@@ -65,10 +73,15 @@ $ub-gray: #666666;
   text-align: center;
 }
 
+// Default code block styling
 .reveal pre code {
-  font-size: 1.3em; 
+  font-size: 1.5rem; 
 }
 
+// Callout styling
+.reveal .slides section div.callout {
+  font-size: 1em;
+}
 .center-box {
   position: absolute;
   top: 50%;

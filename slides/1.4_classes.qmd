@@ -11,6 +11,3420 @@ execute:
   keep-ipynb: false
 ---
 
+
+- Up next: learning how to write and compile a C++ program. 
+- A compiler works something like this:
+
+![Mechanics of the C++ compiler](../assets/1.1_cppbasics/image3.png){width="70%" fig-alt="C++ compiler steps: compiler, assembler, linker"}
+
+- You write the C++ source code; the compiler translates it to machine code, and then assembles the pieces into a full program.
+
+---
+
+## Hello World
+
+- Our first example from the CompPhys repository: go to `CompPhys/ReviewCpp/BasicExamples/hello.cc` in your code editor.
+- The program is fairly simple:
+
+```c++
+#include <iostream>
+
+int main(void){
+  std::cout << "Hello, world" << std::endl;
+  return 0;
+}
+```
+
+- ...but not as simple as Python!
+
+```python
+print("Hello, world")
+```
+
+---
+
+## Hello World explained
+
+:::: {.columns .vcenter}
+::: {.column width=40%}
+```c++
+#include <iostream>
+
+int main(void){
+  std::cout << "Hello, world" << std::endl;
+  return 0;
+}
+```
+:::
+::: {.column width=60%}
+:::: {.fragment}
+- `#include` is similar to python `import`: allows you to use external code.
+  - `<iostream>` is a library providing input/output to the terminal, most notably the basic print function.
+::::
+:::: {.fragment}
+- `int main` function: input=nothing (`void`), output=`int`.
+  - `int main()` function is the conventional entrypoint for a C++ program.
+::::
+:::: {.fragment}
+- `std::cout` is similar to python `print()`, except with a "stream" syntax rather than function syntax.
+  - `std::endl;` is a newline character (`\n` in python)
+::::
+:::: {.fragment}
+- `0` is a return value indicate successful completion; other values (often 1) indicate failure. 
+::::
+:::
+::::
+
+---
+
+## Adding a comment
+
+- We should add some documentation to the program (OK, maybe this is overkill here, but in general you should document your code thoroughly!).
+- C++ has a couple ways of adding comments to code:
+
+```c++
+#include <iostream>
+int main(void){
+  // A comment
+  std::cout << "Hello, world" << std::endl;
+  return 0; // Comment
+}
+/*
+A two-line
+comment
+*/
+```
+
+- Everything on a line after `//`, or between `/*` and `*/`, is completely ignored by the compiler. 
+
+---
+
+## Compilation
+
+![From Haltermann](../assets/1.1_cppbasics/slide55_Screenshot-2025-09-02-at-5.21.30-PM.png){fig-align="center" fig-alt="Detailed breakdown of a C++ compiler"}
+
+---
+
+## Hands-on: compiling a program
+
+:::: {.columns}
+::: {.column width=50%}
+- Let's try compiling the "Hello, world" program!
+- The compiler depends on your OS: 
+  - `g++` for Linux
+  - `clang++` for MacOS (might also have `g++`)
+- `g++` is the "GNU" compiler
+  - GNU = "GNU's Not Unix"; GCC = "GNU Compiler Collection"
+  - Free, up-to-date withANSI standards
+- `clang++` is an Apple compiler, replacement for GCC
+- These are "front-ends" (human interface), while actually compilation is done by the "back-end"
+:::
+::: {.column width=50%}
+
+Compile:
+```bash
+cd PHY410
+source activate.sh
+cd CompPhys/ReviewCpp/BasicExamples
+g++ hello.cc -o hello
+```
+
+Then execute:
+```bash
+./hello
+```
+
+- If this is already familiar to you, check out some of the other examples in this folder.
+- What about assembler and linker? We'll return to that.
+
+:::
+::::
+
+---
+
+## Compiler errors
+
+- The syntax of your source code must be precise.
+- If you make a mistake, you get a **compiler error**.
+- Example: every line in C++ has to end with a semicolon, `;`. Let's head over to our code editor and delete the `;` after `std::endl`:
+
+```c++
+#include <iostream>
+int main(void){
+  std::cout << "Hello, world" << std::endl
+  return 0; 
+}
+
+- Result: the compiler fails, but tells you *exactly* what went wrong.
+
+```bash
+(compphys-env) ~/PHY410/student/CompPhys/ReviewCpp/BasicExamples % clang++ hello.cc -o hello
+hello.cc:4:43: error: expected ';' after expression
+    4 |   std::cout << "Hello, world" << std::endl
+      |                                           ^
+      |                                           ;
+1 error generated.
+```
+
+- Fix, and try again, and it works again.
+
+---
+
+
+## "What does THAT mean???"
+
+:::: {.columns}
+::: {.column width=50%}
+- Let's try something harder: what happens if you forget the `std::` in `std::cout`?
+
+```c++
+#include <iostream>
+int main(void){
+  cout << "Hello, world" << std::endl
+  return 0; 
+}
+```
+:::
+::: {.column width=50%}
+- If you're unlucky and have an older compiler:
+```bash
+$ g++ hello.cc -o hello.exe
+hello.cc: In function ‘int main()':
+hello.cc:4: error: ‘cout' was not declared in this scope
+```
+
+- Compiler tells you *precisely* what went wrong, but if you haven't seen this error before, it is probably clear as muck. 
+
+:::
+::::
+
+--- 
+
+## "What does THAT mean???"
+
+- Recommended solution in 2026: ask a LLM
+
+> What it means literally: The compiler is telling you it ran into the word cout on line 4, inside main(), and it has no idea what cout is. "Not declared in this scope" is C++'s way of saying "I've never heard of this name before — did you forget to tell me about it?"
+> 
+> Why it happens: cout (the thing you use to print output, like cout << "Hello!";) isn't a built-in keyword of the C++ language itself. It's provided by the standard library, specifically the <iostream> part of it. The compiler doesn't automatically know about every tool in the standard library — you have to explicitly ask for the parts you want. So this error almost always means one of two things:
+> 
+> You forgot the #include <iostream> line at the top of the file. This line tells the compiler "go read the definitions for input/output tools before you compile the rest of my code."
+> You forgot std:: in front of cout, or forgot using namespace std;. cout actually lives inside something called a "namespace" named std (short for "standard"). Its full name is std::cout. If you write just cout without either writing std::cout or telling the compiler up front using namespace std;, the compiler won't know where to look for it.
+
+---
+
+## "What does THAT mean???"
+
+Claude, explain these keywords: "‘cout' was not **declared** in this **scope**"
+
+- **Declared** means "the compiler has been told this name exists, and what kind of thing it is" (a variable, a function, an object, etc.), before you try to use it.
+- **Scope** means "the region of the program where a name is visible and usable." Not everything declared is visible everywhere. A name can be declared but only be visible inside a certain namespace, a certain function, or a certain block of code — outside that region, it's as if the name doesn't exist.
+  - If you just write cout with no std:: and no using namespace std;, you're asking the compiler to find cout in the current scope (basically, "right here in main(), with no extra help") — and it isn't there, so the compiler reports it as unknown "in this scope."
+
+---
+
+## "What does THAT mean???"
+
+:::: {.columns}
+::: {.column width=50%}
+- This example is a bit contrived in 2026.
+  - First, if you code with an LLM, it is unlikely to make this mistake!
+  - Second, a modern compiler should actually return a much more helpful error message.
+- Nonetheless, we can take away some lessons:
+  - You will frequently encounter bizarre and unfamiliar error messages. Solving them is a key skill for a programmer (even in the age of LLMs... for now).
+  - You will learn to identify the root problem (vs. secondary errors), and to distinguish relevant vs. irrelevant messages.
+  - Google/Stack Overflow/LLMs have a lot of answers. Be persistent.
+  - By solving the error, you may well learn something about C++!
+:::
+::: {.column width=50%}
+
+```bash
+(compphys-env) ~/PHY410/student/CompPhys/ReviewCpp/BasicExamples % clang++ hello.cc -o hello
+hello.cc:4:3: error: use of undeclared identifier 'cout'; did you mean 'std::cout'?
+    4 |   cout << "Hello, world" << std::endl;
+      |   ^~~~
+      |   std::cout
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/iostream:57:42: note: 'std::cout' declared
+      here
+   57 | extern _LIBCPP_EXPORTED_FROM_ABI ostream cout;
+      |                                          ^
+1 error generated.
+```
+
+:::
+::::
+
+---
+
+## Types of errors
+
+- So far, we have just seem **compiler errors**
+  - That means you didn't set the code up correctly within a file
+  - It might not feel like it, but these are a "good" kind of error: the compiler sees something wrong and helps you fix it.
+- **Linker errors** mean you didn't set up the code correctly across multiple files
+  - Still caught by `g++/clang++`, so you have help.
+- **Runtime errors** occur when the code is technically correct in terms of C++ syntax, but something went wrong while executing. 
+  - Division by zero, going beyond the end of an array, running out of memory
+  - Can be harder to debug: program might not produce a helpful error message. Might require an external tool (GDB, valgrind, gprof, ...)
+- And finally, the worst case: your programs runs successfully, but gives you the wrong answer!
+
+
+---
+
+## Values and variables
+
+- Now that we have the structure of a C++ program, let's consider the code itself.
+- First concept: **values**
+  - ints like 1, 2, 4, 3359
+  - floats like 3.14
+  - strings like "my string"
+- These behaved intuitively: just write the number or string in your program, and the compiler will understand. 
+
+```bash
+# std::cout << 4 << std::endl;
+$ ./printfour
+4
+```
+
+---
+
+## How to break a value
+
+:::: {.columns}
+::: {.column width=50%}
+- What could go wrong? Let's try to break the program.
+- Consider an integer: we have learned that the `int` type has a specific, finite range.
+- Add the following to `hello.cc`:
+
+```c++
+std::cout << -3000000000000000000000000000 << std::endl;
+```
+
+:::: {.fragment}
+```
+$ g++ hello.cc -o hello
+hello world.cc:4:17: error: integer literal is too large to be represented in any integer type
+4 |   std::cout << -3000000000000000000000 << std::endl;
+|                 ^
+1 error generated.
+```
+::::
+:::
+::: {.column width=50%}
+
+:::: {.fragment}
+- This is actually sort of a runtime error, not a syntax error! Our C++ syntax is correct, we just have a bad value. 
+    - Luckily, most compilers are smart enough to catch problems like this.
+    - However, *this is not specified by the C++ standard*! 
+- In the worst case, a less intelligent compiler might try to cram -3000000000000000000000 into your 16 bits, interpreted incorrectly using two's complement. 
+    - This is the worst case scenario: the code happily runs and returns complete garbage. 
+    - We will see some more garbage very shortly...
+::::
+
+:::
+::::
+
+---
+
+## Variables
+
+:::: {.columns}
+::: {.column width="60%"}
+- Variable are declared with a type and a name: `int x;`
+- Content of variable (say 32 bit integer) occupies a specific set of registers in memory, allocated by your computer.
+- So, the variable corresponds to a specific memory address, besides having a value.
+:::
+::: {.column width="25%"}
+
+:::: {style="font-size: 1.5em;"}
+| Address | Value |  |
+| --- | --- | --- |
+| `0x1000` | 0x04a45 | |
+| `0x1001` | 0x9ab38 | |
+| `0x1010` | 0x0000 | ←x |
+| `0x1011` | 0x1003 | |
+::::
+
+:::
+
+::::
+---
+
+## Variable initialization
+
+:::: {.columns}
+::: {.column width=50%}
+- Let's break the program again! Let's change `hello.cc` to the following:
+
+```c++
+int main() {
+  int x;
+  std::cout << x << std::endl;
+  return 0;
+}
+```
+:::
+::: {.column width=50%}
+
+:::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+In Ubuntu:
+
+```bash
+$ g++ hello.cc -o hello
+$ ./hello
+0
+```
+
+- Hmm. Where did that 0 come from? Did the compiler just guess a sensible value?
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=0}
+In MacOs:
+
+```bash
+$ clang++ hello.cc -o hello
+$ ./hello
+-289095592
+```
+
+- Wow! `clang++` gives complete garbage!
+:::
+
+::: {.fragment fragment-index=1}
+- ⚠️ The C++ standard actually does not specify a default initial value for any type, so it is technically allowed to be filled with random garbage. ⚠️
+- The program allocates some memory to `x`, but without initialization, the *value* is whatever happened to be in that memory beforehand.
+- Different compilers will do different things! 🙀
+
+:::
+::::
+
+:::
+::::
+
+---
+
+## Variable initialization
+
+:::: {.columns}
+::: {.column width=50%}
+- Moral of the story: always set the initial value of your variables!
+  - Uninitialized variables have unknown behavior: maybe throws a compiler error; maybe set to 0; maybe set to random values!
+  - Your code will behave differently on different computers, or with different compilers.
+  - Your code might even behave differently on different days.
+- Also, `g++` and `clang++` can optionally fail if they detect uninitialized variables.
+:::
+::: {.column width=50%}
+
+```c++
+int x=0;
+// Equivalent notation:
+int y(0);
+std::cout << "x=" << x << " / y=" << y <<std::endl;
+```
+
+- Now the outcome of your program is guaranteed.
+- Accept no substitutes! Your program *must* be determinstic!
+:::
+::::
+
+---
+
+## Variables in detail
+
+- Let's take a closer look at variables.
+
+:::: {.rstack}
+::: {.fragment .fade-out fragment-index=0}
+
+:::: {style="width: 20%; margin-left: 60px; font-size: 1.5em;"}
+```c++
+int x = 0;
+```
+::::
+
+- **Allocation**: 4 bytes of memory are reserved for the variable `x` (determined at compile time)
+- **Initialization**: at runtime, value 0 (`0x00000000`) is written to that 4-byte slot
+- Result:
+
+Memory address |	Value | 
+| --- | --- | --- |
+| `0x7ffd3a4b2c1c`	| `0x3a4b2cd0` | 
+| `0x7ffd3a4b2c18`	| `0x00000000` | ←x
+
+:::
+
+::: {.fragment .fade-in fragment-index=0}
+:::: {style="width: 20%; margin-left: 60px; font-size: 1.5em;"}
+```c++
+int x = 0;
+x = 10;
+```
+::::
+
+- **Assignment**: the value 10 (i.e., `0x0000000a`) is written (copied) to the memory slot corresponding to `x`
+- The memory address of `x` does not change; only the value changes.
+- Result:
+
+Memory address |	Value | 
+| --- | --- | --- |
+| `0x7ffd3a4b2c1c`	| `0x3a4b2cd0` | 
+| `0x7ffd3a4b2c18`	| `0x0000000a` | ←x
+:::
+::::
+
+
+---
+
+## Variable assignment
+
+- Why am I taking care to be pedantic about this?
+- Because in C++, "assignment" can be very generic.
+- A variable could be something much more complicated than just one integer:
+
+- FacebookData x = facebook.copy();
+
+- This is terrible, terrible, terrible, because it actually copies ALL of the data in facebook three times!
+  - facebook.copy(): copies FacebookData to a local register.
+  - Copies that register to a global scope register.
+  - Copies that copied register to "x"
+- Ugh, that could take awhile!
+
+---
+
+## Variable assignment
+
+- We can assign values to variables over and over:
+
+- int x=0;
+- std::cout << x << std::endl;
+- x = 10;
+- std::cout << x << std::endl;
+- x = 20;
+- std::cout << x << std::endl;
+
+---
+
+## Variable assignment
+
+- We can assign values to variables over and over:
+
+- int x=0;
+- std::cout << x << std::endl;
+- x = 10;
+- std::cout << x << std::endl;
+- x = 20;
+- std::cout << x << std::endl;
+
+- IMPORTANT:
+  - We only specify "int x" once. This creates the variable in memory.
+  - If you write "int x" a second time:
+    - Possibly: the compiler makes a brand new variable in memory, completely forgetting about the first one.
+    - Probably: the compiler throws an error.
+
+---
+
+## Variable assignment
+
+- A more complicated example: let's try two variables and see how they interact.
+
+- int x=0, y=1;
+- std::cout << x << std::endl;
+- std::cout << y << std::endl;
+- x = y;
+- std::cout << x << std::endl;
+- std::cout << y << std::endl;
+
+- After running "x=y", the value x changes to 1, as expected.
+
+- $ ./helloworld.exe
+- 0
+- 1
+- 1
+- 1
+
+---
+
+## Variable assignment
+
+- What is actually going on "under the hood"?
+
+- x
+
+- y
+
+- x
+
+- y
+
+- int x=0, y=1;
+
+- x = y;
+
+- Put the value "0" into "x"
+- Put the value "1" into "y"
+
+- Copy the value from "y"
+- place it into the value for "x"
+
+- Addresses of x and y remain the same.
+- Value of x is updated; value of y is unchanged.
+- Note: x is not tied to y in any way! Only the value was copied.
+
+---
+
+## C++ identifiers
+
+- We have now seen that there is a special word in C++ : "int".
+- What about others?
+  - They are called "identifiers"
+  - It is a special term in the language that cannot be used for anything else
+    - E.g. as a variable name
+- We will encounter many of these as we go along.
+
+![TODO: describe image](../assets/1.1_cppbasics/slide81_image11.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Some basic types
+
+- Numbers:
+  - int x = 12;
+  - float x = 3.14f;
+  - double x = 3.14159265359;
+- Boolean: just one bit.
+  - bool b = true;
+  - b = false;
+  - Commonly used for "flow of control": the basic logic of your code.
+- enum:
+
+---
+
+## Some basic types
+
+- Enums: basically "labels"
+  - Short for "enumeration"
+  - Under the hood, these are integers by default.
+  - Can be changed... but you should probably avoid this unless you know what you're doing!
+
+- enum Weight_t{
+  - kLIGHT,
+  - kMEDIUM,
+  - kHEAVY
+- };
+- enum Color {
+  - kBLUE=1,
+  - kRED=2,
+  - kGREEN=3
+- }
+- enum myColor = kBLUE;
+
+---
+
+## Some basic types
+
+- char: a single character (letter, number, punctuation)
+  - Only needs 1 byte to store most symbols you need!
+  - Stored as a numerical code: ASCII (7 bits), UTF-8, UTF-16, ...
+  - See [Wikipedia](https://en.wikipedia.org/wiki/Comparison_of_Unicode_encodings) for more 🙂
+  - Yes, [emojis, too](https://en.wikipedia.org/wiki/Emoticons_(Unicode_block))!
+
+![TODO: describe image](../assets/1.1_cppbasics/image12.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Using char
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Syntax to declare a single character is within SINGLE quotes :
+
+- char somechar = ‘c';
+- std::cout << some char << std::endl;
+
+- There are a few special characters:
+
+![](../assets/1.1_cppbasics/slide85_image13.png){fig-alt="TODO"}
+
+---
+
+## Using char
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Syntax to declare a single character is within SINGLE quotes :
+
+- char somechar = ‘c';
+- std::cout << some char << std::endl;
+
+- There are a few special characters:
+
+![](../assets/1.1_cppbasics/slide86_image13.png){fig-alt="TODO"}
+
+- What about more than one character?
+  - Gets complicated! More on this later.
+  - Option 1: array of char (i.e. several char variables wrapped into a list)
+  - Option 2: std::string (i.e. a whole "class" defined in a library)
+
+---
+
+## Constants
+
+- So if we have a variable, what if we want it to remain… umm… constant?
+- Syntax in C++ is "const":
+
+- const double PI = 3.14159265359;
+
+- Can be used like a variable, except it cannot be reassigned.
+- Try to change the value in your code:
+
+- $ g++ hello.cc -o hello.exe
+- hello.cc: In function ‘int main()':
+- hello.cc:5: error: assignment of read-only variable ‘PI'
+
+- PI = 3.2;
+
+- <!-- source pptx's hlinkClick target for this run is http://www.apple.com - almost certainly a stray/leftover default link, not what David intended (same anomaly pattern seen in the 09_linalg conversion). Linked to the visible URL itself pending confirmation. -->
+[https://en.wikipedia.org/wiki/Indiana_pi_bill](https://en.wikipedia.org/wiki/Indiana_pi_bill)
+
+---
+
+## Summary
+
+- We started on the basics of C++:
+  - Basic structure of a program;
+  - Compiling a single file;
+  - How to use variables;
+  - Basic C++ types (numbers, letters, booleans, enums)
+- Assignment 1, problems 2 and 3 use today's material:
+  - 2: Maximum value you can store in various types of numbers
+  - 3 (505 students only): Experiment with (2) within a C++ program.
+
+---
+
+# Arithmetic and expressions
+
+---
+
+## Arithmetic and expressions
+
+- An expression: a sequence of operators (e.g. +, -, /) and operands that specifies a computation.
+- Arithmetic is just like in regular math, but can happen on other types besides numbers!
+  - Booleans (true/false)
+  - Bits
+- Basic arithmetic works as you expect:
+  - Binary operators have two arguments: +, -, *, /, % (modulus)
+  - Unary operators have just one argument: for numbers, just have +, - (flip sign)
+
+- 42;                    // value: 42
+- sum = value1 + value2; // value: "sum"
+- 12 > 13;               // value: false
+
+---
+
+## Logic operators
+
+- Logic operators convert the inputs to a boolean results: AND, OR, NOT.
+  - AND: &&
+  - OR: ||
+  - NOT: !
+- Note: "" is treated as true! Different from python.
+
+- 1 && "a";         // value: true
+- 0 && "a";         // value: false
+- 1 && "";          // value: true!
+- 0 || "a";         // value: true
+- !true;            // value: false
+
+---
+
+## Bitwise operators
+
+- 0b101 & 0b001;    // value: 0b001
+- 0b001 | 0b010;    // value: 0b011
+- 0b011 ^ 0b010;    // value: 0b001
+- 0b001 << 2;       // value: 0b100
+
+- Similar to logic operators, but done bit-by-bit
+  - Think of a given variable as an array of bits.
+  - Bitwise operators compare two arrays bit-by-bit.
+- AND: &
+- OR: |
+- XOR: ^
+- <<: shift bits left
+  - Left edge: truncate the bits
+  - Right edge: add 0s
+- >>: shift bits right
+  - (Note: same symbol as std::cout<<..., but completely different meaning)
+
+---
+
+## Bitwise operators
+
+- 0b101 & 0b001;    // value: 0b001
+- 0b001 | 0b010;    // value: 0b011
+- 0b011 ^ 0b010;    // value: 0b001
+- 0b001 << 2;       // value: 0b100
+
+- Similar to logic operators, but done bit-by-bit
+  - Think of a given variable as an array of bits.
+  - Bitwise operators compare two arrays bit-by-bit.
+- AND: &
+- OR: |
+- XOR: ^
+- <<: shift bits left
+  - Left edge: truncate the bits
+  - Right edge: add 0s
+- >>: shift bits right
+  - (Note: same symbol as std::cout<<..., but completely different meaning)
+
+- 5 & 4;           // value: 4
+- 5 | 4;           // value: 5
+- 'p' >> 1;        // value: 8 (!!)
+
+- 0b0101 & 0b0100
+
+- 0b0101 | 0b0100
+
+- 'p'=112 = 0b1110000
+- -->56  = 0b0111000 = '8'
+
+---
+
+## Comparison operators
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Comparison operators: convert two values into a boolean
+  - Most often seen in control statements (if, for, while, ...).
+
+![](../assets/1.1_cppbasics/slide94_image14.png){fig-alt="TODO"}
+
+- bool expression = (14 < 16);
+- std::cout << expression << std::endl;
+  - // Prints "true"
+
+---
+
+## Gotchas
+
+- Let's compile and execute CompPhys/ReviewCpp/BasicExamples/operators.cc:
+
+- #include <iostream>
+- int main(void) {
+- std::cout << "-5 = " << -5 << std::endl;
+- std::cout << "5 + 3 = " << 5 + 3 <<std::endl;
+- std::cout << "5 * 3 = " << 5 * 3 <<std::endl;
+- std::cout << "21.32 / 38.0 = " << 21.32 / 38.0 << std::endl;
+- std::cout << "12 / 4 = " << 12 / 4 << std::endl;
+- std::cout << "13 / 4 = " << 13 / 4 << std::endl;
+- std::cout << "13. / 4. = " << 13. / 4. << std::endl;
+- return 0;
+- }
+
+---
+
+## Gotchas
+
+- Most of these look as expected... except for one!
+
+- std::cout << "13 / 4 = " << 13 / 4 << std::endl;
+- ...
+- 13 / 4 = 3
+
+- What's the difference between this and:
+
+- std::cout << "13. / 4. = " << 13. / 4. << std::endl;
+- ...
+- 13. / 4. = 3.25
+
+---
+
+## Integer division
+
+- Why does 13 / 4 = 3???
+- Operations are specified exactly based on types.
+- C++ standard: <integer> / <integer> returns an integer, not a float
+- Why? Consider the following example:
+
+- std::cout << "13 / 4 = " << 13 / 4 << std::endl;
+- ...
+- 13 / 4 = 3
+
+- int x(0);
+- int y(0);
+- std::cin << x << y;
+- std::cout << x / y << std::endl;
+
+  - Compiler has to assign a type to the expression x / y
+  - Is this a round integer or not? Compiler does not know in advance! We have to choose: always integer or always float.
+  - The C++ standards committee made a choice: integer division always returns an integer, rounding any decimals towards 0.
+    - Avoids making the extra complexity mandatory (i.e., avoids always upscaling integers to floats).
+
+- Truncate, truncate, truncate!
+
+---
+
+## Widening and narrowing
+
+- How does 13. / 4 = float / int give you the correct decimal answer?
+- Key fact: integers are a subset of reals
+  - int can be converted to float
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
+- So, given (float / int), we can "widen" the int.
+  - Resulting in (float / float).
+
+---
+
+## Widening and narrowing
+
+- How does 13. / 4 = float / int give you the correct decimal answer?
+- Key fact: integers are a subset of reals
+  - int can be converted to float
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
+- So, given (float / int), we can "widen" the int.
+  - Resulting in (float / float).
+
+- However, the converse is NOT true: a float cannot be "narrowed" to an int without loss of information!
+  - You can't write 1.9 as an int.
+- The C++ standard says : TRUNCATION, TRUNCATION, TRUNCATION
+- It does NOT round!!!
+  - int i = 1.999999; gives you "1", not "2"
+- Some compilers will warn you ("potential loss of data")
+- Other compilers will happily give you the garbage you asked for.
+
+---
+
+## Widening and narrowing
+
+- How does 13. / 4 = float / int give you the correct decimal answer?
+- Key fact: integers are a subset of reals
+  - int can be converted to float
+  - The way we say this is int is "narrower" than float, and float is "wider" than int
+- So, given (float / int), we can "widen" the int.
+  - Resulting in (float / float).
+
+- However, the converse is NOT true: a float cannot be "narrowed" to an int without loss of information!
+  - You can't write 1.9 as an int.
+- The C++ standard says : TRUNCATION, TRUNCATION, TRUNCATION
+- It does NOT round!!!
+  - int i = 1.999999; gives you "1", not "2"
+- Some compilers will warn you ("potential loss of data")
+- Other compilers will happily give you the garbage you asked for.
+
+- Moral of the story: if you have an expression with mixed types, the standard will "widen" the narrower one, if it knows how.
+  - "float / int" will give you a "float"
+  - "int / float" will give you a "float"
+  - But "int / int" will give you an "int"
+
+---
+
+## Casting
+
+- Does having C++ make decisions about types make you uncomfortable?
+- A better way: casting.
+
+  - float x = 123.456;
+- int n = static_cast<int>( x );
+- std::cout << n << std::endl;
+- // Result: 123
+
+- This explicitly invokes the float-to-int conversion, instead of making you remember what the C++ standard decided.
+- Note: static_cast<T>() is only one way of transforming objects from one type to another.
+  - Commonly used for straightforward conversions like int to float.
+  - Compiler checks that the conversion has been defined; fast and safe, but not as flexible as other runtime-focused options.
+
+---
+
+## Casting
+
+- Does having C++ make decisions about types make you uncomfortable?
+- A better way: casting.
+
+  - float x = 123.456;
+- int n = static_cast<int>( x );
+- std::cout << n << std::endl;
+- // Result: 123
+
+- This explicitly invokes the float-to-int conversion, instead of making you remember what the C++ standard decided.
+- Note: static_cast<T>() is only one way of transforming objects from one type to another.
+  - Commonly used for straightforward conversions like int to float.
+  - Compiler checks that the conversion has been defined; fast and safe, but not as flexible as other runtime-focused options.
+
+---
+
+## Operator precedences
+
+- Operators follow the same rules you've always learned:
+"Please Excuse My Dear Aunt Sally"
+Parentheses, Exponentiation, Multiplication, Division, Addition, Subtraction
+- Associativity also follows this
+- However: as a best practice, use parentheses to be clear when necessary! Compare:
+- x = 2 + 3 * 4;
+x = 2 + (3 * 4);
+- Both correct, but second is clearer
+
+---
+
+## Operator precedences
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/1.1_cppbasics/slide104_Screenshot-2025-09-07-at-10.50.26-PM.png){fig-alt="TODO"}
+
+- 5. *, /, %
+
+- 6. +, -
+
+- 2. Exponent
+- (Function call)
+
+- For anything more complicated than simple arithmetic, you should really use parentheses to ensure correct and comprehensible behavior!
+
+---
+
+## Increment operators
+
+- Some useful shorthand:
+  - Let's say we want to increment a counter by 1:
+  - int x = 0;
+  - x = x + 1;
+- Shorthand:
+- x++;
+  - OR!
+- ++x;
+- Similarly,
+  - x--;
+
+- What's the difference?
+- x++; = "post-increment"
+- ++x; = "pre-increment"
+- When used just to increment x, there is no difference!
+  - Historically, pre-incrementing was faster (avoids a copy operation), but modern compilers optimize away the difference.
+- However...
+
+---
+
+## Increment operators
+
+- int x = 1;
+- int y = x++;
+- std::cout << y << std::endl;
+- // y = 1
+- // x++ returns value of x, then increments!
+
+- int x = 1;
+- int y = ++x;
+- std::cout << y << std::endl;
+- // y = 2
+- // ++x increments x, then returns x
+
+- Unless you really need the shorthand, it's probably safer to write the full expression:
+- y = x + 1;
+
+---
+
+# Control structures
+
+---
+
+## Conditional execution: if...else
+
+- Conditional execution: execute different code depending on a condition
+  - Condition = boolean (true/false), calculated from some inputs
+- By chaining together if... else if... else..., you can control the flow of your code with arbitrarily complex logic.
+
+![TODO: describe image](../assets/1.1_cppbasics/image15.png){width="70%" fig-alt="TODO: describe image"}
+
+![TODO: describe image](../assets/1.1_cppbasics/slide108_image16.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Conditional execution: if...else
+
+- if (v > c) {
+  - std::cout << "WARNING : Tachyon!" << std::endl;
+- } else if (v == c) {
+  - std::cout << "Photon" << std::endl;
+- } else {
+  - std::cout << "Particle with mass" << std::endl;
+- }
+
+- C++ syntax:
+
+- if v > c:
+  - print("WARNING : Tachyon!")
+- elif v == c:
+  - print("Photon")
+- else:
+  - print("Particle with mass")
+
+- Python syntax:
+
+- Note: white space/indentation do not matter in C++!
+- You should still indent for readability, but unlike Python, the braces control the actual flow, not the indentation.
+
+---
+
+## Conditional execution: if...else
+
+- If statements can also:
+  - Be nested
+  - Use arbitrary logic inside the condition statement
+
+- if (car.make == "toyota") {
+  - if ((2009 <= car.year) && (car.year <= 2011)) {
+    - std::cout << "DANGER! Your brakes are vulnerable to single-event upsets from cosmic rays!" << std::endl;
+  - } else {
+    - std::cout << "Your car is a Toyota, but outside of the affected years."" << std::endl;
+  - }
+- } else {
+  - std::cout << "Your car is not a Toyota." << std::endl;
+- }
+
+---
+
+## Shorthand for "if" statements
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- If you have a very simple "if" statement, you can use the following shorthand:
+
+![](../assets/1.1_cppbasics/slide111_image17.png){fig-alt="TODO"}
+
+- std::string parity = (i % 2 == 0) ? "Even" :"Odd";
+
+---
+
+## Conditional execution: switch
+
+- For many possible conditions, a SWITCH statement is easier than a giant IF...ELSE IF...ELSE IF...ELSE IF... block:
+
+- switch(i) {
+  - case 1:
+    - std::cout << "Monday" << std::endl;
+    - break;
+  - case 2:
+    - std::cout << "Tuesday" << std::endl;
+    - break;
+  - ...
+  - default:
+    - std::cout << "Day " << i << std::endl;
+    - break;
+- }
+
+- Note: i must be an integer (or enum)
+- break; exits the block (if omitted, the next statements are executed!)
+
+---
+
+## Another "gotcha": floating point type concerns
+
+- Let's look at the example ReviewCpp/BasicExamples/narrowing.cc:
+
+- int main(void) {
+- double d = 22000000000000.0;
+- int i = d;
+- std::cout << "d = " << d << ", i = " << i << std::endl;
+- return 0;
+- }
+
+- Compile with (-Wconversion tells the compiler to issue warnings related to numerical conversions):
+
+- compphys@809361282cf0:~/CompPhys/ReviewCpp/BasicExamples$ g++ -Wconversion narrowing.cc -o narrowing.exe
+- narrowing.cc: In function 'int main()':
+- narrowing.cc:5:11: warning: conversion from 'double' to 'int' may change value [-Wfloat-conversion]
+- 5 |   int i = d;
+- |           ^
+
+---
+
+## Another "gotcha": floating point type concerns
+
+- Sure enough, 2.2e13 is too big for an int:
+
+- compphys@809361282cf0:~/CompPhys/ReviewCpp/BasicExamples$ ./narrowing.exe
+- d = 2.2e+13, i = 2147483647
+
+---
+
+## Floating point comparisons
+
+- We've seen the "==" operator for ints, which behaves just like you would expect.
+  - 1234==1234 returns true
+  - 1==2 returns false
+- How about floating point numbers?
+  - How does C++ handle, e.g., (5.0f = 5.0f)?
+
+![TODO: describe image](../assets/1.1_cppbasics/image7.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Floating point comparisons
+
+- Another example: ReviewCpp/BasicExamples/float_compare.cc:
+
+- int main(void) {
+  - float f1 = 5.0f;
+  - float f2 = 5.0000001f;
+  - if ( f1 == f2 ) {
+    - std::cout << "I'm sorry, Dave. I'm afraid I can't do that." << std::endl;
+  - } else {
+    - std::cout << "No problem, come in Dave." << std::endl;
+  - }
+  - return 0;
+- }
+
+- compphys@809361282cf0:~/CompPhys/ReviewCpp/BasicExamples$ g++ floatcompare.cc -o floatcompare.exe
+- compphys@809361282cf0:~/CompPhys/ReviewCpp/BasicExamples$ ./floatcompare.exe
+- I'm sorry, Dave. I'm afraid I can't do that.
+
+---
+
+## Floating point comparisons
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- What's going on here?
+- Our program is telling us 5.0f = 5.0000001f!
+- The mantissa of a float has limited precision
+  - Easy to get into trouble... 1. + 1.e10 has an 11-digit mantissa!
+- Comparisons only make sense within the precision of the mantissa!
+
+![](../assets/1.1_cppbasics/slide117_image7.png){fig-alt="TODO"}
+
+- Mantissa
+
+- Exp.
+
+- Sign
+
+![](../assets/1.1_cppbasics/slide117_Screenshot-2025-09-08-at-12.14.48-AM.png){fig-alt="TODO"}
+
+---
+
+## Floating point comparisons
+
+- Comparing floats with "==" is dangerous!
+- Better idea: explicitly compare with a specified tolerance.
+  - BAD: f1 == f2
+  - GOOD: std::abs(f1 - f2) < tolerance
+- You need to pick a tolerance your program needs.
+- See [floatcompare_better.cc](http://floatcompare_better.cc)
+
+- constexpr inline bool floats_equal(float a, float b) {
+- std::fabs(a - b) < std::numeric_limits<float>::epsilon();
+- }
+
+- C++ example:
+
+- Python:
+
+- # Use math.isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)¶
+- >>> math.isclose(5.0, 5.00000001)
+- False
+- >>> math.isclose(5.0, 5.000000001)
+- True
+
+---
+
+## Floating point comparisons
+
+![TODO: describe image](../assets/1.1_cppbasics/slide119_image18.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Summary
+
+- Today, we covered:
+  - Basic types in C++ (int, float, enum, char) and const
+  - Arithmetic and expressions
+    - Normal math; logic operators; bitwise operators
+    - Peculiarities of operators and types: integer division, implicit and explicit type transformations (aka "casting")
+    - Operator precedence
+  - Conditional execution, aka IF...THEN...ELSE
+  - Dangers of floating point precision
+
+---
+
+# Iteration aka loops
+
+---
+
+## Flow control: iteration
+
+- It's a royal pain to count. Humans suck at it.
+  - Computers are really, really fantastic at it, though!
+  - Similarly, computers are great at doing the same thing over and over (and over and over andoverandoverandover)
+- This is referred to as "iteration". C++ options:
+  - "for" loop
+  - "while" loop
+  - "do while" loop
+  - "goto" statements (don't use these)
+
+![TODO: describe image](../assets/1.1_cppbasics/image19.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## for loops
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- C++ syntax:
+
+- for (<initialize counter>;
+  - <continue or terminate condition>;
+  - <modify counter>) {
+  - <execute statement>
+  - }
+
+- Python syntax:
+
+- for <iterator> in <some_set>:
+  - <execute statement>
+
+- for (unsigned int i = 0; i < 10; ++i) {
+  - std::cout << i << std::endl;
+- }
+- // Prints 0, 1, 2, ..., 9
+
+- for i in range(10):
+  - print(i)
+
+- C++ for loops require 3 things:
+  - Initialize a counter (often just an unsigned int; can also iterate through a vector directly).
+  - Specify the condition for continuing (vs. terminating) the loop.
+  - Increment the counter at the end of each loop.
+
+---
+
+## for loops
+
+- Examples:
+  - CompPhys/ReviewCpp/BasicExamples/forloop.cc (just counts to 10)
+  - CompPhys/ReviewCpp/BasicExamples/forloop_nested.cc:
+
+- #include <iostream>
+- int main(void){
+- for ( unsigned int i = 0; i < 10; ++i) {
+- for ( unsigned int j = i; j < 10; ++j ){
+- std::cout << "(" << j << ", " << i << "), ";
+- }
+- std::cout << std::endl;
+- }
+- return 0;
+- }
+
+- Compile and run, what do you get? Can you guess how many pairs (j, i) this will print?
+
+---
+
+## Important concepts for all loops
+
+- Important keywords for loops:
+  - continue : go straight to the next iteration, skipping the rest of the statement.
+  - break : exit the for loop entirely
+  - Useful for termination abnormally and for error checking
+- "Gotchas", i.e., things that can go wrong:
+  - Infinite loops : you didn't give a correct termination condition.
+  - Incorrect initialization : your initialization was incomplete or buggy.
+
+- #include <iostream>
+- int main(void){
+- for ( unsigned int i = 0; i < 10; ++i) {
+- if (i % 2 == 1) {
+- continue;
+- }
+- std::cout << i << std::endl;
+- }
+- return 0;
+- }
+
+  - What does this loop do?
+
+---
+
+## Important concepts for all loops
+
+- Important keywords for loops:
+  - continue : go straight to the next iteration, skipping the rest of the statement.
+  - break : exit the for loop entirely
+  - Useful for termination abnormally and for error checking
+- "Gotchas", i.e., things that can go wrong:
+  - Infinite loops : you didn't give a correct termination condition.
+  - Incorrect initialization : your initialization was incomplete or buggy.
+
+- #include <iostream>
+- int main(void){
+- for ( unsigned int i = 0; i < 10; ++i) {
+- if (i % 2 == 1) {
+- continue;
+- }
+- std::cout << i << std::endl;
+- }
+- return 0;
+- }
+
+  - The loop calls continue if i is odd, skipping the std::cout.
+  - Hence, the loop prints only even numbers from 0 to 9.
+
+---
+
+## while and do loops
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Similar to "for" loops are: "while" loops and "do while" loops.
+  - These are rather similar to each other.
+  - "do while" will always execute statement at least once, and repeats if condition is TRUE
+  - "while" only executes statement if condition is met, so it's possible to loop 0 times.
+
+![](../assets/1.1_cppbasics/slide127_image20.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide127_image21.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide127_image19.png){fig-alt="TODO"}
+
+---
+
 # Functions
 
 ---
+
+## Variable scope
+
+  - Definition: scope is the part of your code in which a given variable (/function/structure/class/etc.) is valid.
+    - Another way of thinking about scope: the lifetime of a variable.
+  - All the variables we've seen so far have local scope: they are limited to the curly braces {} in which they are created.
+  - Example: "for" loop variables are confined to the loop.
+
+- #include <iostream>
+- int main(void){
+- for( unsigned int i = 0; i < 10; ++i ) {
+- std::cout << i << std::endl;
+- }
+- std::cout << "i = " << i << std::endl;
+- return 0;
+- }
+
+---
+
+## Variable scope
+
+  - Definition: scope is the part of your code in which a given variable (/function/structure/class/etc.) is valid.
+    - Another way of thinking about scope: the lifetime of a variable.
+  - All the variables we've seen so far have local scope: they are limited to the curly braces {} in which they are created.
+  - Example: "for" loop variables are confined to the loop.
+
+- #include <iostream>
+- int main(void){
+- for( unsigned int i = 0; i < 10; ++i ) {
+- std::cout << i << std::endl;
+- }
+- std::cout << "i = " << i << std::endl;
+- return 0;
+- }
+
+- % g++ scope.cc -o scope.exe
+- scope.cc:7:44: error: use of undeclared identifier 'i'
+- 7 |   std::cout << "Outside the loop, i = " << i << std::endl;
+- |                                            ^
+- 1 error generated.
+
+---
+
+## Variable scope
+
+  - Definition: scope is the part of your code in which a given variable (/function/structure/class/etc.) is valid.
+    - Another way of thinking about scope: the lifetime of a variable.
+  - All the variables we've seen so far have local scope: they are limited to the curly braces {} in which they are created.
+  - Another (pretty bad!) example:
+
+- #include <iostream>
+- int main(void){
+- int i = 1000;
+- for( unsigned int i = 0; i < 5; ++i ) {
+- std::cout << i << std::endl;
+- }
+- std::cout << "i = " << i << std::endl;
+- return 0;
+- }
+
+---
+
+## Variable scope
+
+  - Definition: scope is the part of your code in which a given variable (/function/structure/class/etc.) is valid.
+    - Another way of thinking about scope: the lifetime of a variable.
+  - All the variables we've seen so far have local scope: they are limited to the curly braces {} in which they are created.
+  - Another (pretty bad!) example:
+
+- % g++ scope.cc -o scope.exe
+- % ./scope.exe
+- 0
+- 1
+- 2
+- 3
+- 4
+- Outside the loop, i = 1000
+
+- #include <iostream>
+- int main(void){
+- int i = 1000;
+- for( unsigned int i = 0; i < 5; ++i ) {
+- std::cout << i << std::endl;
+- }
+- std::cout << "i = " << i << std::endl;
+- return 0;
+- }
+
+---
+
+## Global scope
+
+  - Local scope is generally a good idea!
+    - Principle of least privilege. It makes your code simpler, less prone to mistakes, easier to debug.
+    - Consider: let's say you have a 100,000 line program (maybe your '}' key is broken...); create x at line 2,000; x causes a crash at line 80,000. What happened in between the declaration and the crash???
+  - However, sometimes you may really need global scope: variable is valid in your entire program.
+    - Example: std::cout is a global variable!
+
+- #include<cmath>
+- const float PI=3.1415926;
+- float circle_area(float radius) {
+  - return PI * pow(radius, 2);
+- }
+- int main() {
+  - float radius = 1.5;
+  - std::cout << "Area = " << PI << " * " << radius << "**2" << std::endl;
+  - std::cout << " = " <<  circle_area(radius) << std::endl;
+- }
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide133_image23.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Functions
+
+  - We've seen a few examples of using curly braces {} to divide our code into blocks.
+  - Functions go a step further:
+    - Assign a name to a block of code.
+    - Reuse the block as many times as you want.
+  - C++ functions are not so different from math functions:
+- $$f(x)={x}^{2}$$
+  - A C++ program reads this as:
+    - Input x
+    - Return x*x
+
+---
+
+## Functions
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+  - We've seen a few examples of using curly braces {} to divide our code into blocks.
+  - Functions go a step further:
+    - Assign a name to a block of code.
+    - Reuse the block as many times as you want.
+  - C++ functions are not so different from math functions:
+- $$f(x)={x}^{2}$$
+  - A C++ program reads this as:
+    - Input x
+    - Return x*x
+
+- More generally: a function maps inputs to outputs.
+
+- Input
+
+- Function
+
+- Output
+
+---
+
+## A few examples
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/1.1_cppbasics/slide136_image22.png){fig-alt="TODO"}
+
+- C++ provides a ton of functions that you can #include <...>
+  - Example: #include <cmath>
+
+- See [http://www.cplusplus.com/reference/cmath/](http://www.cplusplus.com/reference/cmath/)
+
+![](../assets/1.1_cppbasics/slide136_image23.png){fig-alt="TODO"}
+
+---
+
+## A few examples
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/1.1_cppbasics/slide137_image22.png){fig-alt="TODO"}
+
+- C++ provides a ton of functions that you can #include <...>
+  - Example: #include <cmath>
+
+- See [http://www.cplusplus.com/reference/cmath/](http://www.cplusplus.com/reference/cmath/)
+
+![](../assets/1.1_cppbasics/slide137_image23.png){fig-alt="TODO"}
+
+  - Invoking a function is pretty straightforward
+    - Works similarly to Python
+  - std::cout << "sin(x)   = " << sin(x) << std::endl;
+
+---
+
+## A few examples
+
+  - int main(void) is a function!
+    - Input = nothing (void)
+    - Output = an integer (the "return code")
+    - Of course, this is a special function in C++. The compiler turns this into your executable.
+
+---
+
+## C++ syntax for functions
+
+  - Functions are declared like this:
+
+- output_type function_name(arguments) {
+  - <Function body>
+  - return some_value;
+- }
+
+---
+
+## C++ syntax for functions
+
+  - A real example:
+
+- #include<cmath>
+- const float PI=3.1415926;
+- float circle_area(float radius) {
+  - return PI * pow(radius, 2);
+- }
+- int main() {
+  - float radius = 1.5;
+  - std::cout << "Area = " << PI << " * " << radius << "**2" << std::endl;
+  - std::cout << " = " <<  circle_area(radius) << std::endl;
+- }
+
+---
+
+## C++ syntax for functions
+
+  - A real example:
+
+- #include<cmath>
+- const float PI=3.1415926;
+- float circle_area(float radius) {
+  - return PI * pow(radius, 2);
+- }
+- int main() {
+  - float radius = 1.5;
+  - std::cout << "Area = " << PI << " * " << radius << "**2" << std::endl;
+  - std::cout << " = " <<  circle_area(radius) << std::endl;
+- }
+
+- Function must be declared before you use it
+
+---
+
+## C++ syntax for functions
+
+  - A real example:
+
+- #include<cmath>
+- const float PI=3.1415926;
+- float circle_area(float radius) {
+  - return PI * pow(radius, 2);
+- }
+- int main() {
+  - float radius = 1.5;
+  - std::cout << "Area = " << PI << " * " << radius << "**2" << std::endl;
+  - std::cout << " = " <<  circle_area(radius) << std::endl;
+- }
+
+- Function must be declared before you use it
+
+- Function is called using name+parentheses, e.g., 'bla(x)'
+
+---
+
+## C++ syntax for functions
+
+:::: {.columns}
+::: {.column width="55%"}
+  - Input arguments can also have default values:
+- #include<cmath>
+- const float PI=3.1415926;
+- float hypersphere_volume(float radius, int n_dim=2) {
+  - return pow(PI, n/2.) * pow(radius, n) / Gamma((n/2.)+1);
+- }
+- int main() {
+  - float radius = 1.5;
+  - std::cout << "Circle: " <<  hypersphere_volume(radius) << std::endl;
+  - std::cout << "Sphere: " <<  hypersphere_volume(radius, 3) << std::endl;
+  - std::cout << "4-ball: " <<  hypersphere_volume(radius, 4) << std::endl;
+- }
+:::
+::: {.column width="45%"}
+![Screenshot 2025-09-09 at 11.05.41 PM.png](../assets/1.1_cppbasics/Screenshot-2025-09-09-at-11.05.41-PM.png){width="100%" fig-alt="TODO: describe image"}
+:::
+::::
+
+---
+
+## Function declaration
+
+- In C++, functions must be declared before use.
+- However, the function can be defined whenever you want!
+- What does that mean???
+  - Declaration: tell the compiler that there exists a function <name>, with inputs <x> and outputs <y>.
+  - float xsquared( float );
+  - Definition: the actual code inside the function.
+  - float xsquared( float x ){ return x*x; }
+- (You don't have to do these separately! The definition counts as a declaration.)
+
+  - Why???
+    - Most importantly: allows you to define functions in other files!
+    - The function can be compiled into an external library ahead of time, and linked to your program on demand.
+    - Your own source code just has to import a declaration of the function (=name, inputs, and outputs), so the compiler knows how to do the linking.
+
+---
+
+## Return values
+
+- Difference from Python: C++ functions return only one value.
+
+- def a_python_fn():
+  - return 1, 2, 3
+
+- To do this in C++, the multiple arguments need to be packaged into one object (e.g., a struct or a class object). More on this later!
+
+- std::vector<int> a_cpp_fn() {
+  - return std::vector<int>({1, 2, 3});
+- }
+
+---
+
+## Return values
+
+- Important fact: when you return a value at the end of a C++ function, it performs two copy operations!
+
+- int make_a_number() {
+  - return 5;
+- }
+- int main() {
+  - int x = make_a_number();
+  - return 0;
+- }
+
+---
+
+## Return values
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Important fact: when you return a value at the end of a C++ function, it performs two copy operations!
+
+- int make_a_number() {
+  - return 5;
+- }
+- int main() {
+  - int x = make_a_number();
+  - return 0;
+- }
+
+- int(5) is created inside the function... then copied to return value.
+
+---
+
+## Return values
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Important fact: when you return a value at the end of a C++ function, it performs two copy operations!
+
+- int make_a_number() {
+  - return 5;
+- }
+- int main() {
+  - int x = make_a_number();
+  - return 0;
+- }
+
+- int(5) is created inside the function... then copied to return value.
+
+- Return value is copied to x
+
+---
+
+## Return values
+
+- Important fact: when you return a value at the end of a C++ function, it might perform up to two copy operations! (Demo copy.cc)
+- OK, this is not a big deal for one int.
+  - But what if the return value is a 1 GB list?
+- Several solutions based on the same idea: only create one copy in memory, and reuse that memory.
+  - E.g. move semantics lets a variable "steal" the memory from another variable.
+- tl;dr: avoid returning large objects directly!
+
+- int make_a_number() {
+  - return 5;
+- }
+- int main() {
+  - int x = make_a_number();
+  - return 0;
+- }
+
+- int(5) is created inside the function... then copied to return value.
+
+- Return value is copied to x
+
+- N.B: your compiler might be clever about this:
+- [https://en.wikipedia.org/wiki/Copy_elision#RVO](https://en.wikipedia.org/wiki/Copy_elision#RVO)
+
+---
+
+## Back to scope
+
+- Let's revisit scope in the context of functions.
+  - A horrible example: CompPhys/ReviewCpp/BasicExamples/[funcscope.cc](http://funcscope.cc)
+  - The same name, i, is used for 3 different variables!
+  - (Don't do this)
+
+- #include <iostream>
+- unsigned int i = 1000;
+- int duh( void ) {
+- static unsigned int count = 0;
+- unsigned int i = 2;
+- std::cout << "for the " << count << "th time, i = " << i << std::endl;
+- ++count;
+- return i;
+- }
+- int main(void){
+- for ( unsigned int i = 10; i < 20; ++i ) {
+- std::cout << "i = " << i << ", duh() = " << duh() << ", global i = " << ::i << std::endl;
+- }
+- return 0;
+- }
+
+---
+
+## Back to scope
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Let's revisit scope in the context of functions.
+  - A horrible example: CompPhys/ReviewCpp/BasicExamples/[funcscope.cc](http://funcscope.cc)
+  - The same name, i, is used for 3 different variables!
+  - (Don't do this)
+
+- #include <iostream>
+- unsigned int i = 1000;
+- int duh( void ) {
+- static unsigned int count = 0;
+- unsigned int i = 2;
+- std::cout << "for the " << count << "th time, i = " << i << std::endl;
+- ++count;
+- return i;
+- }
+- int main(void){
+- for ( unsigned int i = 10; i < 20; ++i ) {
+- std::cout << "i = " << i << ", duh() = " << duh() << ", global i = " << ::i << std::endl;
+- }
+- return 0;
+- }
+
+![](../assets/1.1_cppbasics/slide151_image26.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image27.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image28.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image29.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image29.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image30.png){fig-alt="TODO"}
+
+![](../assets/1.1_cppbasics/slide151_image31.png){fig-alt="TODO"}
+
+---
+
+## Static variables
+
+- This example showcases one more interesting feature: static variables.
+  - Most variables inside the function{} are instantiated, then destroyed once the function is done.
+  - Static variables persist until the end of the program.
+  - In other words, they keep their value when you call the function many times.
+
+- #include <iostream>
+- unsigned int i = 1000;
+- int duh( void ) {
+- static unsigned int count = 0;
+- unsigned int i = 2;
+- std::cout << "for the " << count << "th time, i = " << i << std::endl;
+- ++count;
+- return i;
+- }
+- int main(void){
+- for ( unsigned int i = 10; i < 20; ++i ) {
+- std::cout << "i = " << i << ", duh() = " << duh() << ", global i = " << ::i << std::endl;
+- }
+- return 0;
+- }
+
+![Rectangle Rectangle](../assets/1.1_cppbasics/image32.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Recursive functions
+
+- You can even call a function within itself: recursive functions
+  - (PHY505: I recommend you do this for Assignment 1, Problem 3)
+  - Example: Fibonacci sequence CompPhys/ReviewCpp/BasicExamples/fibo.cc
+
+- #include <iostream>
+- int fibonacci(int n) {
+- if (n <= 0)
+- return 0;
+- else if (n == 1)
+- return 1;
+- else
+- return fibonacci(n - 2) + fibonacci(n - 1);
+- }
+- int main(void)
+- {
+- for ( unsigned int i = 0; i < 10; ++i ) {
+- std::cout << fibonacci(i) << ", ";
+- }
+- std::cout << std::endl;
+- return 0;
+- }
+
+---
+
+## Overloading
+
+- C++ has a nice feature in OVERLOADING functions
+- Example: if you want an x2 function, what do you need? Remember, compiler demands the full type of inputs and outputs.
+  - Input as int
+  - Input as float
+  - Input as double
+  - Input as unsigned int
+  - Input as short
+  - Input as unsigned long
+  - …
+- But you probably want them all to be called the same thing (xsquared)
+- You can define multiple functions with the same name, but different input argument types
+  - Caveat: Cannot differ only by return type
+
+---
+
+## Overloading
+
+- include <iostream>
+- int squared(int x){ return x*x;}
+- float squared(float x){ return x*x;}
+- double squared(double x){ return x*x;}
+- long squared( long x) { return x*x;}
+- int main(void)
+- {
+- int i = 5;
+- long j = 10;
+- float x = 0.5;
+- double y = 1.5;
+- std::cout << squared(i) << std::endl;
+- std::cout << squared(j) << std::endl;
+- std::cout << squared(x) << std::endl;
+- std::cout << squared(y) << std::endl;
+- return 0;
+- }
+
+  - CompPhys/ReviewCpp/BasicExamples/xsquared_types.cc
+
+- The different "squared" functions are distinguished by their signature: the function name and its input arguments.
+
+---
+
+## Overloading
+
+- include <iostream>
+- int squared(int x){ return x*x;}
+- float squared(float x){ return x*x;}
+- double squared(double x){ return x*x;}
+- long squared( long x) { return x*x;}
+- int main(void)
+- {
+- int i = 5;
+- long j = 10;
+- float x = 0.5;
+- double y = 1.5;
+- std::cout << squared(i) << std::endl;
+- std::cout << squared(j) << std::endl;
+- std::cout << squared(x) << std::endl;
+- std::cout << squared(y) << std::endl;
+- return 0;
+- }
+
+  - CompPhys/ReviewCpp/BasicExamples/xsquared_types.cc
+
+- Hmm. This looks like a huge pain, huh?
+
+---
+
+# Templates
+
+---
+
+## Templating
+
+- Templates help us quickly write functions for multiple types.
+- The template function is not compiled directly.
+- Instead, when we need the squared() function for a given type (T), the compiled basically copies the template and replaces T with the type.
+- For example...
+
+- template<class T>
+- T squared(T x) {
+  - return x * x;
+- }
+
+---
+
+## Templating
+
+- template<class T>
+- T squared(T x) {
+  - return x * x;
+- }
+
+- Templates help us quickly write functions for multiple types.
+- The template function is not compiled directly.
+- Instead, when we need the squared() function for a given type (T), the compiled basically copies the template and replaces T with the type.
+- For example...
+- If the compiler sees either of the following:
+
+- float squared(float x) {
+  - return x * x;
+- }
+
+- float x = 1.2;
+- std::cout << squared(x) << std::endl;
+
+- The compiler will generate and compile the following:
+
+- template float squared<float>(float x);
+
+---
+
+## Templating
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/1.1_cppbasics/slide160_image24.png){fig-alt="TODO"}
+
+- Cookie
+- Cookie
+- template
+- template< class T>
+- T squared(T x){ return x*x;}
+- Function
+- template
+- Function
+- squared<int>( 2 )
+
+---
+
+## Templating
+
+- Functions : Compiled, exist in memory
+- Function templates: NOT compiled, must be given a type
+- EACH type gets a SEPARATE function in memory, on demand
+- More on templates later
+
+---
+
+## Recap
+
+:::: {.columns}
+::: {.column width="55%"}
+- Use "for" loops (or "while" or "do while") to iterate code.
+- Variables are defined with scope: a region of validity in your code.
+  - Local scope: variables defined inside {} are valid only within those {}.
+  - Global scope: variables are valid anywhere in the program.
+  - Static variables: persist beyond their local scope, e.g., across multiple calls to a function.
+- Functions map inputs to outputs.
+  - Declaration vs. definition.
+  - Mechanics of returning values (don't return large objects directly!).
+  - Overloading: can reuse the same function name for different types.
+- Template functions helps you define functions for many types.
+- Next time:
+  - Pointers!
+:::
+::: {.column width="45%"}
+![pasted-movie.png](../assets/1.1_cppbasics/slide162_image23.png){width="100%" fig-alt="TODO: describe image"}
+![TODO: describe image](../assets/1.1_cppbasics/image24.png){width="100%" fig-alt="TODO: describe image"}
+:::
+::::
+
+---
+
+# Classes
+
+---
+
+## Classes
+
+- Code is in: CompPhys/ReviewCpp/ClassExamples
+
+---
+
+## Classes
+
+- You can define your own data types in C++: classes.
+- They are an aggregate of information ("members"):
+  - Data
+  - Functions ("methods")
+- Simple example with only data:
+
+- class Point {
+- public:
+- double x;
+- double y;
+- };
+
+- int main() {
+- Point pt;
+- }
+
+- Creating an object of type Point
+
+---
+
+## Classes: accessing member data
+
+- Accessing the data inside a class:
+
+- Point my_point;
+- my_point.x = 1.;
+- my_point.y = 3.;
+
+- For an object of type Point: use "."
+
+- Point* ptr;
+- ptr->x = 1.;
+- ptr->y = 3.;
+
+- For a pointer to a Point, use "->"
+
+---
+
+## Classes: accessing member data
+
+- Accessing the data inside a class:
+
+- Point my_point;
+- my_point.x = 1.;
+- my_point.y = 3.;
+- std::cout << "my_point.x = " << my_point.x << std::endl;
+
+- For an object (instance of a class),  use "."
+
+---
+
+## Classes: methods
+
+- Methods: functions defined WITHIN a class.
+
+- class Point {
+- public:
+- double x;
+- double y;
+- void print() const {
+- std::cout << "(" << x << "," << y << ")" << std::endl;
+- };
+- };
+
+- Methods are only accessible via an object (instance) of the class (or a pointer to the object).
+  - Use the same "." or "->" as for member data.
+  - The function is not generally accessible in your program.
+
+- my_point.print();
+- my_ptr->print();
+
+---
+
+## Creating and destroying
+
+- C++ gives you control over creating and destroying instances of your class.
+  - Constructor: a special method for creating an object.
+    - Shares a name with the class: Point(), MyClass().
+  - Destructor: a special method for destroying an object.
+    - Similar name to constructor, but with a tilde: ~Point(), ~MyClass().
+
+- class Point {
+- public:
+  - Point(double ix=0., double iy=0.) {
+    - x = ix;
+    - y = iy;
+  - }
+  - ~Point() {}
+- double x;
+- double y;
+- void print() const {
+- std::cout << "(" << x << "," << y << ")" << std::endl;
+- };
+- };
+
+---
+
+## Creating and destroying
+
+- C++ gives you control over creating and destroying instances of your class.
+  - Constructor: a special method for creating an object.
+    - Shares a name with the class: Point(), MyClass().
+  - Destructor: a special method for destroying an object.
+    - Similar name to constructor, but with a tilde: ~Point(), ~MyClass().
+
+- class Point {
+- public:
+  - Point(double ix=0., double iy=0.) {
+    - x = ix;
+    - y = iy;
+  - }
+  - ~Point() {}
+- double x;
+- double y;
+- void print() const {
+- std::cout << "(" << x << "," << y << ")" << std::endl;
+- };
+- };
+
+- Point my_point(1., 3.);
+
+---
+
+## Classes: data protections
+
+- C++ defines 3 levels of access to a class's members:
+  - public: anything can access.
+  - private: only the class itself can access
+  - protected: like private, but derived classes can also access (more on this later).
+- Principle of least privilege: make it PRIVATE unless it really needs to be public. One way to think about it:
+  - Public members = interface.
+  - Private members = implementation.
+- You also have const for classes... which gets a bit complicated.
+
+---
+
+## Classes: data protections
+
+- Let's apply "least privilege" to the Point class:
+
+- class Point {
+- public:
+- Point( double ix=0., double iy=0.) { x_=ix;y_=iy;}
+- ~Point(){}
+- void print() const {
+- std::cout << "(" << x_ << "," << y_ << ")" << std::endl;
+- };
+- double x() const { return x_;}
+- double y() const { return y_;}
+- private:
+- double x_;
+- double y_;
+- };
+
+---
+
+## Classes: data protections
+
+- Let's apply "least privilege" to the Point class:
+
+- class Point {
+- public:
+- Point( double ix=0., double iy=0.) { x_=ix;y_=iy;}
+- ~Point(){}
+- void print() const {
+- std::cout << "(" << x_ << "," << y_ << ")" << std::endl;
+- };
+- double x() const { return x_;}
+- double y() const { return y_;}
+- private:
+- double x_;
+- double y_;
+- };
+
+- Constructor, destructor, and print are public
+
+---
+
+## Classes: data protections
+
+- Let's apply "least privilege" to the Point class:
+
+- class Point {
+- public:
+- Point( double ix=0., double iy=0.) { x_=ix;y_=iy;}
+- ~Point(){}
+- void print() const {
+- std::cout << "(" << x_ << "," << y_ << ")" << std::endl;
+- };
+- double x() const { return x_;}
+- double y() const { return y_;}
+  - void set_x(double ix) {x_ = ix);
+  - void set_y(double iy) {y_ = iy);
+- private:
+- double x_;
+- double y_;
+- };
+
+- Data members themselves are private
+
+- "Getter/setter" fns to access values of data members
+
+- Constructor, destructor, and print are public
+
+---
+
+## Classes: data protections
+
+- Let's apply "least privilege" to the Point class:
+
+- class Point {
+- public:
+- Point( double ix=0., double iy=0.) { x_=ix;y_=iy;}
+- ~Point(){}
+- void print() const {
+- std::cout << "(" << x_ << "," << y_ << ")" << std::endl;
+- };
+- double x() const { return x_;}
+- double y() const { return y_;}
+  - void set_x(double ix) {x_ = ix);
+  - void set_y(double iy) {y_ = iy);
+- private:
+- double x_;
+- double y_;
+- };
+
+- What about const?
+- We can create a const Point... but functions can modify Point!
+- Solution: specify "const functions" that do not modify Point. This creates a well-defined notion of "const class objects."
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- Point p3 = p1 + p2;
+
+- Call "+" operator on object p1
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- Point p3 = p1 + p2;
+
+- Call "+" operator on object p1
+
+- p2 is argument to "+()"
+- aka "right"
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- Point p3 = p1 + p2;
+
+- Call "+" operator on object p1
+
+- p2 is argument to "+()"
+- aka "right"
+
+- +() operator returns a new Point object
+
+- p1 is not modified. Function is "const"!
+![](../assets/1.1_cppbasics/slide231_image43.png){fig-alt="TODO"}
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- p1 += p2;
+
+- Call "+=" operator on object p1
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- p1 += p2;
+
+- Call "+=" operator on object p1
+
+- p2 is argument to "+=()"
+- aka "right"
+
+---
+
+## Classes: operator overloading
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- We might want to our class to work nicely with typical operators:
+  - For example, arithmetic (+-*/) and increment (+=, -=).
+
+- Point operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+
+- Point p1(1., 3.);
+- Point p2(4., 5.);
+- p1 += p2;
+
+- Call "+=" operator on object p1
+
+- p2 is argument to "+=()"
+- aka "right"
+
+- +=() operator modifies p1 in place
+
+- this is a keyword: pointer to the object itself
+
+- p1 is modified. Function is *not* "const"!
+![](../assets/1.1_cppbasics/slide234_image44.png){fig-alt="TODO"}
+
+- (Returns a ref. to p1, to support chaining)
+
+---
+
+## Classes: operator overloading
+
+- Point sum = p1 + p2;
+- Point dif = p1 - p2;
+- sum += p1;
+- dif -= p2;
+
+- tl;dr operator overloading lets us define sensible +, -, +=, -= (etc.) for our class.
+
+---
+
+## Structuring a program
+
+- Header files, makefiles
+
+---
+
+## Class declarations vs. definitions
+
+- Just like with functions, classes can have separate declarations and definitions.
+- Often put these in separate files:
+  - Declarations in header file, e.g. Point.h
+  - Definitions (source code) in a separate source file, e.g. Point.cc
+- This lets you separate the compilation of Point from the rest.
+- To use Point in your int main() function,  just add this at the top,
+  - #include "Point.h"
+  - This lets int main() know all the essential info of class Point{}, without needing to compile it directly.
+  - The compiler takes care of linking the actual machine code for Point.
+
+---
+
+## Header files
+
+- We've been using header files all along:
+  - #include <iostream>
+- In your homework (Assignment 2, Problem 2), you will make your own header file (LorentzVector.h)
+  - Note: this will be a "templated class" (next lecture), with declarations and definitions all in one file.
+- Then include into your "int main()" file with:
+  - #include "LorentzVector.h"
+- Note the "" versus <>:
+  - "": Looks in current directory.
+  - <>: Looks in default directories.
+
+---
+
+## Caveat: duplicate declarations
+
+- When including header files, it's easy to duplicate declarations.
+- Example: what if you #include<iostream> in Point.h and read_points.cc?
+  - The compiler should complain about redefining the same variables!
+- Solution: use a "trick" using preprocessor directives:
+
+- #ifndef Point_h
+- #define Point_h
+- class Point {
+- (bla bla bla)
+- };
+- #endif
+
+---
+
+## Header files
+
+- So, your multi-file program will look a bit fancier:
+  - DECLARE the class in the header file
+  - DEFINE the class in the source file
+  - COMPILE the source into an object library
+  - LINK the "main" source file to the object library
+  - RUN!
+
+---
+
+## Hands on: compiling multiple files
+
+- Do a git pull to update to the latest!
+- Code is in CompPhys/ReviewCpp/ClassExample.
+  - Point.h : declaration of class
+  - Point.cc : source code for Point
+  - make_a_point.cc : simple executable, just makes some Point  objects
+  - read_points_example.cc : more complicated executable, reads numbers from a text file.
+  - Makefile: simpler way to compile
+
+---
+
+## Point.h
+
+- #ifndef Point_h
+- #define Point_h
+- #include <iostream>
+- class Point {
+- public:
+- Point( double ix=0., double iy=0.);
+- ~Point();
+- void print() const;
+- double x() const;
+- double y() const;
+- Point operator+( Point const & right ) const;
+- Point operator-( Point const & right ) const;
+- Point & operator+=( Point const & right );
+- Point & operator-=( Point const & right );
+- bool input( std::istream & in);
+- private:
+- double x_;
+- double y_;
+- };
+- #endif
+
+---
+
+## Point.cc
+
+- #include "Point.h"
+- Point::Point( double ix, double iy) {
+- x_=ix;y_=iy;
+- }
+- Point::~Point(){}
+- void Point::print() const {
+- std::cout << "(" << x_ << "," << y_ << ")" << std::endl;
+- };
+- double Point::x() const { return x_;}
+- double Point::y() const { return y_;}
+- Point Point::operator+( Point const & right ) const {
+- Point retval( x_ + right.x_, y_ + right.y_ );
+- return retval;
+- }
+- Point Point::operator-( Point const & right ) const {
+- Point retval( x_ - right.x_, y_ - right.y_ );
+- return retval;
+- }
+- Point & Point::operator+=( Point const & right )  {
+- x_ += right.x_; y_ += right.y_ ;
+- return *this;
+- }
+- Point & Point::operator-=( Point const & right )  {
+- x_ -= right.x_; y_ -= right.y_ ;
+- return *this;
+- }
+- bool Point::input( std::istream & in ) {
+- std::string line;
+- std::getline( in, line, ',');
+- x_ = std::atof( line.c_str() );
+- std::getline( in, line );
+- y_ = std::atof( line.c_str() );
+- if ( line == "") {
+- return false;
+- }
+- else {
+- return true;
+- }
+- }
+
+- Note: we have to use "class scope" to tell C++ that these are the member functions of Point!
+- Point::some_function() {...}
+
+---
+
+## Hands on: compiling multiple files
+
+- First example: try compiling make_a_point.cc by itself:
+
+- g++ make_a_point.cc -o make_a_point.exe
+
+---
+
+## Hands on: compiling multiple files
+
+- First example: try compiling make_a_point.cc by itself:
+
+- $ g++ make_a_point.cc -o make_a_point.exe
+- /usr/bin/ld: /tmp/ccw3d0e0.o: in function `main':
+- make_a_point.cc:(.text+0x38): undefined reference to `Point::Point(double, double)'
+- /usr/bin/ld: make_a_point.cc:(.text+0x48): undefined reference to `Point::Point(double, double)'
+- ...(many more lines)
+
+- Why did this fail?
+
+---
+
+## Hands on: compiling multiple files
+
+- Second example: compile make_a_point.cc correctly:
+
+- $ g++ Point.cc make_a_point.cc -o make_a_point.exe
+- $ ./make_a_point.exe
+- p1: (0,1)
+- p2: (2,3)
+- p : (0,1)
+- p1: (0,1)
+- p2: (2,3)
+- p : (0,1)
+- Sum: (2,5)
+- Dif: (-4,-5)
+
+- Success!
+
+---
+
+## Hands on: compiling multiple files
+
+- Third example: compile and execute read_points_example.cc
+  - (Reuse the g++ command from last slide, replacing make_a_point with read_points_example.)
+
+- $ ./read_points_example.exe
+- current_line = 1,2
+- Created point:
+- (1,2)
+- ...
+- Testing the vector
+- (1,2)
+- (3,4)
+- (5,6)
+- (7,8)
+
+---
+
+## Makefiles
+
+- A Makefile is a method to semi-automatically compile multiple files, following a rules-based input.
+- Our example Makefile contains a few sections. First:
+
+- make_a_point: Point.cc Point.h make_a_point.cc
+- g++ -o make_a_point Point.cc make_a_point.cc -I.
+
+---
+
+## Makefiles
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- A Makefile is a method to semi-automatically compile multiple files, following a rules-based input.
+- Our example Makefile contains a few sections. First:
+
+- make_a_point: Point.cc Point.h make_a_point.cc
+- g++ -o make_a_point Point.cc make_a_point.cc -I.
+
+- Target (sort of just a name)
+
+---
+
+## Makefiles
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- A Makefile is a method to semi-automatically compile multiple files, following a rules-based input.
+- Our example Makefile contains a few sections. First:
+
+- make_a_point: Point.cc Point.h make_a_point.cc
+- g++ -o make_a_point Point.cc make_a_point.cc -I.
+
+- Target (sort of just a name)
+
+- Dependencies (what's needed for this target)
+
+---
+
+## Makefiles
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- A Makefile is a method to semi-automatically compile multiple files, following a rules-based input.
+- Our example Makefile contains a few sections. First:
+
+- make_a_point: Point.cc Point.h make_a_point.cc
+- g++ -o make_a_point Point.cc make_a_point.cc -I.
+
+- Target (sort of just a name)
+
+- Dependencies (what's needed for this target)
+
+- Rule (command to compile the target)
+
+---
+
+## Makefiles
+
+- Our Makefile has two more rules: "all" compiles both targets, and "clean" deletes the executables.
+  - Running "make all" will compile both programs
+  - Running "make clean" will delete both programs
+
+- all: make_a_point read_points_example
+- clean:
+- rm -f *.o *~ make_a_point read_points_example
+
+---
+
+## Makefiles
+
+- Makefiles can get really fancy! (Aka extremely complicated)
+- You're encouraged to read about them but are not really responsible for writing them (I'll provide them where needed).
+- Example: in CompPhys/ReviewCpp/BasicExample, you can compile all the cc files in a directory
+
+- # From https://stackoverflow.com/questions/9787160/makefile-that-compiles-all-cpp-files-in-a-directory-into-separate-executable
+- CXX = g++
+- CXXFLAGS = -std=c++11
+- all: $(patsubst %.cc, %.out, $(wildcard *.cc))
+- %.out: %.cc Makefile
+- $(CXX) $(CXXFLAGS) $< -o $(@:.out=)
+- clean: $(patsubst %.cc, %.clean, $(wildcard *.cc))
+- %.clean:
+- rm -f $(@:.clean=)
+
+---
+
+## Recap
+
+- Use arrays and vectors to make lists of variables
+  - Arrays are closely connected to pointers.
+  - Vectors are full C++ classes with more features, like iterators.
+- Classes let you define your own structures with data and functions.
+  - Introduced basic syntax.
+  - Concepts of public, private, const for classes and their members.
+- Structuring a program:
+  - Separate class declaration and definition into a header file and a source file.
+  - #include the header files to use the class in your executable.
+  - Makefile can help semi-automate the compilation.
+- Next time:
+  - Class inheritance and templating
+  - Hands-on related to Assignment 2, Problem 2
+
+---
+
+## Inheritance
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide255_image45.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## C++: classes and inheritance
+
+- Example code in:
+  - [CompPhys/ReviewCpp/InheritanceExamples](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/InheritanceExample)
+  - [CompPhys/ReviewCpp/Maps](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/Maps)
+  - [CompPhys/ReviewCpp/TemplateExamples](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/TemplateExamples)
+
+---
+
+## C++: classes and inheritance
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- BaseClass
+
+- DerivedClass1
+
+- DerivedClass2
+
+---
+
+## C++: classes and inheritance
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- BaseClass
+
+- DerivedClass1
+
+- DerivedClass2
+
+- Inheritance: DerivedClass "is" a BaseClass. It "inherits" the members (data and functions) of the base class.
+- You can then add extensions to the derived class, or even overwrite the base methods
+
+---
+
+## C++: classes and inheritance
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- BaseClass
+
+- DerivedClass1
+
+- DerivedClass2
+
+- Why?
+- You can write cleaner, more efficient, and better organized code.
+- A good class hierarchy mirrors how humans think about "objects"
+
+- Inheritance: DerivedClass "is" a BaseClass. It "inherits" the members (data and functions) of the base class.
+- You can then add extensions to the derived class, or even overwrite the base methods
+
+---
+
+## A concrete example
+
+- Think about the difference between the relationships "has a" and "is a":
+  - A Honda has a motor.
+  - A Honda is a car.
+- How would we write this as a data model in a program?
+  - has a: member variable of a class.
+  - is a: specific relationship between different classes, implemented with inheritance.
+
+---
+
+## Syntax
+
+- class BaseClass {...}
+- class DerivedClass : public BaseClass {...}
+
+- Syntax: just add ": public (ParentClass)" after the class name.
+  - A detail: "public" here means the inherited parent variables will retain their access settings (public/protected).
+  - Other options: "protected" or "private" if needed.
+
+---
+
+## A simpler example
+
+- Simpler example: an HR record of a person working for NY state
+  - A person has a first name
+  - A person has a last name
+  - A person has a NY state ID number
+
+- class NYPerson {
+- public:
+  - NYPerson();
+  - ~NYPerson();
+  - std::string firstname();
+  - NYPerson& set_firstname(std::string ifirstname);
+- private:
+  - std::string firstname_;
+  - std::string lastname_;
+  - std::string ny_id_;
+  - };
+
+---
+
+## A simpler example
+
+- What about a UB employee? They are a NY state employee, but additionally have UB info.
+  - A UB employee is a NY state employee.
+  - A UB employee has a UB ID number.
+
+- Derived/Child Class
+
+---
+
+## A simpler example
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- What about a UB employee? They are a NY state employee, but additionally have UB info.
+  - A UB employee is a NY state employee.
+  - A UB employee has a UB ID number.
+
+- class UBPerson : public NYPerson {
+- public:
+  - UBPerson();
+  - ~UBPerson();
+  - UBPerson& set_ub_id(std::string iub_id);
+- private:
+  - std::string ub_id_;
+- };
+
+- class NYPerson {
+- public:
+  - NYPerson();
+  - ~NYPerson();
+  - std::string ny_id();
+  - NYPerson& set_ny_id(std::string iny_id);
+- private:
+  - std::string firstname_;
+  - std::string lastname_;
+  - std::string ny_id_;
+  - };
+
+- Base/Parent Class
+
+- Derived/Child Class
+
+- "Specialization"
+
+---
+
+## A simpler example
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- What about a UB employee? They are a NY state employee, but additionally have UB info.
+  - A UB employee is a NY state employee.
+  - A UB employee has a UB ID number.
+
+- class UBPerson : public NYPerson {
+- public:
+  - UBPerson();
+  - ~UBPerson();
+  - UBPerson& set_ub_id(std::string iub_id);
+- private:
+  - std::string ub_id_;
+- };
+
+- class NYPerson {
+- public:
+  - NYPerson();
+  - ~NYPerson();
+  - std::string ny_id();
+  - NYPerson& set_ny_id(std::string iny_id);
+- private:
+  - std::string firstname_;
+  - std::string lastname_;
+  - std::string ny_id_;
+  - };
+
+- UBPerson "inherits" all of the attributes (data, functions) from NYPerson, so we don't have to rewrite firstname, lastname, and ny_id.
+  - UBPerson can "override" functions from the parent class, if needed.
+
+- Base/Parent Class
+
+- Derived/Child Class
+
+- "Specialization"
+
+---
+
+## Why use inheritance?
+
+- What's the use?
+  - Generalization!
+- Back to the car example. Let's write some general code for cars, and specialize to specific cars.
+- All cars use energy to drive. Let's give them some spatial coordinates and a drive function, plus "energy":
+
+- class Car {
+- public:
+  - void drive(double delta_t);
+- private:
+  - double energy_;
+  - double x_;
+  - double y_;
+  - double vx_;
+  - double vy_;
+
+---
+
+## Why use inheritance?
+
+- Specialize to gas vs. electric cars.
+  - Both are cars, both drive following basic mechanics.
+  - add_energy() is conceptually similar, but the implementation is very different!
+  - Solution: "virtual functions"
+    - Confusing word, but basically lets a function in BaseClass get overridden in DerivedClass.
+    - Use "override" in DerivedClass for clarity (not strictly necessary).
+
+- class GasCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - insertNozzle();
+    - fillGas(amount);
+  - }
+- }
+
+- class ElectricCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - plugInCharger()
+    - recharge(amount);
+  - }
+- }
+
+- class Car {
+  - ...
+  - virtual void add_energy(double amount);
+
+---
+
+## Why use inheritance?
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Specialize to gas vs. electric cars.
+  - Both are cars, both drive following basic mechanics.
+  - Adding energy is conceptually similar, but the implementation is very different!
+  - Solution: "virtual functions"
+    - Confusing word, but basically lets a function in BaseClass get overridden in DerivedClass.
+    - Use "override" in DerivedClass for clarity (not strictly necessary).
+
+- class GasCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - insertNozzle();
+    - fillGas(amount);
+  - }
+- }
+
+- class ElectricCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - plugInCharger()
+    - recharge(amount);
+  - }
+- }
+
+- class Car {
+  - ...
+  - virtual void add_energy(double amount);
+
+---
+
+## Why use inheritance?
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Specialize to gas vs. electric cars.
+  - Both are cars, both drive following basic mechanics.
+  - Adding energy is conceptually similar, but the implementation is very different!
+  - Solution: "virtual functions"
+    - Confusing word, but basically lets a function in BaseClass get overridden in DerivedClass.
+    - Use "override" in DerivedClass for clarity (not strictly necessary).
+
+- class GasCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - insertNozzle();
+    - fillGas(amount);
+  - }
+- }
+
+- class ElectricCar : public Car {
+- public:
+  - void add_energy(double amount) override {
+    - plugInCharger()
+    - recharge(amount);
+  - }
+- }
+
+- class Car {
+  - ...
+  - virtual void add_energy(double amount);
+
+---
+
+## Public, protected, private
+
+- Aside: now we know enough to understand the 3 access settings for variables.
+  - public: available to all code
+  - private: available only within this class.
+  - protected: available within this class, plus any derived classes.
+- Using the same keywords when declaring a derived class (class GasCar : public Car{}) lets you further control the access in the derived class
+  - And sub-sub-classes, etc.! E.g. class Lambourghini : public GasCar{...}
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide270_image46.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Why use inheritance, part 2
+
+- Polymorphism: a given object can be transformed between types!
+  - Our car can be used as a Lambourghini,  GasCar, or Car.
+- This lets us do something like:
+
+  - std::vector<Car*> cars;
+  - Lambourghini car1;
+  - Rivian car2;
+  - cars.push_back(&car1);
+  - cars.push_back(&car2);
+  - for (Car * it_car : cars) {
+    - it_car->add_energy(100.);
+  - }
+
+- In other words, we can call code from the DERIVED class by accessing it through the BASE class.
+- This treats car1 and car2 in the same way, without having to worry about the implementation!
+- Here, we make a base class pointer (Car*) to the derived class object (Lambourghini, Rivian).
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide271_image46.png){width="70%" fig-alt="TODO: describe image"}
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide271_image47.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## Polymorphism
+
+- This works through the VIRTUAL TABLE (vtable) : each class stores a table of its functions (specifically, pointers to the functions in memory)
+  - At run time, your program figures out which virtual function to call.
+    - Dynamic/late binding
+    - Contrast with static/early binding: transformations performed at compile time.
+  - To call derived class function, the program DEREFERENCES the pointer in the vtable
+    - Sometimes degrades performance.
+  - Depending on run-time value of objects, looks at a different class.
+
+---
+
+## Abstract classes
+
+- If your base class doesn't actually refer to a real type, it is an abstract class (or pure interface).
+- A generic "Car" doesn't really exist in the world, so perhaps we want to prevent the user from instantiating the platonic ideal of a car.
+- Solution: set a virtual function to "0".
+  - The virtual function is not defined for the base class, so the compiler will refuse to make one.
+
+- class Car {
+  - ...
+  - virtual bool fill(Gas const & gas) = 0;
+- };
+
+---
+
+## Friendship
+
+![pasted-movie.png](../assets/1.1_cppbasics/slide274_image48.png){width="70%" fig-alt="TODO: describe image"}
+
+---
+
+## C++ friend classes
+
+- Back to class data access privileges (public, protected, private).
+- Sometimes, you really need to access the private member data of another class.
+- Solution: make friends!
+- One common use : operator<< and operator>>
+
+---
+
+## C++ friend classes
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+- Friendship syntax: pretty simple. Remember the Mines of Moria?
+  - "Speak friend and enter"
+
+![](../assets/1.1_cppbasics/slide276_image27.png){fig-alt="TODO"}
+
+- class A{
+- public:
+- friend class B;
+- };
+
+- B now has access to all of A's private/protected data members.
+
+---
+
+## Example
+
+- Common use case for friendship (a bit mercenary, no?): overloading the "<<" and ">>" operators:
+
+- class UBPerson {
+- public:
+- . . .
+- friend std::ostream & operator<<( std::ostream & out, UBPerson const & );
+- friend std::istream & operator>>( std::istream & in , UBPerson const &);
+- }
+
+- std::ostream & operator<<( std::ostream & out, StudentRecord const &right ){ right.print(out); return out; }
+- std::istream & operator>>( std::istream & in, StudentRecord  &right )
+- { right.input(in); return in; }
+
+- Header
+
+- Source
+
+---
+
+# Class templates
+
+---
+
+## Templating and classes
+
+- Templating works for classes just like functions.
+- We've actually been using class templates a lot:
+  - std::vector<int>, std::vector<Car*>.
+- Now let's look a bit deeper
+
+---
+
+## Templating and classes
+
+<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+
+![](../assets/1.1_cppbasics/slide280_image24.png){fig-alt="TODO"}
+
+- Cookie
+
+- Cookie
+- template
+
+- template< class T>
+- class Storage
+
+- Class
+- template
+
+- Class
+
+- Storage<int> s( 2 );
+
+---
+
+## Class template syntax
+
+- Similar to function templates, declare with "template <class T>".
+- Remember, T is a PLACEHOLDER for the template. T itself is not a class, and does not "exist."
+  - The template code is not actually compiled, but rather is used to generate real compiled code.
+
+- template<class T>
+- T squared(T x) {
+  - return x * x;
+- }
+
+- template<class T>
+- class Vector3 {
+  - ...
+- }
+
+- Templated functions
+
+- Templated classes
+
+---
+
+## std::vector<>
+
+- So: std::vector<T> is a template
+  - It doesn't matter if "T" is a float or an int (or a UBPerson, or a Car*), the operations of "std::vector" are unchanged!
+- The standard library provides template std::vector<T>,
+  - Then, you create actual classes like std::vector<int>, std::vector<UBPerson>, etc.
+
+---
+
+## A warning
+
+- If you do not correctly set up your templates, you will get sixty-seven pages of compiler warnings!
+  - It issues the warnings for EVERY instance of the class template. Consider if you defined 100 kinds of std::vector<>...
+- Usually the first one is the one you care about, and it is actually usually descriptive, so READ THEM!
+
+---
+
+## Multiple template arguments
+
+- You can even have multiple template parameters!
+- Example: "std::map", an "associative container"
+  - Equivalent to python dicts
+  - Similar a vector, but lets you look up data by "key", which can by anything.
+  - (You can also define a sorting algorithm)
+
+- template<
+- class Key,
+- class T,
+- class Compare = [std::less](http://en.cppreference.com/w/cpp/utility/functional/less)<Key>,
+- class Allocator = [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator)<[std::pair](http://en.cppreference.com/w/cpp/utility/pair)<const Key, T> >
+- > class map;
+- std::map<std::string, int> ppl_ages;
+- ppl_ages["John"] = 32;
+- ppl_ages["Bonnie"] = 56;
+- std::cout << "John age = " << ppl_ages["John"] << std::endl;
+
+---
+
+## Hands-on
+
+- git pull first!
+- A few hands-on examples to try today:
+  - [CompPhys/ReviewCpp/TemplateExamples](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/TemplateExamples)
+    - "make test_storage": compile a full example (see Makefile)
+    - Vector3.h: a partially filled out example of a 3-vector class template.
+      - Your homework is an extension of this to a Lorentz vector.
+  - [CompPhys/ReviewCpp/InheritanceExamples](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/InheritanceExample)
+    - "make all": compile a full example
+    - (Ab)use inheritance to extend a Point (x, y) to a Point3D (x, y, z).
+  - [CompPhys/ReviewCpp/Maps](https://github.com/ubsuny/CompPhys/tree/main/ReviewCpp/Maps)
+    - Creating and iterating over std::map<std::string, int>.
+
+---
+
+## 3-vector class template
+
+- Two files:
+  - Vector3.h : partially filled out class template for a 3-vector class. You should complete this file.
+  - make_a_vector.cc : executable for testing your Vector3 class.
+- Instructions (or just follow Vector3.h comments):
+  - Create the member variables (doubles x_, y_, z_)
+  - Create the "getter" and "setter" functions. Examples for the x_ variable are provided, simply copy and modify for y_ and z_.
+  - Create the "length()" function, which should compute sqrt(x^2+y^2+z^2). (Use pow(x, y)!)
+  - "make vector3" to compile, "./make_a_vector.exe" to run.
+
+---
+
+## Bonus: sorting
+
+- make_a_vector.cc also has an example of sorting a vector.
+
+- // Sort the vector
+- std::sort(vlist.begin(),
+- vlist.end(),
+- [](const Vector3<double>& left, const Vector3<double>& right) { return left.length() < right.length(); }
+- );
+
+- std::sort takes 3 arguments: (1) iterator (think: pointer) to start of vector, (2) iterator to end of vector, and (3) a sorting function.
+- For (3), we use a "lambda function": a small anonymous function created on the fly. See [https://www.w3schools.com/cpp/cpp_functions_lambda.asp](https://www.w3schools.com/cpp/cpp_functions_lambda.asp) for more details.
+
+---
+
+## Recap
+
+- Inheritance lets us create general (/base/parent) classes, and then create specialized (/derived/child) classes that inherit and extend their functionality.
+  - Example: class Car $ \rightarrow $ class GasCar $ \rightarrow $ class Lambourghini
+- Polymorphism is a powerful C++ feature that allows us to transform objects between classes in our programs using inheritance.
+- Friendship can be used to grant access to a class's private data.
+- Class template work just like function templates, to define generic classes that work with arbitrary data types.
+  - E.g. std::vector<T>, std::map<T>
+- Next time: back to Python!
