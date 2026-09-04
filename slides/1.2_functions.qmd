@@ -735,6 +735,12 @@ float squared(float x) {
 
 ---
 
+## Hands-on with templating
+- Examples of templating are in `CompPhys/ReviewCpp/TemplateExamples/`. 
+- Compile and execute the example, then try modifying them!
+
+--
+
 
 ## Recap
 
