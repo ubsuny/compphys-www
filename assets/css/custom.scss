@@ -98,3 +98,9 @@ $ub-gray: #666666;
   max-width: 80%;
   text-align: center;
 }
+
+// Code annotations
+dl.code-annotation-container-grid dd span {
+  font-size: 1em;
+  font-weight: 100;
+}
