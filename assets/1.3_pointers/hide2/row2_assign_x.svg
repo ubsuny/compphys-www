@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="99.26515pt" height="126.288pt" viewBox="0 0 99.26515 126.288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-08T16:00:02.675812</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 126.288 
+L 99.26515 126.288 
+L 99.26515 0 
+L 0 0 
+L 0 126.288 
+z
+" style="fill: none"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 17.027784 107.812563 
+L 82.237365 107.812563 
+L 82.237365 49.12394 
+L 17.027784 49.12394 
+L 17.027784 107.812563 
+z
+" clip-path="url(#paf86390355)" style="fill: none; stroke: #1f56b0; stroke-width: 2.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 7.246347 117.594 
+" clip-path="url(#paf86390355)" style="fill: none; stroke: #1f77b4; stroke-opacity: 0; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 92.018802 8.694 
+" clip-path="url(#paf86390355)" style="fill: none; stroke: #ff7f0e; stroke-opacity: 0; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <!-- x -->
+    <g style="fill: #1f56b0" transform="translate(44.515309 27.329789) scale(0.17 -0.17)">
+     <defs>
+      <path id="DejaVuSansMono-Bold-78" d="M 3578 3500 
+L 2400 1825 
+L 3681 0 
+L 2613 0 
+L 1925 1178 
+L 1241 0 
+L 172 0 
+L 1466 1825 
+L 275 3500 
+L 1344 3500 
+L 1925 2456 
+L 2509 3500 
+L 3578 3500 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#DejaVuSansMono-Bold-78"/>
+    </g>
+   </g>
+   <g id="text_2">
+    <!-- 4 -->
+    <g style="fill: #1f56b0" transform="translate(44.515309 83.204345) scale(0.17 -0.17)">
+     <defs>
+      <path id="DejaVuSansMono-34" d="M 2297 4091 
+L 825 1625 
+L 2297 1625 
+L 2297 4091 
+z
+M 2194 4666 
+L 2925 4666 
+L 2925 1625 
+L 3547 1625 
+L 3547 1113 
+L 2925 1113 
+L 2925 0 
+L 2297 0 
+L 2297 1113 
+L 319 1113 
+L 319 1709 
+L 2194 4666 
+z
+" transform="scale(0.015625)"/>
+     </defs>
+     <use xlink:href="#DejaVuSansMono-34"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="paf86390355">
+   <rect x="2.16" y="2.16" width="94.94515" height="121.968"/>
+  </clipPath>
+ </defs>
+</svg>

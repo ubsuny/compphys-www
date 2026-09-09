@@ -601,16 +601,23 @@ int main(void) {
 
 ## Overloading
 
-- Let's address a major concern: C++ is strict about types, but what if you don't care whether an input number is an `int`/`unsigned int`/`float`/`double`/etc?
+- Let's address a major concern: C++ is strict about types, but what if you don't care whether an input number is an `int`/`unsigned int`/`float`/`double`/`string`/etc?
 
 ::: {.callout-tip}
 ## Overloading
 Overloading in C++ lets you define multiple functions with the same name, differing only by input types, aka signatures. This could be the number of input args, their types, or even the order of types. It *cannot* just be the return type.
 :::
 
+---
+
+## Overloading
+
+:::: {.columns .vcenter}
+::: {.column width=50%}
 - So, what if we want a generic $x^2$ function? 
-  - (Well, first of all, your compiler is smart enough to figure out that a number is a number, but for the sake of example we'll do it by hand.)
-  - Make a list of all the desired signatures:
+  - (Well, first of all, for just number types, your compiler may be smart enough to figure out that a number is a number, but for the sake of example we'll do it by hand.)
+- Example: ReviewCpp/BasicExamples/xsquared_types.cc
+- Make a list of all the desired signatures:
 
 ```c++
 int --> int
@@ -620,12 +627,9 @@ unsigned int --> unsigned int
 short --> short
 unsigned long --> unsigned long
 ```
-
----
-
-## Overloading
- 
-- In CompPhys/ReviewCpp/BasicExamples/xsquared_types.cc, we write all (some) of these out:
+:::
+::: {.column width=50%}
+::: {.fragment fragment-index=0}
  ```c++
 include <iostream>
 int squared(int x){ return x*x;}
@@ -644,10 +648,12 @@ int main(void) {
   return 0;
 }
 ```
-::: {.fragment}
 Hmm, this seems like a huge pain, doesn't it?
+
 :::
 
+:::
+::::
 
 # Templates
 
@@ -664,7 +670,9 @@ T squared(T x) {
 }
 ```
 
-- This is not compiled directly! Instead, when you need `squared()` for a given type `T`, the compiler generates and compiles the appropriate class for you (basically find-and-replace `T` with the desired type, and compile it). 
+- **This is not compiled directly!** 
+- Instead, when you need `squared()` for a given type `T`, the compiler generates and compiles the appropriate class for you 
+- In other words: it makes a copy of the template code, replaces `T` with the desired type, and compiles it
 
 
 ---
@@ -686,12 +694,12 @@ T squared(T x) {
 
 ```c++
 float x = 1.2;
-std::cout << squared(x) << std::endl;
+std::cout << squared(x) << std::endl; // Implicit instantiation
 ```
 :::
 ::: {.column width=30%}
 ```c++
-template float squared<float>(float x);
+template float squared<float>(float x); // Explicit instantiation
 ```
 :::
 ::::
@@ -735,9 +743,551 @@ float squared(float x) {
 
 ---
 
+## Caveats
+
+- You need the full template definition `#include`d in a file, not just the definition. 
+- Templated code often generates very long compiler errors. Usually, most of it is irrelevant.
+
+---
+
+## Template error example
+
+```cpp
+template<class T>
+T squared(T x) {
+  return x * x;
+}
+
+struct Point {
+  double x, y;
+};
+
+int main(void) {
+  int i = 5;
+  std::cout << "squared(" << i << ") = " << squared(i) << std::endl;
+
+  Point p{1.0, 2.0};
+  std::vector<Point> pts = { {1.0, 2.0}, {3.0, 1.0}, {0.5, 0.5} };
+  std::sort(pts.begin(), pts.end());
+
+  return 0;
+}
+```
+
+---
+
+## Template error example
+
+```bash
+(compphys-env) ~/PHY410/student/CompPhys/ReviewCpp/TemplateExamples % clang++ template_error.cc -o template_error
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1842:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/adjacent_find.h:13:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:41:18: error: invalid
+      operands to binary expression ('const Point' and 'const Point')
+   41 |     return __lhs < __rhs;
+      |            ~~~~~ ^ ~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sift_down.h:47:32: note: in
+      instantiation of function template specialization 'std::__less<>::operator()<Point, Point>' requested here
+   47 |   if ((__child + 1) < __len && __comp(*__child_i, *(__child_i + difference_type(1)))) {
+      |                                ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/make_heap.h:39:12: note: in
+      instantiation of function template specialization 'std::__sift_down<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   39 |       std::__sift_down<_AlgPolicy>(__first, __comp_ref, __n, __first + __start);
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:41:8: note: in
+      instantiation of function template specialization 'std::__make_heap<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   41 |   std::__make_heap<_AlgPolicy>(__first, __middle, __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:65:12: note: in
+      instantiation of function template specialization 'std::__partial_sort_impl<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, Point *>' requested
+      here
+   65 |       std::__partial_sort_impl<_AlgPolicy>(__first, __middle, __last, static_cast<__comp_ref_type<_Compare> >(__comp));
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:934:10: note: in
+      instantiation of function template specialization 'std::__partial_sort<std::_ClassicAlgPolicy, std::__less<void, void>, Point *, Point *>' requested here
+  934 |     std::__partial_sort<_AlgPolicy>(
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1875:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/make_heap.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sift_down.h:54:7: error: no
+      matching function for call to object of type 'std::__less<void, void>'
+   54 |   if (__comp(*__child_i, *__start))
+      |       ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/make_heap.h:39:12: note: in
+      instantiation of function template specialization 'std::__sift_down<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   39 |       std::__sift_down<_AlgPolicy>(__first, __comp_ref, __n, __first + __start);
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:41:8: note: in
+      instantiation of function template specialization 'std::__make_heap<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   41 |   std::__make_heap<_AlgPolicy>(__first, __middle, __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:65:12: note: in
+      instantiation of function template specialization 'std::__partial_sort_impl<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, Point *>' requested
+      here
+   65 |       std::__partial_sort_impl<_AlgPolicy>(__first, __middle, __last, static_cast<__comp_ref_type<_Compare> >(__comp));
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:934:10: note: in
+      instantiation of function template specialization 'std::__partial_sort<std::_ClassicAlgPolicy, std::__less<void, void>, Point *, Point *>' requested here
+  934 |     std::__partial_sort<_AlgPolicy>(
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1875:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/make_heap.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sift_down.h:71:34: error: no
+      matching function for call to object of type 'std::__less<void, void>'
+   71 |     if ((__child + 1) < __len && __comp(*__child_i, *(__child_i + difference_type(1)))) {
+      |                                  ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:17:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:46:9: error: no
+      matching function for call to object of type 'std::__less<void, void>'
+   46 |     if (__comp(*__i, *__first)) {
+      |         ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:65:12: note: in
+      instantiation of function template specialization 'std::__partial_sort_impl<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, Point *>' requested
+      here
+   65 |       std::__partial_sort_impl<_AlgPolicy>(__first, __middle, __last, static_cast<__comp_ref_type<_Compare> >(__comp));
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:934:10: note: in
+      instantiation of function template specialization 'std::__partial_sort<std::_ClassicAlgPolicy, std::__less<void, void>, Point *, Point *>' requested here
+  934 |     std::__partial_sort<_AlgPolicy>(
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1875:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/make_heap.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sift_down.h:98:34: error: no
+      matching function for call to object of type 'std::__less<void, void>'
+   98 |     if ((__child + 1) < __len && __comp(*__child_i, *(__child_i + difference_type(1)))) {
+      |                                  ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/pop_heap.h:47:41: note: in
+      instantiation of function template specialization 'std::__floyd_sift_down<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   47 |     _RandomAccessIterator __hole = std::__floyd_sift_down<_AlgPolicy>(__first, __comp_ref, __len);
+      |                                         ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort_heap.h:40:10: note: in
+      instantiation of function template specialization 'std::__pop_heap<std::_ClassicAlgPolicy, std::__less<void, void>, Point *>' requested here
+   40 |     std::__pop_heap<_AlgPolicy>(__first, __last, __comp_ref, __n);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:51:8: note: in
+      instantiation of function template specialization 'std::__sort_heap<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   51 |   std::__sort_heap<_AlgPolicy>(std::move(__first), std::move(__middle), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:65:12: note: in
+      instantiation of function template specialization 'std::__partial_sort_impl<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, Point *>' requested
+      here
+   65 |       std::__partial_sort_impl<_AlgPolicy>(__first, __middle, __last, static_cast<__comp_ref_type<_Compare> >(__comp));
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:934:10: note: in
+      instantiation of function template specialization 'std::__partial_sort<std::_ClassicAlgPolicy, std::__less<void, void>, Point *, Point *>' requested here
+  934 |     std::__partial_sort<_AlgPolicy>(
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:17:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:17:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort_heap.h:15:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/pop_heap.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/push_heap.h:42:9: error: no
+      matching function for call to object of type 'std::__less<void, void>'
+   42 |     if (__comp(*__ptr, *--__last)) {
+      |         ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/pop_heap.h:56:12: note: in
+      instantiation of function template specialization 'std::__sift_up<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   56 |       std::__sift_up<_AlgPolicy>(__first, __hole, __comp_ref, __hole - __first);
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort_heap.h:40:10: note: in
+      instantiation of function template specialization 'std::__pop_heap<std::_ClassicAlgPolicy, std::__less<void, void>, Point *>' requested here
+   40 |     std::__pop_heap<_AlgPolicy>(__first, __last, __comp_ref, __n);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:51:8: note: in
+      instantiation of function template specialization 'std::__sort_heap<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *>' requested here
+   51 |   std::__sort_heap<_AlgPolicy>(std::move(__first), std::move(__middle), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/partial_sort.h:65:12: note: in
+      instantiation of function template specialization 'std::__partial_sort_impl<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, Point *>' requested
+      here
+   65 |       std::__partial_sort_impl<_AlgPolicy>(__first, __middle, __last, static_cast<__comp_ref_type<_Compare> >(__comp));
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:934:10: note: in
+      instantiation of function template specialization 'std::__partial_sort<std::_ClassicAlgPolicy, std::__less<void, void>, Point *, Point *>' requested here
+  934 |     std::__partial_sort<_AlgPolicy>(
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:736:11: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  736 |       if (__comp(*--__last, *__first))
+      |           ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:872:8: note: in
+      instantiation of function template specialization 'std::__introsort<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, false>' requested here
+  872 |   std::__introsort<_AlgPolicy, _Comp&, _RandomAccessIterator, __use_branchless_sort<_Comp, _RandomAccessIterator> >(
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:937:10: note: in
+      instantiation of function template specialization 'std::__sort_dispatch<std::_ClassicAlgPolicy, Point *, std::__less<void, void>>' requested here
+  937 |     std::__sort_dispatch<_AlgPolicy>(std::__unwrap_iter(__first), std::__unwrap_iter(__last), __comp);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:115:8: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  115 |   if (!__c(*__y, *__x)) // if x <= y
+      |        ^~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:740:12: note: in
+      instantiation of function template specialization 'std::__sort3<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, 0>' requested here
+  740 |       std::__sort3<_AlgPolicy, _Compare>(__first, __first + difference_type(1), --__last, __comp);
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:872:8: note: in
+      instantiation of function template specialization 'std::__introsort<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, false>' requested here
+  872 |   std::__introsort<_AlgPolicy, _Comp&, _RandomAccessIterator, __use_branchless_sort<_Comp, _RandomAccessIterator> >(
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:937:10: note: in
+      instantiation of function template specialization 'std::__sort_dispatch<std::_ClassicAlgPolicy, Point *, std::__less<void, void>>' requested here
+  937 |     std::__sort_dispatch<_AlgPolicy>(std::__unwrap_iter(__first), std::__unwrap_iter(__last), __comp);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:125:7: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  125 |   if (__c(*__z, *__y)) // x > y, if y > z
+      |       ^~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:132:7: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  132 |   if (__c(*__z, *__y))         // if y > z
+      |       ^~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:776:9: error: no matching
+      function for call to '__sort3'
+  776 |         std::__sort3<_AlgPolicy, _Compare>(__first, __first + __half_len, __last - difference_type(1), __comp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:872:8: note: in
+      instantiation of function template specialization 'std::__introsort<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, false>' requested here
+  872 |   std::__introsort<_AlgPolicy, _Comp&, _RandomAccessIterator, __use_branchless_sort<_Comp, _RandomAccessIterator> >(
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:937:10: note: in
+      instantiation of function template specialization 'std::__sort_dispatch<std::_ClassicAlgPolicy, Point *, std::__less<void, void>>' requested here
+  937 |     std::__sort_dispatch<_AlgPolicy>(std::__unwrap_iter(__first), std::__unwrap_iter(__last), __comp);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:777:9: error: no matching
+      function for call to '__sort3'
+  777 |         std::__sort3<_AlgPolicy, _Compare>(
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:779:9: error: no matching
+      function for call to '__sort3'
+  779 |         std::__sort3<_AlgPolicy, _Compare>(
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:781:9: error: no matching
+      function for call to '__sort3'
+  781 |         std::__sort3<_AlgPolicy, _Compare>(
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:785:9: error: no matching
+      function for call to '__sort3'
+  785 |         std::__sort3<_AlgPolicy, _Compare>(__first + __half_len, __first, __last - difference_type(1), __comp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:796:25: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  796 |     if (!__leftmost && !__comp(*(__first - difference_type(1)), *__first)) {
+      |                         ^~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:167:3: error: no matching
+      function for call to '__sort3'
+  167 |   std::__sort3<_AlgPolicy, _Compare>(__x1, __x2, __x3, __c);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:743:12: note: in
+      instantiation of function template specialization 'std::__sort4<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, 0>' requested here
+  743 |       std::__sort4<_AlgPolicy, _Compare>(
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:872:8: note: in
+      instantiation of function template specialization 'std::__introsort<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, false>' requested here
+  872 |   std::__introsort<_AlgPolicy, _Comp&, _RandomAccessIterator, __use_branchless_sort<_Comp, _RandomAccessIterator> >(
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:937:10: note: in
+      instantiation of function template specialization 'std::__sort_dispatch<std::_ClassicAlgPolicy, Point *, std::__less<void, void>>' requested here
+  937 |     std::__sort_dispatch<_AlgPolicy>(std::__unwrap_iter(__first), std::__unwrap_iter(__last), __comp);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:101:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  101 | __sort3(_RandomAccessIterator __x1, _RandomAccessIterator __x2, _RandomAccessIterator __x3, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:112:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  112 | __sort3(_RandomAccessIterator __x, _RandomAccessIterator __y, _RandomAccessIterator __z, _Compare __c) {
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:168:7: error: no matching
+      function for call to object of type 'std::__less<void, void>'
+  168 |   if (__c(*__x4, *__x3)) {
+      |       ^~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/comp.h:40:60: note: candidate
+      template ignored: substitution failure [with _Tp = Point, _Up = Point]
+   40 |   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+      |                                                            ^
+In file included from template_error.cc:20:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/algorithm:1888:
+In file included from /Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/nth_element.h:15:
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:213:3: error: no matching
+      function for call to '__sort4'
+  213 |   std::__sort4<_AlgPolicy, _Compare>(__x1, __x2, __x3, __x4, __comp);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:747:12: note: in
+      instantiation of function template specialization 'std::__sort5<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, 0>' requested here
+  747 |       std::__sort5<_AlgPolicy, _Compare>(
+      |            ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:872:8: note: in
+      instantiation of function template specialization 'std::__introsort<std::_ClassicAlgPolicy, std::__less<void, void> &, Point *, false>' requested here
+  872 |   std::__introsort<_AlgPolicy, _Comp&, _RandomAccessIterator, __use_branchless_sort<_Comp, _RandomAccessIterator> >(
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:937:10: note: in
+      instantiation of function template specialization 'std::__sort_dispatch<std::_ClassicAlgPolicy, Point *, std::__less<void, void>>' requested here
+  937 |     std::__sort_dispatch<_AlgPolicy>(std::__unwrap_iter(__first), std::__unwrap_iter(__last), __comp);
+      |          ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:945:8: note: in
+      instantiation of function template specialization 'std::__sort_impl<std::_ClassicAlgPolicy, std::__wrap_iter<Point *>, std::__less<void, void>>' requested
+      here
+  945 |   std::__sort_impl<_ClassicAlgPolicy>(std::move(__first), std::move(__last), __comp);
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:951:8: note: in
+      instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>, std::__less<void, void>>' requested here
+  951 |   std::sort(__first, __last, __less<>());
+      |        ^
+template_error.cc:49:8: note: in instantiation of function template specialization 'std::sort<std::__wrap_iter<Point *>>' requested here
+   49 |   std::sort(pts.begin(), pts.end());
+      |        ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:144:1: note: candidate
+      template ignored: requirement '__use_branchless_sort<std::__less<void, void> &, Point *>' was not satisfied [with $0 = std::_ClassicAlgPolicy, _Compare =
+      std::__less<void, void> &, _RandomAccessIterator = Point *]
+  144 | __sort4(_RandomAccessIterator __x1,
+      | ^
+/Users/dryu/Documents/Buffalo/PHY410/student/CompPhys/.pixi/envs/default/bin/../include/c++/v1/__algorithm/sort.h:161:1: note: candidate
+      template ignored: substitution failure [with _AlgPolicy = std::_ClassicAlgPolicy, _Compare = std::__less<void, void> &, _RandomAccessIterator = Point *, $3
+      = 0]
+  161 | __sort4(_RandomAccessIterator __x1,
+      | ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+```
+
 ## Hands-on with templating
-- Examples of templating are in `CompPhys/ReviewCpp/TemplateExamples/`. 
-- Compile and execute the example, then try modifying them!
+- Try out the example at `CompPhys/ReviewCpp/TemplateExamples/test_storage.cc`:
+
+```bash
+g++ test_storage.cc Point.cc -o test_storage
+./test_storage
+```
+
 
 --
 
@@ -747,7 +1297,7 @@ float squared(float x) {
 :::: {.columns .vcenter}
 ::: {.column width="75%"}
 - Variables are defined with **scope**: a region of validity in your code.
-  - Local scope: variables defined inside {} are valid only within those {}.
+  - Local scope: variables defined inside `{}` are valid only within those `{}`.
   - Global scope: variables are valid anywhere in the program.
   - Static variables: persist beyond their local scope, e.g., across multiple calls to a function.
 - Functions map inputs to outputs.

@@ -13,14 +13,23 @@ execute:
 
 # Pointers
 
+- Examples:
+```
+CompPhysReviewCpp/BasicExamples
+├── ptrs.cc
+├── ptrs_and_funcs.cc
+├── func_timing.cpp
+├── commandline.cc
+├── readlines.cc
+```
+
 ---
 
 ## Pointers
 
-- The dread cry rang through the night…
-NO! POINTERS! NOOOOO!!!!!!
+[The dread cry rang through the night... NO! POINTERS! NOOOOO!!!!!!]{style="font-size: 1.5em;"}
 
-![](../assets/1.0_cpp/image25.png){fig-align="center" width="50%" fig-alt="TODO: describe image" .center}
+![](../assets/1.0_cpp/image25.png){fig-align="center" width="50%" fig-alt="A woman screaming" .center}
 
 
 ---
@@ -35,6 +44,7 @@ A **pointer** is a variable that holds a memory address.
 :::
 
 - This lets us directly access (read/write) data in memory.
+- A pointer has a specific type (so it knows what kind of data lives at the corresponding address)
 
 
 ---
@@ -105,383 +115,411 @@ x is 123
 
 Syntax | Meaning 
 --- | ---
-`&x` | Address of `x`
-`int * x_ptr;` | Declare integer pointer 
-`int * x_ptr = &x;` | Declare + initialize pointer to address of `x` 
-`*x_ptr` | Derefence pointer to obtain `x`
+`&x` | **Address** of `x`
+`int * x_ptr;` | **Declare** integer pointer 
+`int * x_ptr = &x;` | **Declare & initialize** pointer to address of `x` 
+`*x_ptr` | **Dereference** pointer to obtain `x`
+
+::: aside
+The whitespace around the `*` is flexible.
+:::
 
 ---
 
 ## Step by step
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+::: {.ptr-info-box}
+- `&var` returns the address of a variable
+- `<type>*` declares a pointer
+- `*p` dereferences a pointer = back to variable
+:::
 
-- &var returns the address of a variable
-- <type>* declares a pointer
-- *p dereferences a pointer = back to variable
-![](../assets/1.0_cpp/slide169_image37.png){fig-alt="TODO"}
+```{=html}
+<style>
+.ptr-info-box {
+  position: absolute;
+  top: 140px;
+  right: 330px;
+  width: 420px;
+  border: 3px solid #8e2436;
+  border-radius: 6px;
+  padding: 18px 24px;
+  font-size: 0.62em;
+  line-height: 1.25;
+  text-align: left;
+  color: #333;
+  background: rgba(255,255,255,0.9);
+  z-index: 10;
+}
+.ptr-info-box ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+.ptr-info-box li {
+  margin: 0.15em 0;
+}
+.ptr-table {
+  width: auto;
+  max-width: 980px;
+  border-collapse: collapse;
+  margin: 10px auto 0 0;
+  table-layout: fixed;
+}
+.ptr-table th {
+  text-align: left;
+  font-size: 0.75em;
+  color: #444;
+  padding: 4px 16px 10px 16px;
+  border-bottom: 2px solid #1f56b0;
+}
+.ptr-table td {
+  vertical-align: middle;
+  padding: 6px 16px;
+}
+.ptr-table td.code-col {
+  white-space: nowrap;
+}
+.ptr-table td.code-col code {
+  font-size: 1.2em;
+}
+.ptr-table td.mem-col {
+  width: 1%;
+  white-space: nowrap;
+  text-align: left;
+}
+.ptr-table td.note-col {
+  font-size: 1.0em;
+  line-height: 1.0;
+  color: #444;
+  text-align: left;
+  max-width: 500px;
+}
+.code-chip {
+  display: inline-block;
+  background: #0d2438;
+  color: #f5f5f5;
+  font-family: monospace;
+  font-size: 0.85em;
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+</style>
 
-- int x;
-
-- Code
-
-- Memory
-
-- x
-
-- ?
-
----
-
-## Step by step
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- &var returns the address of a variable
-- <type>* declares a pointer
-- *p dereferences a pointer = back to variable
-![](../assets/1.0_cpp/slide170_image37.png){fig-alt="TODO"}
-
-- int x;
-
-- Code
-
-- Memory
-
-- x
-
-- ?
-
-- x = 4;
-
-- x
-
-- 4
-
----
-
-## Step by step
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- &var returns the address of a variable
-- <type>* declares a pointer
-- *p dereferences a pointer = back to variable
-![](../assets/1.0_cpp/slide171_image37.png){fig-alt="TODO"}
-
-- int x;
-
-- Code
-
-- Memory
-
-- x
-
-- ?
-
-- x = 4;
-
-- x
-
-- 4
-
-- int* p;
-
-- x
-
-- 4
-
-- p
-
-- ?
-
-- Read from right-to-left: "p points_to int"
-- Uninitialized pointer: points to garbage!
-
----
-
-## Step by step
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- &var returns the address of a variable
-- <type>* declares a pointer
-- *p dereferences a pointer = back to variable
-![](../assets/1.0_cpp/slide172_image37.png){fig-alt="TODO"}
-
-- int x;
-
-- Code
-
-- Memory
-
-- x
-
-- ?
-
-- x = 4;
-
-- x
-
-- 4
-
-- int* p;
-
-- x
-
-- 4
-
-- p
-
-- ?
-
-- p = &x;
-
-- x
-
-- 4
-
-- p
-
-- Read from right-to-left: "p points_to int"
-- Uninitialized pointer: points to garbage!
-
-- Assigning p: &x is the address of x
+<table class="ptr-table">
+<colgroup>
+  <col style="width:20%">
+  <col style="width:30%">
+  <col style="width:50%">
+</colgroup>
+<thead>
+<tr><th>Code</th><th>Memory</th><th></th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="code-col"><code>int x;</code></td>
+  <td class="mem-col"><img src="../assets/1.3_pointers/row1_declare_x.svg" style="height:110px; padding-right: 40px;"></td>
+  <td class="note-col"></td>
+</tr>
+<tr class="fragment">
+  <td class="code-col"><code>x = 4;</code></td>
+  <td class="mem-col"><img src="../assets/1.3_pointers/row2_assign_x.svg" style="height:110px"></td>
+  <td class="note-col"></td>
+</tr>
+<tr class="fragment">
+  <td class="code-col"><code>int* p;</code></td>
+  <td class="mem-col"><img src="../assets/1.3_pointers/row3_declare_p.svg" style="height:110px"></td>
+  <td class="note-col">Read from right-to-left: "<code>p</code> points to <code>int</code>"<br>Uninitialized: points to garbage!</td>
+</tr>
+<tr class="fragment">
+  <td class="code-col"><code>p = &amp;x;</code></td>
+  <td class="mem-col"><img src="../assets/1.3_pointers/row4_assign_p.svg" style="height:110px"></td>
+  <td class="note-col">Assigning <code>p</code>: <code>&x</code> is the address of <code>x</code></td>
+</tr>
+<tr class="fragment">
+  <td class="code-col"><code>*p = 7</code></td>
+  <td class="mem-col"><img src="../assets/1.3_pointers/row5_deref_assign.svg" style="height:110px"></td>
+  <td class="note-col">Dereferencing <code>p</code>: <code>*p</code> is equivalent to <code>x</code></td>
+</tr>
+</tbody>
+</table>
+```
 
 ---
 
-## Step by step
+## Why?
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+Why use pointers?
 
-- &var returns the address of a variable
-- <type>* declares a pointer
-- *p dereferences a pointer = back to variable
-![](../assets/1.0_cpp/slide173_image37.png){fig-alt="TODO"}
+- **Passing large objects**: one way to pass a large object to a function without making a copy
+```cpp
+void print(Matrix *p_matrix) {
+  std::cout << *p_matrix << std::endl;
+}
+```
+- **Dynamic memory allocation**: pointers are *required* to create dynamically sized objects, e.g., a vector whose length is not known at complile time. 
+- **Efficient data structures**: linked lists, trees, graphs, hash tables all rely on pointers. 
+- **Arrays** are intrinsically connected to pointers and pointer arithmetic (e.g. `x_ptr++`). 
+- **Polymorphism**: more on this during lectures on [classes and inheritance](./1.4_classes.qmd). 
 
-- int x;
+---
 
-- Code
+## Pointers and functions
 
-- Memory
+Example: pointers allow us to pass an address into a function, rather than the entire object
 
-- x
+```cpp
+#include <iostream>
 
-- ?
+void print_matrix(Matrix *mat_ptr) {
+  std::cout << *mat_ptr << std::endl; // Dereference ptr to obtain contents
+}
 
-- x = 4;
+int main() {
+  Matrix a_big_matrix{some_values}; 
+  print_matrix(&a_big_matrix); // Pass the *address*, not the whole matrix
+}
+```
 
-- x
+---
 
-- 4
 
-- int* p;
+## Pointers and const
 
-- x
+- Recall: const makes a variable a "constant," i.e., you cannot change its value.
+- The `const`-ness can apply to either the pointer (=the address) or the variable itself (=the value), so we have 4 possible combinations:
 
-- 4
+```{=html}
+<style>
+.const-table td {
+  border: 3px solid white;
+  padding: 14px 20px;
+  text-align: left;
+  vertical-align: middle;
+}
+.const-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.const-table .corner { background: white; border: none; }
+.const-table .colhead, .const-table .rowhead {
+  background: #1B4F9C; color: white; font-weight: bold;
+}
+.const-table .data { background: #DADFF2; color: #17325E; }
+.const-table .data code { font-family: "Courier New", monospace; font-size: 1.2em;}
+.const-table .label {
+  background: #CC6A4A; color: white; font-weight: bold;
+  text-align: center; vertical-align: middle; border: none;
+}
+.const-table .label.side {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  width: 60px;
+}
+</style>
 
-- p
-
-- ?
-
-- p = &x;
-
-- x
-
-- 4
-
-- p
-
-- *p = 7
-
-- x
-
-- 7
-
-- p
-
-- Read from right-to-left: "p points_to int"
-- Uninitialized pointer: points to garbage!
-
-- Assigning p: &x is the address of x
-
-- Dereferencing p: *p is equivalent to x.
+<table class="const-table">
+<colgroup>
+  <col style="width:6%">
+  <col style="width:14%">
+  <col style="width:40%">
+  <col style="width:40%">
+</colgroup>
+<tr>
+  <td class="corner"></td>
+  <td class="corner"></td>
+  <td class="label" colspan="2">Pointer</td>
+</tr>
+<tr>
+  <td class="corner"></td>
+  <td class="corner"></td>
+  <td class="colhead">Not const</td>
+  <td class="colhead">Const</td>
+</tr>
+<tr>
+  <td class="label side" rowspan="2">Variable</td>
+  <td class="rowhead">Not const</td>
+  <td class="data"><code>int * p</code><br>
+  <span style="color: magenta;">Pointer</span> can change<br>
+  <span style="color: #8B4000;">Variable</span> can change</td>
+  <td class="data"><code>int * const p</code><br>
+  <span style="color: magenta;">Pointer</span> cannot change
+  <br><span style="color: #8B4000;">Variable</span> can change</td>
+</tr>
+<tr>
+  <td class="rowhead">Const</td>
+  <td class="data"><code>int const * p</code> <br>
+  <code>const int * p // equivalent</code><br>
+  <span style="color: magenta;">Pointer</span> can change<br>
+  <span style="color: #8B4000;">Variable</span> cannot change</td>
+  <td class="data"><code>const int * const p</code><br><span style="color: magenta;">Pointer</span> cannot change
+  <br><span style="color: #8B4000;">Variable</span> cannot change</td>
+</tr>
+</table>
+```
 
 ---
 
 ## What can go wrong?
 
-- The compiler doesn't know if x_ptr points to a valid memory address.
-- At runtime, the program can try to access invalid memory, leading to a segmentation fault.
-- Specifically, a segmentation fault occurs when a program tries to access a memory location that the OS does not allow it to access.
+```cpp
+int * x_ptr;              // Uninitialized!
+int * x_ptr = nullptr;    // Initialized, but null!
+int * x_ptr = 0x12345678; // Initialized, but nonsense!
+x_ptr += 1000;            // Moved the pointer forward, might be nonsense!
+```
 
-- int* x_ptr = 0
-- std::cout << *x << std::endl;
-- ...
-- Segmentation fault
+- Key danger: *compiler doesn't know if the memory address is valid*. 
+- If you're unlucky, dereferencing might even return technically correct garbage. 
+- More often, attempting to access invalid memory causes a **segmentation fault**:
+
+::: {.callout-tip}
+### Definition
+A **segmentation fault** is a runtime error that occurs when a program attempts to access memory that is not allowed by the OS. 
+:::
 
 ---
+
 
 ## References
 
-- Closely related to pointer: a reference is an alias to an existing variable.
-- Syntax: <type>& <ref_name>.
+- Closely related to pointers: **references**
 
-- int x = 123;
-- int& xref = x;
-- // Or int & xref, or int &xref
+::: {.callout-tip}
+### Definition
+A **reference** is an alias to an existing variable, similar to a shortcut on your computer. E.g.: `int & x_ref = x;`
+:::
 
-- xref behaves like an int, but it uses the memory address of x .
+- `x_ref` behaves just like an `int`, but is uses the *memory address* of `x`; there is only one `int`, under the hood. 
 - How is this like a pointer?
-  - Allows us to use the contents of x without making a copy.
-  - Can think of as a (const) pointer that automatically dereferences (*).
-- Safer than a pointer: no danger of using a 0 pointer!
+  - Another method to pass variables to functions without copying.
+  - Behaves rather like a (constant) pointer that automatically dereferences without the `*`. 
+- Often *safer* than pointers: no danger of using a null pointer, for example. 
 
 ---
+
+## Reference examples
+
+:::: {.columns}
+::: {.column width=50%}
+- Passing large variables to a function:
+
+```cpp
+#include <iostream>
+
+void print_matrix(Matrix & mat_ref) {
+  std::cout << mat_ref << std::endl;
+}
+
+int main() {
+  Matrix a_big_matrix{some_values};
+  print_matrix(a_big_matrix); // Looks like pass-by-value, but reference syntax avoids copying!
+}
+```
+
+:::
+::: {.column width=50%}
+::: {.fragment}
+Looping over a vector:
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+  std::vector<int> primes{2, 3, 5, 7, 11, 13, ...};
+  for (auto & it : primes) {
+    std::cout << it << std::endl;
+  }
+}
+```
+
+- The iterator, `it`, is a *reference* to the elements of `primes`: an alias to a given element of `primes`. 
+- This avoids creating a temporary copy of each element of `primes` at each iteration of the `for` loop.
+
+:::
+:::
+::::
+
+# Demo
 
 ## Hands-on
 
 - Let's try this out:
+  - `CompPhys/ReviewCpp/BasicExamples/ptrs.cc`
+  - `CompPhys/ReviewCpp/BasicExamples/ptrs_and_funcs.cc`
+  - `CompPhys/ReviewCpp/BasicExamples/func_timing.cpp`
 
-- % g++ CompPhys/ReviewCpp/BasicExamples/ptrs.cc -o ptrs.exe
-- % ./ptrs.exe
+:::: {.columns}
+::: {.column width=50%}
+```cpp
+#include <iostream>
+int main(void){
+  int x = 10;
+  int * x_ptr = &x;
+  int & x_ref = x;
+  std::cout << "Value of x_ptr = " << x_ptr << std::endl;
+  std::cout << "Dereferenced *x_ptr = " << *x_ptr << std::endl;
+  std::cout << "Value of x_ref = " << x_ref << std::endl;
+  *x_ptr = 7;
+  std::cout << "After *x_ptr=7, x = " << x << std::endl;
+  x_ref = 9;
+  std::cout << "After x_ref=9, x = " << x << std::endl;
+  return 0;
+}
+```
 
-- #include <iostream>
-- int main(void){
-- int x = 10;
-- int * x_ptr = &x;
-- int & x_ref = x;
-- std::cout << "Value of x_ptr = " << x_ptr << ", dereferenced = " << *x_ptr << std::endl;
-- std::cout << "Value of x_ref = " << x_ref << std::endl;
-- *x_ptr = 7;
-- std::cout << "x = " << x << std::endl;
-- x_ref = 9;
-- std::cout << "x = " << x << std::endl;
-- return 0;
-- }
+:::
+::: {.column width=50%}
+- Before running anything, what do you expect to see? Especially from the last two lines. 
 
-- What do we expect to see here?
+```bash
+% g++ CompPhys/ReviewCpp/BasicExamples/ptrs.cc -o ptrs.exe
+% ./ptrs.exe
+```
+:::
+::::
 
----
-
-## Hands-on
-
-- Let's try this out:
-
-- % g++ CompPhys/BasicExamples/ptrs.cc -o ptrs.exe
-- % ./ptrs.exe
-
-- #include <iostream>
-- int main(void){
-- int x = 10;
-- int * x_ptr = &x;
-- int & x_ref = x;
-- std::cout << "Value of x_ptr = " << x_ptr << ", dereferenced = " << *x_ptr << std::endl;
-- std::cout << "Value of x_ref = " << x_ref << std::endl;
-- *x_ptr = 7;
-- std::cout << "x = " << x << std::endl;
-- x_ref = 9;
-- std::cout << "x = " << x << std::endl;
-  - x_ptr = 0;
-  - std::cout << *x_ptr << std::endl;
-- return 0;
-- }
-
-- Let's try to break it!
-
----
-
-## Pointers and const
-
-- Recall: const makes a variable a "constant," i.e., you cannot change its value.
-- Since a pointer is tied to another variable, we have 4 possible combos:
-
-- Pointer
-
-- Variable
-
----
-
-## Pointers and functions
-
-- A major reason for using pointers and references: functions
-- Recall last time: directly passing variables in/out of functions is expensive! Often makes unintended copies.
-- Solution: use pointers and references instead!
-
-- #include <iostream>
-- void print_ptr(int *x_ptr) {
-  - std::cout << "x = " << *x_ptr << std::endl;
-- }
-- int * make_int(void) {
-  - int x = 123;
-  - return &x;
-- }
-
----
-
-## Demo
-
-- Demo: CompPhys/ReviewCpp/BasicExamples/ptrs_and_funcs.cc
-
-- #include <iostream>
-- void increment1( int p){ ++p; std::cout << "p = " << p << std::endl;}
-- void increment2( int &p){ ++p; std::cout << "p = " << p << std::endl;}
-- void increment3( int *p){ ++(*p); std::cout << "*p = " << *p << std::endl;}
-- int main(void){
-- int x = 3;
-- int & rx = x;
-- int * px = &x;
-- std::cout << "0: x = " << x << std::endl;
-- increment1(x);
-- std::cout << "1: x = " << x << std::endl;
-- increment2(rx);
-- std::cout << "2: x = " << x << std::endl;
-- increment3(px);
-- std::cout << "3: x = " << x << std::endl;
-- return 0;
-- }
-
----
-
-## Pointers and functions
-
-- void func( int x);
-
-- void func( int &x);
-
-- void func( int *x);
-
-- Also usable with CONST
-
-- Pass by value:
-  - COPIES value into a temporary variable called "x"
-
-  - Pass POINTER to variable, pointer is called "x"
-
-- Pass by reference:
-  - Pass REFERENCE to variable temporarily called "x"
-
-- Use when you don't want to modify value, and cheap to copy
-
-- Use when you want to modify value, and expensive to copy, ptr=0 disallowed
-
-- Use when you want to modify value, and expensive to copy, ptr=0 allowed
-
-- Also usable with CONST
 
 ---
 
 ## Hands-on
 
-- Try it out: CompPhys/ReviewCpp/BasicExamples/func_timing.cpp
-- This example creates a very large object and tries 3 ways to pass it into a function:
-  - By value
-  - By pointer
-  - By reference
-- The example also shows how to time a function call.
+- After you run the example: try to break the program!
+- Try a deliberate seg fault:
 
----
+:::: {.columns}
+::: {.column width=60%}
+
+```cpp
+#include <iostream>
+int main(void){
+  int x = 10;
+  int * x_ptr = &x;
+  int & x_ref = x;
+  std::cout << "Value of x_ptr = " << x_ptr << std::endl;
+  std::cout << "Dereferenced *x_ptr = " << *x_ptr << std::endl;
+  std::cout << "Value of x_ref = " << x_ref << std::endl;
+
+  x_ptr += 100;
+  std::cout << "x = " << x << std::endl;
+  std::cout << "x_ref) = " << x_ref << std::endl;
+  std::cout << "(*x_ptr) = " << *x_ptr << std::endl;
+  return 0;
+}
+```
+
+:::
+::: {.column width=40%}
+- Again, what do you expect to see here?
+- (The order of the `cout` statements is a hint here, they are arranged so the program makes it to the last line before crashing)
+
+```bash
+% g++ CompPhys/ReviewCpp/BasicExamples/ptrs.cc -o ptrs.exe
+% ./ptrs.exe
+```
+
+:::
+::::
 
 # Memory management
 
@@ -489,100 +527,91 @@ Syntax | Meaning
 
 ## Memory management
 
-- Your program has access to several pieces of memory:
-  - Code: where your code lives
-  - Data: static and global variables
-  - Stack: static memory
+- The memory assigned to a C++ program has a few varieties:
+  - **Code**: where your code lives
+  - **Data**: static and global variables
+  - **Stack**: static memory
     - Local variables and function parameters known at compile time
-  - Heap: dynamic memory
+  - **Heap**: dynamic memory
     - Anything not known at compile time
-- The heap HAS to be accessed via pointer.
-  - Improperly handling this is a pain.
-- The others can be accessed via value or reference.
+    - E.g. request a dynamically sized block of memory (e.g. size determined at runtime by the program)
+- *The heap is only accessible via pointers!*
+  - The others can be accessed via value or reference.
 
 ---
 
 ## Memory management
 
-- How do we use the heap? I.e., the dynamically allocated memory.
+- How do we use the heap: the dynamically allocated memory?
 - Two keywords:
-  - new : allocate a variable with memory from the heap.
-  - delete : delete a variable from the heap.
+  - `new`: **allocate** a variable with memory from the heap.
+  - `delete`: **delete** a variable from the heap.
 
----
-
-## Memory management
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- How do we use the heap? I.e., the dynamically allocated memory.
-- Two keywords:
-  - new : allocate a variable with memory from the heap.
-  - delete : delete a variable from the heap.
-
-- int i = 123;
-- int * p = new int( 456 );
-- std::cout << "i = " << i << std::endl;
-- std::cout << "*p= " << *p << std::endl;
-- (*p) += 10;
-- std::cout << "*p= " << *p << std::endl;
-- delete p;
-
-- Allocate an integer off the heap, assign its address to p
-
-- Do stuff with heap variable
-
-- Delete p from heap
+::: {.fragment layout-ncol=2}
+```cpp
+int i = 123;
+int * p = new int(456); // <1>
+std::cout << "i = " << i << std::endl;
+std::cout << "*p= " << *p << std::endl;
+(*p) += 10; // <2>
+std::cout << "*p= " << *p << std::endl;
+delete p; // <3>
+```
+1. Allocate an integer off the heap; `p`=its address
+2. Do stuff with heap variable (`+= 10`)
+3. Delete `p` from heap
+:::
 
 ---
 
 ## Memory leaks
 
-- Every new has to come with a delete
-  - Otherwise you get a memory leak!
-  - Adds memory that does not get cleaned up; eventually, your computer runs out of memory, and your program crashes.
-- Can be non-obvious
-  - What if a function creates a "new" variable and returns it?
-  - Still in scope.
-  - Stays on the heap.
-  - This is called a "factory"
+- Every `new` has to come with a `delete`
+- Otherwise you get a memory leak!
+
+::: {.callout-tip width=60%}
+### Definition
+A memory leak occurs when dynamically allocated memory is not released after it is no longer needed. Since the memory remains allocated, it cannot be reused until the program terminates. [geeksforgeeks.org](https://www.geeksforgeeks.org/cpp/memory-leak-in-c-and-how-to-avoid-it/)
+:::
+
+- If the memory leak is bad enough, your computer may eventually run out of memory, and the program will crash. 
 
 ---
 
 ## Memory leaks
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+```cpp
+void f() {
+  int * x_ptr = new int(10); // <1>
+  return x_ptr; // <2>
+int main() {
+  while (true) {
+    int * x_ptr = f(); 
+  } // <3>
+  return 0;
+}
+```
 
-- void f() {
-  - int * x = new int(10);
-  - return;
-- }
-- int main() {
-  - while (true) {
-    - f();
-  - }
-  - return 0;
-- }
+1. Memory allocated on the heap inside `f()`
+2. `f()` transfers the pointer back to `main()`
+3. `x_ptr` goes out of scope and gets deleted
 
-- Memory allocated on the heap
+But the heap memory (containing `int(10)`) remains allocated *with no way to access it*! Heap memory is allocated and then orphaned every iteration of the loop :(
 
-- x goes out of scope, but heap memory remains :(
-
-- Heap memory is allocated and then orphaned every time f() is called.
+This is quite a dangerous pattern: the user of `f()` has to *remember* to `delete x_ptr`. 
 
 ---
 
 ## Modern pointers
 
-- In modern C++, you can (should!) use smart pointers: pointers that manage memory automatically.
+- Manually tracking pointers is clearly not ideal (especially in complicated programs, where many functions may point to the same memory!). 
+- $\Rightarrow$ C++ developed smart pointers: pointers that manage memory automatically!
   - Basic idea: when pointer goes out of scope, delete the variable too.
 - Most common varieties:
-  - std::unique_ptr<type>()
-  - std::shared_ptr<type>()
+  - `std::unique_ptr<type>()` << default for simple cases
+  - `std::shared_ptr<type>()` << for cases where "ownership" is shared
 - We won't discuss the details in class, but see e.g. [https://learn.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170](https://learn.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170) for more info.
 - (Aside: how does python do this? [Garbage collection](https://www.geeksforgeeks.org/python/garbage-collection-python/)!)
-
----
 
 # Arrays and vectors
 
@@ -590,82 +619,88 @@ Syntax | Meaning
 
 ## Arrays and vectors
 
-- Equivalent of python lists for group multiple variables? A couple options:
-- Arrays : intrinsic C++
+:::: {.columns}
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[Python]{.underline}**
+:::
 
-- int array[5] = {0,1,2,3,4};
-- array[2] = 10.;
+```python
+my_list = [0, 1, 2, 3, 4]
+mixed_list = [0, "a", True]
 
-- 5 elements
+import numpy as np
+arr = np.array([0, 1, 2, 3, 4])
+```
+:::
 
-- Initialization
+::: {.column width=50%}
+::: {style="text-align: center;"}
+**[C++]{.underline}**
+:::
 
-- Modification or access
+```cpp
+int array[5] = {2, 3, 5, 6, 11};
+array[3] = 7; // change the 6 to a 7
+std::cout << array[1] << std::endl; // prints 3
 
-- (Note: can omit "5" or the initialization if desired, but not both.)
+std::vector<int> vec({2, 3, 5, 7, 11});
+vec.push_back(13); // add element
+```
 
----
+:::
+::::
 
-## Arrays and vectors
-
-- Equivalent of python lists for group multiple variables? A couple options:
-- Arrays : intrinsic C++
-
-- int array[5] = {0,1,2,3,4};
-- array[2] = 10.;
-
-- Vectors : class provided in the standard library.
-
-- 5 elements
-
-- Initialization
-
-- std::vector<int> vec({0, 1, 2, 3, 4});
-- vec[2] = 10.;
-- vec.push_back(5);
-
-- Modification or access
-
-- Initialization
-
-- Modification or access
-
-- Add more elements
-
-- (Note: can omit "5" or the initialization if desired, but not both.)
+::: {.fragment}
+- [Arrays]{.terracotta}: intrinsic C++; super fast
+  - Best for fixed-length arrays (known at compile time)
+- [Vectors]{.sage}: C++ STL class; more flexible
+- `std::array`: safer version of built-in arrays
+- `std::deque`, `std::list`, `std::forward_list`: more specialized containers
+:::
 
 ---
 
 ## Arrays and vectors: memory
 
-- N objects allocated in a CONTIGUOUS row of memory:
-  - For arrays, these are usually static and from the stack (*)
-  - For vectors, these are dynamic and from the heap
+- [Arrays]{.terracotta} are very efficient: `int x[5]` allocates 5 `int`s` in a **contiguous** row of memory
+  - Allocated from the *stack*
+- [Vectors]{.sage} are flexible: you can add/delete elements dynamically.
+  - Also contiguous in memory
+  - Dynamic => allocated from the *heap*
 
-- array[0] = 0, address = 0x7fff51618990
-- array[1] = 1, address = 0x7fff51618994
-- array[2] = 2, address = 0x7fff51618998
-- array[3] = 3, address = 0x7fff5161899c
-- array[4] = 4, address = 0x7fff516189a0
+```
+array[0] = 0, address = 0x7fff51618990
+array[1] = 1, address = 0x7fff51618994
+array[2] = 2, address = 0x7fff51618998
+...
+```
 
-- [*] OK, you can actually put an array on the heap using, e.g., int * x = new int[5];. But you should probably just use a vector, in this case.
+::: aside
+OK, you can actually put an array on the heap using, e.g., `int* x = new int[5];`. But, in this case, you should just use a vector.
+:::
 
 ---
 
 ## Manipulating arrays
 
 :::: {.columns}
-::: {.column width="55%"}
-- It's not a coincidence that we're learning arrays right after pointers.
-- The syntax "arr[3]" means:
-  - Go to the position 3 variables after the first one.
-- Since array elements are contiguous in memory, we can actually do a similar thing with pointers!
-  - Take pointer to first element.
-  - Add 3.
-  - Compiler doesn't just add 3. It adds 3*(size), so effectively it moves 3 elements down the array!
+::: {.column width="75%"}
+- [Arrays]{.terracotta} are closely related to pointers - hence why they are in the pointer lecture!
+- The syntax `arr[3]` means: "go to the position 3 elements after the first one"
+- Does this remind you of *pointer arithmetic*? 
+```cpp
+int x = 3;
+int * x_ptr = &x;
+x_ptr += 3; // Move x_ptr forward by 3 integers
+```
+- `arr[3]` is actually exactly equivalent to `*(arr+3)`
+  - I.e., `arr` behaves like a pointer to the first element of the array
+  - Weirdly, this means `3[arr]` also works!
+
 :::
-::: {.column width="45%"}
-![TODO: describe image](../assets/1.0_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
+::: {.column width="25%"}
+![](../assets/1.0_cpp/image26.png){width="70%" fig-alt="Diagram of manipulating a pointer to an array of integers"}
 :::
 ::::
 
@@ -673,60 +708,61 @@ Syntax | Meaning
 
 ## Manipulating vectors
 
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
+- [Vectors]{.sage} support indexing (`[]`) like arrays, but also have **iterators**: similar to pointers, but smarter.
+- Most often, iterators are used for `for` loops over vectors (but not only)
 
-- std::vector also introduces ITERATORS
-- Act like pointers, but are classes (hence smarter).
-- Classic use case: looping over a vector
+```cpp
+for( std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it ) {
+  std::cout << "*it = " << *it << std::endl;
+}
+```
 
-- for( std::vector<int>::const_iterator it = vec.begin();
-- it != vec.end(); ++it ) {
-- std::cout << "*it = " << *it << std::endl;
-- }
+- More recent versions of C++ have improved the syntax so you don't need 80 characters to setup a `for` loop:
 
-- for(int& it : vec) {
-- std::cout << "it = " << it << std::endl;
-- }
-
-- for(auto& it : vec) {
-- std::cout << "it = " << it << std::endl;
-- }
-
-- Modern C++ makes this a lot easier!
+```cpp
+for (const auto& it : vec) {
+  std::cout << "it = " << it << std::endl;
+}
+```
 
 ---
 
-## Sundry
+## Details
 
 - Copying lists:
-  - arrays: no "easy" way, have to do it yourself in a loop.
-  - vectors: easy!
-- std::vector<int> vec_copy(vec);
-- Multidimensional lists aka matrices:
-  - int M[3][4]: literally an array of arrays of size 4.
+  - [arrays]{.terracotta}: no "easy" way, have to do it yourself in a loop.
+  - [vectors]{.sage}: easy! `std::vector<int> a_copy(vec);`
+- Multidimensional lists, aka matrices:
+  - [arrays]{.terracotta}: `int M[3][4]` (read this literally a 4-length array of (a 3-length array of `int`s)).
     - Last index is "innermost".
-  - std::vector<std::vector<int>> M(3, std::vector<int>(4));
+  - [vectors]{.sage}: `std::vector<std::vector<int>> M(3, std::vector<int>(4));`
 - Special case: array of char
-  - char[10] = array of 10 characters
-  - Analogy: char[N] $ \leftrightarrow $ std::string as int[N]$ \leftrightarrow $std::vector<int>(N).
-  - tl;dr: most often, just use std::string!
+  - `char[10]` = array of 10 characters
+  - Analogy: `char[N]` $ \leftrightarrow $ `std::string` as `int[N]`$ \leftrightarrow `std::vector<int>(N)`.
+  - tl;dr: most often, just use `std::string`!
 
----
-
-# File I/O (again)
+# File I/O
 
 ---
 
 ## Reading command line arguments
 
-- Last time, we quickly introduced reading arguments from the command line.
-- C++ syntax: change the signature of the int main() function to...
+- C++ lets you accept **command line arguments**: extra information passed to the program when you execute is.
 
-- int main(int argc, char * argv[]) {...}
+```cpp
+./my_program 1 2 3
+```
 
-- We are now in a better position to understand the arguments!
-  - int argc: the number of command line arguments (always at least 1, the program name itself is included).
-  - char * argv[] : convoluted, but basically means "array of array of char"
+- To do this, change the *signature* of your `int main()` function as follows:
+
+```cpp
+int main(int argc, char * argv[]) {...}
+```
+
+
+- This is pretty confusing! Let's unpack it.
+  - `int argc`: the number of command line arguments (always at least 1: the program name itself argument 0).
+  - `char * argv[]`: convoluted! But basically means "array of array of char"
     - Array of char ~ std::string
     - Array of array of char ~ array of std::strings
 
@@ -734,66 +770,76 @@ Syntax | Meaning
 
 ## Using argc, argv
 
-- Example: CompPhys/ReviewCpp/BasicExamples/commandline.cc:
+- Let's review the example in CompPhys/ReviewCpp/BasicExamples/commandline.cc:
 
-- int main(int argc, char * argv[] ){
-- for ( unsigned int i = 0; i < argc; ++i ) {
-- std::cout << "Arg " << i << " = " << argv[i] << std::endl;
-- }
-- }
-- ...(compile)...
-- % ./commandline.exe repeat after me
-- Arg 0 = commandline.exe
-- Arg 1 = repeat
-- Arg 2 = after
-- Arg 3 = me
+```cpp
+int main(int argc, char * argv[] ){
+  for ( unsigned int i = 0; i < argc; ++i ) {
+    std::cout << "Arg " << i << " = " << argv[i] << std::endl;
+  }
+}
+```
+
+```bash
+% g++ commandline.cc -o commandline
+% ./commandline repeat after me
+Arg 0 = commandline
+Arg 1 = repeat
+Arg 2 = after
+Arg 3 = me
+```
 
 ---
 
 ## Reading from file (and writing)
 
-- Command line arguments are great for a small number of parameters. We probably don't want to type 1000 arguments into a terminal, though.
-- Solution: C++ can open files for reading and/or writing.
-- Syntax:
-  - std::ofstream ("output formatted stream") : similar to std::cout except writing to file instead of terminal window.
-  - std::ifstream ("input formatted stream") : similar to std::cin.
-  - std::fstream: 2-way stream, can read or write.
+- Command line arguments are great for a small number of parameters. You probably don't want to type O(1000) arguments into a terminal, though.
+- Solution: C++ can **open files** for reading and/or writing.
+- Writing to files:
+  `std::ofstream` ("output formatted stream") 
+  - Very similar to `std::cout`, except writing to file instead of terminal window.
+- Reading from files:
+  - `std::ifstream` ("input formatted stream")
+  - Very similar to `std::cin`.
+- `std::fstream`: 2-way stream, can read or write.
 - See [https://cplusplus.com/doc/tutorial/files/](https://cplusplus.com/doc/tutorial/files/)
 
 ---
 
 ## Reading from file (and writing)
 
-- Example : copy double from one file to another: "fileio.cc"
+- Let's review the example in fileio.cc: copy double from one file to another.
 
-- #include <fstream>
-- #include <iostream>
-- int main(void){
-- std::ifstream  in("inputfile.txt");
-- std::ofstream  out("myfile.txt");
-- double d;
-- in >> d;
-- out << d;
-- out.close();
-- return 0;
-- }
+```cpp
+#include <fstream>
+#include <iostream>
+int main(void){
+  std::ifstream in("inputfile.txt");
+  std::ofstream out("myfile.txt");
+  double d;
+  in >> d;
+  out << d;
+  out.close();
+  return 0;
+}
+```
 
 ---
 
 ## Example: reading line-by-line from file
 
-- Example: reading a file line-by-line
-  - CompPhys/ReviewCpp/BasicExamples/readlines.cc
-  - Needed for Assignment 2, Problem 3 (PHY505 only)
+- Example: reading a file line-by-line in CompPhys/ReviewCpp/BasicExamples/readlines.cc
 
-- std::ifstream inputfile("../ClassExample/points.txt");
-- // Loop over lines in file
-- std::string line; // Storage for the current line
-- while (std::getline(inputfile, line)) {
-  - std::cout << "Read line: " << line << std::endl;
-- }
-- std::cout << std::endl;
-- inputfile.close();
+```cpp
+std::ifstream inputfile("../ClassExample/points.txt");
+// Loop over lines in file
+std::string line; // Storage for the current line
+while (std::getline(inputfile, line)) {
+  std::cout << "Read line: " << line << std::endl;
+}
+std::cout << std::endl;
+inputfile.close();
+```
 
 ---
 
@@ -805,6 +851,10 @@ Syntax | Meaning
 - Arrays and vectors: hold multiple variables of the same type (equivalents to Python lists).
   - Arrays: built-in C++ type, not many features
   - Vectors: C++ class, more features; used to showcase passing by value vs. ptr/ref
+
+--- 
+
+## Recap
 - Memory management:
   - Stack = fixed memory, determined at compile time.
   - Heap = dynamic memory, allocated at runtime.
@@ -813,215 +863,3 @@ Syntax | Meaning
   - Examples provided for command line args and text file I/O.
   - Needed for assignment 2, problems 1 and 3.
 - Next time: classes!
-
----
-
-# Arrays and vectors
-
----
-
-## Arrays and vectors
-
-- Equivalent of python lists for group multiple variables? A couple options:
-- Arrays : intrinsic C++
-
-- int array[5] = {0,1,2,3,4};
-- array[2] = 10.;
-
-- 5 elements
-
-- Initialization
-
-- Modification or access
-
-- (Note: can omit "5" or the initialization if desired, but not both.)
-
----
-
-## Arrays and vectors
-
-- Equivalent of python lists for group multiple variables? A couple options:
-- Arrays : intrinsic C++
-
-- int array[5] = {0,1,2,3,4};
-- array[2] = 10.;
-
-- Vectors : class provided in the standard library.
-
-- 5 elements
-
-- Initialization
-
-- std::vector<int> vec({0, 1, 2, 3, 4});
-- vec[2] = 10.;
-- vec.push_back(5);
-
-- Modification or access
-
-- Initialization
-
-- Modification or access
-
-- Add more elements
-
-- (Note: can omit "5" or the initialization if desired, but not both.)
-
----
-
-## Arrays and vectors: memory
-
-- N objects allocated in a CONTIGUOUS row of memory:
-  - For arrays, these are usually static and from the stack (*)
-  - For vectors, these are dynamic and from the heap
-
-- array[0] = 0, address = 0x7fff51618990
-- array[1] = 1, address = 0x7fff51618994
-- array[2] = 2, address = 0x7fff51618998
-- array[3] = 3, address = 0x7fff5161899c
-- array[4] = 4, address = 0x7fff516189a0
-
-- [*] OK, you can actually put an array on the heap using, e.g., int * x = new int[5];. But you should probably just use a vector, in this case.
-
----
-
-## Manipulating arrays
-
-:::: {.columns}
-::: {.column width="55%"}
-- It's not a coincidence that we're learning arrays right after pointers.
-- The syntax "arr[3]" means:
-  - Go to the position 3 variables after the first one.
-- Since array elements are contiguous in memory, we can actually do a similar thing with pointers!
-  - Take pointer to first element.
-  - Add 3.
-  - Compiler doesn't just add 3. It adds 3*(size), so effectively it moves 3 elements down the array!
-:::
-::: {.column width="45%"}
-![TODO: describe image](../assets/1.0_cpp/image26.png){width="100%" fig-alt="TODO: describe image"}
-:::
-::::
-
----
-
-## Manipulating vectors
-
-<!-- TODO: complex slide layout (flagged by detect_complex_slide.py - see run log). Content below is complete but UNARRANGED - needs manual layout to match the original slide. -->
-
-- std::vector also introduces ITERATORS
-- Act like pointers, but are classes (hence smarter).
-- Classic use case: looping over a vector
-
-- for( std::vector<int>::const_iterator it = vec.begin();
-- it != vec.end(); ++it ) {
-- std::cout << "*it = " << *it << std::endl;
-- }
-
-- for(int& it : vec) {
-- std::cout << "it = " << it << std::endl;
-- }
-
-- for(auto& it : vec) {
-- std::cout << "it = " << it << std::endl;
-- }
-
-- Modern C++ makes this a lot easier!
-
----
-
-## Sundry
-
-- Copying lists:
-  - arrays: no "easy" way, have to do it yourself in a loop.
-  - vectors: easy!
-- std::vector<int> vec_copy(vec);
-- Multidimensional lists aka matrices:
-  - int M[3][4]: literally an array of arrays of size 4.
-    - Last index is "innermost".
-  - std::vector<std::vector<int>> M(3, std::vector<int>(4));
-- Special case: array of char
-  - char[10] = array of 10 characters
-  - Analogy: char[N] $ \leftrightarrow $ std::string as int[N]$ \leftrightarrow $std::vector<int>(N).
-  - tl;dr: most often, just use std::string!
-
----
-
-## File I/O (again)
-
-- Last time, we quickly introduced reading arguments from the command line.
-- C++ syntax: change the signature of the int main() function to...
-
-- int main(int argc, char * argv[]) {...}
-
-- We are now in a better position to understand the arguments!
-  - int argc: the number of command line arguments (always at least 1, the program name itself is included).
-  - char argv[][] : convoluted, but basically means "array of array of char"
-    - Array of char ~ std::string
-    - Array of array of char ~ array of std::strings
-
----
-
-## Using argc, argv
-
-- Example: CompPhys/ReviewCpp/BasicExamples/commandline.cc:
-
-- int main(int argc, char * argv[] ){
-- for ( unsigned int i = 0; i < argc; ++i ) {
-- std::cout << "Arg " << i << " = " << argv[i] << std::endl;
-- }
-- }
-- ...(compile)...
-- % ./commandline.exe repeat after me
-- Arg 0 = commandline.exe
-- Arg 1 = repeat
-- Arg 2 = after
-- Arg 3 = me
-
----
-
-## Reading from file (and writing)
-
-- Command line arguments are great for a small number of parameters. We probably don't want to type 1000 arguments into a terminal, though.
-- Solution: C++ can open files for reading and/or writing.
-- Syntax:
-  - std::ofstream ("output formatted stream") : similar to std::cout except writing to file instead of terminal window.
-  - std::ifstream ("input formatted stream") : similar to std::cin.
-  - std::fstream: 2-way stream, can read or write.
-- See [https://cplusplus.com/doc/tutorial/files/](https://cplusplus.com/doc/tutorial/files/)
-
----
-
-## Reading from file (and writing)
-
-- Example : copy double from one file to another: "fileio.cc"
-
-- #include <fstream>
-- #include <iostream>
-- int main(void){
-- std::ifstream  in("inputfile.txt");
-- std::ofstream  out("myfile.txt");
-- double d;
-- in >> d;
-- out << d;
-- out.close();
-- return 0;
-- }
-
----
-
-## Example: reading line-by-line from file
-
-- Example: reading a file line-by-line
-  - CompPhys/ReviewCpp/BasicExamples/readlines.cc
-  - Needed for Assignment 2, Problem 3 (PHY505 only)
-
-- std::ifstream inputfile("../ClassExample/points.txt");
-- // Loop over lines in file
-- std::string line; // Storage for the current line
-- while (std::getline(inputfile, line)) {
-  - std::cout << "Read line: " << line << std::endl;
-- }
-- std::cout << std::endl;
-- inputfile.close();
-
----
-

@@ -1,0 +1,292 @@
+/* ============================================================
+   PHY410 / PHY505 — reveal.js color utility classes
+   ------------------------------------------------------------
+   Source: palette2.svg (Figma-exported color palette). Each of
+   the 9 color families below has 7 lightness steps (100 = lightest,
+   700 = darkest); the bare class (e.g. .blue) always equals that
+   family's "main" swatch, i.e. the base color from the palette's
+   footnote legend, wherever it happens to fall in the 100-700 scale.
+
+   Usage in a .qmd file:
+
+     Inline span (text color only):
+       [Hello world!]{.orange}
+       This term is [important]{.red-700}
+
+     Fenced div (colors all text inside):
+       ::: {.blue-700}
+       A paragraph in dark blue.
+       :::
+
+     Background / highlight box (bonus utilities, see bottom):
+       ::: {.bg-teal}
+       Callout with a teal background and auto-contrasting text.
+       :::
+
+       ::: {.callout-purple}
+       A bordered note box — light tint background, colored
+       left border, for asides/warnings/tips on a slide.
+       :::
+   ============================================================ */
+
+:root {
+  /* blue */
+  --blue-100: #ebeefc;
+  --blue-200: #b7c5f4;
+  --blue-300: #7f9eed;
+  --blue-400: #4278db;
+  --blue-500: #2d559f;
+  --blue-600: #1a3567; /* main */
+  --blue-700: #091834;
+  --blue: var(--blue-600);
+
+  /* orange */
+  --orange-100: #fbeee5;
+  --orange-200: #f4c9a0;
+  --orange-300: #d89f58; /* main */
+  --orange-400: #a97c43;
+  --orange-500: #7c5a2f;
+  --orange-600: #523b1d;
+  --orange-700: #2c1e0c;
+  --orange: var(--orange-300);
+
+  /* red */
+  --red-100: #f5dadb;
+  --red-200: #eba7a9;
+  --red-300: #e36f73;
+  --red-400: #c33f45; /* main */
+  --red-500: #892a2e;
+  --red-600: #531619;
+  --red-700: #260607;
+  --red: var(--red-400);
+
+  /* crimson (deeper, more muted red family) */
+  --crimson-100: #f8e1e2;
+  --crimson-200: #efaeaf;
+  --crimson-300: #e87679;
+  --crimson-400: #d13d43;
+  --crimson-500: #95292d; /* main */
+  --crimson-600: #5d1619;
+  --crimson-700: #2a0607;
+  --crimson: var(--crimson-500);
+
+  /* terracotta */
+  --terracotta-100: #f2dfdc;
+  --terracotta-200: #e2b0a5;
+  --terracotta-300: #d28068; /* main */
+  --terracotta-400: #a0604e;
+  --terracotta-500: #704235;
+  --terracotta-600: #44261d;
+  --terracotta-700: #1c0d08;
+  --terracotta: var(--terracotta-300);
+
+  /* sage (muted, dusty teal) */
+  --sage-100: #d8f7f7;
+  --sage-200: #a3d9d9;
+  --sage-300: #84b0b0; /* main */
+  --sage-400: #668989;
+  --sage-500: #496464;
+  --sage-600: #2e4141;
+  --sage-700: #162121;
+  --sage: var(--sage-300);
+
+  /* purple */
+  --purple-100: #f0dbf2;
+  --purple-200: #dca8e0;
+  --purple-300: #c874cf;
+  --purple-400: #9c53a1;
+  --purple-500: #6d3871; /* main */
+  --purple-600: #411f44;
+  --purple-700: #1c0a1d;
+  --purple: var(--purple-500);
+
+  /* teal (vivid) */
+  --teal-100: #d8f6fe;
+  --teal-200: #3edef7;
+  --teal-300: #30b4c8;
+  --teal-400: #238b9b;
+  --teal-500: #176571; /* main */
+  --teal-600: #0b4149;
+  --teal-700: #032025;
+  --teal: var(--teal-500);
+
+  /* gray */
+  --gray-100: #e2e0e0;
+  --gray-200: #bdb7b7;
+  --gray-300: #9b9090;
+  --gray-400: #786b6b; /* main */
+  --gray-500: #534949;
+  --gray-600: #302a2a;
+  --gray-700: #131010;
+  --gray: var(--gray-400);
+}
+
+/* ------------------------------------------------------------
+   Text-color utilities
+   ------------------------------------------------------------ */
+.blue       { color: var(--blue); }
+.blue-100   { color: var(--blue-100); }
+.blue-200   { color: var(--blue-200); }
+.blue-300   { color: var(--blue-300); }
+.blue-400   { color: var(--blue-400); }
+.blue-500   { color: var(--blue-500); }
+.blue-600   { color: var(--blue-600); }
+.blue-700   { color: var(--blue-700); }
+
+.orange     { color: var(--orange); }
+.orange-100 { color: var(--orange-100); }
+.orange-200 { color: var(--orange-200); }
+.orange-300 { color: var(--orange-300); }
+.orange-400 { color: var(--orange-400); }
+.orange-500 { color: var(--orange-500); }
+.orange-600 { color: var(--orange-600); }
+.orange-700 { color: var(--orange-700); }
+
+.red        { color: var(--red); }
+.red-100    { color: var(--red-100); }
+.red-200    { color: var(--red-200); }
+.red-300    { color: var(--red-300); }
+.red-400    { color: var(--red-400); }
+.red-500    { color: var(--red-500); }
+.red-600    { color: var(--red-600); }
+.red-700    { color: var(--red-700); }
+
+.crimson      { color: var(--crimson); }
+.crimson-100  { color: var(--crimson-100); }
+.crimson-200  { color: var(--crimson-200); }
+.crimson-300  { color: var(--crimson-300); }
+.crimson-400  { color: var(--crimson-400); }
+.crimson-500  { color: var(--crimson-500); }
+.crimson-600  { color: var(--crimson-600); }
+.crimson-700  { color: var(--crimson-700); }
+
+.terracotta     { color: var(--terracotta); }
+.terracotta-100 { color: var(--terracotta-100); }
+.terracotta-200 { color: var(--terracotta-200); }
+.terracotta-300 { color: var(--terracotta-300); }
+.terracotta-400 { color: var(--terracotta-400); }
+.terracotta-500 { color: var(--terracotta-500); }
+.terracotta-600 { color: var(--terracotta-600); }
+.terracotta-700 { color: var(--terracotta-700); }
+
+.sage       { color: var(--sage); }
+.sage-100   { color: var(--sage-100); }
+.sage-200   { color: var(--sage-200); }
+.sage-300   { color: var(--sage-300); }
+.sage-400   { color: var(--sage-400); }
+.sage-500   { color: var(--sage-500); }
+.sage-600   { color: var(--sage-600); }
+.sage-700   { color: var(--sage-700); }
+
+.purple     { color: var(--purple); }
+.purple-100 { color: var(--purple-100); }
+.purple-200 { color: var(--purple-200); }
+.purple-300 { color: var(--purple-300); }
+.purple-400 { color: var(--purple-400); }
+.purple-500 { color: var(--purple-500); }
+.purple-600 { color: var(--purple-600); }
+.purple-700 { color: var(--purple-700); }
+
+.teal       { color: var(--teal); }
+.teal-100   { color: var(--teal-100); }
+.teal-200   { color: var(--teal-200); }
+.teal-300   { color: var(--teal-300); }
+.teal-400   { color: var(--teal-400); }
+.teal-500   { color: var(--teal-500); }
+.teal-600   { color: var(--teal-600); }
+.teal-700   { color: var(--teal-700); }
+
+.gray       { color: var(--gray); }
+.gray-100   { color: var(--gray-100); }
+.gray-200   { color: var(--gray-200); }
+.gray-300   { color: var(--gray-300); }
+.gray-400   { color: var(--gray-400); }
+.gray-500   { color: var(--gray-500); }
+.gray-600   { color: var(--gray-600); }
+.gray-700   { color: var(--gray-700); }
+
+/* ------------------------------------------------------------
+   Bonus: background-color utilities (no forced text color)
+   .bg-{name}-100..700 for any step, plus .bg-{name} for the
+   family's main step with automatic white/black text so it is
+   always readable without extra fuss.
+   ------------------------------------------------------------ */
+.bg-blue-100 { background-color: var(--blue-100); } .bg-blue-200 { background-color: var(--blue-200); }
+.bg-blue-300 { background-color: var(--blue-300); } .bg-blue-400 { background-color: var(--blue-400); }
+.bg-blue-500 { background-color: var(--blue-500); } .bg-blue-600 { background-color: var(--blue-600); }
+.bg-blue-700 { background-color: var(--blue-700); }
+.bg-blue     { background-color: var(--blue); color: #fff; }
+
+.bg-orange-100 { background-color: var(--orange-100); } .bg-orange-200 { background-color: var(--orange-200); }
+.bg-orange-300 { background-color: var(--orange-300); } .bg-orange-400 { background-color: var(--orange-400); }
+.bg-orange-500 { background-color: var(--orange-500); } .bg-orange-600 { background-color: var(--orange-600); }
+.bg-orange-700 { background-color: var(--orange-700); }
+.bg-orange     { background-color: var(--orange); color: #000; }
+
+.bg-red-100 { background-color: var(--red-100); } .bg-red-200 { background-color: var(--red-200); }
+.bg-red-300 { background-color: var(--red-300); } .bg-red-400 { background-color: var(--red-400); }
+.bg-red-500 { background-color: var(--red-500); } .bg-red-600 { background-color: var(--red-600); }
+.bg-red-700 { background-color: var(--red-700); }
+.bg-red     { background-color: var(--red); color: #fff; }
+
+.bg-crimson-100 { background-color: var(--crimson-100); } .bg-crimson-200 { background-color: var(--crimson-200); }
+.bg-crimson-300 { background-color: var(--crimson-300); } .bg-crimson-400 { background-color: var(--crimson-400); }
+.bg-crimson-500 { background-color: var(--crimson-500); } .bg-crimson-600 { background-color: var(--crimson-600); }
+.bg-crimson-700 { background-color: var(--crimson-700); }
+.bg-crimson     { background-color: var(--crimson); color: #fff; }
+
+.bg-terracotta-100 { background-color: var(--terracotta-100); } .bg-terracotta-200 { background-color: var(--terracotta-200); }
+.bg-terracotta-300 { background-color: var(--terracotta-300); } .bg-terracotta-400 { background-color: var(--terracotta-400); }
+.bg-terracotta-500 { background-color: var(--terracotta-500); } .bg-terracotta-600 { background-color: var(--terracotta-600); }
+.bg-terracotta-700 { background-color: var(--terracotta-700); }
+.bg-terracotta     { background-color: var(--terracotta); color: #000; }
+
+.bg-sage-100 { background-color: var(--sage-100); } .bg-sage-200 { background-color: var(--sage-200); }
+.bg-sage-300 { background-color: var(--sage-300); } .bg-sage-400 { background-color: var(--sage-400); }
+.bg-sage-500 { background-color: var(--sage-500); } .bg-sage-600 { background-color: var(--sage-600); }
+.bg-sage-700 { background-color: var(--sage-700); }
+.bg-sage     { background-color: var(--sage); color: #000; }
+
+.bg-purple-100 { background-color: var(--purple-100); } .bg-purple-200 { background-color: var(--purple-200); }
+.bg-purple-300 { background-color: var(--purple-300); } .bg-purple-400 { background-color: var(--purple-400); }
+.bg-purple-500 { background-color: var(--purple-500); } .bg-purple-600 { background-color: var(--purple-600); }
+.bg-purple-700 { background-color: var(--purple-700); }
+.bg-purple     { background-color: var(--purple); color: #fff; }
+
+.bg-teal-100 { background-color: var(--teal-100); } .bg-teal-200 { background-color: var(--teal-200); }
+.bg-teal-300 { background-color: var(--teal-300); } .bg-teal-400 { background-color: var(--teal-400); }
+.bg-teal-500 { background-color: var(--teal-500); } .bg-teal-600 { background-color: var(--teal-600); }
+.bg-teal-700 { background-color: var(--teal-700); }
+.bg-teal     { background-color: var(--teal); color: #fff; }
+
+.bg-gray-100 { background-color: var(--gray-100); } .bg-gray-200 { background-color: var(--gray-200); }
+.bg-gray-300 { background-color: var(--gray-300); } .bg-gray-400 { background-color: var(--gray-400); }
+.bg-gray-500 { background-color: var(--gray-500); } .bg-gray-600 { background-color: var(--gray-600); }
+.bg-gray-700 { background-color: var(--gray-700); }
+.bg-gray     { background-color: var(--gray); color: #fff; }
+
+/* ------------------------------------------------------------
+   Bonus: callout / note boxes for fenced divs
+     ::: {.callout-orange}
+     Text goes here.
+     :::
+   Light-tint background, colored left border, dark readable text.
+   ------------------------------------------------------------ */
+.callout-blue, .callout-orange, .callout-red, .callout-crimson,
+.callout-terracotta, .callout-sage, .callout-purple, .callout-teal,
+.callout-gray {
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  border-left: 6px solid;
+  margin: 0.5em 0;
+  color: #1e1e1e;
+}
+.callout-blue       { background-color: var(--blue-100);       border-left-color: var(--blue); }
+.callout-orange     { background-color: var(--orange-100);     border-left-color: var(--orange); }
+.callout-red        { background-color: var(--red-100);        border-left-color: var(--red); }
+.callout-crimson    { background-color: var(--crimson-100);    border-left-color: var(--crimson); }
+.callout-terracotta { background-color: var(--terracotta-100); border-left-color: var(--terracotta-500); }
+.callout-sage       { background-color: var(--sage-100);       border-left-color: var(--sage-400); }
+.callout-purple     { background-color: var(--purple-100);     border-left-color: var(--purple); }
+.callout-teal       { background-color: var(--teal-100);       border-left-color: var(--teal); }
+.callout-gray       { background-color: var(--gray-100);       border-left-color: var(--gray); }

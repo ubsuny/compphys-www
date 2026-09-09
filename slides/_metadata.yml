@@ -1,6 +1,7 @@
 format:
   clean-revealjs:
     theme: [default, ../assets/css/custom.scss]
+    css: ../assets/css/colors.css
     template-partials:
       - ../assets/templates/title-slide.html
     slide-number: c/t
