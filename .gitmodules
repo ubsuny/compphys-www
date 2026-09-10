@@ -1,0 +1,3 @@
+[submodule "assets/_CompPhys"]
+	path = assets/_CompPhys
+	url = git@github.com:ubsuny/CompPhys
