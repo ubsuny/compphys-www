@@ -815,10 +815,10 @@ flowchart TD
 
 ## Syntax
 
-`cpp
+```cpp
 class BaseClass {...}
 class DerivedClass : public BaseClass {...}
-``
+```
 
 - Syntax: just add `: public (ParentClass)` after the class name.
   - A detail: `public` here means the inherited parent variables will retain their access settings (public/protected).
