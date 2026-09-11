@@ -452,7 +452,7 @@ p1 += p2;
 ---
 
 ## Checkpoint
-
+ 
 - **Classes** let you define your own structures with data and functions.
   - Introduced basic syntax.
   - Concepts of public, private, const for classes and their members.
