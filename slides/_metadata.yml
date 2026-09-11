@@ -13,5 +13,8 @@ format:
     chalkboard: true
     pdf-separate-fragments: true
     pdf-max-pages-per-slide: 1
+    mermaid-format: svg   # or png    
+    mermaid:
+      theme: forest
 execute:
   keep-ipynb: false
