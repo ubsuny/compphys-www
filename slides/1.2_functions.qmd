@@ -70,7 +70,7 @@ int main(void){
   for( unsigned int i = 0; i < 5; ++i ) {
     std::cout << i << std::endl;
   }
-  std::cout << "Outisde i = " << i << std::endl;
+  std::cout << "Outside i = " << i << std::endl;
   return 0;
 }
 ```
